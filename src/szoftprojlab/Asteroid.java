@@ -16,17 +16,35 @@ import szoftprojlab.resource.Resource;
 import szoftprojlab.resource.ResourceNames;
 import szoftprojlab.resource.ResourceStorage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Asteroid implements Steppable, ResourceStorage {
 	private int idx;
 	private int layers;
-	private boolean isEmpty;
-	private boolean nearSun;
+	private boolean isEmpty = true;
+	private boolean nearSun = false;
 	private Resource resource;
-	private List<Asteroid> neighbors;
-	private List<Entity> entities;
-	private List<TeleportGate> gates;
+	private List<Asteroid> neighbors = new ArrayList<>();
+	private List<Entity> entities = new ArrayList<>();
+	private List<TeleportGate> gates = new ArrayList<>();
+
+	public Asteroid(int ID, int numberOfLayers) {
+		idx = ID;
+		numberOfLayers = layers;
+	}
+
+	public List<Entity> GetEntities() {
+		return entities;
+	}
+
+	public void AddNeighbor(Asteroid newNeighbor) {
+
+	}
+
+	public int GetLayerThickness() {
+		return layers;
+	}
 
 	public void SunStorm() {
 	}

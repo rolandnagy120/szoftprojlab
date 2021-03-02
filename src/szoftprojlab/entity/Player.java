@@ -16,11 +16,19 @@ import szoftprojlab.resource.Resource;
 import szoftprojlab.resource.ResourceNames;
 import szoftprojlab.resource.ResourceStorage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends Entity implements ResourceStorage {
-	private List<TeleportGate> gates;
-	private List<Resource> inventory;
+	private List<TeleportGate> gates = new ArrayList<>();
+	private List<Resource> inventory = new ArrayList<>();
+
+	public Player() {
+	}
+
+	public List<Resource> GetInventory() {
+		return inventory;
+	}
 
 	public void Step() {
 	}
