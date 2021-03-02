@@ -11,14 +11,15 @@ package szoftprojlab;
 //
 
 
-
+import java.util.List;
 
 public class Sun implements Steppable {
 	private static Sun singleClassIntance = null;
 
 	private int counter;
 	private int cycle;
-	private Asteroid asteroids;
+	private List<Asteroid> asteroids;
+
 	public void Step() {
 	}
 	

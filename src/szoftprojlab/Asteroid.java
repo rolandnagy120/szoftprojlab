@@ -11,7 +11,12 @@ package szoftprojlab;
 //
 
 
+import szoftprojlab.entity.Entity;
+import szoftprojlab.resource.Resource;
+import szoftprojlab.resource.ResourceNames;
+import szoftprojlab.resource.ResourceStorage;
 
+import java.util.List;
 
 public class Asteroid implements Steppable, ResourceStorage {
 	private int idx;
@@ -19,10 +24,10 @@ public class Asteroid implements Steppable, ResourceStorage {
 	private boolean isEmpty;
 	private boolean nearSun;
 	private Resource resource;
-	private Asteroid neighbors;
-	private Asteroid neighbor;
-	private Entity entities;
-	private TeleportGate gates;
+	private List<Asteroid> neighbors;
+	private List<Entity> entities;
+	private List<TeleportGate> gates;
+
 	public void SunStorm() {
 	}
 	
@@ -67,7 +72,6 @@ public class Asteroid implements Steppable, ResourceStorage {
 	public void PlaceTeleportGate(TeleportGate gate) {
 	}
 
-	@Override
 	public void Step() {
 
 	}

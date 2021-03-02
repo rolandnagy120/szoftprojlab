@@ -10,11 +10,17 @@ package szoftprojlab;
 //
 
 
+import szoftprojlab.entity.Player;
+import szoftprojlab.resource.Resource;
+import szoftprojlab.resource.ResourceNames;
+
+import java.util.List;
+
 public class Game {
     private static Game singleClassInstance = null;
 
     private Sun sun;
-    private Player players;
+    private List<Player> players;
 
     public void StartGame() {
     }

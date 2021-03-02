@@ -1,25 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1ab64fbe-602e-478a-b1d0-aaf695b0328d" name="Default Changelist" comment="hello world for intellij">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/szoftprojlab/Asteroid.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/szoftprojlab/Coal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/szoftprojlab/Entity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/szoftprojlab/Game.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/szoftprojlab/Ice.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/szoftprojlab/Iron.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/szoftprojlab/Player.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/szoftprojlab/Resource.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/szoftprojlab/ResourceNames.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/szoftprojlab/ResourceStorage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/szoftprojlab/Robot.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/szoftprojlab/Steppable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/szoftprojlab/Sun.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/szoftprojlab/TeleportGate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/szoftprojlab/Timer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/szoftprojlab/Uranium.java" afterDir="false" />
+    <list default="true" id="1ab64fbe-602e-478a-b1d0-aaf695b0328d" name="Default Changelist" comment="import classes from uml class diagram">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/szoftprojlab/Asteroid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/szoftprojlab/Asteroid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/szoftprojlab/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/szoftprojlab/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/szoftprojlab/TeleportGate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/szoftprojlab/TeleportGate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/szoftprojlab.iml" beforeDir="false" afterPath="$PROJECT_DIR$/szoftprojlab.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +16,14 @@
   </component>
   <component name="ComposerSettings">
     <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="JUnit5 Test Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -46,15 +42,30 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="create.test.in.the.same.root" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="tests" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="szoftprojlab.Main" />
       <module name="szoftprojlab" />
@@ -79,9 +90,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="AsteroidTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="szoftprojlab" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="tests" />
+      <option name="MAIN_CLASS_NAME" value="tests.AsteroidTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.AsteroidTest" />
       </list>
     </recent_temporary>
   </component>
@@ -93,7 +120,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1614715215194</updated>
-      <workItem from="1614715224376" duration="1282000" />
+      <workItem from="1614715224376" duration="3009000" />
     </task>
     <task id="LOCAL-00001" summary="hello world for intellij">
       <created>1614715398668</created>
@@ -102,7 +129,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614715398668</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="import classes from uml class diagram">
+      <created>1614716690617</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1614716690617</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,6 +155,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="hello world for intellij" />
-    <option name="LAST_COMMIT_MESSAGE" value="hello world for intellij" />
+    <MESSAGE value="import classes from uml class diagram" />
+    <option name="LAST_COMMIT_MESSAGE" value="import classes from uml class diagram" />
   </component>
 </project>

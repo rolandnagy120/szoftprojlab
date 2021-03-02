@@ -18,6 +18,7 @@ public class TeleportGate {
 	private int idx;
 	private TeleportGate pair;
 	private Asteroid asteroid;
+
 	public Asteroid GetPairAsteroid() {
 		return null;
 	}
