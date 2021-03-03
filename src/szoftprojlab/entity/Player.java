@@ -42,12 +42,16 @@ public class Player extends Entity implements ResourceStorage {
 	private void PlaceGate(Asteroid asteroid) {
 	}
 	
-	private void MakeGate() {
+	public void MakeGates() {
 	}
 	
-	private void MakeAndPlaceRobot() {
+	public void MakeAndPlaceRobot() {
 	}
-	
+
+	public List<TeleportGate> GetTeleportGates() {
+		return gates;
+	}
+
 	public void AddResource(ResourceNames name, Resource resource) {
 	}
 	

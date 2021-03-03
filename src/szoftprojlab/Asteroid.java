@@ -77,6 +77,10 @@ public class Asteroid implements Steppable, ResourceStorage {
 	public TeleportGate GetTeleportGate(int idx) {
 		return null;
 	}
+
+	public List<TeleportGate> GetTeleportGates() {
+		return gates;
+	}
 	
 	public void AddResource(ResourceNames name, Resource resource) {
 	}

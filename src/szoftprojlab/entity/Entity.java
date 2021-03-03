@@ -27,7 +27,7 @@ public abstract class Entity implements Steppable {
 	public void Explode() {
 	}
 	
-	protected void Move(Asteroid asteroid) {
+	public void MoveTo(Asteroid asteroid) {
 	}
 	
 	protected void Drill() {
