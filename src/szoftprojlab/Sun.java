@@ -11,6 +11,7 @@ package szoftprojlab;
 //
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Sun implements Steppable {
@@ -18,7 +19,13 @@ public class Sun implements Steppable {
 
 	private int counter;
 	private int cycle;
-	private List<Asteroid> asteroids;
+	private int sunStormProbability;
+	private List<Asteroid> asteroids = new ArrayList<>();
+
+	public void Init(int nearSunCycle, int _sunStormProbability) {
+		cycle = nearSunCycle;
+		sunStormProbability = _sunStormProbability;
+	}
 
 	public void Step() {
 	}
@@ -27,6 +34,10 @@ public class Sun implements Steppable {
 	}
 	
 	private void ChangeNearSun() {
+	}
+
+	public void AddAsteroid(Asteroid asteroid) {
+
 	}
 
 	public static Sun getInstance() {
