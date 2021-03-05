@@ -25,6 +25,8 @@ public abstract class Entity implements Steppable {
 	}
 	
 	public void Explode() {
+		System.out.println("Entity.Explode()");
+		System.out.println("return from Entity.Explode()");
 	}
 	
 	public void MoveTo(Asteroid asteroid) {

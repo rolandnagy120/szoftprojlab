@@ -6,13 +6,14 @@ import szoftprojlab.entity.Player;
 import szoftprojlab.resource.Coal;
 import szoftprojlab.resource.Ice;
 import szoftprojlab.resource.ResourceNames;
+import szoftprojlab.resource.Uranium;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Skeleton {
     public void Run() {
-        SkeletonSequence s1 = new SkeletonSequence(3, "SequenceName", Skeleton::PlayerDrillsIce);
+        SkeletonSequence s1 = new SkeletonSequence(3, "SequenceName", Skeleton::PlayerDrillsUranAndExplodes);
         s1.Run();
     }
 
@@ -25,6 +26,7 @@ public class Skeleton {
         sequences.add(new SkeletonSequence(4, "PlayerDrillsAsteroidNoStrikethrough", Skeleton::PlayerDrillsAsteroidNoStrikethrough));
         sequences.add(new SkeletonSequence(5, "PlayerDrillsAsteroidStrikethroughCoal", Skeleton::PlayerDrillsAsteroidStrikethroughCoal));
         sequences.add(new SkeletonSequence(6, "PlayerDrillsIce", Skeleton::PlayerDrillsIce));
+        sequences.add(new SkeletonSequence(7, "PlayerDrillsUranAndExplodes", Skeleton::PlayerDrillsUranAndExplodes));
 
         return sequences;
     }
@@ -111,6 +113,22 @@ public class Skeleton {
         Ice ice = new Ice();
         a.Accept(player);
         a.AddResource(ResourceNames.Ice, ice);
+
+        System.out.println("Init finished");
+        System.out.println();
+
+        player.Drill();
+    }
+
+    private static void PlayerDrillsUranAndExplodes(Void unused) {
+        System.out.println();
+        System.out.println("Initializing");
+
+        Asteroid a = new Asteroid(0, 3);
+        Player player = new Player();
+        Uranium uranium = new Uranium();
+        a.Accept(player);
+        a.AddResource(ResourceNames.Uranium, uranium);
 
         System.out.println("Init finished");
         System.out.println();
