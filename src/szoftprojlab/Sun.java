@@ -11,6 +11,7 @@ package szoftprojlab;
 //
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,16 +29,33 @@ public class Sun implements Steppable {
 	}
 
 	public void Step() {
+		System.out.println("Sun.Step()");
+
+		System.out.print("Do you wan't to call ChangeNearSun() on the asteroids? (Y|N) ");
+
+		try {
+			char input = (char)System.in.read();
+
+			if (Character.toUpperCase(input) == 'Y') {
+				ChangeNearSun();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("return from Sun.Step()");
 	}
 	
 	private void SunStorm() {
 	}
 	
 	private void ChangeNearSun() {
+		asteroids.forEach(Asteroid::ChangeNearSun);
 	}
 
 	public void AddAsteroid(Asteroid asteroid) {
-
+		if (!asteroids.contains(asteroid))
+			asteroids.add(asteroid);
 	}
 
 	public static Sun getInstance() {

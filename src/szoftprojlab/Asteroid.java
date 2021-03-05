@@ -50,6 +50,10 @@ public class Asteroid implements Steppable, ResourceStorage {
 	}
 	
 	public void ChangeNearSun() {
+		System.out.println("Asteroid.ChangeNearSun()");
+		if (resource != null)
+			resource.SeeSun(this);
+		System.out.println("return from Asteroid.ChangeNearSun()");
 	}
 	
 	public void Explode() {
@@ -83,6 +87,8 @@ public class Asteroid implements Steppable, ResourceStorage {
 	}
 	
 	public void AddResource(ResourceNames name, Resource resource) {
+		if (this.resource == null)
+			this.resource = resource;
 	}
 	
 	public void AddEntitysResourcesToComparator() {

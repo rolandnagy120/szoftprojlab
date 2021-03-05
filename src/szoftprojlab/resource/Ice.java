@@ -14,7 +14,9 @@ import szoftprojlab.Asteroid;
 
 public class Ice implements Resource {
 	public void SeeSun(Asteroid asteroid) {
-
+		System.out.println("Ice.SeeSun()");
+		System.out.println("Ice destroyed");
+		System.out.println("return from Ice.SeeSun()");
 	}
 
 	public void AddToOwner(ResourceStorage rs) {
