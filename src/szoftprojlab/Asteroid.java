@@ -125,6 +125,8 @@ public class Asteroid implements Steppable, ResourceStorage {
 	}
 	
 	public void DestroyResource() {
+		System.out.println("Asteroid.DestroyResource()");
+		System.out.println("return from Asteroid.DestroyResource()");
 	}
 	
 	public void PlaceTeleportGate(TeleportGate gate) {

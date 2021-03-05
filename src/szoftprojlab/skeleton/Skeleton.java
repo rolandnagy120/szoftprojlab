@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Skeleton {
     public void Run() {
-        SkeletonSequence s1 = new SkeletonSequence(3, "SequenceName", Skeleton::PlayerDrillsAsteroidStrikethroughCoal);
+        SkeletonSequence s1 = new SkeletonSequence(3, "SequenceName", Skeleton::PlayerDrillsIce);
         s1.Run();
     }
 
@@ -24,6 +24,7 @@ public class Skeleton {
         sequences.add(new SkeletonSequence(3, "PlayerCreateRobot", Skeleton::PlayerCreateRobot));
         sequences.add(new SkeletonSequence(4, "PlayerDrillsAsteroidNoStrikethrough", Skeleton::PlayerDrillsAsteroidNoStrikethrough));
         sequences.add(new SkeletonSequence(5, "PlayerDrillsAsteroidStrikethroughCoal", Skeleton::PlayerDrillsAsteroidStrikethroughCoal));
+        sequences.add(new SkeletonSequence(6, "PlayerDrillsIce", Skeleton::PlayerDrillsIce));
 
         return sequences;
     }
@@ -99,5 +100,21 @@ public class Skeleton {
 
         player.Drill();
         player.Mine();
+    }
+
+    private static void PlayerDrillsIce(Void unused) {
+        System.out.println();
+        System.out.println("Initializing");
+
+        Asteroid a = new Asteroid(0, 3);
+        Player player = new Player();
+        Ice ice = new Ice();
+        a.Accept(player);
+        a.AddResource(ResourceNames.Ice, ice);
+
+        System.out.println("Init finished");
+        System.out.println();
+
+        player.Drill();
     }
 }
