@@ -60,6 +60,8 @@ public class Asteroid implements Steppable, ResourceStorage {
 	}
 	
 	public void Drill() {
+		System.out.println("Asteroid.Drill()");
+		System.out.println("returned from Asteroid.Drill()");
 	}
 	
 	public void Accept(Entity entity) {

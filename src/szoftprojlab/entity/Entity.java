@@ -31,7 +31,10 @@ public abstract class Entity implements Steppable {
 		this.asteroid = asteroid;
 	}
 	
-	protected void Drill() {
+	public void Drill() {
+		System.out.println("Entity.Drill()");
+		asteroid.Drill();
+		System.out.println("returned from Entity.Drill()");
 	}
 	
 	protected void Teleport(TeleportGate gate) {

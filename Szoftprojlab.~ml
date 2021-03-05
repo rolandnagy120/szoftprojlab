@@ -2931,7 +2931,7 @@
 </XPD:OBJ>
 <XPD:OBJ name="HeadRoleNameLabel" type="EdgeLabelView" guid="h2fhPojjK0GAhrOigERulAAA">
 <XPD:ATTR name="EdgePosition" type="EdgePositionKind">epHead</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">-asteroid</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">#asteroid</XPD:ATTR>
 <XPD:REF name="Model">KRb/2w33G0mU+hIVqJzXsgAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="TailRoleNameLabel" type="EdgeLabelView" guid="JycW/ljHzUe1zy4qsFtRrAAA">
@@ -6856,7 +6856,7 @@
 </XPD:OBJ>
 <XPD:OBJ name="Connections[1]" type="UMLAssociationEnd" guid="KRb/2w33G0mU+hIVqJzXsgAA">
 <XPD:ATTR name="Name" type="string">asteroid</XPD:ATTR>
-<XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkPrivate</XPD:ATTR>
+<XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkProtected</XPD:ATTR>
 <XPD:ATTR name="Multiplicity" type="string">1</XPD:ATTR>
 <XPD:REF name="Association">ezrNveHO/06oRcw4eW2ydgAA</XPD:REF>
 <XPD:REF name="Participant">XV9gKLCLyk6y02BO2R91gwAA</XPD:REF>
