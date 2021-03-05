@@ -34,7 +34,12 @@ public class Player extends Entity implements ResourceStorage {
 	public void Step() {
 	}
 	
-	private void Mine() {
+	public void Mine() {
+		System.out.println("Player.Mine()");
+
+		asteroid.Mine(this);
+
+		System.out.println("return from Player.Mine()");
 	}
 	
 	private void PlaceResource(Resource resource) {
@@ -85,6 +90,8 @@ public class Player extends Entity implements ResourceStorage {
 	}
 
 	public void AddResource(ResourceNames name, Resource resource) {
+		System.out.println("Player.AddResource()");
+		System.out.println("return from Player.AddResource()");
 	}
 	
 	protected void AddResourcesToComparator() {

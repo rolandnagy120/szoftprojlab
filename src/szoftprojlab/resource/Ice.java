@@ -12,13 +12,16 @@ package szoftprojlab.resource;
 
 import szoftprojlab.Asteroid;
 
-public class Ice implements Resource {
+public class Ice extends Resource {
+	@Override
 	public void SeeSun(Asteroid asteroid) {
 		System.out.println("Ice.SeeSun()");
 		System.out.println("Ice destroyed");
 		System.out.println("return from Ice.SeeSun()");
 	}
 
+	@Override
 	public void AddToOwner(ResourceStorage rs) {
+		rs.AddResource(ResourceNames.Ice, this);
 	}
 }

@@ -12,8 +12,11 @@ package szoftprojlab.resource;
 
 import szoftprojlab.Asteroid;
 
-public interface Resource {
-    public void SeeSun(Asteroid asteroid);
+public abstract class Resource {
+    public void SeeSun(Asteroid asteroid) {
+        System.out.println("Resource.SeeSun()");
+        System.out.println("return from Resource.SeeSun()");
+    }
 
-    public void AddToOwner(ResourceStorage rs);
+    public abstract void AddToOwner(ResourceStorage rs);
 }

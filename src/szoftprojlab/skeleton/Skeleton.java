@@ -3,6 +3,7 @@ package szoftprojlab.skeleton;
 import szoftprojlab.Asteroid;
 import szoftprojlab.Sun;
 import szoftprojlab.entity.Player;
+import szoftprojlab.resource.Coal;
 import szoftprojlab.resource.Ice;
 import szoftprojlab.resource.ResourceNames;
 
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class Skeleton {
     public void Run() {
-        SkeletonSequence s1 = new SkeletonSequence(3, "SequenceName", Skeleton::PlayerDrillsAsteroidNoStrikethrough);
+        SkeletonSequence s1 = new SkeletonSequence(3, "SequenceName", Skeleton::PlayerDrillsAsteroidStrikethroughCoal);
         s1.Run();
     }
 
@@ -22,6 +23,7 @@ public class Skeleton {
         sequences.add(new SkeletonSequence(2, "PlayerCreateGate", Skeleton::PlayerCreateGate));
         sequences.add(new SkeletonSequence(3, "PlayerCreateRobot", Skeleton::PlayerCreateRobot));
         sequences.add(new SkeletonSequence(4, "PlayerDrillsAsteroidNoStrikethrough", Skeleton::PlayerDrillsAsteroidNoStrikethrough));
+        sequences.add(new SkeletonSequence(5, "PlayerDrillsAsteroidStrikethroughCoal", Skeleton::PlayerDrillsAsteroidStrikethroughCoal));
 
         return sequences;
     }
@@ -80,5 +82,22 @@ public class Skeleton {
         System.out.println();
 
         player.Drill();
+    }
+
+    private static void PlayerDrillsAsteroidStrikethroughCoal(Void unused) {
+        System.out.println();
+        System.out.println("Initializing");
+
+        Asteroid a = new Asteroid(0, 3);
+        Player player = new Player();
+        Coal c = new Coal();
+        a.Accept(player);
+        a.AddResource(ResourceNames.Coal, c);
+
+        System.out.println("Init finished");
+        System.out.println();
+
+        player.Drill();
+        player.Mine();
     }
 }

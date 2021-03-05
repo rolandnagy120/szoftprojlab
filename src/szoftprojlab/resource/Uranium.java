@@ -14,10 +14,13 @@ package szoftprojlab.resource;
 
 import szoftprojlab.Asteroid;
 
-public class Uranium implements Resource {
+public class Uranium extends Resource {
+	@Override
 	public void SeeSun(Asteroid asteroid) {
 	}
-	
+
+	@Override
 	public void AddToOwner(ResourceStorage rs) {
+		rs.AddResource(ResourceNames.Uranium, this);
 	}
 }

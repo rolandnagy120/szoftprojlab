@@ -16,6 +16,7 @@ import szoftprojlab.resource.Resource;
 import szoftprojlab.resource.ResourceNames;
 import szoftprojlab.resource.ResourceStorage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +62,23 @@ public class Asteroid implements Steppable, ResourceStorage {
 	
 	public void Drill() {
 		System.out.println("Asteroid.Drill()");
-		System.out.println("returned from Asteroid.Drill()");
+
+		try {
+			System.out.print("Did the drill strike through the asteroid and is the sun near? (YY|YN|NY|NN) ");
+			char input = (char)System.in.read();
+
+			if (Character.toUpperCase(input) == 'Y') {
+				input = (char)System.in.read();
+
+				if (Character.toUpperCase(input) == 'Y') {
+					resource.SeeSun(this);
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("return from Asteroid.Drill()");
 	}
 	
 	public void Accept(Entity entity) {
@@ -76,6 +93,12 @@ public class Asteroid implements Steppable, ResourceStorage {
 	}
 	
 	public void Mine(ResourceStorage rs) {
+		System.out.println("Asteroid.Mine()");
+
+		if (resource != null)
+			resource.AddToOwner(rs);
+
+		System.out.println("return from Asteroid.Mine()");
 	}
 	
 	public void Place(Resource resource) {

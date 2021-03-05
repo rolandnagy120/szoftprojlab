@@ -10,13 +10,11 @@ package szoftprojlab.resource;
 //
 
 
-import szoftprojlab.Asteroid;
-
-public class Coal implements Resource {
-    public void SeeSun(Asteroid asteroid) {
-
-    }
-
+public class Coal extends Resource {
+    @Override
     public void AddToOwner(ResourceStorage rs) {
+        System.out.println("Coal.AddToOwner()");
+        rs.AddResource(ResourceNames.Coal, this);
+        System.out.println("return from Coal.AddToOwner()");
     }
 }
