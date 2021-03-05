@@ -16,6 +16,7 @@ import szoftprojlab.resource.Resource;
 import szoftprojlab.resource.ResourceNames;
 import szoftprojlab.resource.ResourceStorage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,9 +44,40 @@ public class Player extends Entity implements ResourceStorage {
 	}
 	
 	public void MakeGates() {
+		System.out.println("Player.MakeGates()");
+
+		try {
+			System.out.print("Does the player have enough resources to create the gates? (Y|N) ");
+			char input = (char)System.in.read();
+
+			if (Character.toUpperCase(input) == 'Y') {
+				TeleportGate tg1 = new TeleportGate(1);
+				TeleportGate tg2 = new TeleportGate(2);
+				tg1.SetPair(tg2);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("return from Player.MakeGates()");
 	}
 	
 	public void MakeAndPlaceRobot() {
+		System.out.println("Player.MakeAndPlaceRobot()");
+
+		try {
+			System.out.print("Does the player have enough resources to create the robot? (Y|N) ");
+			char input = (char)System.in.read();
+
+			if (Character.toUpperCase(input) == 'Y') {
+				Robot r = new Robot();
+				asteroid.Accept(r);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("return from Player.MakeAndPlaceRobot()");
 	}
 
 	public List<TeleportGate> GetTeleportGates() {

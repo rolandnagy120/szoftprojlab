@@ -13,6 +13,12 @@ package szoftprojlab.entity;
 import szoftprojlab.Asteroid;
 
 public class Robot extends Entity {
+
+	public Robot() {
+		System.out.println("Robot - create");
+		System.out.println("return from Robot - create");
+	}
+
 	public void Step() {
 	}
 	

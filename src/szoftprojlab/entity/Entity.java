@@ -15,7 +15,7 @@ import szoftprojlab.Steppable;
 import szoftprojlab.TeleportGate;
 
 public abstract class Entity implements Steppable {
-	private Asteroid asteroid;
+	protected Asteroid asteroid;
 
 	public Asteroid GetAsteroid() {
 		return asteroid;
@@ -28,6 +28,7 @@ public abstract class Entity implements Steppable {
 	}
 	
 	public void MoveTo(Asteroid asteroid) {
+		this.asteroid = asteroid;
 	}
 	
 	protected void Drill() {

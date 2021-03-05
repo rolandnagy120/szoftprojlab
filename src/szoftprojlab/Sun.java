@@ -31,9 +31,8 @@ public class Sun implements Steppable {
 	public void Step() {
 		System.out.println("Sun.Step()");
 
-		System.out.print("Do you wan't to call ChangeNearSun() on the asteroids? (Y|N) ");
-
 		try {
+			System.out.print("Do you wan't to call ChangeNearSun() on the asteroids? (Y|N) ");
 			char input = (char)System.in.read();
 
 			if (Character.toUpperCase(input) == 'Y') {

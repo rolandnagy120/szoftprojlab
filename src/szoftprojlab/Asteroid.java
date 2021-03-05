@@ -63,6 +63,11 @@ public class Asteroid implements Steppable, ResourceStorage {
 	}
 	
 	public void Accept(Entity entity) {
+		System.out.println("Asteroid.Accept()");
+		if (!entities.contains(entity))
+			entities.add(entity);
+		entity.MoveTo(this);
+		System.out.println("return from Asteroid.Accept()");
 	}
 	
 	public void Remove(Entity entity) {
