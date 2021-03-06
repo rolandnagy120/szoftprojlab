@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Skeleton {
     public void Run() {
-        SkeletonSequence s1 = new SkeletonSequence(3, "SequenceName", Skeleton::PlaceResource);
+        SkeletonSequence s1 = new SkeletonSequence(3, "SequenceName", Skeleton::PlayerHidesFromSunStorm);
         s1.Run();
     }
 
@@ -31,14 +31,15 @@ public class Skeleton {
         sequences.add(new SkeletonSequence(9, "PlayerPlacesTeleportGate", Skeleton::PlayerPlacesTeleportGate));
         sequences.add(new SkeletonSequence(10, "PlayerTeleports", Skeleton::PlayerTeleports));
         sequences.add(new SkeletonSequence(11, "RobotDiesInSunStorm", Skeleton::RobotDiesInSunStorm));
-        sequences.add(new SkeletonSequence(12, "RobotDiesInSunStorm", Skeleton::RobotDrillsAsteroidStrikeThroughCoal));
-        sequences.add(new SkeletonSequence(13, "RobotDiesInSunStorm", Skeleton::RobotDrillsIce));
+        sequences.add(new SkeletonSequence(12, "RobotDrillsAsteroidStrikeThroughCoal", Skeleton::RobotDrillsAsteroidStrikeThroughCoal));
+        sequences.add(new SkeletonSequence(13, "RobotDrillsIce", Skeleton::RobotDrillsIce));
         sequences.add(new SkeletonSequence(14, "RobotDrillsNoStrikeThrough", Skeleton::RobotDrillsNoStrikeThrough));
-        sequences.add(new SkeletonSequence(15, "RobotDrillsNoStrikeThrough", Skeleton::RobotDrillsUranAndExplodes));
+        sequences.add(new SkeletonSequence(15, "RobotDrillsUranAndExplodes", Skeleton::RobotDrillsUranAndExplodes));
         sequences.add(new SkeletonSequence(16, "Init", Skeleton::Init));
         sequences.add(new SkeletonSequence(17, "OnePlayerAlive", Skeleton::OnePlayerAlive));
         sequences.add(new SkeletonSequence(18, "CheckGameEnd", Skeleton::CheckGameEnd));
-        sequences.add(new SkeletonSequence(19, "CheckGameEnd", Skeleton::PlaceResource));
+        sequences.add(new SkeletonSequence(19, "PlaceResource", Skeleton::PlaceResource));
+        sequences.add(new SkeletonSequence(19, "PlayerHidesFromSunStorm", Skeleton::PlayerHidesFromSunStorm));
 
         return sequences;
     }
@@ -344,5 +345,26 @@ public class Skeleton {
         System.out.println();
 
         player.PlaceResource(ice);
+    }
+
+    private static void PlayerHidesFromSunStorm(Void unused) {
+        System.out.println();
+        System.out.println("Initializing");
+
+        Timer timer = Timer.getInstance();
+        Sun sun = Sun.getInstance();
+        sun.Init(10, 1);
+        Asteroid asteroid = new Asteroid(0, 0);
+        Player player = new Player();
+        sun.AddAsteroid(asteroid);
+        asteroid.Accept(player);
+        timer.AddSteppable(sun);
+        timer.AddSteppable(asteroid);
+        timer.AddSteppable(player);
+
+        System.out.println("Init finished");
+        System.out.println();
+
+        timer.Tick();
     }
 }
