@@ -102,10 +102,16 @@ public class Player extends Entity implements ResourceStorage {
 
 	public void AddResource(ResourceNames name, Resource resource) {
 		System.out.println("Player.AddResource()");
+		inventory.add(resource);
 		System.out.println("return from Player.AddResource()");
 	}
-	
-	protected void AddResourcesToComparator() {
+
+	@Override
+	public void AddResourcesToComparator() {
+		System.out.println("Player.AddResourcesToComparator()");
+		Game game = Game.getInstance();
+		inventory.forEach(game::AddToOwner);
+		System.out.println("return from Player.AddResourcesToComparator()");
 	}
 
 	@Override

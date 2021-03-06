@@ -60,6 +60,6 @@ public abstract class Entity implements Steppable {
 		System.out.println("return from Entity.Teleport()");
 	}
 	
-	protected void AddResourcesToComparator() {
+	public void AddResourcesToComparator() {
 	}
 }

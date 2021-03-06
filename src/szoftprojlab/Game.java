@@ -40,6 +40,8 @@ public class Game {
     }
 
     public void ClearResources() {
+        System.out.println("Game.ClearResources()");
+        System.out.println("return from Game.ClearResources()");
     }
 
     public void PlayerDie(Player player) {
@@ -64,6 +66,16 @@ public class Game {
     public void EndGame() {
         System.out.println("Game.EndGame()");
         System.out.println("return from Game.EndGame()");
+    }
+
+    public void AddToOwner(Resource resource) {
+        System.out.println("Game.AddToOwner()");
+        System.out.println("return from Game.AddToOwner()");
+    }
+
+    public void CheckForVictory() {
+        System.out.println("Game.CheckForVictory()");
+        System.out.println("return from Game.CheckForVictory()");
     }
 
     public static Game getInstance() {

@@ -108,6 +108,15 @@ public class Asteroid implements Steppable, ResourceStorage {
 		if (!entities.contains(entity))
 			entities.add(entity);
 		entity.SetAsteroid(this);
+
+		System.out.print("Do you want to run the check for victory? (Y|N) ");
+		Scanner scanner = new Scanner(System.in);
+		String input = scanner.next();
+
+		if (input.equalsIgnoreCase("Y")) {
+			AddEntitysResourcesToComparator();
+		}
+
 		System.out.println("return from Asteroid.Accept()");
 	}
 	
@@ -145,8 +154,16 @@ public class Asteroid implements Steppable, ResourceStorage {
 		if (this.resource == null)
 			this.resource = resource;
 	}
-	
+
 	public void AddEntitysResourcesToComparator() {
+		System.out.println("Asteroid.AddEntitysResourcesToComparator()");
+
+		Game game = Game.getInstance();
+		entities.forEach(Entity::AddResourcesToComparator);
+		game.CheckForVictory();
+		game.ClearResources();
+
+		System.out.println("return from Asteroid.AddEntitysResourcesToComparator()");
 	}
 	
 	public void DestroyResource() {
