@@ -31,6 +31,11 @@ public class TeleportGate {
 	}
 	
 	public void Place(Asteroid asteroid) {
+		System.out.println("TeleportGate.Place()");
+
+		this.asteroid = asteroid;
+
+		System.out.println("return from TeleportGate.Place()");
 	}
 	
 	public void SetPair(TeleportGate gate) {

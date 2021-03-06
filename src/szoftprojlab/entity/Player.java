@@ -10,7 +10,6 @@ package szoftprojlab.entity;
 //
 
 
-import szoftprojlab.Asteroid;
 import szoftprojlab.TeleportGate;
 import szoftprojlab.resource.Resource;
 import szoftprojlab.resource.ResourceNames;
@@ -45,7 +44,14 @@ public class Player extends Entity implements ResourceStorage {
 	private void PlaceResource(Resource resource) {
 	}
 	
-	private void PlaceGate(Asteroid asteroid) {
+	public void PlaceGate() {
+		System.out.println("Player.PlaceGate()");
+
+		if (asteroid != null && gates.size() > 0) {
+			asteroid.PlaceTeleportGate(gates.get(0));
+			gates.remove(0);
+		}
+		System.out.println("return from Player.PlaceGate()");
 	}
 	
 	public void MakeGates() {
@@ -59,6 +65,8 @@ public class Player extends Entity implements ResourceStorage {
 				TeleportGate tg1 = new TeleportGate(1);
 				TeleportGate tg2 = new TeleportGate(2);
 				tg1.SetPair(tg2);
+				gates.add(tg1);
+				gates.add(tg2);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

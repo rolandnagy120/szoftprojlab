@@ -3862,7 +3862,7 @@
 <XPD:REF name="TypedParameters[2]">YoHcmBNysUisfiXNJGzxEAAA</XPD:REF>
 <XPD:REF name="TypedParameters[3]">seath3Bx10GIFrQ1n7hCFAAA</XPD:REF>
 <XPD:REF name="TypedParameters[4]">luSRBLKth0OQ0qVCyDIIyQAA</XPD:REF>
-<XPD:REF name="TypedParameters[5]">UhRMw3YKwUG1isK/VXJIBAAA</XPD:REF>
+<XPD:REF name="TypedParameters[5]" pathname="asteroid">UhRMw3YKwUG1isK/VXJIBAAA</XPD:REF>
 <XPD:REF name="TypedParameters[6]">oUBu4xjyjEiR3kQr+IOkDQAA</XPD:REF>
 <XPD:REF name="TypedParameters[7]">7LqOcSUeaUGOMss1dol4fAAA</XPD:REF>
 <XPD:REF name="TypedParameters[8]">JX1mprxWd0GiZHTJ7QK7gwAA</XPD:REF>
@@ -3972,15 +3972,7 @@
 </XPD:OBJ>
 <XPD:OBJ name="Operations[3]" type="UMLOperation" guid="XKxXLzFjtkODd6vmUanH2gAA">
 <XPD:ATTR name="Name" type="string">PlaceGate</XPD:ATTR>
-<XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkPrivate</XPD:ATTR>
 <XPD:REF name="Owner">3nTdRsAWwEyP2hKrTaviMgAA</XPD:REF>
-<XPD:ATTR name="#Parameters" type="integer">1</XPD:ATTR>
-<XPD:OBJ name="Parameters[0]" type="UMLParameter" guid="UhRMw3YKwUG1isK/VXJIBAAA">
-<XPD:ATTR name="Name" type="string">asteroid</XPD:ATTR>
-<XPD:ATTR name="TypeExpression" type="string">Asteroid</XPD:ATTR>
-<XPD:REF name="BehavioralFeature">XKxXLzFjtkODd6vmUanH2gAA</XPD:REF>
-<XPD:REF name="Type_">XV9gKLCLyk6y02BO2R91gwAA</XPD:REF>
-</XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="Operations[4]" type="UMLOperation" guid="Ckr5lJQqkEe0MatOMb3T4wAA">
 <XPD:ATTR name="Name" type="string">MakeGates</XPD:ATTR>
@@ -7508,14 +7500,14 @@
 <XPD:ATTR name="Left" type="integer">629</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">209</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">14</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">29</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">40</XPD:ATTR>
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedViews[8]" type="UMLSeqStimulusView" guid="X4IcRSBMRkW3KHRhy5WxRwAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">636,240;233,240</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">629,240;233,240</XPD:ATTR>
 <XPD:REF name="Model">4w2saxeuskafc4QiC4F+eQAA</XPD:REF>
 <XPD:REF name="Head">kj+j5Jc0mESSB/hMzC/07AAA</XPD:REF>
 <XPD:REF name="Tail">5pSUpNlT1ESbaveeyd9uOQAA</XPD:REF>

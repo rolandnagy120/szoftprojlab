@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Skeleton {
     public void Run() {
-        SkeletonSequence s1 = new SkeletonSequence(3, "SequenceName", Skeleton::PlayerMovesFromAsteroidToAsteroid);
+        SkeletonSequence s1 = new SkeletonSequence(3, "SequenceName", Skeleton::PlayerPlacesTeleportGate);
         s1.Run();
     }
 
@@ -28,6 +28,7 @@ public class Skeleton {
         sequences.add(new SkeletonSequence(6, "PlayerDrillsIce", Skeleton::PlayerDrillsIce));
         sequences.add(new SkeletonSequence(7, "PlayerDrillsUranAndExplodes", Skeleton::PlayerDrillsUranAndExplodes));
         sequences.add(new SkeletonSequence(8, "PlayerMovesFromAsteroidToAsteroid", Skeleton::PlayerMovesFromAsteroidToAsteroid));
+        sequences.add(new SkeletonSequence(9, "PlayerPlacesTeleportGate", Skeleton::PlayerPlacesTeleportGate));
 
         return sequences;
     }
@@ -151,5 +152,20 @@ public class Skeleton {
         System.out.println();
 
         player.MoveTo(a2);
+    }
+
+    private static void PlayerPlacesTeleportGate(Void unused) {
+        System.out.println();
+        System.out.println("Initializing");
+
+        Asteroid asteroid = new Asteroid(0, 3);
+        Player player = new Player();
+        player.MakeGates();
+        asteroid.Accept(player);
+
+        System.out.println("Init finished");
+        System.out.println();
+
+        player.PlaceGate();
     }
 }

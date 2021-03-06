@@ -136,6 +136,14 @@ public class Asteroid implements Steppable, ResourceStorage {
 	}
 	
 	public void PlaceTeleportGate(TeleportGate gate) {
+		System.out.println("Asteroid.PlaceTeleportGate()");
+
+		if (!gates.contains(gate)) {
+			gates.add(gate);
+			gate.Place(this);
+		}
+
+		System.out.println("return from Asteroid.PlaceTeleportGate()");
 	}
 
 	public void Step() {
