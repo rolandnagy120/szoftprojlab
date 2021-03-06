@@ -10,6 +10,7 @@ package szoftprojlab.entity;
 //
 
 
+import szoftprojlab.Game;
 import szoftprojlab.TeleportGate;
 import szoftprojlab.resource.Resource;
 import szoftprojlab.resource.ResourceNames;
@@ -105,5 +106,13 @@ public class Player extends Entity implements ResourceStorage {
 	}
 	
 	protected void AddResourcesToComparator() {
+	}
+
+	@Override
+	public void Explode() {
+		System.out.println("Player.Explode()");
+		Game game = Game.getInstance();
+		game.PlayerDie(this);
+		System.out.println("return from Player.Explode()");
 	}
 }

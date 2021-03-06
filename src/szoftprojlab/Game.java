@@ -15,6 +15,7 @@ import szoftprojlab.resource.Resource;
 import szoftprojlab.resource.ResourceNames;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Game {
     private static Game singleClassInstance = null;
@@ -42,6 +43,27 @@ public class Game {
     }
 
     public void PlayerDie(Player player) {
+        System.out.println("Game.PlayerDie()");
+
+        System.out.print("Is the playercount greater than 1? (Y|N) ");
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.next();
+
+        if (!input.equalsIgnoreCase("Y")) {
+            EndGame();
+        }
+
+        System.out.println("return from Game.PlayerDie()");
+    }
+
+    public void AddPlayer(Player player) {
+        if (!players.contains(player))
+            players.add(player);
+    }
+
+    public void EndGame() {
+        System.out.println("Game.EndGame()");
+        System.out.println("return from Game.EndGame()");
     }
 
     public static Game getInstance() {
