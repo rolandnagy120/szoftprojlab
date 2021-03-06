@@ -32,8 +32,10 @@ public class Asteroid implements Steppable, ResourceStorage {
 	private List<TeleportGate> gates = new ArrayList<>();
 
 	public Asteroid(int ID, int numberOfLayers) {
+		System.out.println("Asteroid - create");
 		idx = ID;
 		numberOfLayers = layers;
+		System.out.println("return from Asteroid - create");
 	}
 
 	public List<Entity> GetEntities() {
@@ -41,9 +43,11 @@ public class Asteroid implements Steppable, ResourceStorage {
 	}
 
 	public void AddNeighbor(Asteroid newNeighbor) {
+		System.out.println("Asteroid.AddNeighbor()");
 		neighbors.add(newNeighbor);
 		if (!newNeighbor.neighbors.contains(this))
 			newNeighbor.AddNeighbor(this);
+		System.out.println("return from Asteroid.AddNeighbor()");
 	}
 
 	public int GetLayerThickness() {

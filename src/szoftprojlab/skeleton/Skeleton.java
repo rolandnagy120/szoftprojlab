@@ -1,9 +1,6 @@
 package szoftprojlab.skeleton;
 
-import szoftprojlab.Asteroid;
-import szoftprojlab.Sun;
-import szoftprojlab.TeleportGate;
-import szoftprojlab.Timer;
+import szoftprojlab.*;
 import szoftprojlab.entity.Player;
 import szoftprojlab.entity.Robot;
 import szoftprojlab.resource.Coal;
@@ -16,7 +13,7 @@ import java.util.List;
 
 public class Skeleton {
     public void Run() {
-        SkeletonSequence s1 = new SkeletonSequence(3, "SequenceName", Skeleton::RobotDrillsUranAndExplodes);
+        SkeletonSequence s1 = new SkeletonSequence(3, "SequenceName", Skeleton::Init);
         s1.Run();
     }
 
@@ -38,6 +35,7 @@ public class Skeleton {
         sequences.add(new SkeletonSequence(13, "RobotDiesInSunStorm", Skeleton::RobotDrillsIce));
         sequences.add(new SkeletonSequence(14, "RobotDrillsNoStrikeThrough", Skeleton::RobotDrillsNoStrikeThrough));
         sequences.add(new SkeletonSequence(15, "RobotDrillsNoStrikeThrough", Skeleton::RobotDrillsUranAndExplodes));
+        sequences.add(new SkeletonSequence(16, "Init", Skeleton::Init));
 
         return sequences;
     }
@@ -284,5 +282,17 @@ public class Skeleton {
         System.out.println();
 
         robot.Drill();
+    }
+
+    private static void Init(Void unused) {
+        System.out.println();
+        System.out.println("Initializing");
+
+        Game game = Game.getInstance();
+
+        System.out.println("Init finished");
+        System.out.println();
+
+        game.StartGame();
     }
 }

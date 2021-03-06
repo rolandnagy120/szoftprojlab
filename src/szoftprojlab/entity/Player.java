@@ -24,6 +24,8 @@ public class Player extends Entity implements ResourceStorage {
 	private List<Resource> inventory = new ArrayList<>();
 
 	public Player() {
+		System.out.println("Player - create");
+		System.out.println("return from Player - create");
 	}
 
 	public List<Resource> GetInventory() {

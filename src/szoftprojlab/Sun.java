@@ -69,8 +69,11 @@ public class Sun implements Steppable {
 	}
 
 	public static Sun getInstance() {
-		if (singleClassIntance == null)
+		if (singleClassIntance == null) {
+			System.out.println("Sun - create");
 			singleClassIntance = new Sun();
+			System.out.println("return from Sun - create");
+		}
 
 		return singleClassIntance;
 	}

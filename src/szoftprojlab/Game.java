@@ -23,6 +23,16 @@ public class Game {
     private List<Player> players;
 
     public void StartGame() {
+        System.out.println("Game.StartGame()");
+
+        sun = Sun.getInstance();
+        Asteroid a1 = new Asteroid(0, 1);
+        Asteroid a2 = new Asteroid(1, 1);
+        a1.AddNeighbor(a2);
+        Player player = new Player();
+
+
+        System.out.println("return from Game.StartGame()");
     }
 
     public void AddResource(ResourceNames name, Resource resource) {
