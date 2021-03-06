@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Skeleton {
     public void Run() {
-        SkeletonSequence s1 = new SkeletonSequence(3, "SequenceName", Skeleton::RobotDrillsIce);
+        SkeletonSequence s1 = new SkeletonSequence(3, "SequenceName", Skeleton::RobotDrillsNoStrikeThrough);
         s1.Run();
     }
 
@@ -36,6 +36,7 @@ public class Skeleton {
         sequences.add(new SkeletonSequence(11, "RobotDiesInSunStorm", Skeleton::RobotDiesInSunStorm));
         sequences.add(new SkeletonSequence(12, "RobotDiesInSunStorm", Skeleton::RobotDrillsAsteroidStrikeThroughCoal));
         sequences.add(new SkeletonSequence(13, "RobotDiesInSunStorm", Skeleton::RobotDrillsIce));
+        sequences.add(new SkeletonSequence(14, "RobotDrillsNoStrikeThrough", Skeleton::RobotDrillsNoStrikeThrough));
 
         return sequences;
     }
@@ -245,6 +246,20 @@ public class Skeleton {
         Ice ice = new Ice();
         asteroid.Accept(robot);
         asteroid.AddResource(ResourceNames.Ice, ice);
+
+        System.out.println("Init finished");
+        System.out.println();
+
+        robot.Drill();
+    }
+
+    private static void RobotDrillsNoStrikeThrough(Void unused) {
+        System.out.println();
+        System.out.println("Initializing");
+
+        Asteroid asteroid = new Asteroid(0, 3);
+        Robot robot = new Robot();
+        asteroid.Accept(robot);
 
         System.out.println("Init finished");
         System.out.println();
