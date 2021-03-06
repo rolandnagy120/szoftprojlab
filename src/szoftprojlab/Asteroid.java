@@ -19,6 +19,7 @@ import szoftprojlab.resource.ResourceStorage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Asteroid implements Steppable, ResourceStorage {
 	private int idx;
@@ -48,6 +49,17 @@ public class Asteroid implements Steppable, ResourceStorage {
 	}
 
 	public void SunStorm() {
+		System.out.println("Asteroid.SunStorm()");
+
+		System.out.print("Can the entities hide in the asteroid? (Y|N) ");
+		Scanner scanner = new Scanner(System.in);
+		String input = scanner.next();
+
+		if (!input.toUpperCase().equals("Y")) {
+			entities.forEach(Entity::SunStorm);
+		}
+
+		System.out.println("return from Asteroid.SunStorm()");
 	}
 	
 	public void ChangeNearSun() {

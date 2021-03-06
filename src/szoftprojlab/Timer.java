@@ -12,12 +12,22 @@ package szoftprojlab;
 //
 
 
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class Timer {
 	private static Timer singleClassIntance = null;
+	private final List<Steppable> steppables = new ArrayList<>();
 
 	public void Tick() {
+		System.out.println("Timer.Tick()");
+		steppables.forEach(Steppable::Step);
+		System.out.println("return from Timer.Tick()");
+	}
+
+	public void AddSteppable(Steppable s) {
+		if (!steppables.contains(s))
+			steppables.add(s);
 	}
 
 	public static Timer getInstance() {

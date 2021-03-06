@@ -3,7 +3,9 @@ package szoftprojlab.skeleton;
 import szoftprojlab.Asteroid;
 import szoftprojlab.Sun;
 import szoftprojlab.TeleportGate;
+import szoftprojlab.Timer;
 import szoftprojlab.entity.Player;
+import szoftprojlab.entity.Robot;
 import szoftprojlab.resource.Coal;
 import szoftprojlab.resource.Ice;
 import szoftprojlab.resource.ResourceNames;
@@ -14,7 +16,7 @@ import java.util.List;
 
 public class Skeleton {
     public void Run() {
-        SkeletonSequence s1 = new SkeletonSequence(3, "SequenceName", Skeleton::PlayerTeleports);
+        SkeletonSequence s1 = new SkeletonSequence(3, "SequenceName", Skeleton::RobotDiesInSunStorm);
         s1.Run();
     }
 
@@ -31,6 +33,7 @@ public class Skeleton {
         sequences.add(new SkeletonSequence(8, "PlayerMovesFromAsteroidToAsteroid", Skeleton::PlayerMovesFromAsteroidToAsteroid));
         sequences.add(new SkeletonSequence(9, "PlayerPlacesTeleportGate", Skeleton::PlayerPlacesTeleportGate));
         sequences.add(new SkeletonSequence(10, "PlayerTeleports", Skeleton::PlayerTeleports));
+        sequences.add(new SkeletonSequence(11, "RobotDiesInSunStorm", Skeleton::RobotDiesInSunStorm));
 
         return sequences;
     }
@@ -192,5 +195,26 @@ public class Skeleton {
 
         if (gates.size() > 0)
             player.Teleport(gates.get(0));
+    }
+
+    private static void RobotDiesInSunStorm(Void unused) {
+        System.out.println();
+        System.out.println("Initializing");
+
+        Timer timer = Timer.getInstance();
+        Sun sun = Sun.getInstance();
+        sun.Init(10, 1);
+        Asteroid asteroid = new Asteroid(0, 1);
+        Robot robot = new Robot();
+        sun.AddAsteroid(asteroid);
+        asteroid.Accept(robot);
+        timer.AddSteppable(sun);
+        timer.AddSteppable(asteroid);
+        timer.AddSteppable(robot);
+
+        System.out.println("Init finished");
+        System.out.println();
+
+        timer.Tick();
     }
 }

@@ -32,11 +32,17 @@ public class Sun implements Steppable {
 		System.out.println("Sun.Step()");
 
 		try {
-			System.out.print("Do you wan't to call ChangeNearSun() on the asteroids? (Y|N) ");
+			System.out.print("Do you wan't to call ChangeNearSun() and SunStorm()? (YY|YN|NY|NN) ");
 			char input = (char)System.in.read();
 
 			if (Character.toUpperCase(input) == 'Y') {
 				ChangeNearSun();
+			}
+
+			input = (char)System.in.read();
+
+			if (Character.toUpperCase(input) == 'Y') {
+				SunStorm();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -46,6 +52,11 @@ public class Sun implements Steppable {
 	}
 	
 	private void SunStorm() {
+		System.out.println("Sun.SunStorm()");
+
+		asteroids.forEach(Asteroid::SunStorm);
+
+		System.out.println("return from Sun.SunStorm()");
 	}
 	
 	private void ChangeNearSun() {

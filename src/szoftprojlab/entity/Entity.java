@@ -26,6 +26,9 @@ public abstract class Entity implements Steppable {
 	}
 
 	public void SunStorm() {
+		System.out.println("Entity.SunStorm()");
+		System.out.println("Entity is destroyed");
+		System.out.println("return from Entity.SunStorm()");
 	}
 	
 	public void Explode() {
