@@ -88,11 +88,14 @@ public class Asteroid implements Steppable, ResourceStorage {
 		System.out.println("Asteroid.Accept()");
 		if (!entities.contains(entity))
 			entities.add(entity);
-		entity.MoveTo(this);
+		entity.SetAsteroid(this);
 		System.out.println("return from Asteroid.Accept()");
 	}
 	
 	public void Remove(Entity entity) {
+		System.out.println("Asteroid.Remove()");
+		entities.remove(entity);
+		System.out.println("return from Asteroid.Remove()");
 	}
 	
 	public void Mine(ResourceStorage rs) {

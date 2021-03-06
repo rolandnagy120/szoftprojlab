@@ -21,6 +21,10 @@ public abstract class Entity implements Steppable {
 		return asteroid;
 	}
 
+	public void SetAsteroid(Asteroid asteroid) {
+		this.asteroid = asteroid;
+	}
+
 	public void SunStorm() {
 	}
 	
@@ -29,8 +33,14 @@ public abstract class Entity implements Steppable {
 		System.out.println("return from Entity.Explode()");
 	}
 	
-	public void MoveTo(Asteroid asteroid) {
-		this.asteroid = asteroid;
+	public void MoveTo(Asteroid newAsteroid) {
+		System.out.println("Entity.MoveTo()");
+
+		if (this.asteroid != null)
+			this.asteroid.Remove(this);
+		newAsteroid.Accept(this);
+
+		System.out.println("return from Entity.MoveTo()");
 	}
 	
 	public void Drill() {
