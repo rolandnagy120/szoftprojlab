@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Skeleton {
     public void Run() {
-        SkeletonSequence s1 = new SkeletonSequence(3, "SequenceName", Skeleton::CheckGameEnd);
+        SkeletonSequence s1 = new SkeletonSequence(3, "SequenceName", Skeleton::PlaceResource);
         s1.Run();
     }
 
@@ -38,6 +38,7 @@ public class Skeleton {
         sequences.add(new SkeletonSequence(16, "Init", Skeleton::Init));
         sequences.add(new SkeletonSequence(17, "OnePlayerAlive", Skeleton::OnePlayerAlive));
         sequences.add(new SkeletonSequence(18, "CheckGameEnd", Skeleton::CheckGameEnd));
+        sequences.add(new SkeletonSequence(19, "CheckGameEnd", Skeleton::PlaceResource));
 
         return sequences;
     }
@@ -327,5 +328,21 @@ public class Skeleton {
         System.out.println();
 
         asteroid.Accept(player);
+    }
+
+    private static void PlaceResource(Void unused) {
+        System.out.println();
+        System.out.println("Initializing");
+
+        Asteroid asteroid = new Asteroid(0, 0);
+        Player player = new Player();
+        Ice ice = new Ice();
+        player.AddResource(ResourceNames.Ice, ice);
+        asteroid.Accept(player);
+
+        System.out.println("Init finished");
+        System.out.println();
+
+        player.PlaceResource(ice);
     }
 }

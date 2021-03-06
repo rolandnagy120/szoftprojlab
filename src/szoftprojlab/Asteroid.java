@@ -136,6 +136,8 @@ public class Asteroid implements Steppable, ResourceStorage {
 	}
 	
 	public void Place(Resource resource) {
+		System.out.println("Asteroid.Place()");
+		System.out.println("return from Asteroid.Place()");
 	}
 	
 	public Asteroid GetNeighbor(int idx) {

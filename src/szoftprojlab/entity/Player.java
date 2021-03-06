@@ -44,7 +44,13 @@ public class Player extends Entity implements ResourceStorage {
 		System.out.println("return from Player.Mine()");
 	}
 	
-	private void PlaceResource(Resource resource) {
+	public void PlaceResource(Resource resource) {
+		System.out.println("Player.PlaceResource()");
+
+		if (inventory.contains(resource))
+			asteroid.Place(resource);
+
+		System.out.println("return from Player.PlaceResource()");
 	}
 	
 	public void PlaceGate() {
