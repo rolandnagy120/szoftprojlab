@@ -49,7 +49,12 @@ public abstract class Entity implements Steppable {
 		System.out.println("return from Entity.Drill()");
 	}
 	
-	protected void Teleport(TeleportGate gate) {
+	public void Teleport(TeleportGate gate) {
+		System.out.println("Entity.Teleport()");
+		Asteroid pairAsteroid = gate.GetPairAsteroid();
+		asteroid.Remove(this);
+		pairAsteroid.Accept(this);
+		System.out.println("return from Entity.Teleport()");
 	}
 	
 	protected void AddResourcesToComparator() {

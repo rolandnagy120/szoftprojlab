@@ -27,7 +27,9 @@ public class TeleportGate {
 	}
 
 	public Asteroid GetPairAsteroid() {
-		return null;
+		System.out.println("TeleportGate.GetPairAsteroid()");
+		System.out.println("return from TeleportGate.GetPairAsteroid()");
+		return pair.asteroid;
 	}
 	
 	public void Place(Asteroid asteroid) {

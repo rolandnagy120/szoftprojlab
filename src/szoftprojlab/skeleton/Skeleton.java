@@ -2,6 +2,7 @@ package szoftprojlab.skeleton;
 
 import szoftprojlab.Asteroid;
 import szoftprojlab.Sun;
+import szoftprojlab.TeleportGate;
 import szoftprojlab.entity.Player;
 import szoftprojlab.resource.Coal;
 import szoftprojlab.resource.Ice;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class Skeleton {
     public void Run() {
-        SkeletonSequence s1 = new SkeletonSequence(3, "SequenceName", Skeleton::PlayerPlacesTeleportGate);
+        SkeletonSequence s1 = new SkeletonSequence(3, "SequenceName", Skeleton::PlayerTeleports);
         s1.Run();
     }
 
@@ -29,6 +30,7 @@ public class Skeleton {
         sequences.add(new SkeletonSequence(7, "PlayerDrillsUranAndExplodes", Skeleton::PlayerDrillsUranAndExplodes));
         sequences.add(new SkeletonSequence(8, "PlayerMovesFromAsteroidToAsteroid", Skeleton::PlayerMovesFromAsteroidToAsteroid));
         sequences.add(new SkeletonSequence(9, "PlayerPlacesTeleportGate", Skeleton::PlayerPlacesTeleportGate));
+        sequences.add(new SkeletonSequence(10, "PlayerTeleports", Skeleton::PlayerTeleports));
 
         return sequences;
     }
@@ -160,12 +162,35 @@ public class Skeleton {
 
         Asteroid asteroid = new Asteroid(0, 3);
         Player player = new Player();
-        player.MakeGates();
         asteroid.Accept(player);
+        player.MakeGates();
 
         System.out.println("Init finished");
         System.out.println();
 
         player.PlaceGate();
+    }
+
+    private static void PlayerTeleports(Void unused) {
+        System.out.println();
+        System.out.println("Initializing");
+
+        Asteroid asteroid1 = new Asteroid(0, 3);
+        Asteroid asteroid2 = new Asteroid(1, 3);
+        Player player = new Player();
+        asteroid1.AddNeighbor(asteroid2);
+        asteroid2.Accept(player);
+        player.MakeGates();
+        player.PlaceGate();
+        player.MoveTo(asteroid1);
+        player.PlaceGate();
+        List<TeleportGate> gates = asteroid1.GetTeleportGates();
+
+        System.out.println("Init finished");
+        System.out.println();
+
+
+        if (gates.size() > 0)
+            player.Teleport(gates.get(0));
     }
 }
