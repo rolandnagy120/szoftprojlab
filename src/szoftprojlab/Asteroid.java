@@ -41,7 +41,9 @@ public class Asteroid implements Steppable, ResourceStorage {
 	}
 
 	public void AddNeighbor(Asteroid newNeighbor) {
-
+		neighbors.add(newNeighbor);
+		if (!newNeighbor.neighbors.contains(this))
+			newNeighbor.AddNeighbor(this);
 	}
 
 	public int GetLayerThickness() {
@@ -71,7 +73,8 @@ public class Asteroid implements Steppable, ResourceStorage {
 	
 	public void Explode() {
 		System.out.println("Asteroid.Explode()");
-		entities.forEach(Entity::Explode);
+		List<Entity> entitiesCopy = List.copyOf(entities);
+		entitiesCopy.forEach(Entity::Explode);
 		System.out.println("return from Asteroid.Explode()");
 	}
 	
@@ -156,6 +159,14 @@ public class Asteroid implements Steppable, ResourceStorage {
 		}
 
 		System.out.println("return from Asteroid.PlaceTeleportGate()");
+	}
+
+	public Asteroid GetRandomNeighbor() {
+		System.out.println("Asteroid.GetRandomNeighbor()");
+		if (neighbors.size() == 0)
+			return null;
+		System.out.println("return from Asteroid.GetRandomNeighbor()");
+		return neighbors.get(0);
 	}
 
 	public void Step() {

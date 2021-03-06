@@ -23,6 +23,13 @@ public class Robot extends Entity {
 	}
 	
 	public void Explode() {
+		System.out.println("Robot.Explode()");
+		Asteroid newAsteroid = asteroid.GetRandomNeighbor();
+		asteroid.Remove(this);
+		if (newAsteroid != null)
+			newAsteroid.Accept(this);
+
+		System.out.println("return from Robot.Explode()");
 	}
 	
 	public void Robot(Asteroid asteroid) {

@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Skeleton {
     public void Run() {
-        SkeletonSequence s1 = new SkeletonSequence(3, "SequenceName", Skeleton::RobotDrillsNoStrikeThrough);
+        SkeletonSequence s1 = new SkeletonSequence(3, "SequenceName", Skeleton::RobotDrillsUranAndExplodes);
         s1.Run();
     }
 
@@ -37,6 +37,7 @@ public class Skeleton {
         sequences.add(new SkeletonSequence(12, "RobotDiesInSunStorm", Skeleton::RobotDrillsAsteroidStrikeThroughCoal));
         sequences.add(new SkeletonSequence(13, "RobotDiesInSunStorm", Skeleton::RobotDrillsIce));
         sequences.add(new SkeletonSequence(14, "RobotDrillsNoStrikeThrough", Skeleton::RobotDrillsNoStrikeThrough));
+        sequences.add(new SkeletonSequence(15, "RobotDrillsNoStrikeThrough", Skeleton::RobotDrillsUranAndExplodes));
 
         return sequences;
     }
@@ -260,6 +261,24 @@ public class Skeleton {
         Asteroid asteroid = new Asteroid(0, 3);
         Robot robot = new Robot();
         asteroid.Accept(robot);
+
+        System.out.println("Init finished");
+        System.out.println();
+
+        robot.Drill();
+    }
+
+    private static void RobotDrillsUranAndExplodes(Void unused) {
+        System.out.println();
+        System.out.println("Initializing");
+
+        Asteroid asteroid1 = new Asteroid(0, 3);
+        Asteroid asteroid2 = new Asteroid(1, 3);
+        Robot robot = new Robot();
+        Uranium uranium = new Uranium();
+        asteroid1.AddNeighbor(asteroid2);
+        asteroid1.Accept(robot);
+        asteroid1.AddResource(ResourceNames.Uranium, uranium);
 
         System.out.println("Init finished");
         System.out.println();
