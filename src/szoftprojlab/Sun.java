@@ -11,9 +11,9 @@ package szoftprojlab;
 //
 
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Sun implements Steppable {
 	private static Sun singleClassIntance = null;
@@ -31,21 +31,20 @@ public class Sun implements Steppable {
 	public void Step() {
 		System.out.println("Sun.Step()");
 
-		try {
-			System.out.print("Do you wan't to call ChangeNearSun() and SunStorm()? (YY|YN|NY|NN) ");
-			char input = (char)System.in.read();
+		System.out.print("Do you want to call ChangeNearSun()? (Y|N) ");
+		Scanner scanner = new Scanner(System.in);
+		String input = scanner.next();
 
-			if (Character.toUpperCase(input) == 'Y') {
-				ChangeNearSun();
-			}
+		if (input.equalsIgnoreCase("Y")) {
+			ChangeNearSun();
+		}
 
-			input = (char)System.in.read();
 
-			if (Character.toUpperCase(input) == 'Y') {
-				SunStorm();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		System.out.print("Do you want to call SunStorm()? (Y|N) ");
+		input = scanner.next();
+
+		if (input.equalsIgnoreCase("Y")) {
+			SunStorm();
 		}
 
 		System.out.println("return from Sun.Step()");

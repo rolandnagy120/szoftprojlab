@@ -16,7 +16,6 @@ import szoftprojlab.resource.Resource;
 import szoftprojlab.resource.ResourceNames;
 import szoftprojlab.resource.ResourceStorage;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -61,7 +60,7 @@ public class Asteroid implements Steppable, ResourceStorage {
 		Scanner scanner = new Scanner(System.in);
 		String input = scanner.next();
 
-		if (!input.toUpperCase().equals("Y")) {
+		if (!input.equalsIgnoreCase("Y")) {
 			entities.forEach(Entity::SunStorm);
 		}
 
@@ -85,19 +84,17 @@ public class Asteroid implements Steppable, ResourceStorage {
 	public void Drill() {
 		System.out.println("Asteroid.Drill()");
 
-		try {
-			System.out.print("Did the drill strike through the asteroid and is the sun near? (YY|YN|NY|NN) ");
-			char input = (char)System.in.read();
+		System.out.print("Did the drill strike through the asteroid? (Y|N) ");
+		Scanner scanner = new Scanner(System.in);
+		String input = scanner.next();
 
-			if (Character.toUpperCase(input) == 'Y') {
-				input = (char)System.in.read();
+		if (input.equalsIgnoreCase("Y")) {
+			System.out.print("Is the sun near? (Y|N) ");
+			input = scanner.next();
 
-				if (Character.toUpperCase(input) == 'Y') {
-					resource.SeeSun(this);
-				}
+			if (input.equalsIgnoreCase("Y")) {
+				resource.SeeSun(this);
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 
 		System.out.println("return from Asteroid.Drill()");

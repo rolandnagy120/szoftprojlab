@@ -16,9 +16,9 @@ import szoftprojlab.resource.Resource;
 import szoftprojlab.resource.ResourceNames;
 import szoftprojlab.resource.ResourceStorage;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Player extends Entity implements ResourceStorage {
 	private List<TeleportGate> gates = new ArrayList<>();
@@ -35,7 +35,7 @@ public class Player extends Entity implements ResourceStorage {
 
 	public void Step() {
 	}
-	
+
 	public void Mine() {
 		System.out.println("Player.Mine()");
 
@@ -43,7 +43,7 @@ public class Player extends Entity implements ResourceStorage {
 
 		System.out.println("return from Player.Mine()");
 	}
-	
+
 	public void PlaceResource(Resource resource) {
 		System.out.println("Player.PlaceResource()");
 
@@ -52,7 +52,7 @@ public class Player extends Entity implements ResourceStorage {
 
 		System.out.println("return from Player.PlaceResource()");
 	}
-	
+
 	public void PlaceGate() {
 		System.out.println("Player.PlaceGate()");
 
@@ -62,43 +62,36 @@ public class Player extends Entity implements ResourceStorage {
 		}
 		System.out.println("return from Player.PlaceGate()");
 	}
-	
+
 	public void MakeGates() {
 		System.out.println("Player.MakeGates()");
 
-		try {
-			System.out.print("Does the player have enough resources to create the gates? (Y|N) ");
-			char input = (char)System.in.read();
+		System.out.print("Does the player have enough resources to create the gates? (Y|N) ");
+		Scanner scanner = new Scanner(System.in);
+		String input = scanner.next();
 
-			if (Character.toUpperCase(input) == 'Y') {
-				TeleportGate tg1 = new TeleportGate(1);
-				TeleportGate tg2 = new TeleportGate(2);
-				tg1.SetPair(tg2);
-				gates.add(tg1);
-				gates.add(tg2);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (input.equalsIgnoreCase("Y")) {
+			TeleportGate tg1 = new TeleportGate(1);
+			TeleportGate tg2 = new TeleportGate(2);
+			tg1.SetPair(tg2);
+			gates.add(tg1);
+			gates.add(tg2);
 		}
 
 		System.out.println("return from Player.MakeGates()");
 	}
-	
+
 	public void MakeAndPlaceRobot() {
 		System.out.println("Player.MakeAndPlaceRobot()");
 
-		try {
-			System.out.print("Does the player have enough resources to create the robot? (Y|N) ");
-			char input = (char)System.in.read();
+		System.out.print("Does the player have enough resources to create the robot? (Y|N) ");
+		Scanner scanner = new Scanner(System.in);
+		String input = scanner.next();
 
-			if (Character.toUpperCase(input) == 'Y') {
-				Robot r = new Robot();
-				asteroid.Accept(r);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (input.equalsIgnoreCase("Y")) {
+			Robot r = new Robot();
+			asteroid.Accept(r);
 		}
-
 		System.out.println("return from Player.MakeAndPlaceRobot()");
 	}
 

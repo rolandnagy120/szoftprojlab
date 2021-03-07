@@ -10,36 +10,62 @@ import szoftprojlab.resource.Uranium;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Skeleton {
     public void Run() {
-        SkeletonSequence s1 = new SkeletonSequence(3, "SequenceName", Skeleton::PlayerHidesFromSunStorm);
-        s1.Run();
+        System.out.println("Szoftprojlab Skeleton");
+        List<SkeletonSequence> sequences = getSequences();
+
+        boolean endLoop = false;
+
+        while (!endLoop) {
+            System.out.print("\nSelect a skeleton!\n");
+            for (int i = 0; i < sequences.size(); i++) {
+                System.out.println((i + 1) + " - " + sequences.get(i).name);
+            }
+            Scanner scanner = new Scanner(System.in);
+            String input = scanner.next();
+            int sequenceNumber = Integer.parseInt(input);
+            if (sequenceNumber > 0 && sequenceNumber <= sequences.size()) {
+                sequences.get(sequenceNumber - 1).Run();
+                System.out.println();
+                System.out.println("Sequence finished");
+            }
+
+
+            System.out.println();
+            System.out.println("Do you want to exit the program? (Y|N) ");
+            input = scanner.next();
+            if (input.equalsIgnoreCase("Y")) {
+                endLoop = true;
+            }
+        }
     }
 
     private List<SkeletonSequence> getSequences() {
         List<SkeletonSequence> sequences = new ArrayList<>();
 
-        sequences.add(new SkeletonSequence(1, "AsteroidGetsNearSun", Skeleton::AsteroidGetsNearSun));
-        sequences.add(new SkeletonSequence(2, "PlayerCreateGate", Skeleton::PlayerCreateGate));
-        sequences.add(new SkeletonSequence(3, "PlayerCreateRobot", Skeleton::PlayerCreateRobot));
-        sequences.add(new SkeletonSequence(4, "PlayerDrillsAsteroidNoStrikethrough", Skeleton::PlayerDrillsAsteroidNoStrikethrough));
-        sequences.add(new SkeletonSequence(5, "PlayerDrillsAsteroidStrikethroughCoal", Skeleton::PlayerDrillsAsteroidStrikethroughCoal));
-        sequences.add(new SkeletonSequence(6, "PlayerDrillsIce", Skeleton::PlayerDrillsIce));
-        sequences.add(new SkeletonSequence(7, "PlayerDrillsUranAndExplodes", Skeleton::PlayerDrillsUranAndExplodes));
-        sequences.add(new SkeletonSequence(8, "PlayerMovesFromAsteroidToAsteroid", Skeleton::PlayerMovesFromAsteroidToAsteroid));
-        sequences.add(new SkeletonSequence(9, "PlayerPlacesTeleportGate", Skeleton::PlayerPlacesTeleportGate));
-        sequences.add(new SkeletonSequence(10, "PlayerTeleports", Skeleton::PlayerTeleports));
-        sequences.add(new SkeletonSequence(11, "RobotDiesInSunStorm", Skeleton::RobotDiesInSunStorm));
-        sequences.add(new SkeletonSequence(12, "RobotDrillsAsteroidStrikeThroughCoal", Skeleton::RobotDrillsAsteroidStrikeThroughCoal));
-        sequences.add(new SkeletonSequence(13, "RobotDrillsIce", Skeleton::RobotDrillsIce));
-        sequences.add(new SkeletonSequence(14, "RobotDrillsNoStrikeThrough", Skeleton::RobotDrillsNoStrikeThrough));
-        sequences.add(new SkeletonSequence(15, "RobotDrillsUranAndExplodes", Skeleton::RobotDrillsUranAndExplodes));
-        sequences.add(new SkeletonSequence(16, "Init", Skeleton::Init));
-        sequences.add(new SkeletonSequence(17, "OnePlayerAlive", Skeleton::OnePlayerAlive));
-        sequences.add(new SkeletonSequence(18, "CheckGameEnd", Skeleton::CheckGameEnd));
-        sequences.add(new SkeletonSequence(19, "PlaceResource", Skeleton::PlaceResource));
-        sequences.add(new SkeletonSequence(19, "PlayerHidesFromSunStorm", Skeleton::PlayerHidesFromSunStorm));
+        sequences.add(new SkeletonSequence("AsteroidGetsNearSun", Skeleton::AsteroidGetsNearSun));
+        sequences.add(new SkeletonSequence("PlayerCreateGate", Skeleton::PlayerCreateGate));
+        sequences.add(new SkeletonSequence("PlayerCreateRobot", Skeleton::PlayerCreateRobot));
+        sequences.add(new SkeletonSequence("PlayerDrillsAsteroidNoStrikethrough", Skeleton::PlayerDrillsAsteroidNoStrikethrough));
+        sequences.add(new SkeletonSequence("PlayerDrillsAsteroidStrikethroughCoal", Skeleton::PlayerDrillsAsteroidStrikethroughCoal));
+        sequences.add(new SkeletonSequence("PlayerDrillsIce", Skeleton::PlayerDrillsIce));
+        sequences.add(new SkeletonSequence("PlayerDrillsUranAndExplodes", Skeleton::PlayerDrillsUranAndExplodes));
+        sequences.add(new SkeletonSequence("PlayerMovesFromAsteroidToAsteroid", Skeleton::PlayerMovesFromAsteroidToAsteroid));
+        sequences.add(new SkeletonSequence("PlayerPlacesTeleportGate", Skeleton::PlayerPlacesTeleportGate));
+        sequences.add(new SkeletonSequence("PlayerTeleports", Skeleton::PlayerTeleports));
+        sequences.add(new SkeletonSequence("RobotDiesInSunStorm", Skeleton::RobotDiesInSunStorm));
+        sequences.add(new SkeletonSequence("RobotDrillsAsteroidStrikeThroughCoal", Skeleton::RobotDrillsAsteroidStrikeThroughCoal));
+        sequences.add(new SkeletonSequence("RobotDrillsIce", Skeleton::RobotDrillsIce));
+        sequences.add(new SkeletonSequence("RobotDrillsNoStrikeThrough", Skeleton::RobotDrillsNoStrikeThrough));
+        sequences.add(new SkeletonSequence("RobotDrillsUranAndExplodes", Skeleton::RobotDrillsUranAndExplodes));
+        sequences.add(new SkeletonSequence("Init", Skeleton::Init));
+        sequences.add(new SkeletonSequence("OnePlayerAlive", Skeleton::OnePlayerAlive));
+        sequences.add(new SkeletonSequence("CheckGameEnd", Skeleton::CheckGameEnd));
+        sequences.add(new SkeletonSequence("PlaceResource", Skeleton::PlaceResource));
+        sequences.add(new SkeletonSequence("PlayerHidesFromSunStorm", Skeleton::PlayerHidesFromSunStorm));
 
         return sequences;
     }
