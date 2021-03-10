@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="2ecd861d-1b60-47ab-8e06-fd528a76f353" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/szoftprojlab/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/szoftprojlab/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/szoftprojlab/entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/szoftprojlab/entity/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/szoftprojlab/entity/Robot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/szoftprojlab/entity/Robot.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +25,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JUnit5 Test Class" />
+        <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -61,11 +66,17 @@
     <property name="create.test.in.the.same.root" value="true" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.37367302" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
@@ -76,7 +87,7 @@
       <recent name="tests" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.Test All">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="szoftprojlab.Main" />
       <module name="szoftprojlab" />
@@ -86,19 +97,6 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -152,6 +150,16 @@
       <workItem from="1614724510460" duration="465000" />
       <workItem from="1614753198116" duration="1083000" />
       <workItem from="1614754573752" duration="4231000" />
+      <workItem from="1614956175545" duration="787000" />
+      <workItem from="1614965335502" duration="11489000" />
+      <workItem from="1615010949471" duration="1643000" />
+      <workItem from="1615012637158" duration="6930000" />
+      <workItem from="1615022442677" duration="4155000" />
+      <workItem from="1615033119199" duration="2508000" />
+      <workItem from="1615119771359" duration="1964000" />
+      <workItem from="1615207748096" duration="17000" />
+      <workItem from="1615371945107" duration="1110000" />
+      <workItem from="1615378485815" duration="1160000" />
     </task>
     <task id="LOCAL-00001" summary="idea settings">
       <created>1614724680363</created>
@@ -181,7 +189,168 @@
       <option name="project" value="LOCAL" />
       <updated>1614758742989</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Skeleton: AsteroidGetsNearSun">
+      <created>1614968744839</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1614968744839</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Missing use case diagram">
+      <created>1614969394666</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1614969394666</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Skeleton: PlayerCreateGate, PlayerCreateRobot&#10;Sequence and class diagram fixes">
+      <created>1614972345619</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1614972345619</updated>
+    </task>
+    <task id="LOCAL-00008" summary="PlayerDrillsAsteroidNoStrikethrough Skeleton and uml fixes">
+      <created>1614973072589</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1614973072589</updated>
+    </task>
+    <task id="LOCAL-00009" summary="PlayerDrillsAsteroidStrikethroughCoal Skeleton and uml fixes">
+      <created>1614975084736</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1614975084736</updated>
+    </task>
+    <task id="LOCAL-00010" summary="PlayerDrillsIce Skeleton and uml fixes">
+      <created>1614975609655</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1614975609655</updated>
+    </task>
+    <task id="LOCAL-00011" summary="PlayerDrillsUranAndExplodes Skeleton and uml fixes">
+      <created>1614976224887</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1614976224887</updated>
+    </task>
+    <task id="LOCAL-00012" summary="PlayerMovesFromAsteroidToAsteroid Skeleton and uml fixes">
+      <created>1615011923562</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1615011923562</updated>
+    </task>
+    <task id="LOCAL-00013" summary="PlayerPlacesTeleportGate Skeleton and uml fixes">
+      <created>1615012554174</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1615012554174</updated>
+    </task>
+    <task id="LOCAL-00014" summary="PlayerTeleports Skeleton and uml fixes">
+      <created>1615013780409</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1615013780409</updated>
+    </task>
+    <task id="LOCAL-00015" summary="RobotDiesInSunStorm Skeleton and uml fixes">
+      <created>1615017049534</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1615017049534</updated>
+    </task>
+    <task id="LOCAL-00016" summary="RobotDrillsAsteroidStrikeThroughCoal Skeleton and uml fixes">
+      <created>1615017409235</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1615017409235</updated>
+    </task>
+    <task id="LOCAL-00017" summary="RobotDrillsIce Skeleton and uml fixes">
+      <created>1615017760685</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1615017760685</updated>
+    </task>
+    <task id="LOCAL-00018" summary="RobotDrillsNoStrikeThrough Skeleton and uml fixes">
+      <created>1615018090727</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1615018090727</updated>
+    </task>
+    <task id="LOCAL-00019" summary="RobotDrillsUranAndExplodes Skeleton and uml fixes">
+      <created>1615019592098</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1615019592098</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Init Skeleton and uml fixes">
+      <created>1615023751586</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1615023751586</updated>
+    </task>
+    <task id="LOCAL-00021" summary="AllPlayerDie Skeleton and uml fixes">
+      <created>1615024807855</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1615024807855</updated>
+    </task>
+    <task id="LOCAL-00022" summary="removed unnecessary sequence">
+      <created>1615025217131</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1615025217131</updated>
+    </task>
+    <task id="LOCAL-00023" summary="CheckGameEnd Skeleton and uml fixes">
+      <created>1615026644320</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1615026644320</updated>
+    </task>
+    <task id="LOCAL-00024" summary="PlaceResource Skeleton and uml fixes">
+      <created>1615033751103</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1615033751103</updated>
+    </task>
+    <task id="LOCAL-00025" summary="PlayerHidesFromSunStorm Skeleton and uml fixes">
+      <created>1615034386259</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1615034386259</updated>
+    </task>
+    <task id="LOCAL-00026" summary="NearSunStateMachine">
+      <created>1615035802370</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1615035802370</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Skeleton program">
+      <created>1615121673570</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1615121673570</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,10 +369,31 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="idea settings" />
-    <MESSAGE value="TeleportGateTest" />
     <MESSAGE value="SunTest" />
     <MESSAGE value="PlayerTest, RobotTest" />
-    <option name="LAST_COMMIT_MESSAGE" value="PlayerTest, RobotTest" />
+    <MESSAGE value="Skeleton: AsteroidGetsNearSun" />
+    <MESSAGE value="Missing use case diagram" />
+    <MESSAGE value="Skeleton: PlayerCreateGate, PlayerCreateRobot&#10;Sequence and class diagram fixes" />
+    <MESSAGE value="PlayerDrillsAsteroidNoStrikethrough Skeleton and uml fixes" />
+    <MESSAGE value="PlayerDrillsAsteroidStrikethroughCoal Skeleton and uml fixes" />
+    <MESSAGE value="PlayerDrillsIce Skeleton and uml fixes" />
+    <MESSAGE value="PlayerDrillsUranAndExplodes Skeleton and uml fixes" />
+    <MESSAGE value="PlayerMovesFromAsteroidToAsteroid Skeleton and uml fixes" />
+    <MESSAGE value="PlayerPlacesTeleportGate Skeleton and uml fixes" />
+    <MESSAGE value="PlayerTeleports Skeleton and uml fixes" />
+    <MESSAGE value="RobotDiesInSunStorm Skeleton and uml fixes" />
+    <MESSAGE value="RobotDrillsAsteroidStrikeThroughCoal Skeleton and uml fixes" />
+    <MESSAGE value="RobotDrillsIce Skeleton and uml fixes" />
+    <MESSAGE value="RobotDrillsNoStrikeThrough Skeleton and uml fixes" />
+    <MESSAGE value="RobotDrillsUranAndExplodes Skeleton and uml fixes" />
+    <MESSAGE value="Init Skeleton and uml fixes" />
+    <MESSAGE value="AllPlayerDie Skeleton and uml fixes" />
+    <MESSAGE value="removed unnecessary sequence" />
+    <MESSAGE value="CheckGameEnd Skeleton and uml fixes" />
+    <MESSAGE value="PlaceResource Skeleton and uml fixes" />
+    <MESSAGE value="PlayerHidesFromSunStorm Skeleton and uml fixes" />
+    <MESSAGE value="NearSunStateMachine" />
+    <MESSAGE value="Skeleton program" />
+    <option name="LAST_COMMIT_MESSAGE" value="Skeleton program" />
   </component>
 </project>
