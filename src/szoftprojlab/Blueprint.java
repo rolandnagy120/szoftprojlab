@@ -16,10 +16,12 @@ public class Blueprint {
     }
 
     public List<Resource> IsCraftable(List<Resource> rs) {
+        System.out.println("Blueprint.IsCraftable()");
         System.out.print("Is there enough resource to craft? (Y|N) ");
         Scanner scanner = new Scanner(System.in);
         String input = scanner.next();
 
+        System.out.println("return from Blueprint.IsCraftable()");
         if (input.equalsIgnoreCase("Y")) {
             return resources;
         }

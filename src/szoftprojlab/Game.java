@@ -11,7 +11,7 @@ package szoftprojlab;
 
 
 import szoftprojlab.entity.Player;
-import szoftprojlab.resource.Resource;
+import szoftprojlab.resource.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -21,6 +21,12 @@ public class Game {
 
     private Sun sun;
     private List<Player> players;
+    private static Blueprint baseBluebrint = new Blueprint(
+            new Iron(), new Iron(), new Iron(),
+            new Coal(), new Coal(), new Coal(),
+            new Uranium(), new Uranium(), new Uranium(),
+            new Ice(), new Ice(), new Ice()
+    );
 
     public void StartGame() {
         System.out.println("Game.StartGame()");
@@ -34,14 +40,6 @@ public class Game {
 
         System.out.println("return from Game.StartGame()");
     }
-
-//    public void AddResource(ResourceNames name, Resource resource) {
-//    }
-//
-//    public void ClearResources() {
-//        System.out.println("Game.ClearResources()");
-//        System.out.println("return from Game.ClearResources()");
-//    }
 
     public void PlayerDie(Player player) {
         System.out.println("Game.PlayerDie()");
@@ -58,8 +56,10 @@ public class Game {
     }
 
     public void AddPlayer(Player player) {
+        System.out.println("Game.AddPlayer()");
         if (!players.contains(player))
             players.add(player);
+        System.out.println("return from Game.AddPlayer()");
     }
 
     public void EndGame() {
@@ -67,13 +67,9 @@ public class Game {
         System.out.println("return from Game.EndGame()");
     }
 
-//    public void AddToOwner(Resource resource) {
-//        System.out.println("Game.AddToOwner()");
-//        System.out.println("return from Game.AddToOwner()");
-//    }
-
-    public void CheckForVictory() {
+    public void CheckForVictory(List<Resource> resources) {
         System.out.println("Game.CheckForVictory()");
+        baseBluebrint.IsCraftable(resources);
         System.out.println("return from Game.CheckForVictory()");
     }
 

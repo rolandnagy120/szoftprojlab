@@ -110,7 +110,7 @@ public class Asteroid implements Steppable {
 		String input = scanner.next();
 
 		if (input.equalsIgnoreCase("Y")) {
-			Game.getInstance().CheckForVictory();
+			Game.getInstance().CheckForVictory(new ArrayList<>());
 		}
 
 		System.out.println("return from Asteroid.Accept()");
@@ -149,21 +149,12 @@ public class Asteroid implements Steppable {
 	}
 	
 	public void AddResource(Resource resource) {
+		System.out.println("Asteroid.AddResource()");
 		if (this.resource == null)
 			this.resource = resource;
+		System.out.println("return from Asteroid.AddResource()");
 	}
 
-/*	public void AddEntitysResourcesToComparator() {
-		System.out.println("Asteroid.AddEntitysResourcesToComparator()");
-
-		Game game = Game.getInstance();
-		entities.forEach(Entity::AddResourcesToComparator);
-		game.CheckForVictory();
-		game.ClearResources();
-
-		System.out.println("return from Asteroid.AddEntitysResourcesToComparator()");
-	}
-*/
 	public void DestroyResource() {
 		System.out.println("Asteroid.DestroyResource()");
 		System.out.println("return from Asteroid.DestroyResource()");

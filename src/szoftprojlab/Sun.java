@@ -61,12 +61,18 @@ public class Sun implements Steppable {
 	}
 	
 	private void ChangeNearSun() {
+		System.out.println("Sun.ChangeNearSun()");
 		asteroids.forEach(Asteroid::ChangeNearSun);
+		System.out.println("return from Sun.ChangeNearSun()");
 	}
 
 	public void AddAsteroid(Asteroid asteroid) {
+		System.out.println("Sun.AddAsteroid()");
+
 		if (!asteroids.contains(asteroid))
 			asteroids.add(asteroid);
+
+		System.out.println("return from Sun.AddAsteroid()");
 	}
 
 	public static Sun getInstance() {

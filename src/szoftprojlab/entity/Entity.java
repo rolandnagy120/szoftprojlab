@@ -60,7 +60,4 @@ public abstract class Entity implements Steppable {
 		pairAsteroid.Accept(this);
 		System.out.println("return from Entity.Teleport()");
 	}
-	
-//	public void AddResourcesToComparator() {
-//	}
 }
