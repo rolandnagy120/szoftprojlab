@@ -5,7 +5,6 @@ import szoftprojlab.Asteroid;
 import szoftprojlab.Sun;
 import szoftprojlab.entity.Player;
 import szoftprojlab.entity.Robot;
-import szoftprojlab.resource.ResourceNames;
 import szoftprojlab.resource.Uranium;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,7 +18,7 @@ class SunTest {
 
         Asteroid a = new Asteroid(0, 2);
         Uranium u = new Uranium();
-        a.AddResource(ResourceNames.Uranium, u);
+        a.AddResource(u);
         Player p = new Player();
         Robot r = new Robot();
         a.Accept(p);

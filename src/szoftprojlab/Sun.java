@@ -20,12 +20,14 @@ public class Sun implements Steppable {
 
 	private int counter;
 	private int cycle;
-	private int sunStormProbability;
+	private double sunStormProbability;
+	private int nextSunStormIn;
 	private List<Asteroid> asteroids = new ArrayList<>();
 
-	public void Init(int nearSunCycle, int _sunStormProbability) {
+	public void Init(int nearSunCycle, double _sunStormProbability) {
 		cycle = nearSunCycle;
 		sunStormProbability = _sunStormProbability;
+		nextSunStormIn = (int) (1 / sunStormProbability);
 	}
 
 	public void Step() {

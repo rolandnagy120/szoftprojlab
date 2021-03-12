@@ -11,8 +11,13 @@ package szoftprojlab.entity;
 
 
 import szoftprojlab.Asteroid;
+import szoftprojlab.Blueprint;
+import szoftprojlab.resource.*;
+
+import java.util.List;
 
 public class Robot extends Entity {
+	private static Blueprint robotBlueprint = new Blueprint(new Iron(), new Coal(), new Uranium());
 
 	public Robot() {
 		System.out.println("Robot - create");
@@ -33,5 +38,12 @@ public class Robot extends Entity {
 	}
 	
 	public void Robot(Asteroid asteroid) {
+	}
+
+	public List<Resource> CanCraft(List<Resource> rs) {
+		System.out.println("Robot.CanCraft()");
+		List<Resource> list = robotBlueprint.IsCraftable(rs);
+		System.out.println("return from Robot.CanCraft()");
+		return list;
 	}
 }
