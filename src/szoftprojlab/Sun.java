@@ -59,8 +59,6 @@ public class Sun implements Steppable {
 	private void SunStorm() {
 		System.out.println("Sun.SunStorm()");
 
-		System.out.println(asteroids.size());
-
 		asteroids.forEach(Asteroid::SunStorm);
 
 		System.out.println("return from Sun.SunStorm()");
