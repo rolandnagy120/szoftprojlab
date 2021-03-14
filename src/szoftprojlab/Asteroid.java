@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Asteroid implements Steppable {
+public class Asteroid {
 	private int idx;
 	private int layers;
 	private boolean isEmpty = true;

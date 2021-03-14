@@ -74,6 +74,7 @@ public class Skeleton {
         System.out.println("Initializing");
 
         Sun sun = new Sun();
+        sun.ClearAsteroids();
         Asteroid asteroid = new Asteroid(0, 1);
         Ice ice = new Ice();
         sun.AddAsteroid(asteroid);
@@ -234,13 +235,14 @@ public class Skeleton {
 
         Timer timer = Timer.getInstance();
         Sun sun = Sun.getInstance();
+        sun.ClearAsteroids();
+        timer.ClearSteppables();
         sun.Init(10, 1);
         Asteroid asteroid = new Asteroid(0, 1);
         Robot robot = new Robot();
         sun.AddAsteroid(asteroid);
         asteroid.Accept(robot);
         timer.AddSteppable(sun);
-        timer.AddSteppable(asteroid);
         timer.AddSteppable(robot);
 
         System.out.println("Init finished");
@@ -378,13 +380,14 @@ public class Skeleton {
 
         Timer timer = Timer.getInstance();
         Sun sun = Sun.getInstance();
+        timer.ClearSteppables();
+        sun.ClearAsteroids();
         sun.Init(10, 1);
         Asteroid asteroid = new Asteroid(0, 0);
         Player player = new Player();
         sun.AddAsteroid(asteroid);
         asteroid.Accept(player);
         timer.AddSteppable(sun);
-        timer.AddSteppable(asteroid);
         timer.AddSteppable(player);
 
         System.out.println("Init finished");
