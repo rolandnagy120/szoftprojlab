@@ -31,11 +31,6 @@ class PlayerTest {
         p.MakeGates();
         assertEquals(p.GetTeleportGates().size(), 0);
 
-        // Adding same resource twice
-        p.AddResource(iron1);
-        p.MakeGates();
-        assertEquals(p.GetTeleportGates().size(), 0);
-
         p.AddResource(ice);
         p.MakeGates();
         assertEquals(p.GetTeleportGates().size(), 0);

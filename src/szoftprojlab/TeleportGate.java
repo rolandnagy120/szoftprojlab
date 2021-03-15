@@ -24,43 +24,28 @@ public class TeleportGate {
 
 	public TeleportGate(int ID) {
 		idx = ID;
-
-		System.out.println("TeleportGate - create");
-		System.out.println("return from TeleportGate - create");
 	}
 
 	public Asteroid GetPairAsteroid() {
-		System.out.println("TeleportGate.GetPairAsteroid()");
-		System.out.println("return from TeleportGate.GetPairAsteroid()");
 		return pair.asteroid;
 	}
 	
 	public void Place(Asteroid asteroid) {
-		System.out.println("TeleportGate.Place()");
-
 		this.asteroid = asteroid;
-
-		System.out.println("return from TeleportGate.Place()");
 	}
 	
 	public void SetPair(TeleportGate gate) {
-		System.out.println("TeleportGate.SetPair()");
-
 		pair = gate;
 		if (!gate.HasPair())
 			gate.SetPair(this);
-
-		System.out.println("return from TeleportGate.SetPair()");
 	}
 
 	public Boolean HasPair() {
 		return pair != null;
 	}
 
-	public List<Resource> CanCraft(List<Resource> rs) {
-		System.out.println("TeleportGate.CanCraft()");
+	public static List<Resource> CanCraft(List<Resource> rs) {
 		List<Resource> list = teleportgateBlueprint.IsCraftable(rs);
-		System.out.println("return from TeleportGate.CanCraft()");
 		return list;
 	}
 

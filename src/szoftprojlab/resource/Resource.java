@@ -14,8 +14,6 @@ import szoftprojlab.Asteroid;
 
 public abstract class Resource {
     public void SeeSun(Asteroid asteroid) {
-        System.out.println("Resource.SeeSun()");
-        System.out.println("return from Resource.SeeSun()");
     }
 
     @Override

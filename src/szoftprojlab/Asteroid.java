@@ -155,4 +155,8 @@ public class Asteroid {
 
 		return neighbors.get(randomIndex);
 	}
+
+	public int GetId() {
+		return idx;
+	}
 }

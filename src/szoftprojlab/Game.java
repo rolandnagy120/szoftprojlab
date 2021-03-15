@@ -29,16 +29,11 @@ public class Game {
     );
 
     public void StartGame() {
-        System.out.println("Game.StartGame()");
-
         sun = Sun.getInstance();
         Asteroid a1 = new Asteroid(0, 1);
         Asteroid a2 = new Asteroid(1, 1);
         a1.AddNeighbor(a2);
         Player player = new Player();
-
-
-        System.out.println("return from Game.StartGame()");
     }
 
     public void PlayerDie(Player player) {
@@ -50,21 +45,16 @@ public class Game {
     }
 
     public void AddPlayer(Player player) {
-        System.out.println("Game.AddPlayer()");
         if (!players.contains(player))
             players.add(player);
-        System.out.println("return from Game.AddPlayer()");
     }
 
     public void EndGame() {
-        System.out.println("Game.EndGame()");
-        System.out.println("return from Game.EndGame()");
     }
 
     public void CheckForVictory(List<Resource> resources) {
-        System.out.println("Game.CheckForVictory()");
+        // playerben már kész a craft check
 //        baseBluebrint.IsCraftable(resources);
-        System.out.println("return from Game.CheckForVictory()");
     }
 
     public static Game getInstance() {

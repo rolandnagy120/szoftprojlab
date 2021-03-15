@@ -34,33 +34,27 @@ public abstract class Entity implements Steppable {
 	}
 	
 	public void Explode() {
-		System.out.println("Entity.Explode()");
-		System.out.println("return from Entity.Explode()");
 	}
 	
 	public void MoveTo(Asteroid newAsteroid) {
-		System.out.println("Entity.MoveTo()");
+		if (asteroid.GetNeighbor(newAsteroid.GetId()) == null) {
+			return;
+		}
 
 		if (this.asteroid != null)
 			this.asteroid.Remove(this);
 		newAsteroid.Accept(this);
 		asteroid = newAsteroid;
-
-		System.out.println("return from Entity.MoveTo()");
 	}
 	
 	public void Drill() {
-		System.out.println("Entity.Drill()");
 		asteroid.Drill();
-		System.out.println("return from Entity.Drill()");
 	}
 	
 	public void Teleport(TeleportGate gate) {
-		System.out.println("Entity.Teleport()");
 		Asteroid pairAsteroid = gate.GetPairAsteroid();
 		asteroid.Remove(this);
 		pairAsteroid.Accept(this);
-		System.out.println("return from Entity.Teleport()");
 	}
 
 	public List<Resource> GetInventory() {

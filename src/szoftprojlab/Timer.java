@@ -20,9 +20,7 @@ public class Timer {
 	private final List<Steppable> steppables = new ArrayList<>();
 
 	public void Tick() {
-		System.out.println("Timer.Tick()");
 		steppables.forEach(Steppable::Step);
-		System.out.println("return from Timer.Tick()");
 	}
 
 	public void ClearSteppables() {
@@ -30,10 +28,8 @@ public class Timer {
 	}
 
 	public void AddSteppable(Steppable s) {
-		System.out.println("Timer.AddSteppable()");
 		if (!steppables.contains(s))
 			steppables.add(s);
-		System.out.println("return from Timer.AddSteppable()");
 	}
 
 	public static Timer getInstance() {

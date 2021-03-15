@@ -35,10 +35,8 @@ public class Robot extends Entity {
 	public void Robot(Asteroid asteroid) {
 	}
 
-	public List<Resource> CanCraft(List<Resource> rs) {
-		System.out.println("Robot.CanCraft()");
+	public static List<Resource> CanCraft(List<Resource> rs) {
 		List<Resource> list = robotBlueprint.IsCraftable(rs);
-		System.out.println("return from Robot.CanCraft()");
 		return list;
 	}
 }

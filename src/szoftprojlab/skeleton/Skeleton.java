@@ -13,7 +13,6 @@ import java.util.Scanner;
 
 public class Skeleton {
     public void Run() {
-        System.out.println("Szoftprojlab Skeleton");
         List<SkeletonSequence> sequences = getSequences();
 
         boolean endLoop = false;

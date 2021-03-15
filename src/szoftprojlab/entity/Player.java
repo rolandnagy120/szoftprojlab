@@ -17,7 +17,6 @@ import szoftprojlab.resource.Resource;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Player extends Entity {
 	private List<TeleportGate> gates = new ArrayList<>();
@@ -35,62 +34,41 @@ public class Player extends Entity {
 	}
 
 	public void Mine() {
-		System.out.println("Player.Mine()");
-
 		asteroid.Mine(this);
-
-		System.out.println("return from Player.Mine()");
 	}
 
 	public void PlaceResource(Resource resource) {
-		System.out.println("Player.PlaceResource()");
-
 		if (inventory.contains(resource))
 			asteroid.Place(resource);
-
-		System.out.println("return from Player.PlaceResource()");
 	}
 
 	public void PlaceGate() {
-		System.out.println("Player.PlaceGate()");
-
 		if (asteroid != null && gates.size() > 0) {
 			asteroid.PlaceTeleportGate(gates.get(0));
 			gates.remove(0);
 		}
-		System.out.println("return from Player.PlaceGate()");
 	}
 
 	public void MakeGates() {
-		System.out.println("Player.MakeGates()");
+		List<Resource> inventoryAfterCrafting = TeleportGate.CanCraft(this.inventory);
 
-		System.out.print("Does the player have enough resources to create the gates? (Y|N) ");
-		Scanner scanner = new Scanner(System.in);
-		String input = scanner.next();
-
-		if (input.equalsIgnoreCase("Y")) {
+		if (inventoryAfterCrafting != null || inventory.size() == 4) {
 			TeleportGate tg1 = new TeleportGate(1);
 			TeleportGate tg2 = new TeleportGate(2);
 			tg1.SetPair(tg2);
 			gates.add(tg1);
 			gates.add(tg2);
 		}
-
-		System.out.println("return from Player.MakeGates()");
 	}
 
 	public void MakeAndPlaceRobot() {
-		System.out.println("Player.MakeAndPlaceRobot()");
+		List<Resource> inventoryAfterCrafting = Robot.CanCraft(this.inventory);
 
-		System.out.print("Does the player have enough resources to create the robot? (Y|N) ");
-		Scanner scanner = new Scanner(System.in);
-		String input = scanner.next();
-
-		if (input.equalsIgnoreCase("Y")) {
+		if (inventoryAfterCrafting != null) {
 			Robot r = new Robot();
 			asteroid.Accept(r);
+			inventory = inventoryAfterCrafting;
 		}
-		System.out.println("return from Player.MakeAndPlaceRobot()");
 	}
 
 	public List<TeleportGate> GetTeleportGates() {
@@ -98,9 +76,7 @@ public class Player extends Entity {
 	}
 
 	public void AddResource(Resource resource) {
-		System.out.println("Player.AddResource()");
 		inventory.add(resource);
-		System.out.println("return from Player.AddResource()");
 	}
 
 	@Override

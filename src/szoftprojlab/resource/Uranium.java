@@ -17,9 +17,7 @@ import szoftprojlab.Asteroid;
 public class Uranium extends Resource {
 	@Override
 	public void SeeSun(Asteroid asteroid) {
-		System.out.println("Uranium.SeeSun()");
 		asteroid.Explode();
-		System.out.println("return from Uranium.SeeSun()");
 	}
 
 	@Override
