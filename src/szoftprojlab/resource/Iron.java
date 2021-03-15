@@ -12,7 +12,15 @@ package szoftprojlab.resource;
 
 public class Iron extends Resource {
     @Override
-    public void AddToOwner(ResourceStorage rs) {
-        rs.AddResource(ResourceNames.Iron, this);
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (o instanceof Iron) {
+            return true;
+        }
+
+        return false;
     }
 }

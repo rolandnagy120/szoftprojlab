@@ -10,35 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class PlayerTest {
 
     @Test
-    void createRobot() {
-        Asteroid a = new Asteroid(0, 1);
-        Player p = new Player();
-        a.Accept(p);
-
-        assertNotNull(a.GetEntities());
-        assertEquals(a.GetEntities().size(), 1);
-
-        p.MakeAndPlaceRobot();
-        assertEquals(a.GetEntities().size(), 1);
-
-        Iron iron = new Iron();
-        Coal coal = new Coal();
-        Uranium uranium = new Uranium();
-
-        p.AddResource(ResourceNames.Iron, iron);
-        p.MakeAndPlaceRobot();
-        assertEquals(a.GetEntities().size(), 1);
-
-        p.AddResource(ResourceNames.Coal, coal);
-        p.MakeAndPlaceRobot();
-        assertEquals(a.GetEntities().size(), 1);
-
-        p.AddResource(ResourceNames.Uranium, uranium);
-        p.MakeAndPlaceRobot();
-        assertEquals(a.GetEntities().size(), 2);
-    }
-
-    @Test
     void makeGates() {
         Player p = new Player();
         Asteroid a = new Asteroid(0, 1);
@@ -56,24 +27,24 @@ class PlayerTest {
         Ice ice = new Ice();
         Uranium uranium = new Uranium();
 
-        p.AddResource(ResourceNames.Iron, iron1);
+        p.AddResource(iron1);
         p.MakeGates();
         assertEquals(p.GetTeleportGates().size(), 0);
 
         // Adding same resource twice
-        p.AddResource(ResourceNames.Iron, iron1);
+        p.AddResource(iron1);
         p.MakeGates();
         assertEquals(p.GetTeleportGates().size(), 0);
 
-        p.AddResource(ResourceNames.Ice, ice);
+        p.AddResource(ice);
         p.MakeGates();
         assertEquals(p.GetTeleportGates().size(), 0);
 
-        p.AddResource(ResourceNames.Uranium, uranium);
+        p.AddResource(uranium);
         p.MakeGates();
         assertEquals(p.GetTeleportGates().size(), 0);
 
-        p.AddResource(ResourceNames.Iron, iron2);
+        p.AddResource(iron2);
         p.MakeGates();
         assertEquals(p.GetTeleportGates().size(), 2);
     }
@@ -119,6 +90,31 @@ class PlayerTest {
     }
 
     @Test
-    void addResourcesToComparator() {
+    void createRobot() {
+        Asteroid a = new Asteroid(0, 1);
+        Player p = new Player();
+        a.Accept(p);
+
+        assertNotNull(a.GetEntities());
+        assertEquals(a.GetEntities().size(), 1);
+
+        p.MakeAndPlaceRobot();
+        assertEquals(a.GetEntities().size(), 1);
+
+        Iron iron = new Iron();
+        Coal coal = new Coal();
+        Uranium uranium = new Uranium();
+
+        p.AddResource(iron);
+        p.MakeAndPlaceRobot();
+        assertEquals(a.GetEntities().size(), 1);
+
+        p.AddResource(coal);
+        p.MakeAndPlaceRobot();
+        assertEquals(a.GetEntities().size(), 1);
+
+        p.AddResource(uranium);
+        p.MakeAndPlaceRobot();
+        assertEquals(a.GetEntities().size(), 2);
     }
 }

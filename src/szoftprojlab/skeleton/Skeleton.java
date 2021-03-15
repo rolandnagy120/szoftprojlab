@@ -5,7 +5,6 @@ import szoftprojlab.entity.Player;
 import szoftprojlab.entity.Robot;
 import szoftprojlab.resource.Coal;
 import szoftprojlab.resource.Ice;
-import szoftprojlab.resource.ResourceNames;
 import szoftprojlab.resource.Uranium;
 
 import java.util.ArrayList;
@@ -75,10 +74,11 @@ public class Skeleton {
         System.out.println("Initializing");
 
         Sun sun = new Sun();
+        sun.ClearAsteroids();
         Asteroid asteroid = new Asteroid(0, 1);
         Ice ice = new Ice();
         sun.AddAsteroid(asteroid);
-        asteroid.AddResource(ResourceNames.Ice, ice);
+        asteroid.AddResource(ice);
 
         System.out.println("Init finished");
         System.out.println();
@@ -134,7 +134,7 @@ public class Skeleton {
         Player player = new Player();
         Coal c = new Coal();
         a.Accept(player);
-        a.AddResource(ResourceNames.Coal, c);
+        a.AddResource( c);
 
         System.out.println("Init finished");
         System.out.println();
@@ -151,7 +151,7 @@ public class Skeleton {
         Player player = new Player();
         Ice ice = new Ice();
         a.Accept(player);
-        a.AddResource(ResourceNames.Ice, ice);
+        a.AddResource( ice);
 
         System.out.println("Init finished");
         System.out.println();
@@ -167,7 +167,7 @@ public class Skeleton {
         Player player = new Player();
         Uranium uranium = new Uranium();
         a.Accept(player);
-        a.AddResource(ResourceNames.Uranium, uranium);
+        a.AddResource(uranium);
 
         System.out.println("Init finished");
         System.out.println();
@@ -235,13 +235,14 @@ public class Skeleton {
 
         Timer timer = Timer.getInstance();
         Sun sun = Sun.getInstance();
+        sun.ClearAsteroids();
+        timer.ClearSteppables();
         sun.Init(10, 1);
         Asteroid asteroid = new Asteroid(0, 1);
         Robot robot = new Robot();
         sun.AddAsteroid(asteroid);
         asteroid.Accept(robot);
         timer.AddSteppable(sun);
-        timer.AddSteppable(asteroid);
         timer.AddSteppable(robot);
 
         System.out.println("Init finished");
@@ -258,7 +259,7 @@ public class Skeleton {
         Robot robot = new Robot();
         Coal coal = new Coal();
         asteroid.Accept(robot);
-        asteroid.AddResource(ResourceNames.Coal, coal);
+        asteroid.AddResource(coal);
 
         System.out.println("Init finished");
         System.out.println();
@@ -274,7 +275,7 @@ public class Skeleton {
         Robot robot = new Robot();
         Ice ice = new Ice();
         asteroid.Accept(robot);
-        asteroid.AddResource(ResourceNames.Ice, ice);
+        asteroid.AddResource(ice);
 
         System.out.println("Init finished");
         System.out.println();
@@ -306,7 +307,7 @@ public class Skeleton {
         Uranium uranium = new Uranium();
         asteroid1.AddNeighbor(asteroid2);
         asteroid1.Accept(robot);
-        asteroid1.AddResource(ResourceNames.Uranium, uranium);
+        asteroid1.AddResource(uranium);
 
         System.out.println("Init finished");
         System.out.println();
@@ -349,7 +350,7 @@ public class Skeleton {
         Asteroid asteroid = new Asteroid(0, 0);
         Player player = new Player();
         Ice ice = new Ice();
-        player.AddResource(ResourceNames.Ice, ice);
+        player.AddResource(ice);
 
         System.out.println("Init finished");
         System.out.println();
@@ -364,7 +365,7 @@ public class Skeleton {
         Asteroid asteroid = new Asteroid(0, 0);
         Player player = new Player();
         Ice ice = new Ice();
-        player.AddResource(ResourceNames.Ice, ice);
+        player.AddResource(ice);
         asteroid.Accept(player);
 
         System.out.println("Init finished");
@@ -379,13 +380,14 @@ public class Skeleton {
 
         Timer timer = Timer.getInstance();
         Sun sun = Sun.getInstance();
+        timer.ClearSteppables();
+        sun.ClearAsteroids();
         sun.Init(10, 1);
         Asteroid asteroid = new Asteroid(0, 0);
         Player player = new Player();
         sun.AddAsteroid(asteroid);
         asteroid.Accept(player);
         timer.AddSteppable(sun);
-        timer.AddSteppable(asteroid);
         timer.AddSteppable(player);
 
         System.out.println("Init finished");

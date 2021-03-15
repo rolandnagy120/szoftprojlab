@@ -12,15 +12,14 @@ package szoftprojlab;
 
 
 import szoftprojlab.entity.Entity;
+import szoftprojlab.entity.Player;
 import szoftprojlab.resource.Resource;
-import szoftprojlab.resource.ResourceNames;
-import szoftprojlab.resource.ResourceStorage;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Asteroid implements Steppable, ResourceStorage {
+public class Asteroid {
 	private int idx;
 	private int layers;
 	private boolean isEmpty = true;
@@ -76,7 +75,7 @@ public class Asteroid implements Steppable, ResourceStorage {
 	
 	public void Explode() {
 		System.out.println("Asteroid.Explode()");
-		List<Entity> entitiesCopy = List.copyOf(entities);
+		List<Entity> entitiesCopy = new ArrayList<Entity>(entities);
 		entitiesCopy.forEach(Entity::Explode);
 		System.out.println("return from Asteroid.Explode()");
 	}
@@ -111,7 +110,7 @@ public class Asteroid implements Steppable, ResourceStorage {
 		String input = scanner.next();
 
 		if (input.equalsIgnoreCase("Y")) {
-			AddEntitysResourcesToComparator();
+			Game.getInstance().CheckForVictory(new ArrayList<>());
 		}
 
 		System.out.println("return from Asteroid.Accept()");
@@ -123,11 +122,11 @@ public class Asteroid implements Steppable, ResourceStorage {
 		System.out.println("return from Asteroid.Remove()");
 	}
 	
-	public void Mine(ResourceStorage rs) {
+	public void Mine(Player player) {
 		System.out.println("Asteroid.Mine()");
 
 		if (resource != null)
-			resource.AddToOwner(rs);
+			player.AddResource(resource);
 
 		System.out.println("return from Asteroid.Mine()");
 	}
@@ -149,22 +148,13 @@ public class Asteroid implements Steppable, ResourceStorage {
 		return gates;
 	}
 	
-	public void AddResource(ResourceNames name, Resource resource) {
+	public void AddResource(Resource resource) {
+		System.out.println("Asteroid.AddResource()");
 		if (this.resource == null)
 			this.resource = resource;
+		System.out.println("return from Asteroid.AddResource()");
 	}
 
-	public void AddEntitysResourcesToComparator() {
-		System.out.println("Asteroid.AddEntitysResourcesToComparator()");
-
-		Game game = Game.getInstance();
-		entities.forEach(Entity::AddResourcesToComparator);
-		game.CheckForVictory();
-		game.ClearResources();
-
-		System.out.println("return from Asteroid.AddEntitysResourcesToComparator()");
-	}
-	
 	public void DestroyResource() {
 		System.out.println("Asteroid.DestroyResource()");
 		System.out.println("return from Asteroid.DestroyResource()");
