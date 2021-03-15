@@ -42,4 +42,8 @@ public class Timer {
 
 		return singleClassIntance;
 	}
+
+	public void RemoveSteppable(Steppable steppable) {
+		steppables.remove(steppable);
+	}
 }

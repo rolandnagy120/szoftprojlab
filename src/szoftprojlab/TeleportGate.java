@@ -63,4 +63,8 @@ public class TeleportGate {
 		System.out.println("return from TeleportGate.CanCraft()");
 		return list;
 	}
+
+	public int GetId() {
+		return idx;
+	}
 }

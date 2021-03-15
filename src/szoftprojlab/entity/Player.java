@@ -12,6 +12,7 @@ package szoftprojlab.entity;
 
 import szoftprojlab.Game;
 import szoftprojlab.TeleportGate;
+import szoftprojlab.Timer;
 import szoftprojlab.resource.Resource;
 
 import java.util.ArrayList;
@@ -23,10 +24,9 @@ public class Player extends Entity {
 	private List<Resource> inventory = new ArrayList<>();
 
 	public Player() {
-		System.out.println("Player - create");
-		System.out.println("return from Player - create");
 	}
 
+	@Override
 	public List<Resource> GetInventory() {
 		return inventory;
 	}
@@ -105,9 +105,16 @@ public class Player extends Entity {
 
 	@Override
 	public void Explode() {
-		System.out.println("Player.Explode()");
 		Game game = Game.getInstance();
+		asteroid.Remove(this);
 		game.PlayerDie(this);
-		System.out.println("return from Player.Explode()");
+	}
+
+	@Override
+	public void SunStorm() {
+		Timer timer = new Timer();
+		timer.RemoveSteppable(this);
+		asteroid.Remove(this);
+		Game.getInstance().PlayerDie(this);
 	}
 }

@@ -17,7 +17,7 @@ import szoftprojlab.resource.Resource;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.Random;
 
 public class Asteroid {
 	private int idx;
@@ -30,10 +30,8 @@ public class Asteroid {
 	private List<TeleportGate> gates = new ArrayList<>();
 
 	public Asteroid(int ID, int numberOfLayers) {
-		System.out.println("Asteroid - create");
 		idx = ID;
-		numberOfLayers = layers;
-		System.out.println("return from Asteroid - create");
+		layers = numberOfLayers;
 	}
 
 	public List<Entity> GetEntities() {
@@ -41,11 +39,9 @@ public class Asteroid {
 	}
 
 	public void AddNeighbor(Asteroid newNeighbor) {
-		System.out.println("Asteroid.AddNeighbor()");
 		neighbors.add(newNeighbor);
 		if (!newNeighbor.neighbors.contains(this))
 			newNeighbor.AddNeighbor(this);
-		System.out.println("return from Asteroid.AddNeighbor()");
 	}
 
 	public int GetLayerThickness() {
@@ -53,94 +49,76 @@ public class Asteroid {
 	}
 
 	public void SunStorm() {
-		System.out.println("Asteroid.SunStorm()");
-
-		System.out.print("Can the entities hide in the asteroid? (Y|N) ");
-		Scanner scanner = new Scanner(System.in);
-		String input = scanner.next();
-
-		if (!input.equalsIgnoreCase("Y")) {
-			entities.forEach(Entity::SunStorm);
+		if (layers > 0 || resource != null) {
+			List<Entity> entitiesCopy = new ArrayList<>(entities);
+			entitiesCopy.forEach(Entity::SunStorm);
 		}
-
-		System.out.println("return from Asteroid.SunStorm()");
 	}
 	
 	public void ChangeNearSun() {
-		System.out.println("Asteroid.ChangeNearSun()");
 		if (resource != null)
 			resource.SeeSun(this);
-		System.out.println("return from Asteroid.ChangeNearSun()");
 	}
 	
 	public void Explode() {
-		System.out.println("Asteroid.Explode()");
 		List<Entity> entitiesCopy = new ArrayList<Entity>(entities);
 		entitiesCopy.forEach(Entity::Explode);
-		System.out.println("return from Asteroid.Explode()");
 	}
 	
 	public void Drill() {
-		System.out.println("Asteroid.Drill()");
+		if (layers > 0)
+			layers--;
 
-		System.out.print("Did the drill strike through the asteroid? (Y|N) ");
-		Scanner scanner = new Scanner(System.in);
-		String input = scanner.next();
-
-		if (input.equalsIgnoreCase("Y")) {
-			System.out.print("Is the sun near? (Y|N) ");
-			input = scanner.next();
-
-			if (input.equalsIgnoreCase("Y")) {
+		if (layers == 0) {
+			if (nearSun) {
 				resource.SeeSun(this);
 			}
 		}
-
-		System.out.println("return from Asteroid.Drill()");
 	}
 	
 	public void Accept(Entity entity) {
-		System.out.println("Asteroid.Accept()");
 		if (!entities.contains(entity))
 			entities.add(entity);
 		entity.SetAsteroid(this);
-
-		System.out.print("Do you want to run the check for victory? (Y|N) ");
-		Scanner scanner = new Scanner(System.in);
-		String input = scanner.next();
-
-		if (input.equalsIgnoreCase("Y")) {
-			Game.getInstance().CheckForVictory(new ArrayList<>());
-		}
-
-		System.out.println("return from Asteroid.Accept()");
 	}
-	
+
+	private void CheckForVictory() {
+		List<Resource> inventorySum = new ArrayList<>();
+		entities.forEach(entity -> {
+			inventorySum.addAll(entity.GetInventory());
+		});
+
+		Game.getInstance().CheckForVictory(inventorySum);
+	}
+
 	public void Remove(Entity entity) {
-		System.out.println("Asteroid.Remove()");
 		entities.remove(entity);
-		System.out.println("return from Asteroid.Remove()");
 	}
 	
 	public void Mine(Player player) {
-		System.out.println("Asteroid.Mine()");
-
 		if (resource != null)
 			player.AddResource(resource);
-
-		System.out.println("return from Asteroid.Mine()");
 	}
 	
 	public void Place(Resource resource) {
-		System.out.println("Asteroid.Place()");
-		System.out.println("return from Asteroid.Place()");
+		this.resource = resource;
 	}
 	
 	public Asteroid GetNeighbor(int idx) {
+		for (Asteroid neighbor : neighbors) {
+			if (neighbor.idx == idx) {
+				return neighbor;
+			}
+		}
 		return null;
 	}
 	
 	public TeleportGate GetTeleportGate(int idx) {
+		for (TeleportGate gate : gates) {
+			if (gate.GetId() == idx) {
+				return gate;
+			}
+		}
 		return null;
 	}
 
@@ -149,37 +127,30 @@ public class Asteroid {
 	}
 	
 	public void AddResource(Resource resource) {
-		System.out.println("Asteroid.AddResource()");
 		if (this.resource == null)
 			this.resource = resource;
-		System.out.println("return from Asteroid.AddResource()");
 	}
 
 	public void DestroyResource() {
-		System.out.println("Asteroid.DestroyResource()");
-		System.out.println("return from Asteroid.DestroyResource()");
+		resource = null;
 	}
 	
 	public void PlaceTeleportGate(TeleportGate gate) {
-		System.out.println("Asteroid.PlaceTeleportGate()");
-
 		if (!gates.contains(gate)) {
 			gates.add(gate);
 			gate.Place(this);
 		}
-
-		System.out.println("return from Asteroid.PlaceTeleportGate()");
 	}
 
 	public Asteroid GetRandomNeighbor() {
-		System.out.println("Asteroid.GetRandomNeighbor()");
 		if (neighbors.size() == 0)
 			return null;
-		System.out.println("return from Asteroid.GetRandomNeighbor()");
-		return neighbors.get(0);
-	}
 
-	public void Step() {
+		Random rnd = new Random();
+		int randomIndex = rnd.ints(0, neighbors.size())
+				.findFirst()
+				.getAsInt();
 
+		return neighbors.get(randomIndex);
 	}
 }

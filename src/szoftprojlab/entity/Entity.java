@@ -10,9 +10,11 @@ package szoftprojlab.entity;
 //
 
 
-import szoftprojlab.Asteroid;
-import szoftprojlab.Steppable;
-import szoftprojlab.TeleportGate;
+import szoftprojlab.*;
+import szoftprojlab.resource.Resource;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Entity implements Steppable {
 	protected Asteroid asteroid;
@@ -26,9 +28,9 @@ public abstract class Entity implements Steppable {
 	}
 
 	public void SunStorm() {
-		System.out.println("Entity.SunStorm()");
-		System.out.println("Entity is destroyed");
-		System.out.println("return from Entity.SunStorm()");
+		Timer timer = new Timer();
+		timer.RemoveSteppable(this);
+		asteroid.Remove(this);
 	}
 	
 	public void Explode() {
@@ -59,5 +61,9 @@ public abstract class Entity implements Steppable {
 		asteroid.Remove(this);
 		pairAsteroid.Accept(this);
 		System.out.println("return from Entity.Teleport()");
+	}
+
+	public List<Resource> GetInventory() {
+		return new ArrayList<>();
 	}
 }

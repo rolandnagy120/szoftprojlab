@@ -30,6 +30,10 @@ public class Sun implements Steppable {
 		nextSunStormIn = (int) (1 / sunStormProbability);
 	}
 
+	public int GetNextSunStormArrivalTime() {
+		return nextSunStormIn;
+	}
+
 	public void ClearAsteroids() {
 		asteroids.clear();
 	}

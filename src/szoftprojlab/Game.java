@@ -13,14 +13,14 @@ package szoftprojlab;
 import szoftprojlab.entity.Player;
 import szoftprojlab.resource.*;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Game {
     private static Game singleClassInstance = null;
 
     private Sun sun;
-    private List<Player> players;
+    private List<Player> players = new ArrayList<>();
     private static Blueprint baseBluebrint = new Blueprint(
             new Iron(), new Iron(), new Iron(),
             new Coal(), new Coal(), new Coal(),
@@ -42,17 +42,11 @@ public class Game {
     }
 
     public void PlayerDie(Player player) {
-        System.out.println("Game.PlayerDie()");
+        players.remove(player);
 
-        System.out.print("Is the playercount greater than 1? (Y|N) ");
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.next();
-
-        if (!input.equalsIgnoreCase("Y")) {
+        if (players.size() <= 1) {
             EndGame();
         }
-
-        System.out.println("return from Game.PlayerDie()");
     }
 
     public void AddPlayer(Player player) {
@@ -69,7 +63,7 @@ public class Game {
 
     public void CheckForVictory(List<Resource> resources) {
         System.out.println("Game.CheckForVictory()");
-        baseBluebrint.IsCraftable(resources);
+//        baseBluebrint.IsCraftable(resources);
         System.out.println("return from Game.CheckForVictory()");
     }
 

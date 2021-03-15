@@ -20,21 +20,16 @@ public class Robot extends Entity {
 	private static Blueprint robotBlueprint = new Blueprint(new Iron(), new Coal(), new Uranium());
 
 	public Robot() {
-		System.out.println("Robot - create");
-		System.out.println("return from Robot - create");
 	}
 
 	public void Step() {
 	}
 	
 	public void Explode() {
-		System.out.println("Robot.Explode()");
 		Asteroid newAsteroid = asteroid.GetRandomNeighbor();
 		asteroid.Remove(this);
 		if (newAsteroid != null)
 			newAsteroid.Accept(this);
-
-		System.out.println("return from Robot.Explode()");
 	}
 	
 	public void Robot(Asteroid asteroid) {
