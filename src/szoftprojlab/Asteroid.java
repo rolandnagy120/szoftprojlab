@@ -32,6 +32,7 @@ public class Asteroid {
 	public Asteroid(int ID, int numberOfLayers) {
 		idx = ID;
 		layers = numberOfLayers;
+		nearSun = false;
 	}
 
 	public List<Entity> GetEntities() {
@@ -56,10 +57,15 @@ public class Asteroid {
 	}
 	
 	public void ChangeNearSun() {
-		if (resource != null)
+		this.nearSun = !this.nearSun;
+		SeeSunIfNeeded();
+	}
+
+	private void SeeSunIfNeeded() {
+		if (resource != null && layers == 0 && nearSun)
 			resource.SeeSun(this);
 	}
-	
+
 	public void Explode() {
 		List<Entity> entitiesCopy = new ArrayList<Entity>(entities);
 		entitiesCopy.forEach(Entity::Explode);
@@ -69,11 +75,7 @@ public class Asteroid {
 		if (layers > 0)
 			layers--;
 
-		if (layers == 0) {
-			if (nearSun) {
-				resource.SeeSun(this);
-			}
-		}
+		SeeSunIfNeeded();
 	}
 	
 	public void Accept(Entity entity) {

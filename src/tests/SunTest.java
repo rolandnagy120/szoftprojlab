@@ -17,6 +17,7 @@ class SunTest {
         sun.Init(1, 0);
 
         Asteroid a = new Asteroid(0, 2);
+        sun.AddAsteroid(a);
         Uranium u = new Uranium();
         a.AddResource(u);
         Player p = new Player();

@@ -13,7 +13,6 @@ package szoftprojlab;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Sun implements Steppable {
 	private static Sun singleClassIntance = null;
@@ -26,6 +25,7 @@ public class Sun implements Steppable {
 
 	public void Init(int nearSunCycle, double _sunStormProbability) {
 		cycle = nearSunCycle;
+		counter = cycle;
 		sunStormProbability = _sunStormProbability;
 		nextSunStormIn = (int) (1 / sunStormProbability);
 	}
@@ -39,55 +39,36 @@ public class Sun implements Steppable {
 	}
 
 	public void Step() {
-		System.out.println("Sun.Step()");
+		counter--;
+		nextSunStormIn--;
 
-		System.out.print("Do you want to call ChangeNearSun()? (Y|N) ");
-		Scanner scanner = new Scanner(System.in);
-		String input = scanner.next();
-
-		if (input.equalsIgnoreCase("Y")) {
+		if (counter == 0) {
 			ChangeNearSun();
+			counter = cycle;
 		}
 
-
-		System.out.print("Do you want to call SunStorm()? (Y|N) ");
-		input = scanner.next();
-
-		if (input.equalsIgnoreCase("Y")) {
+		if (nextSunStormIn == 0) {
 			SunStorm();
+			nextSunStormIn = (int) (1 / sunStormProbability);
 		}
-
-		System.out.println("return from Sun.Step()");
 	}
 	
 	private void SunStorm() {
-		System.out.println("Sun.SunStorm()");
-
 		asteroids.forEach(Asteroid::SunStorm);
-
-		System.out.println("return from Sun.SunStorm()");
 	}
 	
 	private void ChangeNearSun() {
-		System.out.println("Sun.ChangeNearSun()");
 		asteroids.forEach(Asteroid::ChangeNearSun);
-		System.out.println("return from Sun.ChangeNearSun()");
 	}
 
 	public void AddAsteroid(Asteroid asteroid) {
-		System.out.println("Sun.AddAsteroid()");
-
 		if (!asteroids.contains(asteroid))
 			asteroids.add(asteroid);
-
-		System.out.println("return from Sun.AddAsteroid()");
 	}
 
 	public static Sun getInstance() {
 		if (singleClassIntance == null) {
-			System.out.println("Sun - create");
 			singleClassIntance = new Sun();
-			System.out.println("return from Sun - create");
 		}
 
 		return singleClassIntance;
