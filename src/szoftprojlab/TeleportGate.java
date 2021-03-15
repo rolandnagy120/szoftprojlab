@@ -12,15 +12,12 @@ package szoftprojlab;
 //
 
 
-import szoftprojlab.resource.*;
 
-import java.util.List;
 
 public class TeleportGate {
 	private int idx;
 	private TeleportGate pair;
 	private Asteroid asteroid;
-	private static Blueprint teleportgateBlueprint = new Blueprint(new Iron(), new Iron(), new Ice(), new Uranium());
 
 	public TeleportGate(int ID) {
 		idx = ID;
@@ -55,12 +52,5 @@ public class TeleportGate {
 
 	public Boolean HasPair() {
 		return pair != null;
-	}
-
-	public List<Resource> CanCraft(List<Resource> rs) {
-		System.out.println("TeleportGate.CanCraft()");
-		List<Resource> list = teleportgateBlueprint.IsCraftable(rs);
-		System.out.println("return from TeleportGate.CanCraft()");
-		return list;
 	}
 }

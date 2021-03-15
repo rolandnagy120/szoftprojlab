@@ -42,7 +42,6 @@ public abstract class Entity implements Steppable {
 		if (this.asteroid != null)
 			this.asteroid.Remove(this);
 		newAsteroid.Accept(this);
-		asteroid = newAsteroid;
 
 		System.out.println("return from Entity.MoveTo()");
 	}
@@ -59,5 +58,8 @@ public abstract class Entity implements Steppable {
 		asteroid.Remove(this);
 		pairAsteroid.Accept(this);
 		System.out.println("return from Entity.Teleport()");
+	}
+	
+	public void AddResourcesToComparator() {
 	}
 }

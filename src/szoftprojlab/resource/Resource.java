@@ -18,6 +18,5 @@ public abstract class Resource {
         System.out.println("return from Resource.SeeSun()");
     }
 
-    @Override
-    public abstract boolean equals(Object o);
+    public abstract void AddToOwner(ResourceStorage rs);
 }

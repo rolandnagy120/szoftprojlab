@@ -13,12 +13,14 @@ package szoftprojlab.entity;
 import szoftprojlab.Game;
 import szoftprojlab.TeleportGate;
 import szoftprojlab.resource.Resource;
+import szoftprojlab.resource.ResourceNames;
+import szoftprojlab.resource.ResourceStorage;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Player extends Entity {
+public class Player extends Entity implements ResourceStorage {
 	private List<TeleportGate> gates = new ArrayList<>();
 	private List<Resource> inventory = new ArrayList<>();
 
@@ -97,10 +99,18 @@ public class Player extends Entity {
 		return gates;
 	}
 
-	public void AddResource(Resource resource) {
+	public void AddResource(ResourceNames name, Resource resource) {
 		System.out.println("Player.AddResource()");
 		inventory.add(resource);
 		System.out.println("return from Player.AddResource()");
+	}
+
+	@Override
+	public void AddResourcesToComparator() {
+		System.out.println("Player.AddResourcesToComparator()");
+		Game game = Game.getInstance();
+		inventory.forEach(game::AddToOwner);
+		System.out.println("return from Player.AddResourcesToComparator()");
 	}
 
 	@Override

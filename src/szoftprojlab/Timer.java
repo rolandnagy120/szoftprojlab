@@ -25,15 +25,9 @@ public class Timer {
 		System.out.println("return from Timer.Tick()");
 	}
 
-	public void ClearSteppables() {
-		steppables.clear();
-	}
-
 	public void AddSteppable(Steppable s) {
-		System.out.println("Timer.AddSteppable()");
 		if (!steppables.contains(s))
 			steppables.add(s);
-		System.out.println("return from Timer.AddSteppable()");
 	}
 
 	public static Timer getInstance() {

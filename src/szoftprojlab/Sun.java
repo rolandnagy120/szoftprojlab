@@ -20,18 +20,12 @@ public class Sun implements Steppable {
 
 	private int counter;
 	private int cycle;
-	private double sunStormProbability;
-	private int nextSunStormIn;
+	private int sunStormProbability;
 	private List<Asteroid> asteroids = new ArrayList<>();
 
-	public void Init(int nearSunCycle, double _sunStormProbability) {
+	public void Init(int nearSunCycle, int _sunStormProbability) {
 		cycle = nearSunCycle;
 		sunStormProbability = _sunStormProbability;
-		nextSunStormIn = (int) (1 / sunStormProbability);
-	}
-
-	public void ClearAsteroids() {
-		asteroids.clear();
 	}
 
 	public void Step() {
@@ -65,18 +59,12 @@ public class Sun implements Steppable {
 	}
 	
 	private void ChangeNearSun() {
-		System.out.println("Sun.ChangeNearSun()");
 		asteroids.forEach(Asteroid::ChangeNearSun);
-		System.out.println("return from Sun.ChangeNearSun()");
 	}
 
 	public void AddAsteroid(Asteroid asteroid) {
-		System.out.println("Sun.AddAsteroid()");
-
 		if (!asteroids.contains(asteroid))
 			asteroids.add(asteroid);
-
-		System.out.println("return from Sun.AddAsteroid()");
 	}
 
 	public static Sun getInstance() {
