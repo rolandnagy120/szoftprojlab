@@ -1,9 +1,10 @@
 package szoftprojlab.skeleton;
 
-import szoftprojlab.*;
+import szoftprojlab.Asteroid;
+import szoftprojlab.Sun;
+import szoftprojlab.Timer;
 import szoftprojlab.entity.Player;
 import szoftprojlab.entity.Robot;
-import szoftprojlab.resource.Coal;
 import szoftprojlab.resource.Ice;
 import szoftprojlab.resource.Iron;
 import szoftprojlab.resource.Uranium;
@@ -235,14 +236,15 @@ public class Skeleton {
         System.out.println("Initializing");
 
         Asteroid asteroid = new Asteroid(0, 1);
+        Asteroid asteroid2 = new Asteroid(0, 2);
         Robot robot = new Robot();
-        Coal coal = new Coal();
         asteroid.Accept(robot);
-        asteroid.AddResource(coal);
+        asteroid2.AddNeighbor(asteroid);
 
         System.out.println("Init finished");
         System.out.println();
 
+        robot.MoveTo(asteroid2);
         robot.Drill();
     }
 
