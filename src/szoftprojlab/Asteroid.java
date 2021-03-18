@@ -92,7 +92,8 @@ public class Asteroid {
 			input = scanner.next();
 
 			if (input.equalsIgnoreCase("Y")) {
-				resource.SeeSun(this);
+				if (resource != null)
+					resource.SeeSun(this);
 			}
 		}
 
