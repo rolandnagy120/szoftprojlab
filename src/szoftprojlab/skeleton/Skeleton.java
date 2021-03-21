@@ -14,12 +14,18 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Skeleton {
+    /**
+     * Runs the skeleton program
+     */
     public void Run() {
         System.out.println("Szoftprojlab Skeleton");
         List<SkeletonSequence> sequences = getSequences();
 
         boolean endLoop = false;
 
+        /*
+          Infinite loop for the program
+         */
         while (!endLoop) {
             System.out.print("\nSelect a skeleton!\n");
             for (int i = 0; i < sequences.size(); i++) {
@@ -44,6 +50,10 @@ public class Skeleton {
         }
     }
 
+    /**
+     * Create the list of skeletons
+     * @return
+     */
     private List<SkeletonSequence> getSequences() {
         List<SkeletonSequence> sequences = new ArrayList<>();
 
@@ -64,6 +74,10 @@ public class Skeleton {
         return sequences;
     }
 
+    /**
+     * The player creates a pair of teleport gates
+     * @param unused
+     */
     private static void PlayerCreatesTeleportGate(Void unused) {
         ObjectHolder oh = ObjectHolder.getInstance();
         oh.clear();
@@ -79,6 +93,10 @@ public class Skeleton {
         player.MakeGates();
     }
 
+    /**
+     * The player creates a robot
+     * @param unused
+     */
     private static void PlayerCreatesRobot(Void unused) {
         ObjectHolder oh = ObjectHolder.getInstance();
         oh.clear();
@@ -97,6 +115,10 @@ public class Skeleton {
         player.MakeAndPlaceRobot();
     }
 
+    /**
+     * The player drills an asteroid
+     * @param unused
+     */
     private static void PlayerDrillsAndLayerDecreases(Void unused) {
         ObjectHolder oh = ObjectHolder.getInstance();
         oh.clear();
@@ -115,6 +137,11 @@ public class Skeleton {
         player.Drill();
     }
 
+    /**
+     * The player drilss and asteroid, and the ice
+     * is destored in it
+     * @param unused
+     */
     private static void PlayerDrillsAndStrikeThroughWithIce(Void unused) {
         ObjectHolder oh = ObjectHolder.getInstance();
         oh.clear();
@@ -136,6 +163,11 @@ public class Skeleton {
         player.Drill();
     }
 
+    /**
+     * The player dirss and asteroid, which holds iron
+     * nothing happens
+     * @param unused
+     */
     private static void PlayerDrillsAndStrikethroughWithIron(Void unused) {
         ObjectHolder oh = ObjectHolder.getInstance();
         oh.clear();
@@ -157,6 +189,11 @@ public class Skeleton {
         player.Drill();
     }
 
+    /**
+     * The players dirlls an asteroid with uranium,
+     * and it explodes, the player dies
+     * @param unused
+     */
     private static void PlayerDrillsAndStrikeThroughWithExplosive(Void unused) {
         ObjectHolder oh = ObjectHolder.getInstance();
         oh.clear();
@@ -178,6 +215,10 @@ public class Skeleton {
         player.Drill();
     }
 
+    /**
+     * The player moves from one asteroid to another
+     * @param unused
+     */
     private static void PlayerMovesFromAsteroidToAsteroid(Void unused) {
         ObjectHolder oh = ObjectHolder.getInstance();
         oh.clear();
@@ -199,6 +240,10 @@ public class Skeleton {
         player.MoveTo(asteroid2);
     }
 
+    /**
+     * The player created a pair of teleportgates and places them
+     * @param unused
+     */
     private static void PlayerPlacesTeleportGateAndPlacesThePair(Void unused) {
         ObjectHolder oh = ObjectHolder.getInstance();
         oh.clear();
@@ -223,6 +268,10 @@ public class Skeleton {
         player.PlaceGate();
     }
 
+    /**
+     * A sunstorm hits a robot and it cannot hide in an asteroid
+     * @param unused
+     */
     private static void RobotCannotHideFromSunStorm(Void unused) {
         ObjectHolder oh = ObjectHolder.getInstance();
         oh.clear();
@@ -251,6 +300,11 @@ public class Skeleton {
         timer.Tick();
     }
 
+    /**
+     * A sunstorm hit a robot, but it can hide
+     * in the asteroid
+     * @param unused
+     */
     private static void RobotHidesFromSunStorm(Void unused) {
         ObjectHolder oh = ObjectHolder.getInstance();
         oh.clear();
@@ -279,6 +333,11 @@ public class Skeleton {
         timer.Tick();
     }
 
+    /**
+     * The robot moves to another asteroid,
+     * and drills it
+     * @param unused
+     */
     private static void RobotMovesAndDrills(Void unused) {
         ObjectHolder oh = ObjectHolder.getInstance();
         oh.clear();
@@ -301,6 +360,11 @@ public class Skeleton {
         robot.Drill();
     }
 
+    /**
+     * A sunstorm hits the player, but it can
+     * hide in an asteroid
+     * @param unused
+     */
     private static void PlayerHidesFromSunStorm(Void unused) {
         ObjectHolder oh = ObjectHolder.getInstance();
         oh.clear();
@@ -329,6 +393,11 @@ public class Skeleton {
         timer.Tick();
     }
 
+    /**
+     * A sunstorm hits the player, and
+     * it can hide in an asteroid
+     * @param unused
+     */
     private static void PlayerCannotHideFromSunStorm(Void unused) {
         ObjectHolder oh = ObjectHolder.getInstance();
         oh.clear();

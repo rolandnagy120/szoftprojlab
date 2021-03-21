@@ -4,7 +4,7 @@ package szoftprojlab.resource;
 //
 //  @ Project : Untitled
 //  @ File Name : Resource.java
-//  @ Date : 02/03/2021
+//  @ Date : 10/03/2021
 //  @ Author : 
 //
 //
@@ -14,6 +14,10 @@ import szoftprojlab.Asteroid;
 import szoftprojlab.skeleton.ObjectHolder;
 
 public abstract class Resource {
+    /**
+     * The Sun gets close to the resource
+     * @param asteroid - the asteroid which holds the resource
+     */
     public void SeeSun(Asteroid asteroid) {
         ObjectHolder oh = ObjectHolder.getInstance();
         String objectName = oh.get(this);

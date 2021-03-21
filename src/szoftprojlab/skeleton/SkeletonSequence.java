@@ -2,6 +2,10 @@ package szoftprojlab.skeleton;
 
 import java.util.function.Consumer;
 
+/**
+ * Class for holding a skeleton sequence
+ * Stores name, required input, and the function which it calls
+ */
 public class SkeletonSequence {
     public String name;
     public String input;

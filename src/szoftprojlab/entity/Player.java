@@ -4,7 +4,7 @@ package szoftprojlab.entity;
 //
 //  @ Project : Untitled
 //  @ File Name : Player.java
-//  @ Date : 02/03/2021
+//  @ Date : 10/03/2021
 //  @ Author : 
 //
 //
@@ -28,13 +28,23 @@ public class Player extends Entity {
 		System.out.println("return from Player - create");
 	}
 
+	/**
+	 * Gets the resources stored in the player inventory
+	 * @return
+	 */
 	public List<Resource> GetInventory() {
 		return inventory;
 	}
 
+	/**
+	 * Player steps
+	 */
 	public void Step() {
 	}
 
+	/**
+	 * The player mines the asteroid its on currently
+	 */
 	public void Mine() {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -45,6 +55,11 @@ public class Player extends Entity {
 		System.out.println("return from "+objectName+".Mine()");
 	}
 
+	/**
+	 * The player places back a resource to the asteroid its on
+	 * the asteroid should be emptyto receive the resource
+	 * @param resource
+	 */
 	public void PlaceResource(Resource resource) {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -56,6 +71,9 @@ public class Player extends Entity {
 		System.out.println("return from "+objectName+".PlaceResource()");
 	}
 
+	/**
+	 * The players places a teleport gate on the current asteroid
+	 */
 	public void PlaceGate() {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -68,6 +86,10 @@ public class Player extends Entity {
 		System.out.println("return from "+objectName+".PlaceGate()");
 	}
 
+	/**
+	 * The player crafts a pair of teleport gates from
+	 * the resources stored in its iventory
+	 */
 	public void MakeGates() {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -90,6 +112,9 @@ public class Player extends Entity {
 		System.out.println("return from " + objectName + ".MakeGates()");
 	}
 
+	/**
+	 * The player crafts a robot, and places it on the current asteroid
+	 */
 	public void MakeAndPlaceRobot() {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -107,10 +132,19 @@ public class Player extends Entity {
 		System.out.println("return from "+objectName+".MakeAndPlaceRobot()");
 	}
 
+	/**
+	 * Get the teleport gates the player has
+	 * Only use for unit tests
+	 * @return
+	 */
 	public List<TeleportGate> GetTeleportGates() {
 		return gates;
 	}
 
+	/**
+	 * Adds a resource to the players inventory
+	 * @param resource - the resource that will be added to the inventory
+	 */
 	public void AddResource(Resource resource) {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -119,6 +153,10 @@ public class Player extends Entity {
 		System.out.println("return from "+objectName+".AddResource()");
 	}
 
+	/**
+	 * An exlosion hits the player.
+	 * The player dies here
+	 */
 	@Override
 	public void Explode() {
 		ObjectHolder oh = ObjectHolder.getInstance();
@@ -130,6 +168,10 @@ public class Player extends Entity {
 		System.out.println("return from "+objectName+".Explode()");
 	}
 
+	/**
+	 * A sunstorm hits the player
+	 * The player dies
+	 */
 	@Override
 	public void SunStorm() {
 		ObjectHolder oh = ObjectHolder.getInstance();

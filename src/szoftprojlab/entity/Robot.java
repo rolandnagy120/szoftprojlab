@@ -4,7 +4,7 @@ package szoftprojlab.entity;
 //
 //  @ Project : Untitled
 //  @ File Name : Robot.java
-//  @ Date : 02/03/2021
+//  @ Date : 10/03/2021
 //  @ Author : 
 //
 //
@@ -18,6 +18,7 @@ import szoftprojlab.resource.Resource;
 import szoftprojlab.resource.Uranium;
 import szoftprojlab.skeleton.ObjectHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Robot extends Entity {
@@ -28,9 +29,16 @@ public class Robot extends Entity {
 		System.out.println("return from Robot - create");
 	}
 
+	/**
+	 * The robot steps
+	 */
 	public void Step() {
 	}
-	
+
+	/**
+	 * An explosion hits the robot
+	 * The robots is cast aside on a neighbor asteroid
+	 */
 	public void Explode() {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -42,16 +50,14 @@ public class Robot extends Entity {
 
 		System.out.println("return from "+objectName+".Explode()");
 	}
-	
-	public void Robot(Asteroid asteroid) {
-	}
 
-	public List<Resource> CanCraft(List<Resource> rs) {
-		ObjectHolder oh = ObjectHolder.getInstance();
-		String objectName = oh.get(this);
-		System.out.println(objectName+".CanCraft()");
-		List<Resource> list = robotBlueprint.IsCraftable(rs);
-		System.out.println("return from "+objectName+".CanCraft()");
-		return list;
+	/**
+	 * Specifies if the robot can be crafted
+	 * @param rs - list of resources, should be the inventory of a player
+	 * @return - the given inventory minus the needed resources for crafting. If its size doesn't change,
+	 * then the robot cannot be crafted
+	 */
+	public static List<Resource> CanCraft(List<Resource> rs) {
+		return new ArrayList<>();
 	}
 }

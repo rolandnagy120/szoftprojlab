@@ -5,7 +5,7 @@ package szoftprojlab;
 //
 //  @ Project : Untitled
 //  @ File Name : Asteroid.java
-//  @ Date : 02/03/2021
+//  @ Date : 10/03/2021
 //  @ Author : 
 //
 //
@@ -37,10 +37,18 @@ public class Asteroid {
 		System.out.println("return from Asteroid - create");
 	}
 
+	/**
+	 * Gets the entities which are on this asteroid
+	 * @return - entities on the asteroid
+	 */
 	public List<Entity> GetEntities() {
 		return entities;
 	}
 
+	/**
+	 * Adds the given asteroid to the neighbors of this asteroid
+	 * @param newNeighbor
+	 */
 	public void AddNeighbor(Asteroid newNeighbor) {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -51,10 +59,22 @@ public class Asteroid {
 		System.out.println("return from "+objectName+".AddNeighbor()");
 	}
 
+	/**
+	 * Returns the number of the layers on the asteroid
+	 * Only for unit testing
+	 * @return - number of layers
+	 */
 	public int GetLayerThickness() {
 		return layers;
 	}
 
+	/**
+	 * A sunstorm hits the asteroid
+	 * Calls sunstorm on all the entities if they cannot
+	 * hid in the core
+	 * To hide in the core, the layers should be 0,
+	 * and the resource should be null
+	 */
 	public void SunStorm() {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -72,7 +92,10 @@ public class Asteroid {
 
 		System.out.println("return from "+objectName+".SunStorm()");
 	}
-	
+
+	/**
+	 * The sun gets close
+	 */
 	public void ChangeNearSun() {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -81,7 +104,12 @@ public class Asteroid {
 			resource.SeeSun(this);
 		System.out.println("return from "+objectName+".ChangeNearSun()");
 	}
-	
+
+	/**
+	 * The asteroid explodes from the inside
+	 * Calls the Explode function on every entity,
+	 * thats on this asteroid
+	 */
 	public void Explode() {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -90,7 +118,14 @@ public class Asteroid {
 		entitiesCopy.forEach(Entity::Explode);
 		System.out.println("return from "+objectName+".Explode()");
 	}
-	
+
+	/**
+	 * An entity drills the asteroid
+	 * The number of layers is decresed be one
+	 * If the layers hit 0, and the sun is near,
+	 * the SeeSun is called for the resource stored
+	 * in this asteroid
+	 */
 	public void Drill() {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -112,7 +147,12 @@ public class Asteroid {
 
 		System.out.println("return from "+objectName+".Drill()");
 	}
-	
+
+	/**
+	 * Accepts an entity
+	 * The entity will be on this asteroid from this point
+	 * @param entity - the entity that moved here
+	 */
 	public void Accept(Entity entity) {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -133,7 +173,12 @@ public class Asteroid {
 
 		System.out.println("return from "+objectName+".Accept()");
 	}
-	
+
+	/**
+	 * Removes an entity from the asteroid
+	 * The entity wont be on this asteroid from this point on
+	 * @param entity - the entity that will be removed
+	 */
 	public void Remove(Entity entity) {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -141,7 +186,13 @@ public class Asteroid {
 		entities.remove(entity);
 		System.out.println("return from "+objectName+".Remove()");
 	}
-	
+
+	/**
+	 * A player mines the resource stored in this asteroid
+	 * The resource is removed from the asteroid,
+	 * and then added to the inventory of the player
+	 * @param player - the player thats doing the mining
+	 */
 	public void Mine(Player player) {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -152,26 +203,54 @@ public class Asteroid {
 
 		System.out.println("return from "+objectName+".Mine()");
 	}
-	
+
+	/**
+	 * The player places back a resource
+	 * The resource will be in the core of the asteroid
+	 * @param resource - the resource that will be placed back
+	 */
 	public void Place(Resource resource) {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
 		System.out.println(objectName+".Place()");
 		System.out.println("return from "+objectName+".Place()");
 	}
-	
+
+	/**
+	 * Gets a neightbor of this asteroid
+	 * Only for unit testing
+	 * @param idx - the id of the wanted asteroid
+	 * @return - return the neighbor if found, else null
+	 */
 	public Asteroid GetNeighbor(int idx) {
 		return null;
 	}
-	
+
+	/**
+	 * Gets the teleportgate with the given id
+	 * which is on this asteroid
+	 * Only for testing
+	 * @param idx
+	 * @return
+	 */
 	public TeleportGate GetTeleportGate(int idx) {
 		return null;
 	}
 
+	/**
+	 * Gets the list of teleportgates on the asteroid
+	 * Only for unit testing
+	 * @return
+	 */
 	public List<TeleportGate> GetTeleportGates() {
 		return gates;
 	}
-	
+
+	/**
+	 * Adds a resource to the core of the asteroid
+	 * The controller calls this function
+	 * @param resource - the resource that should be added
+	 */
 	public void AddResource(Resource resource) {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -181,13 +260,20 @@ public class Asteroid {
 		System.out.println("return from "+objectName+".AddResource()");
 	}
 
+	/**
+	 * Destroy the resource stored in this asteroid
+	 */
 	public void DestroyResource() {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
 		System.out.println(objectName+".DestroyResource()");
 		System.out.println("return from "+objectName+".DestroyResource()");
 	}
-	
+
+	/**
+	 * The player places a teleportgate on this asteroid
+	 * @param gate - the gate that will be placed
+	 */
 	public void PlaceTeleportGate(TeleportGate gate) {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -201,6 +287,10 @@ public class Asteroid {
 		System.out.println("return from "+objectName+".PlaceTeleportGate()");
 	}
 
+	/**
+	 * Gets a random neighbor of this asteroid
+	 * @return - a random neighbor
+	 */
 	public Asteroid GetRandomNeighbor() {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -209,9 +299,5 @@ public class Asteroid {
 			return null;
 		System.out.println("return from "+objectName+".GetRandomNeighbor()");
 		return neighbors.get(0);
-	}
-
-	public void Step() {
-
 	}
 }

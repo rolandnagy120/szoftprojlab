@@ -16,6 +16,15 @@ public class Blueprint {
         }
     }
 
+    /**
+     * Calculates if the blueprint can be crafted
+     * If it cannot be crafted, then returns the same
+     * resource list its given.
+     * If it can be crafted, then it returns teh resource
+     * list, minus the resources needed for crafting
+     * @param rs - resource list (inventory)
+     * @return - the resource list after crafting
+     */
     public List<Resource> IsCraftable(List<Resource> rs) {
         ObjectHolder oh = ObjectHolder.getInstance();
         String objectName = oh.get(this);

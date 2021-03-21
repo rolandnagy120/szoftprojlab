@@ -5,7 +5,7 @@ package szoftprojlab;
 //
 //  @ Project : Untitled
 //  @ File Name : Sun.java
-//  @ Date : 02/03/2021
+//  @ Date : 10/03/2021
 //  @ Author : 
 //
 //
@@ -26,16 +26,30 @@ public class Sun implements Steppable {
 	private int nextSunStormIn;
 	private List<Asteroid> asteroids = new ArrayList<>();
 
+	/**
+	 * Initialize the sun
+	 * @param nearSunCycle
+	 * @param _sunStormProbability
+	 */
 	public void Init(int nearSunCycle, double _sunStormProbability) {
 		cycle = nearSunCycle;
 		sunStormProbability = _sunStormProbability;
 		nextSunStormIn = (int) (1 / sunStormProbability);
 	}
 
+	/**
+	 * Clear the asteroids
+	 * Only needed for the skeleton
+	 */
 	public void ClearAsteroids() {
 		asteroids.clear();
 	}
 
+	/**
+	 * Steps the sun
+	 * Calls ChangeNearSun if it is the time for it
+	 * Calls sunstorm if it is time for it
+	 */
 	public void Step() {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -59,7 +73,11 @@ public class Sun implements Steppable {
 
 		System.out.println("return from "+objectName+".Step()");
 	}
-	
+
+	/**
+	 * Sends a sunstorm to the asteroids
+	 * Calls SunStorm on every asteroid
+	 */
 	private void SunStorm() {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -69,7 +87,10 @@ public class Sun implements Steppable {
 
 		System.out.println("return from "+objectName+".SunStorm()");
 	}
-	
+
+	/**
+	 * Changes the near sun state
+	 */
 	private void ChangeNearSun() {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -78,6 +99,10 @@ public class Sun implements Steppable {
 		System.out.println("return from "+objectName+".ChangeNearSun()");
 	}
 
+	/**
+	 * Adds a new asteroid to the field
+	 * @param asteroid - the asteroid that joins the field
+	 */
 	public void AddAsteroid(Asteroid asteroid) {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);

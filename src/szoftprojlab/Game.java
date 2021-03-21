@@ -4,7 +4,7 @@ package szoftprojlab;
 //
 //  @ Project : Untitled
 //  @ File Name : Game.java
-//  @ Date : 02/03/2021
+//  @ Date : 10/03/2021
 //  @ Author : 
 //
 //
@@ -22,6 +22,10 @@ public class Game {
 
     private Sun sun;
     private List<Player> players;
+
+    /*
+    Blueprint for the base
+     */
     private static Blueprint baseBluebrint = new Blueprint(
             new Iron(), new Iron(), new Iron(),
             new Coal(), new Coal(), new Coal(),
@@ -29,6 +33,9 @@ public class Game {
             new Ice(), new Ice(), new Ice()
     );
 
+    /**
+     * Starts the game
+     */
     public void StartGame() {
         System.out.println("Game.StartGame()");
 
@@ -42,6 +49,11 @@ public class Game {
         System.out.println("return from Game.StartGame()");
     }
 
+    /**
+     * A player dies
+     * checks for the end of game
+     * @param player - the player that died
+     */
     public void PlayerDie(Player player) {
         ObjectHolder oh = ObjectHolder.getInstance();
         String objectName = oh.get(this);
@@ -58,6 +70,10 @@ public class Game {
         System.out.println("return from "+objectName+".PlayerDie()");
     }
 
+    /**
+     * Adds a player to the game
+     * @param player - the player that will be added
+     */
     public void AddPlayer(Player player) {
         System.out.println("Game.AddPlayer()");
         if (!players.contains(player))
@@ -65,6 +81,9 @@ public class Game {
         System.out.println("return from Game.AddPlayer()");
     }
 
+    /**
+     * Ends the game
+     */
     public void EndGame() {
         ObjectHolder oh = ObjectHolder.getInstance();
         String objectName = oh.get(this);
@@ -72,6 +91,10 @@ public class Game {
         System.out.println("return from "+objectName+".EndGame()");
     }
 
+    /**
+     * Checks for victory
+     * @param resources - the summed inventory of the players on the same asteroid
+     */
     public void CheckForVictory(List<Resource> resources) {
         ObjectHolder oh = ObjectHolder.getInstance();
         String objectName = oh.get(this);

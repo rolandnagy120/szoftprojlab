@@ -3,6 +3,9 @@ package szoftprojlab.skeleton;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A class for holding the names of the object, for the skeleton
+ */
 public class ObjectHolder {
     private static ObjectHolder singleClassInstance = null;
 

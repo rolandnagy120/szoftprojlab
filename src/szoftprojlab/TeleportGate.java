@@ -6,7 +6,7 @@ package szoftprojlab;
 //
 //  @ Project : Untitled
 //  @ File Name : TeleportGate.java
-//  @ Date : 02/03/2021
+//  @ Date : 10/03/2021
 //  @ Author : 
 //
 //
@@ -15,6 +15,7 @@ package szoftprojlab;
 import szoftprojlab.resource.*;
 import szoftprojlab.skeleton.ObjectHolder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TeleportGate {
@@ -30,6 +31,10 @@ public class TeleportGate {
 		System.out.println("return from TeleportGate - create");
 	}
 
+	/**
+	 * Gets the asteroid which holds the pair of this gate
+	 * @return
+	 */
 	public Asteroid GetPairAsteroid() {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -37,7 +42,11 @@ public class TeleportGate {
 		System.out.println("return from "+objectName+".GetPairAsteroid()");
 		return pair.asteroid;
 	}
-	
+
+	/**
+	 * Places the gate on the given asteroid
+	 * @param asteroid - the asteroid that will hold the gate
+	 */
 	public void Place(Asteroid asteroid) {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -47,7 +56,11 @@ public class TeleportGate {
 
 		System.out.println("return from "+objectName+".Place()");
 	}
-	
+
+	/**
+	 * Sets the pair of the asteroid, so they are linked
+	 * @param gate - the gate that will be the pair
+	 */
 	public void SetPair(TeleportGate gate) {
 		ObjectHolder oh = ObjectHolder.getInstance();
 		String objectName = oh.get(this);
@@ -60,16 +73,22 @@ public class TeleportGate {
 		System.out.println("return from "+objectName+".SetPair()");
 	}
 
+	/**
+	 * Returns if the gate has a pair
+	 * Only for unit testing
+	 * @return
+	 */
 	public Boolean HasPair() {
 		return pair != null;
 	}
 
-	public List<Resource> CanCraft(List<Resource> rs) {
-		ObjectHolder oh = ObjectHolder.getInstance();
-		String objectName = oh.get(this);
-		System.out.println(objectName+".CanCraft()");
-		List<Resource> list = teleportgateBlueprint.IsCraftable(rs);
-		System.out.println("return from "+objectName+".CanCraft()");
-		return list;
+	/**
+	 * Specifies if the gate can be crafted
+	 * @param rs - list of resources, should be the inventory of a player
+	 * @return - the given inventory minus the needed resources for crafting. If its size doesn't change,
+	 * then the gate cannot be crafted
+	 */
+	public static List<Resource> CanCraft(List<Resource> rs) {
+		return new ArrayList<>();
 	}
 }
