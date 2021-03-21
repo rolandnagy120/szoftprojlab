@@ -13,13 +13,16 @@ package szoftprojlab.resource;
 
 
 import szoftprojlab.Asteroid;
+import szoftprojlab.skeleton.ObjectHolder;
 
 public class Uranium extends Resource {
 	@Override
 	public void SeeSun(Asteroid asteroid) {
-		System.out.println("Uranium.SeeSun()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".SeeSun()");
 		asteroid.Explode();
-		System.out.println("return from Uranium.SeeSun()");
+		System.out.println("return from "+objectName+".SeeSun()");
 	}
 
 	@Override

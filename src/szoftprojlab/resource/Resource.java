@@ -11,11 +11,14 @@ package szoftprojlab.resource;
 
 
 import szoftprojlab.Asteroid;
+import szoftprojlab.skeleton.ObjectHolder;
 
 public abstract class Resource {
     public void SeeSun(Asteroid asteroid) {
-        System.out.println("Resource.SeeSun()");
-        System.out.println("return from Resource.SeeSun()");
+        ObjectHolder oh = ObjectHolder.getInstance();
+        String objectName = oh.get(this);
+        System.out.println(objectName+".SeeSun()");
+        System.out.println("return from "+objectName+".SeeSun()");
     }
 
     @Override

@@ -13,6 +13,7 @@ package szoftprojlab.entity;
 import szoftprojlab.Asteroid;
 import szoftprojlab.Steppable;
 import szoftprojlab.TeleportGate;
+import szoftprojlab.skeleton.ObjectHolder;
 
 public abstract class Entity implements Steppable {
 	protected Asteroid asteroid;
@@ -26,38 +27,48 @@ public abstract class Entity implements Steppable {
 	}
 
 	public void SunStorm() {
-		System.out.println("Entity.SunStorm()");
-		System.out.println("Entity is destroyed");
-		System.out.println("return from Entity.SunStorm()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".SunStorm()");
+		System.out.println(objectName+" is destroyed");
+		System.out.println("return from "+objectName+".SunStorm()");
 	}
 	
 	public void Explode() {
-		System.out.println("Entity.Explode()");
-		System.out.println("return from Entity.Explode()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".Explode()");
+		System.out.println("return from "+objectName+".Explode()");
 	}
 	
 	public void MoveTo(Asteroid newAsteroid) {
-		System.out.println("Entity.MoveTo()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".MoveTo()");
 
 		if (this.asteroid != null)
 			this.asteroid.Remove(this);
 		newAsteroid.Accept(this);
 		asteroid = newAsteroid;
 
-		System.out.println("return from Entity.MoveTo()");
+		System.out.println("return from "+objectName+".MoveTo()");
 	}
 	
 	public void Drill() {
-		System.out.println("Entity.Drill()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".Drill()");
 		asteroid.Drill();
-		System.out.println("return from Entity.Drill()");
+		System.out.println("return from "+objectName+".Drill()");
 	}
 	
 	public void Teleport(TeleportGate gate) {
-		System.out.println("Entity.Teleport()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".Teleport()");
 		Asteroid pairAsteroid = gate.GetPairAsteroid();
 		asteroid.Remove(this);
 		pairAsteroid.Accept(this);
-		System.out.println("return from Entity.Teleport()");
+		System.out.println("return from "+objectName+".Teleport()");
 	}
 }

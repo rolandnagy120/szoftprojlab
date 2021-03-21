@@ -13,6 +13,7 @@ package szoftprojlab;
 
 
 import szoftprojlab.resource.*;
+import szoftprojlab.skeleton.ObjectHolder;
 
 import java.util.List;
 
@@ -30,27 +31,33 @@ public class TeleportGate {
 	}
 
 	public Asteroid GetPairAsteroid() {
-		System.out.println("TeleportGate.GetPairAsteroid()");
-		System.out.println("return from TeleportGate.GetPairAsteroid()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".GetPairAsteroid()");
+		System.out.println("return from "+objectName+".GetPairAsteroid()");
 		return pair.asteroid;
 	}
 	
 	public void Place(Asteroid asteroid) {
-		System.out.println("TeleportGate.Place()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".Place()");
 
 		this.asteroid = asteroid;
 
-		System.out.println("return from TeleportGate.Place()");
+		System.out.println("return from "+objectName+".Place()");
 	}
 	
 	public void SetPair(TeleportGate gate) {
-		System.out.println("TeleportGate.SetPair()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName + ".SetPair()");
 
 		pair = gate;
 		if (!gate.HasPair())
 			gate.SetPair(this);
 
-		System.out.println("return from TeleportGate.SetPair()");
+		System.out.println("return from "+objectName+".SetPair()");
 	}
 
 	public Boolean HasPair() {
@@ -58,9 +65,11 @@ public class TeleportGate {
 	}
 
 	public List<Resource> CanCraft(List<Resource> rs) {
-		System.out.println("TeleportGate.CanCraft()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".CanCraft()");
 		List<Resource> list = teleportgateBlueprint.IsCraftable(rs);
-		System.out.println("return from TeleportGate.CanCraft()");
+		System.out.println("return from "+objectName+".CanCraft()");
 		return list;
 	}
 }

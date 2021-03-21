@@ -12,6 +12,8 @@ package szoftprojlab;
 //
 
 
+import szoftprojlab.skeleton.ObjectHolder;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +22,11 @@ public class Timer {
 	private final List<Steppable> steppables = new ArrayList<>();
 
 	public void Tick() {
-		System.out.println("Timer.Tick()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".Tick()");
 		steppables.forEach(Steppable::Step);
-		System.out.println("return from Timer.Tick()");
+		System.out.println("return from "+objectName+".Tick()");
 	}
 
 	public void ClearSteppables() {
@@ -30,10 +34,12 @@ public class Timer {
 	}
 
 	public void AddSteppable(Steppable s) {
-		System.out.println("Timer.AddSteppable()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".AddSteppable()");
 		if (!steppables.contains(s))
 			steppables.add(s);
-		System.out.println("return from Timer.AddSteppable()");
+		System.out.println("return from "+objectName+".AddSteppable()");
 	}
 
 	public static Timer getInstance() {

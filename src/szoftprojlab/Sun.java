@@ -11,6 +11,8 @@ package szoftprojlab;
 //
 
 
+import szoftprojlab.skeleton.ObjectHolder;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -35,7 +37,9 @@ public class Sun implements Steppable {
 	}
 
 	public void Step() {
-		System.out.println("Sun.Step()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".Step()");
 
 		System.out.print("Do you want to call ChangeNearSun()? (Y|N) ");
 		Scanner scanner = new Scanner(System.in);
@@ -53,30 +57,36 @@ public class Sun implements Steppable {
 			SunStorm();
 		}
 
-		System.out.println("return from Sun.Step()");
+		System.out.println("return from "+objectName+".Step()");
 	}
 	
 	private void SunStorm() {
-		System.out.println("Sun.SunStorm()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".SunStorm()");
 
 		asteroids.forEach(Asteroid::SunStorm);
 
-		System.out.println("return from Sun.SunStorm()");
+		System.out.println("return from "+objectName+".SunStorm()");
 	}
 	
 	private void ChangeNearSun() {
-		System.out.println("Sun.ChangeNearSun()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".ChangeNearSun()");
 		asteroids.forEach(Asteroid::ChangeNearSun);
-		System.out.println("return from Sun.ChangeNearSun()");
+		System.out.println("return from "+objectName+".ChangeNearSun()");
 	}
 
 	public void AddAsteroid(Asteroid asteroid) {
-		System.out.println("Sun.AddAsteroid()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".AddAsteroid()");
 
 		if (!asteroids.contains(asteroid))
 			asteroids.add(asteroid);
 
-		System.out.println("return from Sun.AddAsteroid()");
+		System.out.println("return from "+objectName+".AddAsteroid()");
 	}
 
 	public static Sun getInstance() {

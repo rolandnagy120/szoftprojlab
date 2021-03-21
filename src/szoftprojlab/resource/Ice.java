@@ -11,13 +11,16 @@ package szoftprojlab.resource;
 
 
 import szoftprojlab.Asteroid;
+import szoftprojlab.skeleton.ObjectHolder;
 
 public class Ice extends Resource {
 	@Override
 	public void SeeSun(Asteroid asteroid) {
-		System.out.println("Ice.SeeSun()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".SeeSun()");
 		asteroid.DestroyResource();
-		System.out.println("return from Ice.SeeSun()");
+		System.out.println("return from "+objectName+".SeeSun()");
 	}
 
 	@Override

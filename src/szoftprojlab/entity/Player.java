@@ -13,6 +13,7 @@ package szoftprojlab.entity;
 import szoftprojlab.Game;
 import szoftprojlab.TeleportGate;
 import szoftprojlab.resource.Resource;
+import szoftprojlab.skeleton.ObjectHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,62 +36,75 @@ public class Player extends Entity {
 	}
 
 	public void Mine() {
-		System.out.println("Player.Mine()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".Mine()");
 
 		asteroid.Mine(this);
 
-		System.out.println("return from Player.Mine()");
+		System.out.println("return from "+objectName+".Mine()");
 	}
 
 	public void PlaceResource(Resource resource) {
-		System.out.println("Player.PlaceResource()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".PlaceResource()");
 
 		if (inventory.contains(resource))
 			asteroid.Place(resource);
 
-		System.out.println("return from Player.PlaceResource()");
+		System.out.println("return from "+objectName+".PlaceResource()");
 	}
 
 	public void PlaceGate() {
-		System.out.println("Player.PlaceGate()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".PlaceGate()");
 
 		if (asteroid != null && gates.size() > 0) {
 			asteroid.PlaceTeleportGate(gates.get(0));
 			gates.remove(0);
 		}
-		System.out.println("return from Player.PlaceGate()");
+		System.out.println("return from "+objectName+".PlaceGate()");
 	}
 
 	public void MakeGates() {
-		System.out.println("Player.MakeGates()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName + ".MakeGates()");
 
 		System.out.print("Does the player have enough resources to create the gates? (Y|N) ");
 		Scanner scanner = new Scanner(System.in);
 		String input = scanner.next();
 
 		if (input.equalsIgnoreCase("Y")) {
-			TeleportGate tg1 = new TeleportGate(1);
-			TeleportGate tg2 = new TeleportGate(2);
-			tg1.SetPair(tg2);
-			gates.add(tg1);
-			gates.add(tg2);
+			TeleportGate teleportGate1 = new TeleportGate(1);
+			TeleportGate teleportGate2 = new TeleportGate(2);
+			oh.add(teleportGate1, "teleportGate1");
+			oh.add(teleportGate2, "teleportGate2");
+			teleportGate1.SetPair(teleportGate2);
+			gates.add(teleportGate1);
+			gates.add(teleportGate2);
 		}
 
-		System.out.println("return from Player.MakeGates()");
+		System.out.println("return from " + objectName + ".MakeGates()");
 	}
 
 	public void MakeAndPlaceRobot() {
-		System.out.println("Player.MakeAndPlaceRobot()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".MakeAndPlaceRobot()");
 
 		System.out.print("Does the player have enough resources to create the robot? (Y|N) ");
 		Scanner scanner = new Scanner(System.in);
 		String input = scanner.next();
 
 		if (input.equalsIgnoreCase("Y")) {
-			Robot r = new Robot();
-			asteroid.Accept(r);
+			Robot robot = new Robot();
+			oh.add(robot, "robot");
+			asteroid.Accept(robot);
 		}
-		System.out.println("return from Player.MakeAndPlaceRobot()");
+		System.out.println("return from "+objectName+".MakeAndPlaceRobot()");
 	}
 
 	public List<TeleportGate> GetTeleportGates() {
@@ -98,16 +112,33 @@ public class Player extends Entity {
 	}
 
 	public void AddResource(Resource resource) {
-		System.out.println("Player.AddResource()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".AddResource()");
 		inventory.add(resource);
-		System.out.println("return from Player.AddResource()");
+		System.out.println("return from "+objectName+".AddResource()");
 	}
 
 	@Override
 	public void Explode() {
-		System.out.println("Player.Explode()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".Explode()");
 		Game game = Game.getInstance();
+		oh.add(game, "game");
 		game.PlayerDie(this);
-		System.out.println("return from Player.Explode()");
+		System.out.println("return from "+objectName+".Explode()");
+	}
+
+	@Override
+	public void SunStorm() {
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		Game game = Game.getInstance();
+		oh.add(game, "game");
+		game.PlayerDie(this);
+		System.out.println(objectName+".SunStorm()");
+		System.out.println(objectName+" is destroyed");
+		System.out.println("return from "+objectName+".SunStorm()");
 	}
 }

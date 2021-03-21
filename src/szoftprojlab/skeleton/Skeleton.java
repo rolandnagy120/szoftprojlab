@@ -47,28 +47,31 @@ public class Skeleton {
     private List<SkeletonSequence> getSequences() {
         List<SkeletonSequence> sequences = new ArrayList<>();
 
-        sequences.add(new SkeletonSequence("PlayerDrillsAndLayerDecreases", Skeleton::PlayerDrillsAndLayerDecreases));
-        sequences.add(new SkeletonSequence("PlayerDrillsAndStrikeThroughWithExplosive", Skeleton::PlayerDrillsAndStrikeThroughWithExplosive));
-        sequences.add(new SkeletonSequence("PlayerDrillsAndStrikeThroughWithIce", Skeleton::PlayerDrillsAndStrikeThroughWithIce));
-        sequences.add(new SkeletonSequence("PlayerDrillsAndStrikethroughWithIron", Skeleton::PlayerDrillsAndStrikethroughWithIron));
-        sequences.add(new SkeletonSequence("PlayerCannotHideFromSunStorm", Skeleton::PlayerCannotHideFromSunStorm));
-        sequences.add(new SkeletonSequence("PlayerHidesFromSunStorm", Skeleton::PlayerHidesFromSunStorm));
-        sequences.add(new SkeletonSequence("PlayerCreatesTeleportGate", Skeleton::PlayerCreatesTeleportGate));
-        sequences.add(new SkeletonSequence("PlayerCreatesRobot", Skeleton::PlayerCreatesRobot));
-        sequences.add(new SkeletonSequence("PlayerMovesFromAsteroidToAsteroid", Skeleton::PlayerMovesFromAsteroidToAsteroid));
-        sequences.add(new SkeletonSequence("PlayerPlacesTeleportGateAndPlacesThePair", Skeleton::PlayerPlacesTeleportGateAndPlacesThePair));
-        sequences.add(new SkeletonSequence("RobotHidesFromSunStorm", Skeleton::RobotHidesFromSunStorm));
-        sequences.add(new SkeletonSequence("RobotCannotHideFromSunStorm", Skeleton::RobotCannotHideFromSunStorm));
-        sequences.add(new SkeletonSequence("RobotMovesAndDrills", Skeleton::RobotMovesAndDrills));
+        sequences.add(new SkeletonSequence("PlayerDrillsAndLayerDecreases", Skeleton::PlayerDrillsAndLayerDecreases, "n, n"));
+        sequences.add(new SkeletonSequence("PlayerDrillsAndStrikeThroughWithExplosive", Skeleton::PlayerDrillsAndStrikeThroughWithExplosive, "n, y, y, y"));
+        sequences.add(new SkeletonSequence("PlayerDrillsAndStrikeThroughWithIce", Skeleton::PlayerDrillsAndStrikeThroughWithIce, "n, y, y"));
+        sequences.add(new SkeletonSequence("PlayerDrillsAndStrikethroughWithIron", Skeleton::PlayerDrillsAndStrikethroughWithIron, "n, y, y"));
+        sequences.add(new SkeletonSequence("PlayerCannotHideFromSunStorm", Skeleton::PlayerCannotHideFromSunStorm, "n, n, y, n, y"));
+        sequences.add(new SkeletonSequence("PlayerHidesFromSunStorm", Skeleton::PlayerHidesFromSunStorm, "n, n, y, y"));
+        sequences.add(new SkeletonSequence("PlayerCreatesTeleportGate", Skeleton::PlayerCreatesTeleportGate, "y"));
+        sequences.add(new SkeletonSequence("PlayerCreatesRobot", Skeleton::PlayerCreatesRobot, "n, y, n"));
+        sequences.add(new SkeletonSequence("PlayerMovesFromAsteroidToAsteroid", Skeleton::PlayerMovesFromAsteroidToAsteroid, "n, n"));
+        sequences.add(new SkeletonSequence("PlayerPlacesTeleportGateAndPlacesThePair", Skeleton::PlayerPlacesTeleportGateAndPlacesThePair, "n, y, n"));
+        sequences.add(new SkeletonSequence("RobotHidesFromSunStorm", Skeleton::RobotHidesFromSunStorm, "n, n, y, y"));
+        sequences.add(new SkeletonSequence("RobotCannotHideFromSunStorm", Skeleton::RobotCannotHideFromSunStorm, "n, n, y, n"));
+        sequences.add(new SkeletonSequence("RobotMovesAndDrills", Skeleton::RobotMovesAndDrills, "n, n, n"));
 
         return sequences;
     }
 
     private static void PlayerCreatesTeleportGate(Void unused) {
+        ObjectHolder oh = ObjectHolder.getInstance();
+        oh.clear();
         System.out.println();
         System.out.println("Initializing");
 
         Player player = new Player();
+        oh.add(player, "player");
 
         System.out.println("Init finished");
         System.out.println();
@@ -77,12 +80,16 @@ public class Skeleton {
     }
 
     private static void PlayerCreatesRobot(Void unused) {
+        ObjectHolder oh = ObjectHolder.getInstance();
+        oh.clear();
         System.out.println();
         System.out.println("Initializing");
 
         Player player = new Player();
-        Asteroid a = new Asteroid(0, 1);
-        a.Accept(player);
+        oh.add(player, "player");
+        Asteroid asteroid = new Asteroid(0, 1);
+        oh.add(asteroid, "asteroid");
+        asteroid.Accept(player);
 
         System.out.println("Init finished");
         System.out.println();
@@ -91,12 +98,16 @@ public class Skeleton {
     }
 
     private static void PlayerDrillsAndLayerDecreases(Void unused) {
+        ObjectHolder oh = ObjectHolder.getInstance();
+        oh.clear();
         System.out.println();
         System.out.println("Initializing");
 
-        Asteroid a = new Asteroid(0, 3);
+        Asteroid asteroid = new Asteroid(0, 3);
+        oh.add(asteroid, "asteroid");
         Player player = new Player();
-        a.Accept(player);
+        oh.add(player, "player");
+        asteroid.Accept(player);
 
         System.out.println("Init finished");
         System.out.println();
@@ -105,14 +116,19 @@ public class Skeleton {
     }
 
     private static void PlayerDrillsAndStrikeThroughWithIce(Void unused) {
+        ObjectHolder oh = ObjectHolder.getInstance();
+        oh.clear();
         System.out.println();
         System.out.println("Initializing");
 
-        Asteroid a = new Asteroid(0, 3);
+        Asteroid asteroid = new Asteroid(0, 3);
+        oh.add(asteroid, "asteroid");
         Player player = new Player();
+        oh.add(player, "player");
         Ice ice = new Ice();
-        a.Accept(player);
-        a.AddResource(ice);
+        oh.add(ice, "ice");
+        asteroid.Accept(player);
+        asteroid.AddResource(ice);
 
         System.out.println("Init finished");
         System.out.println();
@@ -121,14 +137,19 @@ public class Skeleton {
     }
 
     private static void PlayerDrillsAndStrikethroughWithIron(Void unused) {
+        ObjectHolder oh = ObjectHolder.getInstance();
+        oh.clear();
         System.out.println();
         System.out.println("Initializing");
 
-        Asteroid a = new Asteroid(0, 3);
+        Asteroid asteroid = new Asteroid(0, 3);
         Player player = new Player();
         Iron iron = new Iron();
-        a.Accept(player);
-        a.AddResource(iron);
+        oh.add(asteroid, "asteroid");
+        oh.add(player, "player");
+        oh.add(iron, "iron");
+        asteroid.Accept(player);
+        asteroid.AddResource(iron);
 
         System.out.println("Init finished");
         System.out.println();
@@ -137,14 +158,19 @@ public class Skeleton {
     }
 
     private static void PlayerDrillsAndStrikeThroughWithExplosive(Void unused) {
+        ObjectHolder oh = ObjectHolder.getInstance();
+        oh.clear();
         System.out.println();
         System.out.println("Initializing");
 
-        Asteroid a = new Asteroid(0, 3);
+        Asteroid asteroid = new Asteroid(0, 3);
         Player player = new Player();
         Uranium uranium = new Uranium();
-        a.Accept(player);
-        a.AddResource(uranium);
+        oh.add(asteroid, "asteroid");
+        oh.add(player, "player");
+        oh.add(uranium, "uranium");
+        asteroid.Accept(player);
+        asteroid.AddResource(uranium);
 
         System.out.println("Init finished");
         System.out.println();
@@ -153,51 +179,67 @@ public class Skeleton {
     }
 
     private static void PlayerMovesFromAsteroidToAsteroid(Void unused) {
+        ObjectHolder oh = ObjectHolder.getInstance();
+        oh.clear();
         System.out.println();
         System.out.println("Initializing");
 
-        Asteroid a1 = new Asteroid(0, 3);
-        Asteroid a2 = new Asteroid(1, 3);
-        a1.AddNeighbor(a2);
+        Asteroid asteroid1 = new Asteroid(0, 3);
+        Asteroid asteroid2 = new Asteroid(1, 3);
+        oh.add(asteroid1, "asteroid1");
+        oh.add(asteroid2, "asteroid2");
+        asteroid1.AddNeighbor(asteroid2);
         Player player = new Player();
-        a1.Accept(player);
+        oh.add(player, "player");
+        asteroid1.Accept(player);
 
         System.out.println("Init finished");
         System.out.println();
 
-        player.MoveTo(a2);
+        player.MoveTo(asteroid2);
     }
 
     private static void PlayerPlacesTeleportGateAndPlacesThePair(Void unused) {
+        ObjectHolder oh = ObjectHolder.getInstance();
+        oh.clear();
         System.out.println();
         System.out.println("Initializing");
 
-        Asteroid a1 = new Asteroid(0, 3);
-        Asteroid a2 = new Asteroid(1, 3);
+        Asteroid asteroid1 = new Asteroid(0, 3);
+        Asteroid asteroid2 = new Asteroid(1, 3);
         Player player = new Player();
-        a1.Accept(player);
-        a1.AddNeighbor(a2);
+        oh.add(asteroid1, "asteroid1");
+        oh.add(asteroid2, "asteroid2");
+        oh.add(player, "player");
+        asteroid1.Accept(player);
+        asteroid1.AddNeighbor(asteroid2);
         player.MakeGates();
 
         System.out.println("Init finished");
         System.out.println();
 
         player.PlaceGate();
-        player.MoveTo(a2);
+        player.MoveTo(asteroid2);
         player.PlaceGate();
     }
 
     private static void RobotCannotHideFromSunStorm(Void unused) {
+        ObjectHolder oh = ObjectHolder.getInstance();
+        oh.clear();
         System.out.println();
         System.out.println("Initializing");
 
         Timer timer = Timer.getInstance();
         Sun sun = Sun.getInstance();
+        oh.add(timer, "timer");
+        oh.add(sun, "sun");
         sun.ClearAsteroids();
         timer.ClearSteppables();
         sun.Init(10, 1);
         Asteroid asteroid = new Asteroid(0, 1);
         Robot robot = new Robot();
+        oh.add(asteroid, "asteroid");
+        oh.add(robot, "robot");
         sun.AddAsteroid(asteroid);
         asteroid.Accept(robot);
         timer.AddSteppable(sun);
@@ -210,16 +252,22 @@ public class Skeleton {
     }
 
     private static void RobotHidesFromSunStorm(Void unused) {
+        ObjectHolder oh = ObjectHolder.getInstance();
+        oh.clear();
         System.out.println();
         System.out.println("Initializing");
 
         Timer timer = Timer.getInstance();
         Sun sun = Sun.getInstance();
+        oh.add(timer, "timer");
+        oh.add(sun, "sun");
         sun.ClearAsteroids();
         timer.ClearSteppables();
         sun.Init(10, 1);
         Asteroid asteroid = new Asteroid(0, 0);
         Robot robot = new Robot();
+        oh.add(asteroid, "asteroid");
+        oh.add(robot, "robot");
         sun.AddAsteroid(asteroid);
         asteroid.Accept(robot);
         timer.AddSteppable(sun);
@@ -232,14 +280,19 @@ public class Skeleton {
     }
 
     private static void RobotMovesAndDrills(Void unused) {
+        ObjectHolder oh = ObjectHolder.getInstance();
+        oh.clear();
         System.out.println();
         System.out.println("Initializing");
 
-        Asteroid asteroid = new Asteroid(0, 1);
+        Asteroid asteroid1 = new Asteroid(0, 1);
         Asteroid asteroid2 = new Asteroid(0, 2);
         Robot robot = new Robot();
-        asteroid.Accept(robot);
-        asteroid2.AddNeighbor(asteroid);
+        oh.add(asteroid1, "asteroid1");
+        oh.add(asteroid2, "asteroid2");
+        oh.add(robot, "robot");
+        asteroid1.Accept(robot);
+        asteroid2.AddNeighbor(asteroid1);
 
         System.out.println("Init finished");
         System.out.println();
@@ -249,16 +302,22 @@ public class Skeleton {
     }
 
     private static void PlayerHidesFromSunStorm(Void unused) {
+        ObjectHolder oh = ObjectHolder.getInstance();
+        oh.clear();
         System.out.println();
         System.out.println("Initializing");
 
         Timer timer = Timer.getInstance();
         Sun sun = Sun.getInstance();
+        oh.add(timer, "timer");
+        oh.add(sun, "sun");
         timer.ClearSteppables();
         sun.ClearAsteroids();
         sun.Init(10, 1);
         Asteroid asteroid = new Asteroid(0, 0);
         Player player = new Player();
+        oh.add(asteroid, "asteroid");
+        oh.add(player, "player");
         sun.AddAsteroid(asteroid);
         asteroid.Accept(player);
         timer.AddSteppable(sun);
@@ -271,16 +330,22 @@ public class Skeleton {
     }
 
     private static void PlayerCannotHideFromSunStorm(Void unused) {
+        ObjectHolder oh = ObjectHolder.getInstance();
+        oh.clear();
         System.out.println();
         System.out.println("Initializing");
 
         Timer timer = Timer.getInstance();
         Sun sun = Sun.getInstance();
+        oh.add(timer, "timer");
+        oh.add(sun, "sun");
         timer.ClearSteppables();
         sun.ClearAsteroids();
         sun.Init(10, 1);
         Asteroid asteroid = new Asteroid(0, 1);
         Player player = new Player();
+        oh.add(asteroid, "asteroid");
+        oh.add(player, "player");
         sun.AddAsteroid(asteroid);
         asteroid.Accept(player);
         timer.AddSteppable(sun);

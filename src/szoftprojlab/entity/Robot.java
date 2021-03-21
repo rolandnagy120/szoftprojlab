@@ -12,7 +12,11 @@ package szoftprojlab.entity;
 
 import szoftprojlab.Asteroid;
 import szoftprojlab.Blueprint;
-import szoftprojlab.resource.*;
+import szoftprojlab.resource.Coal;
+import szoftprojlab.resource.Iron;
+import szoftprojlab.resource.Resource;
+import szoftprojlab.resource.Uranium;
+import szoftprojlab.skeleton.ObjectHolder;
 
 import java.util.List;
 
@@ -28,22 +32,26 @@ public class Robot extends Entity {
 	}
 	
 	public void Explode() {
-		System.out.println("Robot.Explode()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".Explode()");
 		Asteroid newAsteroid = asteroid.GetRandomNeighbor();
 		asteroid.Remove(this);
 		if (newAsteroid != null)
 			newAsteroid.Accept(this);
 
-		System.out.println("return from Robot.Explode()");
+		System.out.println("return from "+objectName+".Explode()");
 	}
 	
 	public void Robot(Asteroid asteroid) {
 	}
 
 	public List<Resource> CanCraft(List<Resource> rs) {
-		System.out.println("Robot.CanCraft()");
+		ObjectHolder oh = ObjectHolder.getInstance();
+		String objectName = oh.get(this);
+		System.out.println(objectName+".CanCraft()");
 		List<Resource> list = robotBlueprint.IsCraftable(rs);
-		System.out.println("return from Robot.CanCraft()");
+		System.out.println("return from "+objectName+".CanCraft()");
 		return list;
 	}
 }

@@ -12,6 +12,7 @@ package szoftprojlab;
 
 import szoftprojlab.entity.Player;
 import szoftprojlab.resource.*;
+import szoftprojlab.skeleton.ObjectHolder;
 
 import java.util.List;
 import java.util.Scanner;
@@ -42,7 +43,9 @@ public class Game {
     }
 
     public void PlayerDie(Player player) {
-        System.out.println("Game.PlayerDie()");
+        ObjectHolder oh = ObjectHolder.getInstance();
+        String objectName = oh.get(this);
+        System.out.println(objectName+".PlayerDie()");
 
         System.out.print("Is the playercount greater than 1? (Y|N) ");
         Scanner scanner = new Scanner(System.in);
@@ -52,7 +55,7 @@ public class Game {
             EndGame();
         }
 
-        System.out.println("return from Game.PlayerDie()");
+        System.out.println("return from "+objectName+".PlayerDie()");
     }
 
     public void AddPlayer(Player player) {
@@ -63,19 +66,27 @@ public class Game {
     }
 
     public void EndGame() {
-        System.out.println("Game.EndGame()");
-        System.out.println("return from Game.EndGame()");
+        ObjectHolder oh = ObjectHolder.getInstance();
+        String objectName = oh.get(this);
+        System.out.println(objectName+".EndGame()");
+        System.out.println("return from "+objectName+".EndGame()");
     }
 
     public void CheckForVictory(List<Resource> resources) {
-        System.out.println("Game.CheckForVictory()");
+        ObjectHolder oh = ObjectHolder.getInstance();
+        String objectName = oh.get(this);
+        System.out.println(objectName+".CheckForVictory()");
         baseBluebrint.IsCraftable(resources);
-        System.out.println("return from Game.CheckForVictory()");
+        System.out.println("return from "+objectName+".CheckForVictory()");
     }
 
     public static Game getInstance() {
         if (singleClassInstance == null)
             singleClassInstance = new Game();
+
+
+        ObjectHolder oh = ObjectHolder.getInstance();
+        oh.add(baseBluebrint, "baseBlueprint");
 
         return singleClassInstance;
     }

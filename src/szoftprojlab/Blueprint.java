@@ -1,6 +1,7 @@
 package szoftprojlab;
 
 import szoftprojlab.resource.Resource;
+import szoftprojlab.skeleton.ObjectHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,31 +17,17 @@ public class Blueprint {
     }
 
     public List<Resource> IsCraftable(List<Resource> rs) {
-        System.out.println("Blueprint.IsCraftable()");
+        ObjectHolder oh = ObjectHolder.getInstance();
+        String objectName = oh.get(this);
+        System.out.println(objectName+".IsCraftable()");
         System.out.print("Is there enough resource to craft? (Y|N) ");
         Scanner scanner = new Scanner(System.in);
         String input = scanner.next();
 
-        System.out.println("return from Blueprint.IsCraftable()");
+        System.out.println("return from "+objectName+".IsCraftable()");
         if (input.equalsIgnoreCase("Y")) {
             return resources;
         }
         return null;
-//        List<Resource> temp = new ArrayList<>(rs);
-//        int count = 0;
-//        for (Resource ri : resources) {
-//            for (Resource rj : temp) {
-//                if (ri.equals(rj)) {
-//                    count++;
-//                    temp.remove(rj);
-//                    break;
-//                }
-//            }
-//        }
-//        if (count == resources.size()) {
-//            return resources;
-//        } else {
-//            return null;
-//        }
     }
 }
