@@ -10,7 +10,11 @@ public class Alien extends Entity implements Miner {
 
     @Override
     public void Step() {
+        asteroid.Mine(this);
 
+        var newAsteroid = asteroid.GetRandomNeighbor();
+        asteroid.Remove(this);
+        newAsteroid.Accept(this);
     }
 
     @Override

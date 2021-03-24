@@ -3,12 +3,12 @@ package tests;
 import org.junit.jupiter.api.Test;
 import szoftprojlab.Asteroid;
 import szoftprojlab.Sun;
-import szoftprojlab.TeleportGate;
 import szoftprojlab.entity.Player;
 import szoftprojlab.entity.Robot;
 import szoftprojlab.resource.Uranium;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class SunTest {
 
@@ -63,39 +63,5 @@ class SunTest {
 
         assertNotNull(a.GetEntities());
         assertEquals(a.GetEntities().size(), 0);
-    }
-
-    @Test
-    void dancingTeleportGates() {
-        Sun sun = Sun.getInstance();
-        sun.ClearAsteroids();
-        sun.Init(10, 1);
-
-        Asteroid asteroid1 = new Asteroid(0, 1);
-        Asteroid asteroid2 = new Asteroid(1, 1);
-        TeleportGate gate1 = new TeleportGate(1);
-        TeleportGate gate2 = new TeleportGate(2);
-        sun.AddAsteroid(asteroid1);
-        asteroid1.AddNeighbor(asteroid2);
-        asteroid1.PlaceTeleportGate(gate1);
-        asteroid2.PlaceTeleportGate(gate2);
-
-
-        assertNotNull(asteroid1.GetTeleportGates());
-        assertEquals(asteroid1.GetTeleportGates().size(), 1);
-        assertEquals(asteroid2.GetTeleportGates().size(), 1);
-        assertNotNull(asteroid1.GetTeleportGate(1));
-        assertNull(asteroid1.GetTeleportGate(2));
-        assertNotNull(asteroid2.GetTeleportGate(2));
-        assertNull(asteroid2.GetTeleportGate(1));
-
-        sun.Step();
-
-        // Az a jelenség most, az asteroid2-ről átmegynnek az asteroid1-re
-        // Majd az asteroid1-ről megy mindenki a 2-re, ezért lesz ott az összes
-        assertNull(asteroid1.GetTeleportGate(1));
-        assertNull(asteroid1.GetTeleportGate(2));
-        assertNotNull(asteroid2.GetTeleportGate(1));
-        assertNotNull(asteroid2.GetTeleportGate(2));
     }
 }

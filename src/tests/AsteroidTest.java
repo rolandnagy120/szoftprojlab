@@ -151,7 +151,7 @@ class AsteroidTest {
     void mine() {
         Player p = new Player();
         Coal c = new Coal();
-        Asteroid a = new Asteroid(0, 1);
+        Asteroid a = new Asteroid(0, 0);
         a.AddResource(c);
 
         assertNotNull(p.GetInventory());
@@ -166,7 +166,7 @@ class AsteroidTest {
     void place() {
         Player p = new Player();
         Coal c = new Coal();
-        Asteroid a = new Asteroid(0, 1);
+        Asteroid a = new Asteroid(0, 0);
         a.Mine(p);
 
         assertNotNull(p.GetInventory());

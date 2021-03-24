@@ -152,7 +152,7 @@ public class Asteroid {
 	 * @param miner - the miner that is doing the mining
 	 */
 	public void Mine(Miner miner) {
-		if (resource != null)
+		if (layers == 0 && resource != null)
 			miner.AddResource(resource);
 	}
 
