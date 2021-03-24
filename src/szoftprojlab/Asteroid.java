@@ -12,6 +12,7 @@ package szoftprojlab;
 
 
 import szoftprojlab.entity.Entity;
+import szoftprojlab.entity.Miner;
 import szoftprojlab.entity.Player;
 import szoftprojlab.resource.Resource;
 
@@ -159,9 +160,9 @@ public class Asteroid {
 	 * and then added to the inventory of the player
 	 * @param player - the player thats doing the mining
 	 */
-	public void Mine(Player player) {
+	public void Mine(Miner miner) {
 		if (resource != null)
-			player.AddResource(resource);
+			miner.AddResource(resource);
 	}
 
 	/**
@@ -277,9 +278,6 @@ public class Asteroid {
 	}
 
 	public void SendSunStorm(int remainingDepth) {
-		System.out.println(this);
-		System.out.println(remainingDepth);
-		System.out.println(neighbors);
 		if (remainingDepth > 0) {
 			for (Asteroid neighbor : neighbors) {
 				neighbor.SendSunStorm(remainingDepth - 1);

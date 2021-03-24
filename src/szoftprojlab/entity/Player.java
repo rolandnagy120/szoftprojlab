@@ -18,7 +18,7 @@ import szoftprojlab.resource.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player extends Entity {
+public class Player extends Entity implements Miner {
 	private List<TeleportGate> gates = new ArrayList<>();
 	private List<Resource> inventory = new ArrayList<>();
 
