@@ -43,6 +43,13 @@ public class TeleportGate {
 	}
 
 	/**
+	 * Removes the gate from its current asteroid
+	 */
+	public void RemoveFromAsteroid() {
+		this.asteroid = null;
+	}
+
+	/**
 	 * Sets the pair of the asteroid, so they are linked
 	 * @param gate - the gate that will be the pair
 	 */

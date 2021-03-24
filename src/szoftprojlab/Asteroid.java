@@ -68,11 +68,22 @@ public class Asteroid {
 	 * hid in the core
 	 * To hide in the core, the layers should be 0,
 	 * and the resource should be null
+	 * Moves the teleport gates to a neighbor
 	 */
 	public void SunStorm() {
 		if (layers > 0 || resource != null) {
 			List<Entity> entitiesCopy = new ArrayList<>(entities);
 			entitiesCopy.forEach(Entity::SunStorm);
+		}
+
+		if (gates.size() > 0) {
+			var rndNeighbor = GetRandomNeighbor();
+			if (rndNeighbor != null) {
+				for (TeleportGate gate : gates) {
+					rndNeighbor.AcceptTeleportGate(gate);
+				}
+				RemoveAllTeleportGates();
+			}
 		}
 	}
 
@@ -224,10 +235,25 @@ public class Asteroid {
 	 * @param gate - the gate that will be placed
 	 */
 	public void PlaceTeleportGate(TeleportGate gate) {
+		AcceptTeleportGate(gate);
+	}
+
+	/**
+	 * Accepts a teleportgate
+	 * @param gate - the gate that will be placed
+	 */
+	private void AcceptTeleportGate(TeleportGate gate) {
 		if (!gates.contains(gate)) {
 			gates.add(gate);
 			gate.Place(this);
 		}
+	}
+
+	/**
+	 * Removes a teleportgate
+	 */
+	public void RemoveAllTeleportGates() {
+		gates.clear();
 	}
 
 	/**
