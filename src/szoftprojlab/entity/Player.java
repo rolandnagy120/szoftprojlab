@@ -25,23 +25,41 @@ public class Player extends Entity {
 	public Player() {
 	}
 
+	/**
+	 * Gets the resources stored in the player inventory
+	 * @return
+	 */
 	@Override
 	public List<Resource> GetInventory() {
 		return inventory;
 	}
 
+	/**
+	 * Player steps
+	 */
 	public void Step() {
 	}
 
+	/**
+	 * The player mines the asteroid its on currently
+	 */
 	public void Mine() {
 		asteroid.Mine(this);
 	}
 
+	/**
+	 * The player places back a resource to the asteroid its on
+	 * the asteroid should be emptyto receive the resource
+	 * @param resource
+	 */
 	public void PlaceResource(Resource resource) {
 		if (inventory.contains(resource))
 			asteroid.Place(resource);
 	}
 
+	/**
+	 * The players places a teleport gate on the current asteroid
+	 */
 	public void PlaceGate() {
 		if (asteroid != null && gates.size() > 0) {
 			asteroid.PlaceTeleportGate(gates.get(0));
@@ -49,6 +67,10 @@ public class Player extends Entity {
 		}
 	}
 
+	/**
+	 * The player crafts a pair of teleport gates from
+	 * the resources stored in its iventory
+	 */
 	public void MakeGates() {
 		List<Resource> inventoryAfterCrafting = TeleportGate.CanCraft(this.inventory);
 
@@ -61,6 +83,9 @@ public class Player extends Entity {
 		}
 	}
 
+	/**
+	 * The player crafts a robot, and places it on the current asteroid
+	 */
 	public void MakeAndPlaceRobot() {
 		List<Resource> inventoryAfterCrafting = Robot.CanCraft(this.inventory);
 
@@ -71,14 +96,27 @@ public class Player extends Entity {
 		}
 	}
 
+	/**
+	 * Get the teleport gates the player has
+	 * Only use for unit tests
+	 * @return
+	 */
 	public List<TeleportGate> GetTeleportGates() {
 		return gates;
 	}
 
+	/**
+	 * Adds a resource to the players inventory
+	 * @param resource - the resource that will be added to the inventory
+	 */
 	public void AddResource(Resource resource) {
 		inventory.add(resource);
 	}
 
+	/**
+	 * An exlosion hits the player.
+	 * The player dies here
+	 */
 	@Override
 	public void Explode() {
 		Game game = Game.getInstance();
@@ -86,6 +124,10 @@ public class Player extends Entity {
 		game.PlayerDie(this);
 	}
 
+	/**
+	 * A sunstorm hits the player
+	 * The player dies
+	 */
 	@Override
 	public void SunStorm() {
 		Timer timer = new Timer();

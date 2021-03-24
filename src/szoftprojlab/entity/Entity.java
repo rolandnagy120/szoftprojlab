@@ -19,23 +19,41 @@ import java.util.List;
 public abstract class Entity implements Steppable {
 	protected Asteroid asteroid;
 
+	/**
+	 * Returns the asteroid which the entity is on
+	 * @return
+	 */
 	public Asteroid GetAsteroid() {
 		return asteroid;
 	}
 
+	/**
+	 * Sets the current asteroid
+	 * @param asteroid
+	 */
 	public void SetAsteroid(Asteroid asteroid) {
 		this.asteroid = asteroid;
 	}
 
+	/**
+	 * A Sunstorm hits the entity
+	 */
 	public void SunStorm() {
 		Timer timer = new Timer();
 		timer.RemoveSteppable(this);
 		asteroid.Remove(this);
 	}
-	
+
+	/**
+	 * The entity explodes
+	 */
 	public void Explode() {
 	}
-	
+
+	/**
+	 * Moves the entity from the current asteroid to a new asteroid
+	 * @param newAsteroid - the next asteroid the entity will be on
+	 */
 	public void MoveTo(Asteroid newAsteroid) {
 		if (asteroid.GetNeighbor(newAsteroid.GetId()) == null) {
 			return;
@@ -46,11 +64,20 @@ public abstract class Entity implements Steppable {
 		newAsteroid.Accept(this);
 		asteroid = newAsteroid;
 	}
-	
+
+	/**
+	 * The entity drills the asteroid its on
+	 */
 	public void Drill() {
 		asteroid.Drill();
 	}
-	
+
+	/**
+	 * The entity goes through a teleportgate,
+	 * and ens up at the asteroid where the gate
+	 * pair sits
+	 * @param gate - the gate that the entity goes through
+	 */
 	public void Teleport(TeleportGate gate) {
 		Asteroid pairAsteroid = gate.GetPairAsteroid();
 		asteroid.Remove(this);
