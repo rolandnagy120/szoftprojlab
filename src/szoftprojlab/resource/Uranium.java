@@ -6,7 +6,7 @@ package szoftprojlab.resource;
 //
 //  @ Project : Untitled
 //  @ File Name : Uranium.java
-//  @ Date : 02/03/2021
+//  @ Date : 10/03/2021
 //  @ Author : 
 //
 //
@@ -15,6 +15,11 @@ package szoftprojlab.resource;
 import szoftprojlab.Asteroid;
 
 public class Uranium extends Resource {
+	/**
+	 * The Sun gets close to the Uranium
+	 * This triggers an explosion
+	 * @param asteroid - the asteroid which holds the resource
+	 */
 	@Override
 	public void SeeSun(Asteroid asteroid) {
 		asteroid.Explode();

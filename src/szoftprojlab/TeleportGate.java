@@ -6,7 +6,7 @@ package szoftprojlab;
 //
 //  @ Project : Untitled
 //  @ File Name : TeleportGate.java
-//  @ Date : 02/03/2021
+//  @ Date : 10/03/2021
 //  @ Author : 
 //
 //
@@ -26,24 +26,47 @@ public class TeleportGate {
 		idx = ID;
 	}
 
+	/**
+	 * Gets the asteroid which holds the pair of this gate
+	 * @return
+	 */
 	public Asteroid GetPairAsteroid() {
 		return pair.asteroid;
 	}
-	
+
+	/**
+	 * Places the gate on the given asteroid
+	 * @param asteroid - the asteroid that will hold the gate
+	 */
 	public void Place(Asteroid asteroid) {
 		this.asteroid = asteroid;
 	}
-	
+
+	/**
+	 * Sets the pair of the asteroid, so they are linked
+	 * @param gate - the gate that will be the pair
+	 */
 	public void SetPair(TeleportGate gate) {
 		pair = gate;
 		if (!gate.HasPair())
 			gate.SetPair(this);
 	}
 
+	/**
+	 * Returns if the gate has a pair
+	 * Only for unit testing
+	 * @return
+	 */
 	public Boolean HasPair() {
 		return pair != null;
 	}
 
+	/**
+	 * Specifies if the gate can be crafted
+	 * @param rs - list of resources, should be the inventory of a player
+	 * @return - the given inventory minus the needed resources for crafting. If its size doesn't change,
+	 * then the gate cannot be crafted
+	 */
 	public static List<Resource> CanCraft(List<Resource> rs) {
 		List<Resource> list = teleportgateBlueprint.IsCraftable(rs);
 		return list;

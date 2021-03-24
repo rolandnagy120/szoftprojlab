@@ -6,7 +6,7 @@ package szoftprojlab;
 //
 //  @ Project : Untitled
 //  @ File Name : Timer.java
-//  @ Date : 02/03/2021
+//  @ Date : 10/03/2021
 //  @ Author : 
 //
 //
@@ -19,14 +19,27 @@ public class Timer {
 	private static Timer singleClassIntance = null;
 	private final List<Steppable> steppables = new ArrayList<>();
 
+	/**
+	 * Ticks the timer
+	 * Calls the Step() function for every steppable
+	 * object
+	 */
 	public void Tick() {
 		steppables.forEach(Steppable::Step);
 	}
 
+	/**
+	 * Clears all the steppables
+	 * Only for the skeleton
+	 */
 	public void ClearSteppables() {
 		steppables.clear();
 	}
 
+	/**
+	 * Adds a steppable
+	 * @param s - the object that will be added
+	 */
 	public void AddSteppable(Steppable s) {
 		if (!steppables.contains(s))
 			steppables.add(s);

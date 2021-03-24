@@ -4,7 +4,7 @@ package szoftprojlab;
 //
 //  @ Project : Untitled
 //  @ File Name : Game.java
-//  @ Date : 02/03/2021
+//  @ Date : 10/03/2021
 //  @ Author : 
 //
 //
@@ -21,6 +21,10 @@ public class Game {
 
     private Sun sun;
     private List<Player> players = new ArrayList<>();
+
+    /*
+    Blueprint for the base
+     */
     private static Blueprint baseBluebrint = new Blueprint(
             new Iron(), new Iron(), new Iron(),
             new Coal(), new Coal(), new Coal(),
@@ -28,6 +32,9 @@ public class Game {
             new Ice(), new Ice(), new Ice()
     );
 
+    /**
+     * Starts the game
+     */
     public void StartGame() {
         sun = Sun.getInstance();
         Asteroid a1 = new Asteroid(0, 1);
@@ -36,6 +43,11 @@ public class Game {
         Player player = new Player();
     }
 
+    /**
+     * A player dies
+     * checks for the end of game
+     * @param player - the player that died
+     */
     public void PlayerDie(Player player) {
         players.remove(player);
 
@@ -44,14 +56,25 @@ public class Game {
         }
     }
 
+    /**
+     * Adds a player to the game
+     * @param player - the player that will be added
+     */
     public void AddPlayer(Player player) {
         if (!players.contains(player))
             players.add(player);
     }
 
+    /**
+     * Ends the game
+     */
     public void EndGame() {
     }
 
+    /**
+     * Checks for victory
+     * @param resources - the summed inventory of the players on the same asteroid
+     */
     public void CheckForVictory(List<Resource> resources) {
         // playerben már kész a craft check
 //        baseBluebrint.IsCraftable(resources);

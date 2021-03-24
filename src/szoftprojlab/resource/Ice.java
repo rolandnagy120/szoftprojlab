@@ -4,7 +4,7 @@ package szoftprojlab.resource;
 //
 //  @ Project : Untitled
 //  @ File Name : Ice.java
-//  @ Date : 02/03/2021
+//  @ Date : 10/03/2021
 //  @ Author : 
 //
 //
@@ -13,6 +13,12 @@ package szoftprojlab.resource;
 import szoftprojlab.Asteroid;
 
 public class Ice extends Resource {
+
+	/**
+	 * The sun gets close the ice
+	 * The ice is destoryed
+	 * @param asteroid - the asteroid which holds the ice
+	 */
 	@Override
 	public void SeeSun(Asteroid asteroid) {
 		asteroid.DestroyResource();

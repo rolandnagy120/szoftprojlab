@@ -5,7 +5,7 @@ package szoftprojlab;
 //
 //  @ Project : Untitled
 //  @ File Name : Sun.java
-//  @ Date : 02/03/2021
+//  @ Date : 10/03/2021
 //  @ Author : 
 //
 //
@@ -23,6 +23,11 @@ public class Sun implements Steppable {
 	private int nextSunStormIn;
 	private List<Asteroid> asteroids = new ArrayList<>();
 
+	/**
+	 * Initialize the sun
+	 * @param nearSunCycle
+	 * @param _sunStormProbability
+	 */
 	public void Init(int nearSunCycle, double _sunStormProbability) {
 		cycle = nearSunCycle;
 		counter = cycle;
@@ -34,10 +39,19 @@ public class Sun implements Steppable {
 		return nextSunStormIn;
 	}
 
+	/**
+	 * Clear the asteroids
+	 * Only needed for the skeleton
+	 */
 	public void ClearAsteroids() {
 		asteroids.clear();
 	}
 
+	/**
+	 * Steps the sun
+	 * Calls ChangeNearSun if it is the time for it
+	 * Calls sunstorm if it is time for it
+	 */
 	public void Step() {
 		counter--;
 		nextSunStormIn--;
@@ -52,15 +66,26 @@ public class Sun implements Steppable {
 			nextSunStormIn = (int) (1 / sunStormProbability);
 		}
 	}
-	
+
+	/**
+	 * Sends a sunstorm to the asteroids
+	 * Calls SunStorm on every asteroid
+	 */
 	private void SunStorm() {
 		asteroids.forEach(Asteroid::SunStorm);
 	}
-	
+
+	/**
+	 * Changes the near sun state
+	 */
 	private void ChangeNearSun() {
 		asteroids.forEach(Asteroid::ChangeNearSun);
 	}
 
+	/**
+	 * Adds a new asteroid to the field
+	 * @param asteroid - the asteroid that joins the field
+	 */
 	public void AddAsteroid(Asteroid asteroid) {
 		if (!asteroids.contains(asteroid))
 			asteroids.add(asteroid);
