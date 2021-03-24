@@ -13,7 +13,6 @@ package szoftprojlab;
 
 import szoftprojlab.entity.Entity;
 import szoftprojlab.entity.Miner;
-import szoftprojlab.entity.Player;
 import szoftprojlab.resource.Resource;
 
 import java.util.ArrayList;
@@ -77,15 +76,7 @@ public class Asteroid {
 			entitiesCopy.forEach(Entity::SunStorm);
 		}
 
-		if (gates.size() > 0) {
-			var rndNeighbor = GetRandomNeighbor();
-			if (rndNeighbor != null) {
-				for (TeleportGate gate : gates) {
-					rndNeighbor.AcceptTeleportGate(gate);
-				}
-				RemoveAllTeleportGates();
-			}
-		}
+		gates.forEach(TeleportGate::StartMoving);
 	}
 
 	/**
@@ -155,10 +146,10 @@ public class Asteroid {
 	}
 
 	/**
-	 * A player mines the resource stored in this asteroid
+	 * A miner mines the resource stored in this asteroid
 	 * The resource is removed from the asteroid,
 	 * and then added to the inventory of the player
-	 * @param player - the player thats doing the mining
+	 * @param miner - the miner that is doing the mining
 	 */
 	public void Mine(Miner miner) {
 		if (resource != null)
@@ -248,6 +239,10 @@ public class Asteroid {
 			gates.add(gate);
 			gate.Place(this);
 		}
+	}
+
+	public void RemoveTeleportGate(TeleportGate gate) {
+		gates.remove(gate);
 	}
 
 	/**

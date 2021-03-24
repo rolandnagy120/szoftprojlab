@@ -88,6 +88,10 @@ public class Player extends Entity implements Miner {
 			tg1.SetPair(tg2);
 			gates.add(tg1);
 			gates.add(tg2);
+
+			Timer timer = Timer.getInstance();
+			timer.AddSteppable(tg1);
+			timer.AddSteppable(tg2);
 		}
 	}
 

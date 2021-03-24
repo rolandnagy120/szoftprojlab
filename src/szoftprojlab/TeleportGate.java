@@ -16,11 +16,13 @@ import szoftprojlab.resource.*;
 
 import java.util.List;
 
-public class TeleportGate {
+public class TeleportGate implements Steppable {
 	private int idx;
 	private TeleportGate pair;
 	private Asteroid asteroid;
 	private static Blueprint teleportgateBlueprint = new Blueprint(new Iron(), new Iron(), new Ice(), new Uranium());
+
+	private boolean isMoving = false;
 
 	public TeleportGate(int ID) {
 		idx = ID;
@@ -81,5 +83,17 @@ public class TeleportGate {
 
 	public int GetId() {
 		return idx;
+	}
+
+	public void StartMoving() {
+		this.isMoving = true;
+	}
+
+	@Override
+	public void Step() {
+		var newAsteroid = asteroid.GetRandomNeighbor();
+		asteroid.RemoveTeleportGate(this);
+		newAsteroid.PlaceTeleportGate(this);
+		asteroid = newAsteroid;
 	}
 }
