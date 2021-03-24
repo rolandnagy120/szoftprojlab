@@ -91,6 +91,10 @@ public class TeleportGate implements Steppable {
 
 	@Override
 	public void Step() {
+		if (!isMoving) {
+			return;
+		}
+
 		var newAsteroid = asteroid.GetRandomNeighbor();
 		asteroid.RemoveTeleportGate(this);
 		newAsteroid.PlaceTeleportGate(this);
