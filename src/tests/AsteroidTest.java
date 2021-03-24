@@ -7,6 +7,7 @@ import szoftprojlab.entity.Player;
 import szoftprojlab.entity.Robot;
 import szoftprojlab.resource.Coal;
 import szoftprojlab.resource.Ice;
+import szoftprojlab.resource.ResourceNames;
 import szoftprojlab.resource.Uranium;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -52,8 +53,8 @@ class AsteroidTest {
         Asteroid emptyAsteroidWithLayer = getAsteroidWithTwoEntitiesAndLayerOf(1);
         Asteroid emptyAsteroidWithoutLayer = getAsteroidWithTwoEntitiesAndLayerOf(0);
 
-        emptyAsteroidWithLayer.AddResource(resource1);
-        emptyAsteroidWithoutLayer.AddResource(resource2);
+        emptyAsteroidWithLayer.AddResource(ResourceNames.Ice, resource1);
+        emptyAsteroidWithoutLayer.AddResource(ResourceNames.Ice, resource2);
 
         emptyAsteroidWithLayer.SunStorm();
         emptyAsteroidWithoutLayer.SunStorm();
@@ -152,7 +153,7 @@ class AsteroidTest {
         Player p = new Player();
         Coal c = new Coal();
         Asteroid a = new Asteroid(0, 1);
-        a.AddResource(c);
+        a.AddResource(ResourceNames.Coal, c);
 
         assertNotNull(p.GetInventory());
         assertEquals(p.GetInventory().size(), 0);
@@ -198,7 +199,7 @@ class AsteroidTest {
         Uranium u = new Uranium();
         Asteroid a = new Asteroid(0, 0);
         Player p = new Player();
-        a.AddResource(u);
+        a.AddResource(ResourceNames.Uranium, u);
         a.DestroyResource();
 
         a.Mine(p);

@@ -12,15 +12,9 @@ package szoftprojlab.resource;
 
 public class Coal extends Resource {
     @Override
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        }
-
-        if (o instanceof Coal) {
-            return true;
-        }
-
-        return false;
+    public void AddToOwner(ResourceStorage rs) {
+        System.out.println("Coal.AddToOwner()");
+        rs.AddResource(ResourceNames.Coal, this);
+        System.out.println("return from Coal.AddToOwner()");
     }
 }

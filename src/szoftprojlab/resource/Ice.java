@@ -25,15 +25,7 @@ public class Ice extends Resource {
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		if (o == this) {
-			return true;
-		}
-
-		if (o instanceof Ice) {
-			return true;
-		}
-
-		return false;
+	public void AddToOwner(ResourceStorage rs) {
+		rs.AddResource(ResourceNames.Ice, this);
 	}
 }

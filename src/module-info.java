@@ -1,3 +1,10 @@
-//module szoftprojlab {
-//    requires org.junit.jupiter.api;
-//}
+/**
+ * 
+ */
+/**
+ * @author cloud
+ *
+ */
+module szoftprojlab {
+    requires org.junit.jupiter.api;
+}
