@@ -20,5 +20,6 @@ public abstract class Resource {
     public void SeeSun(Asteroid asteroid) {
     }
 
-    public abstract void AddToOwner(ResourceStorage rs);
+    @Override
+    public abstract boolean equals(Object o);
 }

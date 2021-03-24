@@ -26,7 +26,15 @@ public class Uranium extends Resource {
 	}
 
 	@Override
-	public void AddToOwner(ResourceStorage rs) {
-		rs.AddResource(ResourceNames.Uranium, this);
+	public boolean equals(Object o) {
+		if (o == this) {
+			return true;
+		}
+
+		if (o instanceof Uranium) {
+			return true;
+		}
+
+		return false;
 	}
 }
