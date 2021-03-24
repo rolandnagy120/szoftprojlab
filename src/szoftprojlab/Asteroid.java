@@ -275,4 +275,16 @@ public class Asteroid {
 	public int GetId() {
 		return idx;
 	}
+
+	public void SendSunStorm(int remainingDepth) {
+		System.out.println(this);
+		System.out.println(remainingDepth);
+		System.out.println(neighbors);
+		if (remainingDepth > 0) {
+			for (Asteroid neighbor : neighbors) {
+				neighbor.SendSunStorm(remainingDepth - 1);
+			}
+		}
+		SunStorm();
+	}
 }

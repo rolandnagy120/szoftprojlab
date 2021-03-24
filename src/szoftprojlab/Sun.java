@@ -13,6 +13,7 @@ package szoftprojlab;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Sun implements Steppable {
 	private static Sun singleClassIntance = null;
@@ -71,8 +72,21 @@ public class Sun implements Steppable {
 	 * Sends a sunstorm to the asteroids
 	 * Calls SunStorm on every asteroid
 	 */
-	private void SunStorm() {
+	private void SunStormOld() {
 		asteroids.forEach(Asteroid::SunStorm);
+	}
+
+	/**
+	 * Sends a sunstorm to the asteroids
+	 * Calls SunStorm on every asteroid
+	 */
+	private void SunStorm() {
+		Random rnd = new Random();
+		int randomIndex = rnd.ints(0, asteroids.size())
+				.findFirst()
+				.getAsInt();
+
+		asteroids.get(randomIndex).SendSunStorm(2);
 	}
 
 	/**

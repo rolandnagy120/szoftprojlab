@@ -68,6 +68,7 @@ class SunTest {
     @Test
     void dancingTeleportGates() {
         Sun sun = Sun.getInstance();
+        sun.ClearAsteroids();
         sun.Init(10, 1);
 
         Asteroid asteroid1 = new Asteroid(0, 1);
