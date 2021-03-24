@@ -15,14 +15,19 @@ package szoftprojlab.resource;
 import szoftprojlab.Asteroid;
 
 public class Uranium extends Resource {
+
+	private int seeSunsBeforeExplosion = 3;
+
 	/**
 	 * The Sun gets close to the Uranium
-	 * This triggers an explosion
+	 * This triggers an explosion if it is the third time
 	 * @param asteroid - the asteroid which holds the resource
 	 */
 	@Override
 	public void SeeSun(Asteroid asteroid) {
-		asteroid.Explode();
+		seeSunsBeforeExplosion--;
+		if (seeSunsBeforeExplosion == 0)
+			asteroid.Explode();
 	}
 
 	@Override

@@ -34,6 +34,14 @@ class SunTest {
 
         a.Drill();
         assertNotNull(a.GetEntities());
+        assertEquals(a.GetEntities().size(), 2);
+        sun.Step();
+        assertEquals(a.GetEntities().size(), 2);
+        sun.Step();
+        assertEquals(a.GetEntities().size(), 2);
+        sun.Step();
+        assertEquals(a.GetEntities().size(), 2);
+        sun.Step();
         assertEquals(a.GetEntities().size(), 0);
     }
 
