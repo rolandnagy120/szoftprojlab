@@ -22,6 +22,8 @@ public class Player extends Entity {
 	private List<TeleportGate> gates = new ArrayList<>();
 	private List<Resource> inventory = new ArrayList<>();
 
+	private static int maxGatesCount = 3;
+
 	public Player() {
 	}
 
@@ -70,8 +72,14 @@ public class Player extends Entity {
 	/**
 	 * The player crafts a pair of teleport gates from
 	 * the resources stored in its iventory
+	 * If the player has more than 1 gate, then return, because there
+	 * if no room for 2 more teleport gates
 	 */
 	public void MakeGates() {
+		if (gates.size() > maxGatesCount - 2) {
+			return;
+		}
+
 		List<Resource> inventoryAfterCrafting = TeleportGate.CanCraft(this.inventory);
 
 		if (inventoryAfterCrafting != null || inventory.size() == 4) {

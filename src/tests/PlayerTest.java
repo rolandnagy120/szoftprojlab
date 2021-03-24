@@ -24,24 +24,41 @@ class PlayerTest {
 
         Iron iron1 = new Iron();
         Iron iron2 = new Iron();
-        Ice ice = new Ice();
-        Uranium uranium = new Uranium();
+        Ice ice1 = new Ice();
+        Uranium uranium1 = new Uranium();
+        Iron iron3 = new Iron();
+        Iron iron4 = new Iron();
+        Ice ice2 = new Ice();
+        Uranium uranium2 = new Uranium();
 
         p.AddResource(iron1);
         p.MakeGates();
         assertEquals(p.GetTeleportGates().size(), 0);
 
-        p.AddResource(ice);
+        p.AddResource(ice1);
         p.MakeGates();
         assertEquals(p.GetTeleportGates().size(), 0);
 
-        p.AddResource(uranium);
+        p.AddResource(uranium1);
         p.MakeGates();
         assertEquals(p.GetTeleportGates().size(), 0);
 
         p.AddResource(iron2);
         p.MakeGates();
         assertEquals(p.GetTeleportGates().size(), 2);
+
+
+        p.AddResource(iron3);
+        p.AddResource(iron4);
+        p.AddResource(ice2);
+        p.AddResource(uranium2);
+
+        p.MakeGates();
+        assertEquals(p.GetTeleportGates().size(), 2);
+        p.PlaceGate();
+        assertEquals(p.GetTeleportGates().size(), 1);
+        p.MakeGates();
+        assertEquals(p.GetTeleportGates().size(), 3);
     }
 
     @Test
