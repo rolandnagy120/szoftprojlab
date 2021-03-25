@@ -26,8 +26,10 @@ public class Uranium extends Resource {
 	@Override
 	public void SeeSun(Asteroid asteroid) {
 		seeSunsBeforeExplosion--;
-		if (seeSunsBeforeExplosion == 0)
+		if (seeSunsBeforeExplosion == 0) {
+			System.out.println("The uranium exploded");
 			asteroid.Explode();
+		}
 	}
 
 	@Override

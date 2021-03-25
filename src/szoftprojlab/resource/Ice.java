@@ -21,6 +21,7 @@ public class Ice extends Resource {
 	 */
 	@Override
 	public void SeeSun(Asteroid asteroid) {
+		System.out.println("The ice is destroyed");
 		asteroid.DestroyResource();
 	}
 

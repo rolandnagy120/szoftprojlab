@@ -22,6 +22,7 @@ public class Game {
     private Sun sun = Sun.getInstance();
     private Timer timer = Timer.getInstance();
     private List<Player> players = new ArrayList<>();
+    private boolean gameWon = false;
 
     /*
     Blueprint for the base
@@ -63,7 +64,7 @@ public class Game {
         asteroids.get(0).Accept(player1);
         asteroids.get(0).Accept(player2);
         timer.AddSteppable(player1);
-        timer.AddSteppable(player2);
+//        timer.AddSteppable(player2);
 
         int oneResourceCount = asteroids.size() / 5;
         if (oneResourceCount == 0) oneResourceCount = 1;
@@ -92,7 +93,7 @@ public class Game {
 
         boolean endGame = false;
 
-        while (!endGame) {
+        while (!endGame && !gameWon) {
             System.out.println("New round\n");
             timer.Tick();
 
@@ -140,6 +141,13 @@ public class Game {
     public void CheckForVictory(List<Resource> resources) {
         // playerben már kész a craft check
 //        baseBluebrint.IsCraftable(resources);
+
+        List<Resource> inventoryAfterCrafting = baseBluebrint.IsCraftable(resources);
+
+        if (inventoryAfterCrafting != null) {
+            System.out.println("The base can be made now! The game is won!");
+            gameWon = true;
+        }
     }
 
     public static Game getInstance() {

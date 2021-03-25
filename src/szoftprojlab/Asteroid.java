@@ -122,8 +122,10 @@ public class Asteroid {
 	 * @param entity - the entity that moved here
 	 */
 	public void Accept(Entity entity) {
-		if (!entities.contains(entity))
+		if (!entities.contains(entity)) {
 			entities.add(entity);
+			ChangeNearSun();
+		}
 		entity.SetAsteroid(this);
 	}
 
@@ -155,6 +157,7 @@ public class Asteroid {
 		if (layers == 0 && resource != null) {
 			miner.AddResource(resource);
 			resource = null;
+			CheckForVictory();
 		}
 	}
 
