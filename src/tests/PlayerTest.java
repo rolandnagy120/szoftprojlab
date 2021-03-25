@@ -11,7 +11,7 @@ class PlayerTest {
 
     @Test
     void makeGates() {
-        Player p = new Player();
+        Player p = new Player("Player1");
         Asteroid a = new Asteroid(0, 1);
         a.Accept(p);
 
@@ -69,7 +69,7 @@ class PlayerTest {
         a1.AddNeighbor(a2);
         a2.AddNeighbor(a3);
 
-        Player p = new Player();
+        Player p = new Player("Player1");
         a1.Accept(p);
 
         assertNotNull(a1.GetEntities());
@@ -104,7 +104,7 @@ class PlayerTest {
     @Test
     void createRobot() {
         Asteroid a = new Asteroid(0, 1);
-        Player p = new Player();
+        Player p = new Player("Player1");
         a.Accept(p);
 
         assertNotNull(a.GetEntities());

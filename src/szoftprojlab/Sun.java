@@ -81,6 +81,7 @@ public class Sun implements Steppable {
 	 * Calls SunStorm on every asteroid
 	 */
 	private void SunStorm() {
+		System.out.println("SunStorm hit the field");
 		Random rnd = new Random();
 		int randomIndex = rnd.ints(0, asteroids.size())
 				.findFirst()
@@ -93,6 +94,7 @@ public class Sun implements Steppable {
 	 * Changes the near sun state
 	 */
 	private void ChangeNearSun() {
+		System.out.println("Change near sun happening");
 		asteroids.forEach(Asteroid::ChangeNearSun);
 	}
 

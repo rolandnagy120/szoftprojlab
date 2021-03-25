@@ -152,8 +152,10 @@ public class Asteroid {
 	 * @param miner - the miner that is doing the mining
 	 */
 	public void Mine(Miner miner) {
-		if (layers == 0 && resource != null)
+		if (layers == 0 && resource != null) {
 			miner.AddResource(resource);
+			resource = null;
+		}
 	}
 
 	/**
@@ -279,5 +281,21 @@ public class Asteroid {
 			}
 		}
 		SunStorm();
+	}
+
+	public int NeighborCount(){
+		return neighbors.size();
+	}
+
+	public String GetResourceName() {
+		if (resource == null)
+			return "Empty";
+		if (layers > 0)
+			return "Unknown";
+		return resource.getClass().getSimpleName();
+	}
+
+	public int[] GetNeighborsIds() {
+		return neighbors.stream().mapToInt(neighbor -> neighbor.idx).toArray();
 	}
 }

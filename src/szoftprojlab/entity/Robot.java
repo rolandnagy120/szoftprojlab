@@ -26,6 +26,13 @@ public class Robot extends Entity {
 	 * The robot steps
 	 */
 	public void Step() {
+		if (asteroid.GetLayerThickness() > 0) {
+			Drill();
+		} else {
+			var newAsteroid = asteroid.GetRandomNeighbor();
+			asteroid.Remove(this);
+			newAsteroid.Accept(this);
+		}
 	}
 
 	/**

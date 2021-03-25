@@ -21,7 +21,7 @@ class SunTest {
         sun.AddAsteroid(a);
         Uranium u = new Uranium();
         a.AddResource(u);
-        Player p = new Player();
+        Player p = new Player("Player1");
         Robot r = new Robot();
         a.Accept(p);
         a.Accept(r);
@@ -52,7 +52,7 @@ class SunTest {
         sun.Init(10, 1);
 
         Asteroid a = new Asteroid(0, 1);
-        Player p = new Player();
+        Player p = new Player("Player1");
         a.Accept(p);
         sun.AddAsteroid(a);
 

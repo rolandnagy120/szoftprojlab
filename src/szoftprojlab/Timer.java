@@ -25,7 +25,11 @@ public class Timer {
 	 * object
 	 */
 	public void Tick() {
-		steppables.forEach(Steppable::Step);
+		var steppablesCopy = new ArrayList<>(steppables);
+		for (Steppable steppable : steppablesCopy) {
+			if (steppables.contains(steppable))
+				steppable.Step();
+		}
 	}
 
 	/**

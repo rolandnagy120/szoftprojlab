@@ -16,7 +16,7 @@ class AsteroidTest {
 
     private Asteroid getAsteroidWithTwoEntitiesAndLayerOf(int numberOfLayers) {
         Asteroid asteroid = new Asteroid(0, numberOfLayers);
-        Player p = new Player();
+        Player p = new Player("Player1");
         Robot r = new Robot();
         asteroid.Accept(p);
         asteroid.Accept(r);
@@ -83,7 +83,7 @@ class AsteroidTest {
     void explode() {
         Asteroid a1 = new Asteroid(0, 1);
         Asteroid a2 = new Asteroid(1, 1);
-        Player p = new Player();
+        Player p = new Player("Player1");
         Robot r = new Robot();
         a1.AddNeighbor(a2);
         a1.Accept(p);
@@ -114,7 +114,7 @@ class AsteroidTest {
         assertNotNull(a.GetEntities());
         assertEquals(a.GetEntities().size(), 0);
 
-        Player p = new Player();
+        Player p = new Player("Player1");
         a.Accept(p);
         assertEquals(a.GetEntities().size(), 1);
 
@@ -131,7 +131,7 @@ class AsteroidTest {
         Asteroid a = new Asteroid(0, 2);
         assertNotNull(a.GetEntities());
 
-        Player p = new Player();
+        Player p = new Player("Player1");
         Robot r = new Robot();
         a.Accept(p);
         a.Accept(r);
@@ -149,7 +149,7 @@ class AsteroidTest {
 
     @Test
     void mine() {
-        Player p = new Player();
+        Player p = new Player("Player1");
         Coal c = new Coal();
         Asteroid a = new Asteroid(0, 0);
         a.AddResource(c);
@@ -164,7 +164,7 @@ class AsteroidTest {
 
     @Test
     void place() {
-        Player p = new Player();
+        Player p = new Player("Player1");
         Coal c = new Coal();
         Asteroid a = new Asteroid(0, 0);
         a.Mine(p);
@@ -181,7 +181,7 @@ class AsteroidTest {
     @Test
     void getTeleportGate() {
         int gateId = 17;
-        Player p = new Player();
+        Player p = new Player("Player1");
         Asteroid a = new Asteroid(0, 1);
         TeleportGate gate = new TeleportGate(gateId);
         a.PlaceTeleportGate(gate);
@@ -197,7 +197,7 @@ class AsteroidTest {
     void destroyResource() {
         Uranium u = new Uranium();
         Asteroid a = new Asteroid(0, 0);
-        Player p = new Player();
+        Player p = new Player("Player1");
         a.AddResource(u);
         a.DestroyResource();
 

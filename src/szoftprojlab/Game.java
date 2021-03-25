@@ -19,7 +19,8 @@ import java.util.List;
 public class Game {
     private static Game singleClassInstance = null;
 
-    private Sun sun;
+    private Sun sun = Sun.getInstance();
+    private Timer timer = Timer.getInstance();
     private List<Player> players = new ArrayList<>();
 
     /*
@@ -36,11 +37,70 @@ public class Game {
      * Starts the game
      */
     public void StartGame() {
-        sun = Sun.getInstance();
-        Asteroid a1 = new Asteroid(0, 1);
-        Asteroid a2 = new Asteroid(1, 1);
-        a1.AddNeighbor(a2);
-        Player player = new Player();
+        timer.ClearSteppables();
+        timer.AddSteppable(sun);
+        sun.ClearAsteroids();
+        sun.Init(10, 0.01);
+
+        Player player1 = new Player("Player1");
+        Player player2 = new Player("Player2");
+        players.add(player1);
+        players.add(player2);
+
+
+        int numberOfAsteroids = 10;
+        var maxNeighbors = 4;
+        List<Asteroid> asteroids = new ArrayList<>();
+        for (int i = 1; i <= numberOfAsteroids; i++) {
+            int asteroidLayer = 1;
+            var asteroid = new Asteroid(i, asteroidLayer);
+            asteroids.add(asteroid);
+            sun.AddAsteroid(asteroid);
+        }
+        for (Asteroid asteroid : asteroids) {
+            Main.setNeighbors(asteroid, asteroids, maxNeighbors);
+        }
+        asteroids.get(0).Accept(player1);
+        asteroids.get(0).Accept(player2);
+        timer.AddSteppable(player1);
+        timer.AddSteppable(player2);
+
+        int oneResourceCount = asteroids.size() / 5;
+        if (oneResourceCount == 0) oneResourceCount = 1;
+        int i = 0;
+        while (i < oneResourceCount && i < asteroids.size()) {
+            Coal coal = new Coal();
+            asteroids.get(i).AddResource(coal);
+            i++;
+        }
+        while (i < oneResourceCount * 2 && i < asteroids.size()) {
+            Ice ice = new Ice();
+            asteroids.get(i).AddResource(ice);
+            i++;
+        }
+        while (i < oneResourceCount * 3 && i < asteroids.size()) {
+            Iron iron = new Iron();
+            asteroids.get(i).AddResource(iron);
+            i++;
+        }
+        while (i < oneResourceCount * 4 && i < asteroids.size()) {
+            Uranium uranium = new Uranium();
+            asteroids.get(i).AddResource(uranium);
+            i++;
+        }
+
+
+        boolean endGame = false;
+
+        while (!endGame) {
+            System.out.println("New round\n");
+            timer.Tick();
+
+            if (players.size() == 0) {
+                System.out.println("Everyone died");
+                endGame = true;
+            }
+        }
     }
 
     /**
@@ -49,7 +109,9 @@ public class Game {
      * @param player - the player that died
      */
     public void PlayerDie(Player player) {
+        System.out.println(player.name + " died in!");
         players.remove(player);
+        Timer.getInstance().RemoveSteppable(player);
 
         if (players.size() <= 1) {
             EndGame();

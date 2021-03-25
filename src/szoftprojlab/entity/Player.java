@@ -11,20 +11,24 @@ package szoftprojlab.entity;
 
 
 import szoftprojlab.Game;
+import szoftprojlab.Sun;
 import szoftprojlab.TeleportGate;
 import szoftprojlab.Timer;
 import szoftprojlab.resource.Resource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Player extends Entity implements Miner {
 	private List<TeleportGate> gates = new ArrayList<>();
 	private List<Resource> inventory = new ArrayList<>();
+	public String name;
 
 	private static int maxGatesCount = 3;
 
-	public Player() {
+	public Player(String name) {
+		this.name = name;
 	}
 
 	/**
@@ -40,6 +44,79 @@ public class Player extends Entity implements Miner {
 	 * Player steps
 	 */
 	public void Step() {
+		boolean endStep = false;
+
+		while (!endStep) {
+			System.out.println("\n" + name + " - What do you want to do?");
+			System.out.println("1 - Get current asteroid number of layers");
+			System.out.println("2 - Get resource type inside asteroid");
+			System.out.println("3 - Drill");
+			System.out.println("4 - Mine");
+			System.out.println("5 - Move");
+			System.out.println("6 - List invenory");
+			System.out.println("7 - Get next sunstorm time");
+			System.out.println("8 - Craft and place robot");
+			System.out.println("9 - Craft gates");
+			System.out.println("10 - Place a teleport gate");
+			System.out.println("11 - Go through teleport gate");
+			Scanner scanner = new Scanner(System.in);
+			String input = scanner.next();
+
+			if (input.equalsIgnoreCase("1")) {
+				System.out.println("The layer is: " + asteroid.GetLayerThickness());
+			} else if (input.equalsIgnoreCase("2")) {
+				System.out.println("The resource is: " + asteroid.GetResourceName());
+			} else if (input.equalsIgnoreCase("3")) {
+				Drill();
+				endStep = true;
+			} else if (input.equalsIgnoreCase("4")) {
+				Mine();
+				endStep = true;
+			} else if (input.equalsIgnoreCase("5")) {
+				var neighborIds = asteroid.GetNeighborsIds();
+				System.out.println("To which asteroid do you want to go?");
+				for (int id : neighborIds) {
+					System.out.println(id + " (layers: " + asteroid.GetNeighbor(id).GetLayerThickness() + ")");
+				}
+				String input2 = scanner.next();
+				for (int id : neighborIds) {
+					if (String.valueOf(id).equals(input2)) {
+						MoveTo(asteroid.GetNeighbor(id));
+						endStep = true;
+					}
+				}
+			} else if (input.equalsIgnoreCase("6")) {
+				for (Resource resource : inventory) {
+					System.out.println(resource.getClass().getSimpleName());
+				}
+			} else if (input.equalsIgnoreCase("7")) {
+				System.out.println("The next sunstorm arrive in " + Sun.getInstance().GetNextSunStormArrivalTime() + " turns");
+			} else if (input.equalsIgnoreCase("8")) {
+				MakeAndPlaceRobot();
+			} else if (input.equalsIgnoreCase("9")) {
+				MakeGates();
+			} else if (input.equalsIgnoreCase("10")) {
+				PlaceGate();
+			} else if (input.equalsIgnoreCase("11")) {
+				var gates = asteroid.GetTeleportGates();
+				if (gates.size() == 0) {
+					System.out.println("No gates on the asteroid");
+				} else {
+					for (int i = 0; i < gates.size(); i++) {
+						var gate = gates.get(i);
+						System.out.println((i + 1) + " - asteroid " + gate.GetPairAsteroid().GetId());
+					}
+					String input2 = scanner.next();
+					for (int i = 0; i < gates.size(); i++) {
+						if (String.valueOf(i + 1).equals(input2)) {
+							Teleport(gates.get(i));
+							System.out.println("Teleported");
+							break;
+						}
+					}
+				}
+			}
+		}
 	}
 
 	/**
@@ -66,6 +143,9 @@ public class Player extends Entity implements Miner {
 		if (asteroid != null && gates.size() > 0) {
 			asteroid.PlaceTeleportGate(gates.get(0));
 			gates.remove(0);
+			System.out.println("Gate placed");
+		} else if (gates.size() == 0) {
+			System.out.println("No gates to place");
 		}
 	}
 
@@ -77,6 +157,7 @@ public class Player extends Entity implements Miner {
 	 */
 	public void MakeGates() {
 		if (gates.size() > maxGatesCount - 2) {
+			System.out.println("No more space to craft gates");
 			return;
 		}
 
@@ -92,6 +173,10 @@ public class Player extends Entity implements Miner {
 			Timer timer = Timer.getInstance();
 			timer.AddSteppable(tg1);
 			timer.AddSteppable(tg2);
+
+			System.out.println("Gates crafted");
+		} else {
+			System.out.println("Not enough resources to craft gates");
 		}
 	}
 
@@ -104,7 +189,12 @@ public class Player extends Entity implements Miner {
 		if (inventoryAfterCrafting != null) {
 			Robot r = new Robot();
 			asteroid.Accept(r);
+			Timer.getInstance().AddSteppable(r);
 			inventory = inventoryAfterCrafting;
+
+			System.out.println("Robot crafted and placed");
+		} else {
+			System.out.println("Not enough resources to craft a robot");
 		}
 	}
 
