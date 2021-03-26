@@ -36,8 +36,6 @@ public class Blueprint {
             }
         }
 
-        System.out.println("after check: " + resourcesCopy.size());
-
         if (neededResourcesCopy.size() == 0) {
             return resourcesCopy;
         }

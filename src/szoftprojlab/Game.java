@@ -64,7 +64,7 @@ public class Game {
         asteroids.get(0).Accept(player1);
         asteroids.get(0).Accept(player2);
         timer.AddSteppable(player1);
-//        timer.AddSteppable(player2);
+        timer.AddSteppable(player2);
 
         int oneResourceCount = asteroids.size() / 5;
         if (oneResourceCount == 0) oneResourceCount = 1;
