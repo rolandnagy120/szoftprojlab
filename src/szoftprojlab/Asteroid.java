@@ -278,12 +278,12 @@ public class Asteroid {
 	}
 
 	public void SendSunStorm(int remainingDepth) {
+		SunStorm();
 		if (remainingDepth > 0) {
 			for (Asteroid neighbor : neighbors) {
 				neighbor.SendSunStorm(remainingDepth - 1);
 			}
 		}
-		SunStorm();
 	}
 
 	public int NeighborCount(){
