@@ -144,7 +144,8 @@ public class Asteroid {
     public void Drill() {
         if (layers > 0)
             layers--;
-
+        if(layers == 0)
+            System.out.println("Asteroid breakthrough!");
         SeeSunIfNeeded();
     }
 
