@@ -18,287 +18,330 @@ import szoftprojlab.resource.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Asteroid {
-	private int idx;
-	private int layers;
-	private boolean isEmpty = true;
-	private boolean nearSun = false;
-	private Resource resource;
-	private List<Asteroid> neighbors = new ArrayList<>();
-	private List<Entity> entities = new ArrayList<>();
-	private List<TeleportGate> gates = new ArrayList<>();
+    private int idx;
+    private int layers;
+    private boolean isEmpty = true;
+    private boolean nearSun = false;
+    private Resource resource;
+    private List<Asteroid> neighbors = new ArrayList<>();
+    private List<Entity> entities = new ArrayList<>();
+    private List<TeleportGate> gates = new ArrayList<>();
 
-	public Asteroid(int ID, int numberOfLayers) {
-		idx = ID;
-		layers = numberOfLayers;
-		nearSun = false;
-	}
+    public Asteroid(int ID, int numberOfLayers) {
+        idx = ID;
+        layers = numberOfLayers;
+        nearSun = false;
+    }
 
-	/**
-	 * Gets the entities which are on this asteroid
-	 * @return - entities on the asteroid
-	 */
-	public List<Entity> GetEntities() {
-		return entities;
-	}
+    public void ModifyAsteroid() {
+        while (true) {
+            System.out.println("1 - Set Asteroid layer count.");
+            System.out.println("2 - Add Asteroid Resource.");
+            System.out.println("3 - Remove Asteroid Resource.");
+            System.out.println("4 - Set Asteroid close to the sun.");
+            System.out.println("5 - Set Asteroid distant to the sun.");
+            System.out.println("6 - Add Neighbour Asteroid");
+            System.out.println("e - exit");
+            Scanner scanner = new Scanner(System.in);
+            String input = scanner.next();
 
-	/**
-	 * Adds the given asteroid to the neighbors of this asteroid
-	 * @param newNeighbor
-	 */
-	public void AddNeighbor(Asteroid newNeighbor) {
-		neighbors.add(newNeighbor);
-		if (!newNeighbor.neighbors.contains(this))
-			newNeighbor.AddNeighbor(this);
-	}
+            if (input.equalsIgnoreCase("1")) {
 
-	/**
-	 * Returns the number of the layers on the asteroid
-	 * Only for unit testing
-	 * @return - number of layers
-	 */
-	public int GetLayerThickness() {
-		return layers;
-	}
+            } else if (input.equalsIgnoreCase("2")) {
 
-	/**
-	 * A sunstorm hits the asteroid
-	 * Calls sunstorm on all the entities if they cannot
-	 * hid in the core
-	 * To hide in the core, the layers should be 0,
-	 * and the resource should be null
-	 * Moves the teleport gates to a neighbor
-	 */
-	public void SunStorm() {
-		if (layers > 0 || resource != null) {
-			List<Entity> entitiesCopy = new ArrayList<>(entities);
-			entitiesCopy.forEach(Entity::SunStorm);
-		}
+            } else if (input.equalsIgnoreCase("3")) {
 
-		gates.forEach(TeleportGate::StartMoving);
-	}
+            } else if (input.equalsIgnoreCase("4")) {
 
-	/**
-	 * The sun gets close
-	 */
-	public void ChangeNearSun() {
-		this.nearSun = !this.nearSun;
-		SeeSunIfNeeded();
-	}
+            } else if (input.equalsIgnoreCase("5")) {
 
-	private void SeeSunIfNeeded() {
-		if (resource != null && layers == 0 && nearSun)
-			resource.SeeSun(this);
-	}
+            } else if (input.equalsIgnoreCase("e")) {
+                return;
+            }
+        }
+    }
 
-	/**
-	 * The asteroid explodes from the inside
-	 * Calls the Explode function on every entity,
-	 * thats on this asteroid
-	 */
-	public void Explode() {
-		List<Entity> entitiesCopy = new ArrayList<Entity>(entities);
-		entitiesCopy.forEach(Entity::Explode);
-	}
+    /**
+     * Gets the entities which are on this asteroid
+     *
+     * @return - entities on the asteroid
+     */
+    public List<Entity> GetEntities() {
+        return entities;
+    }
 
-	/**
-	 * An entity drills the asteroid
-	 * The number of layers is decresed be one
-	 * If the layers hit 0, and the sun is near,
-	 * the SeeSun is called for the resource stored
-	 * in this asteroid
-	 */
-	public void Drill() {
-		if (layers > 0)
-			layers--;
+    /**
+     * Adds the given asteroid to the neighbors of this asteroid
+     *
+     * @param newNeighbor
+     */
+    public void AddNeighbor(Asteroid newNeighbor) {
+        neighbors.add(newNeighbor);
+        if (!newNeighbor.neighbors.contains(this))
+            newNeighbor.AddNeighbor(this);
+    }
 
-		SeeSunIfNeeded();
-	}
+    /**
+     * Returns the number of the layers on the asteroid
+     * Only for unit testing
+     *
+     * @return - number of layers
+     */
+    public int GetLayerThickness() {
+        return layers;
+    }
 
-	/**
-	 * Accepts an entity
-	 * The entity will be on this asteroid from this point
-	 * @param entity - the entity that moved here
-	 */
-	public void Accept(Entity entity) {
-		if (!entities.contains(entity)) {
-			entities.add(entity);
-			ChangeNearSun();
-		}
-		entity.SetAsteroid(this);
-	}
+    /**
+     * A sunstorm hits the asteroid
+     * Calls sunstorm on all the entities if they cannot
+     * hid in the core
+     * To hide in the core, the layers should be 0,
+     * and the resource should be null
+     * Moves the teleport gates to a neighbor
+     */
+    public void SunStorm() {
+        if (layers > 0 || resource != null) {
+            List<Entity> entitiesCopy = new ArrayList<>(entities);
+            entitiesCopy.forEach(Entity::SunStorm);
+        }
 
-	private void CheckForVictory() {
-		List<Resource> inventorySum = new ArrayList<>();
-		entities.forEach(entity -> {
-			inventorySum.addAll(entity.GetInventory());
-		});
+        gates.forEach(TeleportGate::StartMoving);
+    }
 
-		Game.getInstance().CheckForVictory(inventorySum);
-	}
+    /**
+     * The sun gets close
+     */
+    public void ChangeNearSun() {
+        this.nearSun = !this.nearSun;
+        SeeSunIfNeeded();
+    }
 
-	/**
-	 * Removes an entity from the asteroid
-	 * The entity wont be on this asteroid from this point on
-	 * @param entity - the entity that will be removed
-	 */
-	public void Remove(Entity entity) {
-		entities.remove(entity);
-	}
+    private void SeeSunIfNeeded() {
+        if (resource != null && layers == 0 && nearSun)
+            resource.SeeSun(this);
+    }
 
-	/**
-	 * A miner mines the resource stored in this asteroid
-	 * The resource is removed from the asteroid,
-	 * and then added to the inventory of the player
-	 * @param miner - the miner that is doing the mining
-	 */
-	public void Mine(Miner miner) {
-		if (layers == 0 && resource != null) {
-			miner.AddResource(resource);
-			resource = null;
-			CheckForVictory();
-		}
-	}
+    /**
+     * The asteroid explodes from the inside
+     * Calls the Explode function on every entity,
+     * thats on this asteroid
+     */
+    public void Explode() {
+        List<Entity> entitiesCopy = new ArrayList<Entity>(entities);
+        entitiesCopy.forEach(Entity::Explode);
+    }
 
-	/**
-	 * The player places back a resource
-	 * The resource will be in the core of the asteroid
-	 * @param resource - the resource that will be placed back
-	 */
-	public void Place(Resource resource) {
-		this.resource = resource;
-	}
+    /**
+     * An entity drills the asteroid
+     * The number of layers is decresed be one
+     * If the layers hit 0, and the sun is near,
+     * the SeeSun is called for the resource stored
+     * in this asteroid
+     */
+    public void Drill() {
+        if (layers > 0)
+            layers--;
 
-	/**
-	 * Gets a neightbor of this asteroid
-	 * Only for unit testing
-	 * @param idx - the id of the wanted asteroid
-	 * @return - return the neighbor if found, else null
-	 */
-	public Asteroid GetNeighbor(int idx) {
-		for (Asteroid neighbor : neighbors) {
-			if (neighbor.idx == idx) {
-				return neighbor;
-			}
-		}
-		return null;
-	}
+        SeeSunIfNeeded();
+    }
 
-	/**
-	 * Gets the teleportgate with the given id
-	 * which is on this asteroid
-	 * Only for testing
-	 * @param idx
-	 * @return
-	 */
-	public TeleportGate GetTeleportGate(int idx) {
-		for (TeleportGate gate : gates) {
-			if (gate.GetId() == idx) {
-				return gate;
-			}
-		}
-		return null;
-	}
+    /**
+     * Accepts an entity
+     * The entity will be on this asteroid from this point
+     *
+     * @param entity - the entity that moved here
+     */
+    public void Accept(Entity entity) {
+        if (!entities.contains(entity)) {
+            entities.add(entity);
+            ChangeNearSun();
+        }
+        entity.SetAsteroid(this);
+    }
 
-	/**
-	 * Gets the list of teleportgates on the asteroid
-	 * Only for unit testing
-	 * @return
-	 */
-	public List<TeleportGate> GetTeleportGates() {
-		return gates;
-	}
+    private void CheckForVictory() {
+        List<Resource> inventorySum = new ArrayList<>();
+        entities.forEach(entity -> {
+            inventorySum.addAll(entity.GetInventory());
+        });
 
-	/**
-	 * Adds a resource to the core of the asteroid
-	 * The controller calls this function
-	 * @param resource - the resource that should be added
-	 */
-	public void AddResource(Resource resource) {
-		if (this.resource == null)
-			this.resource = resource;
-	}
+        Game.getInstance().CheckForVictory(inventorySum);
+    }
 
-	/**
-	 * Destroy the resource stored in this asteroid
-	 */
-	public void DestroyResource() {
-		resource = null;
-	}
+    /**
+     * Removes an entity from the asteroid
+     * The entity wont be on this asteroid from this point on
+     *
+     * @param entity - the entity that will be removed
+     */
+    public void Remove(Entity entity) {
+        entities.remove(entity);
+    }
 
-	/**
-	 * The player places a teleportgate on this asteroid
-	 * @param gate - the gate that will be placed
-	 */
-	public void PlaceTeleportGate(TeleportGate gate) {
-		AcceptTeleportGate(gate);
-	}
+    /**
+     * A miner mines the resource stored in this asteroid
+     * The resource is removed from the asteroid,
+     * and then added to the inventory of the player
+     *
+     * @param miner - the miner that is doing the mining
+     */
+    public void Mine(Miner miner) {
+        if (layers == 0 && resource != null) {
+            miner.AddResource(resource);
+            resource = null;
+            CheckForVictory();
+        }
+    }
 
-	/**
-	 * Accepts a teleportgate
-	 * @param gate - the gate that will be placed
-	 */
-	private void AcceptTeleportGate(TeleportGate gate) {
-		if (!gates.contains(gate)) {
-			gates.add(gate);
-			gate.Place(this);
-		}
-	}
+    /**
+     * The player places back a resource
+     * The resource will be in the core of the asteroid
+     *
+     * @param resource - the resource that will be placed back
+     */
+    public void Place(Resource resource) {
+        this.resource = resource;
+    }
 
-	public void RemoveTeleportGate(TeleportGate gate) {
-		gates.remove(gate);
-	}
+    /**
+     * Gets a neightbor of this asteroid
+     * Only for unit testing
+     *
+     * @param idx - the id of the wanted asteroid
+     * @return - return the neighbor if found, else null
+     */
+    public Asteroid GetNeighbor(int idx) {
+        for (Asteroid neighbor : neighbors) {
+            if (neighbor.idx == idx) {
+                return neighbor;
+            }
+        }
+        return null;
+    }
 
-	/**
-	 * Removes a teleportgate
-	 */
-	public void RemoveAllTeleportGates() {
-		gates.clear();
-	}
+    /**
+     * Gets the teleportgate with the given id
+     * which is on this asteroid
+     * Only for testing
+     *
+     * @param idx
+     * @return
+     */
+    public TeleportGate GetTeleportGate(int idx) {
+        for (TeleportGate gate : gates) {
+            if (gate.GetId() == idx) {
+                return gate;
+            }
+        }
+        return null;
+    }
 
-	/**
-	 * Gets a random neighbor of this asteroid
-	 * @return - a random neighbor
-	 */
-	public Asteroid GetRandomNeighbor() {
-		if (neighbors.size() == 0)
-			return null;
+    /**
+     * Gets the list of teleportgates on the asteroid
+     * Only for unit testing
+     *
+     * @return
+     */
+    public List<TeleportGate> GetTeleportGates() {
+        return gates;
+    }
 
-		Random rnd = new Random();
-		int randomIndex = rnd.ints(0, neighbors.size())
-				.findFirst()
-				.getAsInt();
+    /**
+     * Adds a resource to the core of the asteroid
+     * The controller calls this function
+     *
+     * @param resource - the resource that should be added
+     */
+    public void AddResource(Resource resource) {
+        if (this.resource == null)
+            this.resource = resource;
+    }
 
-		return neighbors.get(randomIndex);
-	}
+    /**
+     * Destroy the resource stored in this asteroid
+     */
+    public void DestroyResource() {
+        resource = null;
+    }
 
-	public int GetId() {
-		return idx;
-	}
+    /**
+     * The player places a teleportgate on this asteroid
+     *
+     * @param gate - the gate that will be placed
+     */
+    public void PlaceTeleportGate(TeleportGate gate) {
+        AcceptTeleportGate(gate);
+    }
 
-	public void SendSunStorm(int remainingDepth) {
-		SunStorm();
-		if (remainingDepth > 0) {
-			for (Asteroid neighbor : neighbors) {
-				neighbor.SendSunStorm(remainingDepth - 1);
-			}
-		}
-	}
+    /**
+     * Accepts a teleportgate
+     *
+     * @param gate - the gate that will be placed
+     */
+    private void AcceptTeleportGate(TeleportGate gate) {
+        if (!gates.contains(gate)) {
+            gates.add(gate);
+            gate.Place(this);
+        }
+    }
 
-	public int NeighborCount(){
-		return neighbors.size();
-	}
+    public void RemoveTeleportGate(TeleportGate gate) {
+        gates.remove(gate);
+    }
 
-	public String GetResourceName() {
-		if (resource == null)
-			return "Empty";
-		if (layers > 0)
-			return "Unknown";
-		return resource.getClass().getSimpleName();
-	}
+    /**
+     * Removes a teleportgate
+     */
+    public void RemoveAllTeleportGates() {
+        gates.clear();
+    }
 
-	public int[] GetNeighborsIds() {
-		return neighbors.stream().mapToInt(neighbor -> neighbor.idx).toArray();
-	}
+    /**
+     * Gets a random neighbor of this asteroid
+     *
+     * @return - a random neighbor
+     */
+    public Asteroid GetRandomNeighbor() {
+        if (neighbors.size() == 0)
+            return null;
+
+        Random rnd = new Random();
+        int randomIndex = rnd.ints(0, neighbors.size())
+                .findFirst()
+                .getAsInt();
+
+        return neighbors.get(randomIndex);
+    }
+
+    public int GetId() {
+        return idx;
+    }
+
+    public void SendSunStorm(int remainingDepth) {
+        SunStorm();
+        if (remainingDepth > 0) {
+            for (Asteroid neighbor : neighbors) {
+                neighbor.SendSunStorm(remainingDepth - 1);
+            }
+        }
+    }
+
+    public int NeighborCount() {
+        return neighbors.size();
+    }
+
+    public String GetResourceName() {
+        if (resource == null)
+            return "Empty";
+        if (layers > 0)
+            return "Unknown";
+        return resource.getClass().getSimpleName();
+    }
+
+    public int[] GetNeighborsIds() {
+        return neighbors.stream().mapToInt(neighbor -> neighbor.idx).toArray();
+    }
 }

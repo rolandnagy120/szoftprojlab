@@ -23,6 +23,7 @@ public class Sun implements Steppable {
 	private double sunStormProbability;
 	private int nextSunStormIn;
 	private List<Asteroid> asteroids = new ArrayList<>();
+	private boolean enabled;
 
 	/**
 	 * Initialize the sun

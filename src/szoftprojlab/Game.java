@@ -15,6 +15,7 @@ import szoftprojlab.resource.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Game {
     private static Game singleClassInstance = null;
@@ -22,7 +23,11 @@ public class Game {
     private Sun sun = Sun.getInstance();
     private Timer timer = Timer.getInstance();
     private List<Player> players = new ArrayList<>();
+    private List<Asteroid> asteroids = new ArrayList<>();
+
     private boolean gameWon = false;
+
+    private boolean sunStromenabled = true;
 
     /*
     Blueprint for the base
@@ -51,7 +56,7 @@ public class Game {
 
         int numberOfAsteroids = 10;
         var maxNeighbors = 4;
-        List<Asteroid> asteroids = new ArrayList<>();
+
         for (int i = 1; i <= numberOfAsteroids; i++) {
             int asteroidLayer = 1;
             var asteroid = new Asteroid(i, asteroidLayer);
@@ -107,6 +112,7 @@ public class Game {
     /**
      * A player dies
      * checks for the end of game
+     *
      * @param player - the player that died
      */
     public void PlayerDie(Player player) {
@@ -121,6 +127,7 @@ public class Game {
 
     /**
      * Adds a player to the game
+     *
      * @param player - the player that will be added
      */
     public void AddPlayer(Player player) {
@@ -134,8 +141,71 @@ public class Game {
     public void EndGame() {
     }
 
+    public void ModifyGame() {
+
+        while (true) {
+            System.out.println("What do you want to do?");
+            System.out.println("1 - Disable SunStorm");
+            System.out.println("2 - Enable SunStorm");
+            System.out.println("3 - Set Sunstorm range");
+            System.out.println("4 - Cause Sunstorm to an asteroid");
+            System.out.println("5 - Modify asteroid");
+            System.out.println("6 - Modify player");
+            System.out.println("7 - Add Asteroid");
+            System.out.println("8 - Add Player");
+            System.out.println("9 - Remove Asteroid");
+            System.out.println("10 - Remove Player");
+
+            System.out.println("e - exit");
+
+            Scanner scanner = new Scanner(System.in);
+            String input = scanner.next();
+
+            if (input.equalsIgnoreCase("1")) {
+
+            } else if (input.equalsIgnoreCase("2")) {
+
+            } else if (input.equalsIgnoreCase("3")) {
+
+            } else if (input.equalsIgnoreCase("4")) {
+
+            } else if (input.equalsIgnoreCase("5")) {
+                while (true) {
+                    System.out.println("Select Asteroid:");
+                    System.out.println("1");
+                    System.out.println("e - exit");
+                    input = scanner.next();
+                    if (input.equalsIgnoreCase("1")) {
+                        asteroids.get(0).ModifyAsteroid();
+                    } else if (input.equalsIgnoreCase("e")) {
+                        break;
+                    }
+                }
+            } else if (input.equalsIgnoreCase("6")) {
+                while (true) {
+                    System.out.println("Select Player:");
+                    System.out.println("1");
+                    System.out.println("e");
+                    input = scanner.next();
+                    if (input.equalsIgnoreCase("1")) {
+                        players.get(0).ModifyPlayer();
+                    } else if (input.equalsIgnoreCase("e")) {
+                        break;
+                    }
+                }
+            } else if (input.equalsIgnoreCase("7")) {
+
+            } else if (input.equalsIgnoreCase("8")) {
+
+            } else if (input.equalsIgnoreCase("e")) {
+                return;
+            }
+        }
+    }
+
     /**
      * Checks for victory
+     *
      * @param resources - the summed inventory of the players on the same asteroid
      */
     public void CheckForVictory(List<Resource> resources) {
