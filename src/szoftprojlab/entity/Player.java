@@ -26,6 +26,7 @@ public class Player extends Entity implements Miner {
     public String name;
 
     private static int maxGatesCount = 3;
+    private static int invetoryMax = 10;
 
     public Player(String name) {
         this.name = name;
@@ -98,8 +99,12 @@ public class Player extends Entity implements Miner {
                 Drill();
                 endStep = true;
             } else if (input.equalsIgnoreCase("4")) {
-                Mine();
-                endStep = true;
+                if (inventory.size() == invetoryMax) {
+                    System.out.println("Inventory full, can't pick up.");
+                } else {
+                    Mine();
+                    endStep = true;
+                }
             } else if (input.equalsIgnoreCase("5")) {
                 var neighborIds = asteroid.GetNeighborsIds();
                 System.out.println("To which asteroid do you want to go?");
@@ -114,8 +119,12 @@ public class Player extends Entity implements Miner {
                     }
                 }
             } else if (input.equalsIgnoreCase("6")) {
-                for (Resource resource : inventory) {
-                    System.out.println(resource.getClass().getSimpleName());
+                if (inventory.isEmpty()) {
+                    System.out.println("Inventory is empty.");
+                } else {
+                    for (Resource resource : inventory) {
+                        System.out.println(resource.getClass().getSimpleName());
+                    }
                 }
             } else if (input.equalsIgnoreCase("7")) {
                 System.out.println("The next sunstorm arrive in " + Sun.getInstance().GetNextSunStormArrivalTime() + " turns");
