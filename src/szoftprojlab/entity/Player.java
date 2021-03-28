@@ -26,6 +26,7 @@ public class Player extends Entity implements Miner {
     public String name;
 
     private static int maxGatesCount = 3;
+    private static int invetoryMax = 10;
 
     public Player(String name) {
         this.name = name;
@@ -98,8 +99,12 @@ public class Player extends Entity implements Miner {
                 Drill();
                 endStep = true;
             } else if (input.equalsIgnoreCase("4")) {
-                Mine();
-                endStep = true;
+                if (inventory.size() == invetoryMax) {
+                    System.out.println("Inventory is full. Can't mine.");
+                } else {
+                    Mine();
+                    endStep = true;
+                }
             } else if (input.equalsIgnoreCase("5")) {
                 var neighborIds = asteroid.GetNeighborsIds();
                 System.out.println("To which asteroid do you want to go?");
