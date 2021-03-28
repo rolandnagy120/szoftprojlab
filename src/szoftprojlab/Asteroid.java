@@ -43,6 +43,7 @@ public class Asteroid {
             System.out.println("3 - Remove Asteroid Resource.");
             System.out.println("4 - Set Asteroid close to the sun.");
             System.out.println("5 - Set Asteroid distant to the sun.");
+            System.out.println("6 - Add Neighbour Asteroid");
             System.out.println("e - exit");
             Scanner scanner = new Scanner(System.in);
             String input = scanner.next();

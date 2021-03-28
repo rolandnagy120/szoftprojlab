@@ -153,8 +153,9 @@ public class Game {
             System.out.println("6 - Modify player");
             System.out.println("7 - Add Asteroid");
             System.out.println("8 - Add Player");
-            System.out.println("7 - Remove Asteroid");
-            System.out.println("7 - Remove Player");
+            System.out.println("9 - Remove Asteroid");
+            System.out.println("10 - Remove Player");
+
             System.out.println("e - exit");
 
             Scanner scanner = new Scanner(System.in);

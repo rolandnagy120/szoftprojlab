@@ -84,6 +84,8 @@ public class Player extends Entity implements Miner {
             System.out.println("9 - Craft gates");
             System.out.println("10 - Place a teleport gate");
             System.out.println("11 - Go through teleport gate");
+            System.out.println("s - Save Game");
+            System.out.println("q - Quit Game");
             System.out.println("m - Modify Game");
             Scanner scanner = new Scanner(System.in);
             String input = scanner.next();
