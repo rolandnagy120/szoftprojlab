@@ -68,8 +68,9 @@ public abstract class Entity implements Steppable {
 	/**
 	 * The entity drills the asteroid its on
 	 */
-	public void Drill() {
+	public boolean Drill() {
 		asteroid.Drill();
+		return true;
 	}
 
 	/**

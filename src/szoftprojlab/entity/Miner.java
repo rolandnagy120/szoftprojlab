@@ -3,7 +3,7 @@ package szoftprojlab.entity;
 import szoftprojlab.resource.Resource;
 
 public interface Miner {
-    public void Mine();
+    public boolean Mine();
 
-    public void AddResource(Resource resource);
+    public boolean AddResource(Resource resource);
 }
