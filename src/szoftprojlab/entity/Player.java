@@ -153,8 +153,9 @@ public class Player extends Entity implements Miner {
     /**
      * The player mines the asteroid its on currently
      */
-    public void Mine() {
+    public boolean Mine() {
         asteroid.Mine(this);
+        return true;
     }
 
     /**
@@ -163,15 +164,16 @@ public class Player extends Entity implements Miner {
      *
      * @param resource
      */
-    public void PlaceResource(Resource resource) {
+    public boolean PlaceResource(Resource resource) {
         if (inventory.contains(resource))
             asteroid.Place(resource);
+        return true;
     }
 
     /**
      * The players places a teleport gate on the current asteroid
      */
-    public void PlaceGate() {
+    public boolean PlaceGate() {
         if (asteroid != null && gates.size() > 0) {
             asteroid.PlaceTeleportGate(gates.get(0));
             gates.remove(0);
@@ -179,6 +181,7 @@ public class Player extends Entity implements Miner {
         } else if (gates.size() == 0) {
             System.out.println("No gates to place");
         }
+        return true;
     }
 
     /**
@@ -187,10 +190,10 @@ public class Player extends Entity implements Miner {
      * If the player has more than 1 gate, then return, because there
      * if no room for 2 more teleport gates
      */
-    public void MakeGates() {
+    public boolean MakeGates() {
         if (gates.size() > maxGatesCount - 2) {
             System.out.println("No more space to craft gates");
-            return;
+            return false;
         }
 
         List<Resource> inventoryAfterCrafting = TeleportGate.CanCraft(this.inventory);
@@ -210,12 +213,13 @@ public class Player extends Entity implements Miner {
         } else {
             System.out.println("Not enough resources to craft gates");
         }
+        return true;
     }
 
     /**
      * The player crafts a robot, and places it on the current asteroid
      */
-    public void MakeAndPlaceRobot() {
+    public boolean MakeAndPlaceRobot() {
         List<Resource> inventoryAfterCrafting = Robot.CanCraft(this.inventory);
 
         if (inventoryAfterCrafting != null) {
@@ -225,9 +229,12 @@ public class Player extends Entity implements Miner {
             inventory = inventoryAfterCrafting;
 
             System.out.println("Robot crafted and placed");
+            return true;
         } else {
             System.out.println("Not enough resources to craft a robot");
+            return false;
         }
+
     }
 
     /**
@@ -245,8 +252,9 @@ public class Player extends Entity implements Miner {
      *
      * @param resource - the resource that will be added to the inventory
      */
-    public void AddResource(Resource resource) {
+    public boolean AddResource(Resource resource) {
         inventory.add(resource);
+        return true;
     }
 
     /**

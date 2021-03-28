@@ -18,17 +18,19 @@ public class Alien extends Entity implements Miner {
     }
 
     @Override
-    public void Drill() {
-
+    public boolean Drill() {
+        return false;
     }
 
     @Override
-    public void Mine() {
+    public boolean Mine() {
         asteroid.Mine(this);
+        return true;
     }
 
     @Override
-    public void AddResource(Resource resource) {
+    public boolean AddResource(Resource resource) {
         inventory.add(resource);
+        return true;
     }
 }
