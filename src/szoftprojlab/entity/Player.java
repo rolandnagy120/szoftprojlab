@@ -100,7 +100,7 @@ public class Player extends Entity implements Miner {
                 endStep = true;
             } else if (input.equalsIgnoreCase("4")) {
                 if (inventory.size() == invetoryMax) {
-                    System.out.println("Inventory is full. Can't mine.");
+                    System.out.println("Inventory full, can't pick up.");
                 } else {
                     Mine();
                     endStep = true;
