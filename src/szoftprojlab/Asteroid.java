@@ -144,7 +144,7 @@ public class Asteroid {
     public void Drill() {
         if (layers > 0)
             layers--;
-        if(layers == 0)
+        if (layers == 0)
             System.out.println("Asteroid breakthrough!");
         SeeSunIfNeeded();
     }
@@ -256,9 +256,12 @@ public class Asteroid {
      *
      * @param resource - the resource that should be added
      */
-    public void AddResource(Resource resource) {
-        if (this.resource == null)
+    public boolean AddResource(Resource resource) {
+        if (this.resource == null) {
             this.resource = resource;
+            return true;
+        }
+        return false;
     }
 
     /**

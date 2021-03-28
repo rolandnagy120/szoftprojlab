@@ -102,8 +102,8 @@ public class Player extends Entity implements Miner {
                 if (inventory.size() == invetoryMax) {
                     System.out.println("Inventory full, can't pick up.");
                 } else {
-                    Mine();
-                    endStep = true;
+                    if (Mine())
+                        endStep = true;
                 }
             } else if (input.equalsIgnoreCase("5")) {
                 var neighborIds = asteroid.GetNeighborsIds();
@@ -163,6 +163,13 @@ public class Player extends Entity implements Miner {
      * The player mines the asteroid its on currently
      */
     public boolean Mine() {
+        String rName = asteroid.GetResourceName();
+        if (rName == "Empty") {
+            System.out.println("Already empty, can't mine.");
+            return false;
+        } else if (rName == "Unknown") {
+            System.out.println("Can't mine, asteroid haven't been broken trough.");
+        }
         asteroid.Mine(this);
         return true;
     }
