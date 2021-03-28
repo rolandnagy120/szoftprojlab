@@ -114,8 +114,12 @@ public class Player extends Entity implements Miner {
                     }
                 }
             } else if (input.equalsIgnoreCase("6")) {
-                for (Resource resource : inventory) {
-                    System.out.println(resource.getClass().getSimpleName());
+                if (inventory.isEmpty()) {
+                    System.out.println("Inventory is empty.");
+                } else {
+                    for (Resource resource : inventory) {
+                        System.out.println(resource.getClass().getSimpleName());
+                    }
                 }
             } else if (input.equalsIgnoreCase("7")) {
                 System.out.println("The next sunstorm arrive in " + Sun.getInstance().GetNextSunStormArrivalTime() + " turns");

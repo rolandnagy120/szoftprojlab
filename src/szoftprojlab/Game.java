@@ -27,7 +27,7 @@ public class Game {
 
     private boolean gameWon = false;
 
-    private boolean sunStromenabled = true;
+    private boolean sunStormenabled = true;
 
     /*
     Blueprint for the base
