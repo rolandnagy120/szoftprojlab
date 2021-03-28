@@ -3,10 +3,26 @@ package szoftprojlab;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 class Main {
     public static void main(String[] args) {
-        Game.getInstance().StartGame();
+        while (true) {
+
+            System.out.println("What do you want to do?");
+            System.out.println("1. Start game");
+            System.out.println("2. Load game");
+            Scanner scanner = new Scanner(System.in);
+            String input = scanner.next();
+
+            if (input.equalsIgnoreCase("1")) {
+                Game.getInstance().StartGame();
+                break;
+            } else if (input.equalsIgnoreCase("2")) {
+
+            }
+
+        }
     }
 
     public static void setNeighbors(Asteroid current, List<Asteroid> all, int maxNeighbors) {
