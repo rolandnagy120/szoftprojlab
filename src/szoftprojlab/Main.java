@@ -1,28 +1,58 @@
 package szoftprojlab;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class Main {
+
     public static void main(String[] args) {
+        process_input(System.in);
+    }
+
+    public static void process_input(InputStream in)
+    {
+        //load test 1
+        Pattern Load = Pattern.compile("\\s*load\\s*test\\s*([0-9]+)", Pattern.CASE_INSENSITIVE);
+        //save state
+        Pattern Save = Pattern.compile("", Pattern.CASE_INSENSITIVE);
+        //Add a Neighbouring Asteroid to an asteroid
+        Pattern SetAsteroidNeighbour = Pattern.compile("", Pattern.CASE_INSENSITIVE);
+        //Remove a Neighbouring Asteroid from an asteroid
+        Pattern RemoveAsteroidNeighbour = Pattern.compile("", Pattern.CASE_INSENSITIVE);
+        //Create Asteroid
+        Pattern CreateAsteroid = Pattern.compile("", Pattern.CASE_INSENSITIVE);
+        //Remove Asteroid
+        Pattern RemoveAsteroid = Pattern.compile("", Pattern.CASE_INSENSITIVE);
+        //Set Asteroid Resource
+        Pattern SetAsteroidResource = Pattern.compile("", Pattern.CASE_INSENSITIVE);
+
+
         while (true) {
+            Scanner scanner = new Scanner(in);
+            String input = scanner.nextLine();
 
-            System.out.println("What do you want to do?");
-            System.out.println("1. Start game");
-            System.out.println("2. Load game");
-            Scanner scanner = new Scanner(System.in);
-            String input = scanner.next();
-
-            if (input.equalsIgnoreCase("1")) {
-                Game.getInstance().StartGame();
-                break;
-            } else if (input.equalsIgnoreCase("2")) {
-
+            Matcher LoadM = Load.matcher(input);
+            if (LoadM.find()) {
+                println("Loading test " + LoadM.group(1));
+                continue;
+            }
+            Matcher SaveM = Save.matcher(input);
+            if (SaveM.find()) {
+                //TODO
+                continue;
             }
 
         }
+    }
+
+    public static void println(String s) {
+        //TODO: PRINT TO FILE
+        System.out.println(s);
     }
 
     public static void setNeighbors(Asteroid current, List<Asteroid> all, int maxNeighbors) {
