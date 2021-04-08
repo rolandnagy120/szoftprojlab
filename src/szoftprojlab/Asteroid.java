@@ -342,10 +342,10 @@ public class Asteroid {
     }
 
     public String GetResourceName() {
-        if (resource == null)
-            return "Empty";
         if (layers > 0)
             return "Unknown";
+        if (resource == null)
+            return "Empty";
         return resource.getClass().getSimpleName();
     }
 
