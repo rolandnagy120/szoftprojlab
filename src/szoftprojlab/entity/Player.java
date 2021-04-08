@@ -140,10 +140,6 @@ public class Player extends Entity implements Miner {
                         Main.println("No gates on the asteroid");
                     } else {
                         String selectedNeighbor = TeleportMatcher.group(1);
-                        for (int i = 0; i < gates.size(); i++) {
-                            var gate = gates.get(i);
-                            System.out.println((i + 1) + " - asteroid " + gate.GetPairAsteroid().GetId());
-                        }
                         for (TeleportGate gate : gates) {
 
                             var gateId = gate.GetId();
