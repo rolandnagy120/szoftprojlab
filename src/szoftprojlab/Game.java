@@ -60,6 +60,13 @@ public class Game {
         players.add(player2);
         timer.AddSteppable(player1);
         timer.AddSteppable(player2);
+
+        Asteroid a1 = new Asteroid(1, 1);
+        Asteroid a2 = new Asteroid(2, 1);
+        a1.AddNeighbor(a2);
+        a1.Accept(player1);
+        a1.Accept(player2);
+
         /*
 
         int numberOfAsteroids = 10;
@@ -105,7 +112,7 @@ public class Game {
         endGame = false;
 
         while (!endGame && !gameWon) {
-            System.out.println("New round\n");
+            Main.println("New round\n");
             timer.Tick();
 
             if (players.size() == 0) {

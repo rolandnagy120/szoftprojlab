@@ -73,15 +73,89 @@ public class Player extends Entity implements Miner {
      * Player steps
      */
     public void Step() {
-        Pattern Move = Pattern.compile("move", Pattern.CASE_INSENSITIVE);
+        // Move player (ex: move 7 -> move to the asteroid which has the id 7)
+        Pattern Move = Pattern.compile("move\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
+        // Drill asteroid
+        Pattern Drill = Pattern.compile("drill", Pattern.CASE_INSENSITIVE);
+        // Mine asteroid
+        Pattern Mine = Pattern.compile("mine", Pattern.CASE_INSENSITIVE);
+        // Craft Robot
+        Pattern CraftRobot = Pattern.compile("craft robot", Pattern.CASE_INSENSITIVE);
+        // Craft gates
+        Pattern CraftGates = Pattern.compile("craft gates", Pattern.CASE_INSENSITIVE);
+        // Places the first gate in the inventory
+        Pattern PlaceGate = Pattern.compile("place gate", Pattern.CASE_INSENSITIVE);
+        // Move player (ex: move 7 -> move to the asteroid which has the id 7)
+        Pattern TeleportTo = Pattern.compile("teleport to\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
 
+        Main.println(name + " steps");
         while (true) {
             try {
                 String input = Main.getGameInputScanner().nextLine();
                 Matcher MoveM = Move.matcher(input);
                 if (MoveM.find()) {
-                    Main.println("Move test");
+                    String selectedNeighbor = MoveM.group(1);
+                    var neighborIds = asteroid.GetNeighborsIds();
+                    for (int id : neighborIds) {
+                        if (String.valueOf(id).equals(selectedNeighbor)) {
+                            MoveTo(asteroid.GetNeighbor(id));
+                            Main.println("Moved to adsteroid " + id);
+                            return;
+                        }
+                    }
+                    Main.println("Neighbor with id " + selectedNeighbor + " not found");
+                }
+                else if (Drill.matcher(input).find()) {
+                    Drill();
+                    Main.println("Drilled");
                     return;
+                }
+                else if (Mine.matcher(input).find()) {
+                    if (inventory.size() == invetoryMax) {
+                        Main.println("Inventory full, can't mine more");
+                    } else {
+                        if (Mine()) {
+                            Main.println("Mine successful");
+                            return;
+                        }
+                    }
+                }
+                else if (CraftRobot.matcher(input).find()) {
+                    MakeAndPlaceRobot();
+                    return;
+                }
+                else if (CraftGates.matcher(input).find()) {
+                    MakeGates();
+                    return;
+                }
+                else if (PlaceGate.matcher(input).find()) {
+                    this.PlaceGate();
+                    return;
+                }
+
+                Matcher TeleportMatcher = TeleportTo.matcher(input);
+                if (TeleportMatcher.find()) {
+                    var gates = asteroid.GetTeleportGates();
+                    if (gates.size() == 0) {
+                        Main.println("No gates on the asteroid");
+                    } else {
+                        String selectedNeighbor = TeleportMatcher.group(1);
+                        for (int i = 0; i < gates.size(); i++) {
+                            var gate = gates.get(i);
+                            System.out.println((i + 1) + " - asteroid " + gate.GetPairAsteroid().GetId());
+                        }
+                        for (TeleportGate gate : gates) {
+
+                            var gateId = gate.GetId();
+
+                            if (String.valueOf(gateId).equals(selectedNeighbor)) {
+                                Teleport(gate);
+                                Main.println("Teleported");
+                                return;
+                            }
+                        }
+                    }
+
                 }
             } catch (Exception e) {
                 //test file over end game
@@ -191,11 +265,12 @@ public class Player extends Entity implements Miner {
      */
     public boolean Mine() {
         String rName = asteroid.GetResourceName();
-        if (rName == "Empty") {
-            System.out.println("Already empty, can't mine.");
+        if (rName.equals("Empty")) {
+            Main.println("Already empty, can't mine.");
             return false;
-        } else if (rName == "Unknown") {
-            System.out.println("Can't mine, asteroid haven't been broken trough.");
+        } else if (rName.equals("Unknown")) {
+            Main.println("Can't mine, asteroid haven't been broken trough.");
+            return false;
         }
         asteroid.Mine(this);
         return true;
@@ -220,9 +295,9 @@ public class Player extends Entity implements Miner {
         if (asteroid != null && gates.size() > 0) {
             asteroid.PlaceTeleportGate(gates.get(0));
             gates.remove(0);
-            System.out.println("Gate placed");
+            Main.println("Gate placed");
         } else if (gates.size() == 0) {
-            System.out.println("No gates to place");
+            Main.println("No gates to place");
         }
         return true;
     }
@@ -235,7 +310,7 @@ public class Player extends Entity implements Miner {
      */
     public boolean MakeGates() {
         if (gates.size() > maxGatesCount - 2) {
-            System.out.println("No more space to craft gates");
+            Main.println("No more space to craft gates");
             return false;
         }
 
@@ -252,9 +327,9 @@ public class Player extends Entity implements Miner {
             timer.AddSteppable(tg1);
             timer.AddSteppable(tg2);
 
-            System.out.println("Gates crafted");
+            Main.println("Gates crafted");
         } else {
-            System.out.println("Not enough resources to craft gates");
+            Main.println("Not enough resources to craft gates");
         }
         return true;
     }
@@ -271,10 +346,10 @@ public class Player extends Entity implements Miner {
             Timer.getInstance().AddSteppable(r);
             inventory = inventoryAfterCrafting;
 
-            System.out.println("Robot crafted and placed");
+            Main.println("Robot crafted and placed");
             return true;
         } else {
-            System.out.println("Not enough resources to craft a robot");
+            Main.println("Not enough resources to craft a robot");
             return false;
         }
 
