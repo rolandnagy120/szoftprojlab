@@ -85,7 +85,7 @@ public class Player extends Entity implements Miner {
         Pattern CraftGates = Pattern.compile("craft gates", Pattern.CASE_INSENSITIVE);
         // Places the first gate in the inventory
         Pattern PlaceGate = Pattern.compile("place gate", Pattern.CASE_INSENSITIVE);
-        // Move player (ex: move 7 -> move to the asteroid which has the id 7)
+        // Teleport player (ex: teleport to 7 -> teleport to the asteroid which has the id 7)
         Pattern TeleportTo = Pattern.compile("teleport to\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
 
         Main.println(name + " steps");
