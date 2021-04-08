@@ -18,7 +18,6 @@ import szoftprojlab.resource.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 public class Asteroid {
     private int idx;
@@ -30,12 +29,17 @@ public class Asteroid {
     private List<Entity> entities = new ArrayList<>();
     private List<TeleportGate> gates = new ArrayList<>();
 
+    public Asteroid(int ID) {
+        idx = ID;
+        nearSun = false;
+    }
+
     public Asteroid(int ID, int numberOfLayers) {
         idx = ID;
         layers = numberOfLayers;
         nearSun = false;
     }
-
+/*
     public void ModifyAsteroid() {
         while (true) {
             System.out.println("1 - Set Asteroid layer count.");
@@ -63,7 +67,7 @@ public class Asteroid {
             }
         }
     }
-
+*/
     /**
      * Gets the entities which are on this asteroid
      *
@@ -347,5 +351,9 @@ public class Asteroid {
 
     public int[] GetNeighborsIds() {
         return neighbors.stream().mapToInt(neighbor -> neighbor.idx).toArray();
+    }
+
+    public void SetLayers(int layers) {
+        this.layers = layers;
     }
 }

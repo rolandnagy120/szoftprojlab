@@ -1,5 +1,7 @@
 package szoftprojlab;
 
+import szoftprojlab.resource.*;
+
 import java.io.*;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -10,6 +12,8 @@ public class Main {
     private static Scanner GameInput;
     private static Writer GameOutput;
     private static String OutputFile = null;
+    private static Game game = Game.getInstance();
+
 
     public static Scanner getGameInputScanner() {
         return GameInput;
@@ -27,16 +31,17 @@ public class Main {
         Pattern Save = Pattern.compile("", Pattern.CASE_INSENSITIVE);
         //Add a Neighbouring Asteroid to an asteroid
         Pattern SetAsteroidNeighbour = Pattern.compile("", Pattern.CASE_INSENSITIVE);
-        //Remove a Neighbouring Asteroid from an asteroid
-        Pattern RemoveAsteroidNeighbour = Pattern.compile("", Pattern.CASE_INSENSITIVE);
         //Create Asteroid
-        Pattern CreateAsteroid = Pattern.compile("", Pattern.CASE_INSENSITIVE);
-        //Remove Asteroid
-        Pattern RemoveAsteroid = Pattern.compile("", Pattern.CASE_INSENSITIVE);
-        //Set Asteroid Resource
-        Pattern SetAsteroidResource = Pattern.compile("", Pattern.CASE_INSENSITIVE);
+        Pattern CreateAsteroid = Pattern.compile("create\\s+asteroid\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         //Start game
         Pattern StartGame = Pattern.compile("start\\s+game", Pattern.CASE_INSENSITIVE);
+        //Set asteroid layer
+        Pattern SetAsteroidLayer = Pattern.compile("set\\s+asteroid\\s+([0-9]+)\\s+layer\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
+        //
+        Pattern SetAsteroidResource = Pattern.compile("set\\s+asteroid\\s+([0-9]+)\\s+resource\\s+([a-z]+)(\\s+(nearsun)\\s+([0-9]+))?", Pattern.CASE_INSENSITIVE);
+        //create player 2 inventory coal coal uranium(1)
+        Pattern CreatePlayer = Pattern.compile("create\\s+player\\s+inventory(\\s+[a-z]+)+", Pattern.CASE_INSENSITIVE);
+
 
         while (true) {
             Scanner scanner = new Scanner(in);
@@ -55,7 +60,7 @@ public class Main {
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
-                OutputFile = "out/"+LoadM.group(1) + ".txt";
+                OutputFile = "out/" + LoadM.group(1) + ".txt";
                 continue;
             }
 
@@ -81,7 +86,7 @@ public class Main {
                         Game g = Game.getInstance();
                         g.StartGame();
                         GameOutput = new BufferedWriter(new OutputStreamWriter(System.out));
-                        println("Test is over, results written to "+OutputFile);
+                        println("Test is over, results written to " + OutputFile);
                         OutputFile = null;
                     } catch (IOException ioe) {
                         ioe.printStackTrace();
@@ -94,6 +99,53 @@ public class Main {
                         }
                     }
                 }
+                continue;
+            }
+
+            Matcher CreateAsteroidM = CreateAsteroid.matcher(input);
+            if (CreateAsteroidM.find()) {
+                int id = Integer.parseInt(LoadM.group(1));
+                if (game.GetAsteroid(id) == null)
+                    game.AddAsteroid(new Asteroid(id));
+                continue;
+            }
+
+            Matcher SetAsteroidLayerM = SetAsteroidLayer.matcher(input);
+            if (SetAsteroidLayerM.find()) {
+                int id = Integer.parseInt(LoadM.group(1));
+                Asteroid a = game.GetAsteroid(id);
+                if (a != null)
+                    a.SetLayers(Integer.parseInt(LoadM.group(2)));
+                continue;
+            }
+
+            Matcher SetAsteroidResourceM = SetAsteroidResource.matcher(input);
+            if (SetAsteroidResourceM.find()) {
+                Asteroid a = game.GetAsteroid(Integer.parseInt(SetAsteroidResourceM.group(1)));
+                Resource r = null;
+                switch (SetAsteroidResourceM.group(2).toLowerCase()) {
+                    case "coal":
+                        r = new Coal();
+                        break;
+                    case "ice":
+                        r = new Ice();
+                        break;
+                    case "iron":
+                        r = new Iron();
+                        break;
+                    case "uranium":
+                        if (SetAsteroidResourceM.group(3) != null)
+                            r = new Uranium(Integer.parseInt(SetAsteroidResourceM.group(5)));
+                        else
+                            r = new Uranium();
+                        break;
+                }
+                a.AddResource(r);
+            }
+
+            Matcher CreatePlayerM = CreatePlayer.matcher(input);
+            if (CreatePlayerM.find()) {
+                //TODO
                 continue;
             }
 

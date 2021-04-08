@@ -40,9 +40,6 @@ public class Game {
             new Ice(), new Ice(), new Ice()
     );
 
-
-
-
     /**
      * Starts the game
      */
@@ -105,11 +102,11 @@ public class Game {
         endGame = false;
 
         while (!endGame && !gameWon) {
-            System.out.println("New round\n");
+            Main.println("New round\n");
             timer.Tick();
 
             if (players.size() == 0) {
-                System.out.println("Everyone died");
+                Main.println("Everyone died");
                 endGame = true;
             }
         }
@@ -146,6 +143,18 @@ public class Game {
      */
     public void EndGame() {
         endGame = true;
+    }
+
+    public void AddAsteroid(Asteroid a) {
+        asteroids.add(a);
+    }
+
+    public Asteroid GetAsteroid(int i) {
+        for (Asteroid a : asteroids) {
+            if (a.GetId() == i)
+                return a;
+        }
+        return null;
     }
 
     /*
