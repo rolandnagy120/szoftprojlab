@@ -16,32 +16,41 @@ import szoftprojlab.Asteroid;
 
 public class Uranium extends Resource {
 
-	private int seeSunsBeforeExplosion = 3;
+    private int seeSunsBeforeExplosion = 3;
 
-	/**
-	 * The Sun gets close to the Uranium
-	 * This triggers an explosion if it is the third time
-	 * @param asteroid - the asteroid which holds the resource
-	 */
-	@Override
-	public void SeeSun(Asteroid asteroid) {
-		seeSunsBeforeExplosion--;
-		if (seeSunsBeforeExplosion == 0) {
-			System.out.println("The uranium exploded");
-			asteroid.Explode();
-		}
-	}
+    public Uranium(int seesun) {
+        seeSunsBeforeExplosion = 3 - seesun;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (o == this) {
-			return true;
-		}
+    public Uranium() {
 
-		if (o instanceof Uranium) {
-			return true;
-		}
+    }
 
-		return false;
-	}
+    /**
+     * The Sun gets close to the Uranium
+     * This triggers an explosion if it is the third time
+     *
+     * @param asteroid - the asteroid which holds the resource
+     */
+    @Override
+    public void SeeSun(Asteroid asteroid) {
+        seeSunsBeforeExplosion--;
+        if (seeSunsBeforeExplosion == 0) {
+            System.out.println("The uranium exploded");
+            asteroid.Explode();
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (o instanceof Uranium) {
+            return true;
+        }
+
+        return false;
+    }
 }
