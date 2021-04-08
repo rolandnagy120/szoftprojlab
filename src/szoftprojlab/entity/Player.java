@@ -11,14 +11,15 @@ package szoftprojlab.entity;
 
 
 import szoftprojlab.Game;
-import szoftprojlab.Sun;
+import szoftprojlab.Main;
 import szoftprojlab.TeleportGate;
 import szoftprojlab.Timer;
 import szoftprojlab.resource.Resource;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Player extends Entity implements Miner {
     private List<TeleportGate> gates = new ArrayList<>();
@@ -42,6 +43,7 @@ public class Player extends Entity implements Miner {
         return inventory;
     }
 
+    /*
     public void ModifyPlayer() {
         while (true) {
             System.out.println("1 - List inventory");
@@ -65,10 +67,34 @@ public class Player extends Entity implements Miner {
             }
         }
     }
+    */
 
     /**
      * Player steps
      */
+    public void Step() {
+        Pattern Move = Pattern.compile("move", Pattern.CASE_INSENSITIVE);
+
+        while (true) {
+            try {
+                String input = Main.getGameInputScanner().nextLine();
+                Matcher MoveM = Move.matcher(input);
+                if (MoveM.find()) {
+                    Main.println("Move test");
+                    return;
+                }
+            } catch (Exception e) {
+                //test file over end game
+                Game.getInstance().EndGame();
+                break;
+            }
+
+
+        }
+    }
+
+
+    /*
     public void Step() {
         boolean endStep = false;
 
@@ -158,6 +184,7 @@ public class Player extends Entity implements Miner {
 
         }
     }
+    */
 
     /**
      * The player mines the asteroid its on currently

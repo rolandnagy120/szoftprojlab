@@ -15,10 +15,10 @@ import szoftprojlab.resource.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Game {
     private static Game singleClassInstance = null;
+
 
     private Sun sun = Sun.getInstance();
     private Timer timer = Timer.getInstance();
@@ -26,6 +26,7 @@ public class Game {
     private List<Asteroid> asteroids = new ArrayList<>();
 
     private boolean gameWon = false;
+    private boolean endGame;
 
     private boolean sunStormenabled = true;
 
@@ -39,20 +40,27 @@ public class Game {
             new Ice(), new Ice(), new Ice()
     );
 
+
+
+
     /**
      * Starts the game
      */
     public void StartGame() {
+
+        /*
         timer.ClearSteppables();
         timer.AddSteppable(sun);
         sun.ClearAsteroids();
         sun.Init(10, 0.01);
-
+        */
         Player player1 = new Player("Player1");
         Player player2 = new Player("Player2");
         players.add(player1);
         players.add(player2);
-
+        timer.AddSteppable(player1);
+        timer.AddSteppable(player2);
+        /*
 
         int numberOfAsteroids = 10;
         var maxNeighbors = 4;
@@ -68,8 +76,7 @@ public class Game {
         }
         asteroids.get(0).Accept(player1);
         asteroids.get(0).Accept(player2);
-        timer.AddSteppable(player1);
-        timer.AddSteppable(player2);
+
 
         int oneResourceCount = asteroids.size() / 5;
         if (oneResourceCount == 0) oneResourceCount = 1;
@@ -93,10 +100,9 @@ public class Game {
             Uranium uranium = new Uranium();
             asteroids.get(i).AddResource(uranium);
             i++;
-        }
+        } */
 
-
-        boolean endGame = false;
+        endGame = false;
 
         while (!endGame && !gameWon) {
             System.out.println("New round\n");
@@ -139,8 +145,10 @@ public class Game {
      * Ends the game
      */
     public void EndGame() {
+        endGame = true;
     }
 
+    /*
     public void ModifyGame() {
 
         while (true) {
@@ -202,6 +210,7 @@ public class Game {
             }
         }
     }
+    */
 
     /**
      * Checks for victory
