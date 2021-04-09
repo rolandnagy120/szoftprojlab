@@ -24,10 +24,10 @@ public class Main {
 
     public static void main(String[] args) {
         GameOutput = new BufferedWriter(new OutputStreamWriter(System.out));
-        process_input(System.in);
+        process_input(new Scanner(System.in));
     }
 
-    public static void process_input(InputStream in) {
+    public static void process_input(Scanner scanner) {
         //load test 1
         Pattern Load = Pattern.compile("load\\s+test\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         //save state
@@ -42,8 +42,8 @@ public class Main {
         Pattern SetAsteroidLayer = Pattern.compile("set\\s+asteroid\\s+([0-9]+)\\s+layer\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         //Set asteroid resource
         Pattern SetAsteroidResource = Pattern.compile("set\\s+asteroid\\s+([0-9]+)\\s+resource\\s+([a-z]+)(\\s+(nearsun)\\s+([0-9]+))?", Pattern.CASE_INSENSITIVE);
-        //create player 2
-        Pattern CreatePlayer = Pattern.compile("create\\s+player\\s([a-zA-Z_0-9]+)", Pattern.CASE_INSENSITIVE);
+        //create player 2 on asteroid 2
+        Pattern CreatePlayer = Pattern.compile("create\\s+player\\s([a-zA-Z_0-9]+)\\s+on\\s+asteroid\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         //add resource to player
         Pattern AddResourceToPlayer = Pattern.compile("add\\s+resource\\s+to\\s+player\\s+([a-zA-Z_0-9]+)\\s+([a-z]+)(\\s+seesun\\s+([0-9]+))?", Pattern.CASE_INSENSITIVE);
         //disable sunstorm
@@ -61,21 +61,22 @@ public class Main {
         //exit
         Pattern Exit = Pattern.compile("exit", Pattern.CASE_INSENSITIVE);
 
-        while (true) {
-            Scanner scanner = new Scanner(in);
-            String input = scanner.nextLine();
+        try {
+            while (true) {
+                String input = scanner.nextLine();
 
-            Matcher LoadM = Load.matcher(input);
-            if (LoadM.find()) {
-                println("Loading test " + LoadM.group(1));
-                try {
-                    GameInput = new Scanner(new File("test/1.txt"));
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                Matcher LoadM = Load.matcher(input);
+                if (LoadM.find()) {
+                    println("Loading test " + LoadM.group(1));
+                    try {
+                        GameInput = new Scanner(new File("test/" + LoadM.group(1) + ".txt"));
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    OutputFile = "out/" + LoadM.group(1) + ".txt";
+                    process_input(GameInput);
+                    continue;
                 }
-                OutputFile = "out/" + LoadM.group(1) + ".txt";
-                continue;
-            }
 
  /*           Matcher SaveM = Save.matcher(input);
             if (SaveM.find()) {
@@ -83,96 +84,58 @@ public class Main {
                 continue;
             }
 */
-            Matcher StartGameM = StartGame.matcher(input);
-            if (StartGameM.find()) {
-                if (OutputFile != null) {
-                    BufferedWriter bw = null;
-                    try {
-                        File file = new File(OutputFile);
-                        if (!file.exists()) {
-                            file.createNewFile();
-                        }
-
-                        FileWriter fw = new FileWriter(file);
-                        bw = new BufferedWriter(fw);
-                        GameOutput = bw;
-                        Game g = Game.getInstance();
-                        g.StartGame();
-                        GameOutput = new BufferedWriter(new OutputStreamWriter(System.out));
-                        println("Test is over, results written to " + OutputFile);
-                        OutputFile = null;
-                    } catch (IOException ioe) {
-                        ioe.printStackTrace();
-                    } finally {
+                Matcher StartGameM = StartGame.matcher(input);
+                if (StartGameM.find()) {
+                    if (OutputFile != null) {
+                        BufferedWriter bw = null;
                         try {
-                            if (bw != null)
-                                bw.close();
-                        } catch (Exception ex) {
-                            System.out.println("Error in closing the BufferedWriter" + ex);
+                            File file = new File(OutputFile);
+                            if (!file.exists()) {
+                                file.createNewFile();
+                            }
+
+                            FileWriter fw = new FileWriter(file);
+                            bw = new BufferedWriter(fw);
+                            GameOutput = bw;
+                            game.StartGame();
+                            GameOutput = new BufferedWriter(new OutputStreamWriter(System.out));
+                            OutputFile = null;
+                        } catch (IOException ioe) {
+                            ioe.printStackTrace();
+                        } finally {
+                            try {
+                                if (bw != null)
+                                    bw.close();
+                            } catch (Exception ex) {
+                                System.out.println("Error in closing the BufferedWriter" + ex);
+                            }
                         }
                     }
+                    continue;
                 }
-                continue;
-            }
 
-            Matcher CreateAsteroidM = CreateAsteroid.matcher(input);
-            if (CreateAsteroidM.find()) {
-                int id = Integer.parseInt(CreateAsteroidM.group(1));
-                if (game.GetAsteroid(id) == null)
-                    game.AddAsteroid(new Asteroid(id));
-                continue;
-            }
-
-            Matcher SetAsteroidLayerM = SetAsteroidLayer.matcher(input);
-            if (SetAsteroidLayerM.find()) {
-                int id = Integer.parseInt(LoadM.group(1));
-                Asteroid a = game.GetAsteroid(id);
-                if (a != null)
-                    a.SetLayers(Integer.parseInt(LoadM.group(2)));
-                continue;
-            }
-
-            Matcher SetAsteroidResourceM = SetAsteroidResource.matcher(input);
-            if (SetAsteroidResourceM.find()) {
-                Asteroid a = game.GetAsteroid(Integer.parseInt(SetAsteroidResourceM.group(1)));
-                Resource r = null;
-                switch (SetAsteroidResourceM.group(2).toLowerCase()) {
-                    case "coal":
-                        r = new Coal();
-                        break;
-                    case "ice":
-                        r = new Ice();
-                        break;
-                    case "iron":
-                        r = new Iron();
-                        break;
-                    case "uranium":
-                        if (SetAsteroidResourceM.group(3) != null)
-                            r = new Uranium(Integer.parseInt(SetAsteroidResourceM.group(5)));
-                        else
-                            r = new Uranium();
-                        break;
+                Matcher CreateAsteroidM = CreateAsteroid.matcher(input);
+                if (CreateAsteroidM.find()) {
+                    int id = Integer.parseInt(CreateAsteroidM.group(1));
+                    if (game.GetAsteroid(id) == null)
+                        game.AddAsteroid(new Asteroid(id));
+                    continue;
                 }
-                a.AddResource(r);
-            }
 
-            Matcher CreatePlayerM = CreatePlayer.matcher(input);
-            if (CreatePlayerM.find()) {
-                Player p = new Player(CreatePlayerM.group(1));
-                game.AddPlayer(p);
-                continue;
-            }
+                Matcher SetAsteroidLayerM = SetAsteroidLayer.matcher(input);
+                if (SetAsteroidLayerM.find()) {
+                    int id = Integer.parseInt(SetAsteroidLayerM.group(1));
+                    Asteroid a = game.GetAsteroid(id);
+                    if (a != null)
+                        a.SetLayers(Integer.parseInt(SetAsteroidLayerM.group(2)));
+                    continue;
+                }
 
-            Matcher AddResourceToPlayerM = AddResourceToPlayer.matcher(input);
-            if (AddResourceToPlayerM.find()) {
-                System.out.println(AddResourceToPlayerM.group(1));
-                System.out.println(AddResourceToPlayerM.group(2));
-                System.out.println(AddResourceToPlayerM.group(3));
-                System.out.println(AddResourceToPlayerM.group(4));
-                Player p = game.GetPlayer(AddResourceToPlayerM.group(1));
-                if (p != null) {
+                Matcher SetAsteroidResourceM = SetAsteroidResource.matcher(input);
+                if (SetAsteroidResourceM.find()) {
+                    Asteroid a = game.GetAsteroid(Integer.parseInt(SetAsteroidResourceM.group(1)));
                     Resource r = null;
-                    switch (AddResourceToPlayerM.group(2).toLowerCase()) {
+                    switch (SetAsteroidResourceM.group(2).toLowerCase()) {
                         case "coal":
                             r = new Coal();
                             break;
@@ -183,96 +146,139 @@ public class Main {
                             r = new Iron();
                             break;
                         case "uranium":
-                            if (AddResourceToPlayerM.group(3) != null)
-                                r = new Uranium(Integer.parseInt(AddResourceToPlayerM.group(4)));
+                            if (SetAsteroidResourceM.group(3) != null)
+                                r = new Uranium(Integer.parseInt(SetAsteroidResourceM.group(5)));
                             else
                                 r = new Uranium();
                             break;
                     }
-                    p.AddResource(r);
+                    a.AddResource(r);
                 }
-                continue;
-            }
 
-            Matcher SetAsteroidNeighbourM = SetAsteroidNeighbour.matcher(input);
-            if (SetAsteroidNeighbourM.find()) {
-                Asteroid a1 = game.GetAsteroid(Integer.parseInt(SetAsteroidNeighbourM.group(1)));
-                Asteroid a2 = game.GetAsteroid(Integer.parseInt(SetAsteroidNeighbourM.group(2)));
-                if (a1 == null || a2 == null)
+                Matcher CreatePlayerM = CreatePlayer.matcher(input);
+                if (CreatePlayerM.find()) {
+                    Asteroid a = game.GetAsteroid(Integer.parseInt(CreatePlayerM.group(2)));
+                    if (a != null) {
+                        Player p = new Player(CreatePlayerM.group(1));
+                        a.Accept(p);
+                        game.AddPlayer(p);
+                    }
                     continue;
-                a1.AddNeighbor(a2);
-                continue;
-            }
-
-            Matcher DisableSunStormM = DisableSunStorm.matcher(input);
-            if (DisableSunStormM.find()) {
-                game.DisableSunstorm();
-                continue;
-            }
-
-            Matcher EnableSunStormM = EnableSunStorm.matcher(input);
-            if (EnableSunStormM.find()) {
-                game.EnableSunstorm();
-                continue;
-            }
-
-            Matcher CreateRobotM = CreateRobot.matcher(input);
-            if (CreateRobotM.find()) {
-                Asteroid a = game.GetAsteroid(Integer.parseInt(CreateRobotM.group(1)));
-                if (a != null) {
-                    Robot r = new Robot(a);
-                    game.AddEntity(r);
                 }
-                continue;
-            }
 
-            Matcher CreateAlienM = CreateAlien.matcher(input);
-            if (CreateAlienM.find()) {
-                Asteroid a = game.GetAsteroid(Integer.parseInt(CreateAlienM.group(1)));
-                if (a != null) {
-                    Alien alien = new Alien(a);
-                    game.AddEntity(alien);
+                Matcher AddResourceToPlayerM = AddResourceToPlayer.matcher(input);
+                if (AddResourceToPlayerM.find()) {
+                    System.out.println(AddResourceToPlayerM.group(1));
+                    System.out.println(AddResourceToPlayerM.group(2));
+                    System.out.println(AddResourceToPlayerM.group(3));
+                    System.out.println(AddResourceToPlayerM.group(4));
+                    Player p = game.GetPlayer(AddResourceToPlayerM.group(1));
+                    if (p != null) {
+                        Resource r = null;
+                        switch (AddResourceToPlayerM.group(2).toLowerCase()) {
+                            case "coal":
+                                r = new Coal();
+                                break;
+                            case "ice":
+                                r = new Ice();
+                                break;
+                            case "iron":
+                                r = new Iron();
+                                break;
+                            case "uranium":
+                                if (AddResourceToPlayerM.group(3) != null)
+                                    r = new Uranium(Integer.parseInt(AddResourceToPlayerM.group(4)));
+                                else
+                                    r = new Uranium();
+                                break;
+                        }
+                        p.AddResource(r);
+                    }
+                    continue;
                 }
-                continue;
-            }
-            Matcher CreateGateM = CreateGate.matcher(input);
-            if (CreateGateM.find()) {
-                TeleportGate g1, g2;
-                Asteroid a1 = null, a2 = null;
-                Player p1 = null, p2 = null;
-                if ("asteroid".equals(CreateGateM.group(1))) {
-                    a1 = game.GetAsteroid(Integer.parseInt(CreateGateM.group(2)));
-                } else {
-                    p1 = game.GetPlayer(CreateGateM.group(2));
+
+                Matcher SetAsteroidNeighbourM = SetAsteroidNeighbour.matcher(input);
+                if (SetAsteroidNeighbourM.find()) {
+                    Asteroid a1 = game.GetAsteroid(Integer.parseInt(SetAsteroidNeighbourM.group(1)));
+                    Asteroid a2 = game.GetAsteroid(Integer.parseInt(SetAsteroidNeighbourM.group(2)));
+                    if (a1 == null || a2 == null)
+                        continue;
+                    a1.AddNeighbor(a2);
+                    continue;
                 }
-                if ("asteroid".equals(CreateGateM.group(3))) {
-                    a2 = game.GetAsteroid(Integer.parseInt(CreateGateM.group(4)));
-                } else {
-                    p2 = game.GetPlayer(CreateGateM.group(4));
+
+                Matcher DisableSunStormM = DisableSunStorm.matcher(input);
+                if (DisableSunStormM.find()) {
+                    game.DisableSunstorm();
+                    continue;
                 }
-                if (p1 != null && p2 != null) {
-                } else if (a1 != null && a2 != null) {
 
-                } else if (a1 != null && p1 != null) {
-
-                } else if (a1 != null && p2 != null) {
-
-                } else if (a2 != null && p1 != null) {
-
-                } else if (a2 != null && p2 != null) {
-
+                Matcher EnableSunStormM = EnableSunStorm.matcher(input);
+                if (EnableSunStormM.find()) {
+                    game.EnableSunstorm();
+                    continue;
                 }
-                continue;
-            }
 
-            Matcher ResetM = Reset.matcher(input);
-            if (ResetM.find()) {
-                game.reset();
+                Matcher CreateRobotM = CreateRobot.matcher(input);
+                if (CreateRobotM.find()) {
+                    Asteroid a = game.GetAsteroid(Integer.parseInt(CreateRobotM.group(1)));
+                    if (a != null) {
+                        Robot r = new Robot(a);
+                        game.AddEntity(r);
+                    }
+                    continue;
+                }
+
+                Matcher CreateAlienM = CreateAlien.matcher(input);
+                if (CreateAlienM.find()) {
+                    Asteroid a = game.GetAsteroid(Integer.parseInt(CreateAlienM.group(1)));
+                    if (a != null) {
+                        Alien alien = new Alien(a);
+                        game.AddEntity(alien);
+                    }
+                    continue;
+                }
+                Matcher CreateGateM = CreateGate.matcher(input);
+                if (CreateGateM.find()) {
+                    TeleportGate g1, g2;
+                    Asteroid a1 = null, a2 = null;
+                    Player p1 = null, p2 = null;
+                    if ("asteroid".equals(CreateGateM.group(1))) {
+                        a1 = game.GetAsteroid(Integer.parseInt(CreateGateM.group(2)));
+                    } else {
+                        p1 = game.GetPlayer(CreateGateM.group(2));
+                    }
+                    if ("asteroid".equals(CreateGateM.group(3))) {
+                        a2 = game.GetAsteroid(Integer.parseInt(CreateGateM.group(4)));
+                    } else {
+                        p2 = game.GetPlayer(CreateGateM.group(4));
+                    }
+                    if (p1 != null && p2 != null) {
+                    } else if (a1 != null && a2 != null) {
+
+                    } else if (a1 != null && p1 != null) {
+
+                    } else if (a1 != null && p2 != null) {
+
+                    } else if (a2 != null && p1 != null) {
+
+                    } else if (a2 != null && p2 != null) {
+
+                    }
+                    continue;
+                }
+
+                Matcher ResetM = Reset.matcher(input);
+                if (ResetM.find()) {
+                    game.reset();
+                }
+                Matcher ExitM = Exit.matcher(input);
+                if (ExitM.find()) {
+                    break;
+                }
             }
-            Matcher ExitM = Exit.matcher(input);
-            if (ExitM.find()) {
-                break;
-            }
+        } catch (Exception e) {
+            return;
         }
     }
 

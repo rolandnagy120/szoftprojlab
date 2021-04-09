@@ -144,8 +144,10 @@ public class Game {
      * @param player - the player that will be added
      */
     public void AddPlayer(Player player) {
-        if (!players.contains(player))
+        if (!players.contains(player)) {
+            timer.AddSteppable(player);
             players.add(player);
+        }
     }
 
     public Player GetPlayer(String name) {
