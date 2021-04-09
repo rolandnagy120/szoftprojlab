@@ -67,6 +67,10 @@ public class Timer {
     }
 
     public void RemoveSteppable(Steppable steppable) {
+        if(steppables.indexOf(steppable) < continueFrom)
+            continueFrom--;
         steppables.remove(steppable);
+
+
     }
 }
