@@ -10,6 +10,7 @@ package szoftprojlab;
 //
 
 
+import szoftprojlab.entity.Entity;
 import szoftprojlab.entity.Player;
 import szoftprojlab.resource.*;
 
@@ -24,6 +25,7 @@ public class Game {
     private Timer timer = Timer.getInstance();
     private List<Player> players = new ArrayList<>();
     private List<Asteroid> asteroids = new ArrayList<>();
+    private List<Entity> entities = new ArrayList<>();
 
     private boolean gameWon = false;
     private boolean endGame;
@@ -40,9 +42,6 @@ public class Game {
             new Ice(), new Ice(), new Ice()
     );
 
-
-
-
     /**
      * Starts the game
      */
@@ -54,12 +53,20 @@ public class Game {
         sun.ClearAsteroids();
         sun.Init(10, 0.01);
         */
+        /*
         Player player1 = new Player("Player1");
         Player player2 = new Player("Player2");
         players.add(player1);
         players.add(player2);
         timer.AddSteppable(player1);
         timer.AddSteppable(player2);
+
+        Asteroid a1 = new Asteroid(1, 1);
+        Asteroid a2 = new Asteroid(2, 1);
+        a1.AddNeighbor(a2);
+        a1.Accept(player1);
+        a1.Accept(player2);*/
+
         /*
 
         int numberOfAsteroids = 10;
@@ -105,11 +112,11 @@ public class Game {
         endGame = false;
 
         while (!endGame && !gameWon) {
-            System.out.println("New round\n");
+            Main.println("New round\n");
             timer.Tick();
 
             if (players.size() == 0) {
-                System.out.println("Everyone died");
+                Main.println("Everyone died");
                 endGame = true;
             }
         }
@@ -137,8 +144,27 @@ public class Game {
      * @param player - the player that will be added
      */
     public void AddPlayer(Player player) {
-        if (!players.contains(player))
+        if (!players.contains(player)) {
+            timer.AddSteppable(player);
             players.add(player);
+        }
+    }
+
+    public Player GetPlayer(String name) {
+        for (Player p : players) {
+            if (p.getName().equals(name))
+                return p;
+        }
+        return null;
+    }
+
+    public void AddEntity(Entity e) {
+        entities.add(e);
+        timer.AddSteppable(e);
+    }
+
+    public void RemoveEntity(Entity e) {
+        entities.remove(e);
     }
 
     /**
@@ -146,6 +172,27 @@ public class Game {
      */
     public void EndGame() {
         endGame = true;
+    }
+
+    public void AddAsteroid(Asteroid a) {
+        asteroids.add(a);
+        sun.AddAsteroid(a);
+    }
+
+    public Asteroid GetAsteroid(int i) {
+        for (Asteroid a : asteroids) {
+            if (a.GetId() == i)
+                return a;
+        }
+        return null;
+    }
+
+    public void DisableSunstorm() {
+        sunStormenabled = false;
+    }
+
+    public void EnableSunstorm() {
+        sunStormenabled = true;
     }
 
     /*
@@ -227,6 +274,14 @@ public class Game {
             System.out.println("The base can be made now! The game is won!");
             gameWon = true;
         }
+    }
+
+    public void reset() {
+        players.clear();
+        asteroids.clear();
+        entities.clear();
+        sun.ClearAsteroids();
+        timer.ClearSteppables();
     }
 
     public static Game getInstance() {

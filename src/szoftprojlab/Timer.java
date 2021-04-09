@@ -16,47 +16,61 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Timer {
-	private static Timer singleClassIntance = null;
-	private final List<Steppable> steppables = new ArrayList<>();
+    private static Timer singleClassIntance = null;
+    private final List<Steppable> steppables = new ArrayList<>();
+    private int continueFrom = 0;
 
-	/**
-	 * Ticks the timer
-	 * Calls the Step() function for every steppable
-	 * object
-	 */
-	public void Tick() {
-		var steppablesCopy = new ArrayList<>(steppables);
-		for (Steppable steppable : steppablesCopy) {
-			if (steppables.contains(steppable))
-				steppable.Step();
-		}
-	}
 
-	/**
-	 * Clears all the steppables
-	 * Only for the skeleton
-	 */
-	public void ClearSteppables() {
-		steppables.clear();
-	}
+    /**
+     * Ticks the timer
+     * Calls the Step() function for every steppable
+     * object
+     */
+    public void Tick() {
+        for (; continueFrom < steppables.size(); continueFrom++) {
+            steppables.get(continueFrom).Step();
+        }
+        continueFrom = 0;
+    }
 
-	/**
-	 * Adds a steppable
-	 * @param s - the object that will be added
-	 */
-	public void AddSteppable(Steppable s) {
-		if (!steppables.contains(s))
-			steppables.add(s);
-	}
+    /**
+     * Clears all the steppables
+     * Only for the skeleton
+     */
+    public void ClearSteppables() {
+        steppables.clear();
+    }
 
-	public static Timer getInstance() {
-		if (singleClassIntance == null)
-			singleClassIntance = new Timer();
+    /**
+     * Adds a steppable
+     *
+     * @param s - the object that will be added
+     */
+    public void AddSteppable(Steppable s) {
+        if (!steppables.contains(s))
+            steppables.add(s);
+    }
 
-		return singleClassIntance;
-	}
+    public static Timer getInstance() {
+        if (singleClassIntance == null)
+            singleClassIntance = new Timer();
 
-	public void RemoveSteppable(Steppable steppable) {
-		steppables.remove(steppable);
-	}
+        return singleClassIntance;
+    }
+
+    public void ContinueFromIndex(int i) {
+        continueFrom = i;
+    }
+
+    public int GetStepIndex() {
+        return continueFrom;
+    }
+
+    public void RemoveSteppable(Steppable steppable) {
+        if(steppables.indexOf(steppable) < continueFrom)
+            continueFrom--;
+        steppables.remove(steppable);
+
+
+    }
 }

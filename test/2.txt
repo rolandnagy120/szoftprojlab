@@ -1,0 +1,8 @@
+move 2
+mine
+drill
+mine
+craft robot
+craft gates
+place gate
+teleport to 3
