@@ -166,6 +166,7 @@ public class Game {
 
     public void AddAsteroid(Asteroid a) {
         asteroids.add(a);
+        sun.AddAsteroid(a);
     }
 
     public Asteroid GetAsteroid(int i) {
