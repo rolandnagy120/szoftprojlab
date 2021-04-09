@@ -1,5 +1,8 @@
 package szoftprojlab;
 
+import szoftprojlab.entity.Alien;
+import szoftprojlab.entity.Player;
+import szoftprojlab.entity.Robot;
 import szoftprojlab.resource.*;
 
 import java.io.*;
@@ -37,18 +40,20 @@ public class Main {
         Pattern StartGame = Pattern.compile("start\\s+game", Pattern.CASE_INSENSITIVE);
         //Set asteroid layer
         Pattern SetAsteroidLayer = Pattern.compile("set\\s+asteroid\\s+([0-9]+)\\s+layer\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
-        //
+        //Set asteroid resource
         Pattern SetAsteroidResource = Pattern.compile("set\\s+asteroid\\s+([0-9]+)\\s+resource\\s+([a-z]+)(\\s+(nearsun)\\s+([0-9]+))?", Pattern.CASE_INSENSITIVE);
-        //create player 2 inventory coal coal uranium(1)
-        Pattern CreatePlayer = Pattern.compile("create\\s+player\\s+inventory(\\s+[a-z]+)+", Pattern.CASE_INSENSITIVE);
+        //create player 2
+        Pattern CreatePlayer = Pattern.compile("create\\s+player\\s([a-zA-Z_0-9]+)", Pattern.CASE_INSENSITIVE);
+        //add resource to player
+
         //disable sunstorm
         Pattern DisableSunStorm = Pattern.compile("disable\\s+sunstorm", Pattern.CASE_INSENSITIVE);
         //create gate
         Pattern CreateGate;
         //create robot
-        Pattern CreateRobot = Pattern.compile("create\\s+robot", Pattern.CASE_INSENSITIVE);
+        Pattern CreateRobot = Pattern.compile("create\\s+robot\\s+on\\s+asteroid\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         //create alien
-        Pattern CreateAlien = Pattern.compile("create\\s+alien", Pattern.CASE_INSENSITIVE);
+        Pattern CreateAlien = Pattern.compile("create\\s+alien\\s+on\\s+asteroid\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
 
         while (true) {
             Scanner scanner = new Scanner(in);
@@ -147,7 +152,8 @@ public class Main {
 
             Matcher CreatePlayerM = CreatePlayer.matcher(input);
             if (CreatePlayerM.find()) {
-                //TODO
+                Player p = new Player(CreatePlayerM.group(1));
+                game.AddPlayer(p);
                 continue;
             }
 
@@ -167,15 +173,23 @@ public class Main {
                 continue;
             }
 
-            Matcher CreateRobotM =  CreateRobot.matcher(input);
+            Matcher CreateRobotM = CreateRobot.matcher(input);
             if (CreateRobotM.find()) {
-                //TODO
+                Asteroid a = game.GetAsteroid(Integer.parseInt(CreateRobotM.group(1)));
+                if (a != null) {
+                    Robot r = new Robot(a);
+                    game.AddEntity(r);
+                }
                 continue;
             }
 
-            Matcher CreateAlienM =  CreateAlien.matcher(input);
+            Matcher CreateAlienM = CreateAlien.matcher(input);
             if (CreateAlienM.find()) {
-                //TODO
+                Asteroid a = game.GetAsteroid(Integer.parseInt(CreateRobotM.group(1)));
+                if (a != null) {
+                    Alien alien = new Alien(a);
+                    game.AddEntity(alien);
+                }
                 continue;
             }
         }

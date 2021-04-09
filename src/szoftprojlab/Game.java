@@ -10,6 +10,7 @@ package szoftprojlab;
 //
 
 
+import szoftprojlab.entity.Entity;
 import szoftprojlab.entity.Player;
 import szoftprojlab.resource.*;
 
@@ -24,6 +25,7 @@ public class Game {
     private Timer timer = Timer.getInstance();
     private List<Player> players = new ArrayList<>();
     private List<Asteroid> asteroids = new ArrayList<>();
+    private List<Entity> entities = new ArrayList<>();
 
     private boolean gameWon = false;
     private boolean endGame;
@@ -143,6 +145,16 @@ public class Game {
     public void AddPlayer(Player player) {
         if (!players.contains(player))
             players.add(player);
+        //todo???
+    }
+
+    public void AddEntity(Entity e) {
+        entities.add(e);
+        timer.AddSteppable(e);
+    }
+
+    public void RemoveEntity(Entity e) {
+        entities.remove(e);
     }
 
     /**

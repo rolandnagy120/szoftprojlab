@@ -46,7 +46,9 @@ public class Robot extends Entity {
 			newAsteroid.Accept(this);
 	}
 	
-	public void Robot(Asteroid asteroid) {
+	public Robot(Asteroid asteroid) {
+		asteroid.Accept(this);
+		this.asteroid = asteroid;
 	}
 
 	/**

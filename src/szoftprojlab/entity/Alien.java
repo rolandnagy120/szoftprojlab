@@ -1,5 +1,6 @@
 package szoftprojlab.entity;
 
+import szoftprojlab.Asteroid;
 import szoftprojlab.resource.Resource;
 
 import java.util.ArrayList;
@@ -7,6 +8,11 @@ import java.util.List;
 
 public class Alien extends Entity implements Miner {
     private List<Resource> inventory = new ArrayList<>();
+
+    public Alien(Asteroid asteroid) {
+        asteroid.Accept(this);
+        this.asteroid = asteroid;
+    }
 
     @Override
     public void Step() {
