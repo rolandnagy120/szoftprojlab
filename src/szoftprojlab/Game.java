@@ -53,6 +53,7 @@ public class Game {
         sun.ClearAsteroids();
         sun.Init(10, 0.01);
         */
+        /*
         Player player1 = new Player("Player1");
         Player player2 = new Player("Player2");
         players.add(player1);
@@ -64,7 +65,7 @@ public class Game {
         Asteroid a2 = new Asteroid(2, 1);
         a1.AddNeighbor(a2);
         a1.Accept(player1);
-        a1.Accept(player2);
+        a1.Accept(player2);*/
 
         /*
 
@@ -145,7 +146,14 @@ public class Game {
     public void AddPlayer(Player player) {
         if (!players.contains(player))
             players.add(player);
-        //todo???
+    }
+
+    public Player GetPlayer(String name) {
+        for (Player p : players) {
+            if (p.getName().equals(name))
+                return p;
+        }
+        return null;
     }
 
     public void AddEntity(Entity e) {
@@ -175,6 +183,14 @@ public class Game {
                 return a;
         }
         return null;
+    }
+
+    public void DisableSunstorm() {
+        sunStormenabled = false;
+    }
+
+    public void EnableSunstorm() {
+        sunStormenabled = true;
     }
 
     /*
@@ -256,6 +272,14 @@ public class Game {
             System.out.println("The base can be made now! The game is won!");
             gameWon = true;
         }
+    }
+
+    public void reset() {
+        players.clear();
+        asteroids.clear();
+        entities.clear();
+        sun.ClearAsteroids();
+        timer.ClearSteppables();
     }
 
     public static Game getInstance() {

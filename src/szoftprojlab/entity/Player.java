@@ -104,13 +104,11 @@ public class Player extends Entity implements Miner {
                         }
                     }
                     Main.println("Neighbor with id " + selectedNeighbor + " not found");
-                }
-                else if (Drill.matcher(input).find()) {
+                } else if (Drill.matcher(input).find()) {
                     Drill();
                     Main.println("Drilled");
                     return;
-                }
-                else if (Mine.matcher(input).find()) {
+                } else if (Mine.matcher(input).find()) {
                     if (inventory.size() == invetoryMax) {
                         Main.println("Inventory full, can't mine more");
                     } else {
@@ -119,16 +117,13 @@ public class Player extends Entity implements Miner {
                             return;
                         }
                     }
-                }
-                else if (CraftRobot.matcher(input).find()) {
+                } else if (CraftRobot.matcher(input).find()) {
                     MakeAndPlaceRobot();
                     return;
-                }
-                else if (CraftGates.matcher(input).find()) {
+                } else if (CraftGates.matcher(input).find()) {
                     MakeGates();
                     return;
-                }
-                else if (PlaceGate.matcher(input).find()) {
+                } else if (PlaceGate.matcher(input).find()) {
                     this.PlaceGate();
                     return;
                 }
@@ -392,5 +387,9 @@ public class Player extends Entity implements Miner {
         timer.RemoveSteppable(this);
         asteroid.Remove(this);
         Game.getInstance().PlayerDie(this);
+    }
+
+    public String getName() {
+        return name;
     }
 }
