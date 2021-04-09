@@ -30,7 +30,7 @@ public class Main {
         //save state
         Pattern Save = Pattern.compile("", Pattern.CASE_INSENSITIVE);
         //Add a Neighbouring Asteroid to an asteroid
-        Pattern SetAsteroidNeighbour = Pattern.compile("", Pattern.CASE_INSENSITIVE);
+        Pattern SetAsteroidNeighbour = Pattern.compile("set\\s+asteroid\\s+([0-9]+)\\s+neighbour\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         //Create Asteroid
         Pattern CreateAsteroid = Pattern.compile("create\\s+asteroid\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         //Start game
@@ -41,7 +41,14 @@ public class Main {
         Pattern SetAsteroidResource = Pattern.compile("set\\s+asteroid\\s+([0-9]+)\\s+resource\\s+([a-z]+)(\\s+(nearsun)\\s+([0-9]+))?", Pattern.CASE_INSENSITIVE);
         //create player 2 inventory coal coal uranium(1)
         Pattern CreatePlayer = Pattern.compile("create\\s+player\\s+inventory(\\s+[a-z]+)+", Pattern.CASE_INSENSITIVE);
-
+        //disable sunstorm
+        Pattern DisableSunStorm = Pattern.compile("disable\\s+sunstorm", Pattern.CASE_INSENSITIVE);
+        //create gate
+        Pattern CreateGate;
+        //create robot
+        Pattern CreateRobot = Pattern.compile("create\\s+robot", Pattern.CASE_INSENSITIVE);
+        //create alien
+        Pattern CreateAlien = Pattern.compile("create\\s+alien", Pattern.CASE_INSENSITIVE);
 
         while (true) {
             Scanner scanner = new Scanner(in);
@@ -50,11 +57,6 @@ public class Main {
             Matcher LoadM = Load.matcher(input);
             if (LoadM.find()) {
                 println("Loading test " + LoadM.group(1));
-                println("Output set to out/" + LoadM.group(1) + ".txt");
-                println("You can change it with:\n" +
-                        "set test output file path\n" +
-                        "or with:\n" +
-                        "set test output console");
                 try {
                     GameInput = new Scanner(new File("test/1.txt"));
                 } catch (FileNotFoundException e) {
@@ -149,7 +151,33 @@ public class Main {
                 continue;
             }
 
+            Matcher SetAsteroidNeighbourM = SetAsteroidNeighbour.matcher(input);
+            if (SetAsteroidNeighbourM.find()) {
+                Asteroid a1 = game.GetAsteroid(Integer.parseInt(SetAsteroidNeighbourM.group(1)));
+                Asteroid a2 = game.GetAsteroid(Integer.parseInt(SetAsteroidNeighbourM.group(2)));
+                if (a1 == null || a2 == null)
+                    continue;
+                a1.AddNeighbor(a2);
+                continue;
+            }
 
+            Matcher DisableSunStormM = DisableSunStorm.matcher(input);
+            if (DisableSunStormM.find()) {
+                //TODO
+                continue;
+            }
+
+            Matcher CreateRobotM =  CreateRobot.matcher(input);
+            if (CreateRobotM.find()) {
+                //TODO
+                continue;
+            }
+
+            Matcher CreateAlienM =  CreateAlien.matcher(input);
+            if (CreateAlienM.find()) {
+                //TODO
+                continue;
+            }
         }
     }
 
