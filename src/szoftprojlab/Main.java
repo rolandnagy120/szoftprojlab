@@ -373,13 +373,17 @@ public class Main {
                 Matcher DisableSundistanceChangeM = DisableSundistanceChange.matcher(input);
                 if (DisableSundistanceChangeM.find()) {
                     Sun.getInstance().DisableSunDistanceChange();
+                    continue;
                 }
 
                 //SetDistanceTime
                 Matcher SetDistanceTimeM = SetDistanceTime.matcher(input);
                 if (SetDistanceTimeM.find()) {
                     Sun.getInstance().SetSunDistanceChangeTime(Integer.parseInt(SetDistanceTimeM.group(1)));
+                    continue;
                 }
+
+                System.out.println("Unknown command: "+input);
 
             }
         } catch (
