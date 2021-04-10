@@ -97,8 +97,7 @@ public class Asteroid {
         SeeSunIfNeeded();
     }
 
-    public void SetCloseToSun()
-    {
+    public void SetCloseToSun() {
         nearSun = true;
     }
 
@@ -130,6 +129,11 @@ public class Asteroid {
         if (layers == 0)
             Main.println("Asteroid breakthrough!");
         SeeSunIfNeeded();
+    }
+
+    public void addEntity(Entity entity) {
+        entities.add(entity);
+        entity.SetAsteroid(this);
     }
 
     /**
@@ -175,7 +179,7 @@ public class Asteroid {
     public void Mine(Miner miner) {
         if (layers == 0 && resource != null) {
             miner.AddResource(resource);
-            Main.println("Resource "+resource.toString()+" added to inventory");
+            Main.println("Resource " + resource.toString() + " added to inventory");
             resource = null;
             CheckForVictory();
         }
@@ -357,10 +361,11 @@ public class Asteroid {
             ret += n.idx + " ";
         ret += "\nlayers: " + layers + "\n" +
                 "resource: " + (resource == null ? "empty" : resource) + "\n" +
-                "Gates: \n" + (gates.isEmpty() ? "No gates on asteroid" : "");
+                "nearsun: "+nearSun+"\n"+
+                "Gates:" + (gates.isEmpty() ? "No gates on asteroid\n" : "\n");
         for (TeleportGate g : gates)
             ret += g.toString();
-        ret += "\n" + "Entities: " + (entities.isEmpty() ? "No entities on asteroid" : "");
+        ret += "Entities: " + (entities.isEmpty() ? "No entities on asteroid\n" : "\n");
         for (Entity e : entities)
             ret += e.toString();
         return ret + "\n";

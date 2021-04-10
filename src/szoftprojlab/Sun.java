@@ -79,7 +79,7 @@ public class Sun implements Steppable {
                 nextSunStormIn = (int) (1 / sunStormProbability);
         }
 
-
+        Main.println("Sun Step called");
     }
 
     /**
@@ -120,7 +120,6 @@ public class Sun implements Steppable {
      * Changes the near sun state
      */
     private void ChangeNearSun() {
-        Main.println("Change near sun happening");
         asteroids.forEach(Asteroid::ChangeNearSun);
     }
 
@@ -168,7 +167,7 @@ public class Sun implements Steppable {
 
     public void SetSunDistanceChangeTime(int rounds) {
         sunDistanceChangeCycle = rounds;
-        sunDistanceChangeCycle = rounds;
+        sunDistanceChangeCounter = rounds;
     }
 
     public static Sun getInstance() {

@@ -13,7 +13,7 @@ public class Alien extends Entity implements Miner {
     private static int id = 0;
 
     public Alien(Asteroid asteroid) {
-        asteroid.Accept(this);
+        asteroid.addEntity(this);
         this.asteroid = asteroid;
         idx = id++;
     }
@@ -61,6 +61,6 @@ public class Alien extends Entity implements Miner {
     }
 
     public String toString() {
-        return "Alien "+idx;
+        return "\tAlien "+idx;
     }
 }

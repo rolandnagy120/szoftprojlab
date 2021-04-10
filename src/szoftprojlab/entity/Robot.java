@@ -27,7 +27,7 @@ public class Robot extends Entity {
 
 
     public Robot(Asteroid asteroid) {
-        asteroid.Accept(this);
+        asteroid.addEntity(this);
         this.asteroid = asteroid;
         idx = id++;
     }
@@ -86,6 +86,6 @@ public class Robot extends Entity {
     }
 
     public String toString() {
-        return "Robot "+idx+"\n";
+        return "\tRobot "+idx+"\n";
     }
 }

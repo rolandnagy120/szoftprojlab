@@ -39,6 +39,7 @@ public class Timer {
      */
     public void ClearSteppables() {
         steppables.clear();
+        continueFrom = 0;
     }
 
     /**

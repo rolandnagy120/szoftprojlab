@@ -13,6 +13,7 @@ package szoftprojlab.resource;
 
 
 import szoftprojlab.Asteroid;
+import szoftprojlab.Main;
 
 public class Uranium extends Resource {
 
@@ -36,7 +37,7 @@ public class Uranium extends Resource {
     public void SeeSun(Asteroid asteroid) {
         seeSunsBeforeExplosion--;
         if (seeSunsBeforeExplosion == 0) {
-            System.out.println("The uranium exploded");
+            Main.println("The uranium explodeddddddd");
             asteroid.Explode();
         }
     }

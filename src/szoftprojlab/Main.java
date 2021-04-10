@@ -82,7 +82,6 @@ public class Main {
         Pattern SetDistanceTime = Pattern.compile("set\\s+sun\\s+asteroid\\s+sun\\s+distance\\s+change\\s+time\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
 
 
-
         try {
             while (true) {
                 String input = scanner.nextLine();
@@ -121,6 +120,7 @@ public class Main {
                             bw = new BufferedWriter(fw);
                             GameOutput = bw;
                             game.StartGame();
+                            GameOutput.close();
                             GameOutput = new BufferedWriter(new OutputStreamWriter(System.out));
                             OutputFile = null;
                         } catch (IOException ioe) {
@@ -169,9 +169,9 @@ public class Main {
                             r = new Iron();
                             break;
                         case "uranium":
-                            if (SetAsteroidResourceM.group(3) != null)
+                            if (SetAsteroidResourceM.group(3) != null) {
                                 r = new Uranium(Integer.parseInt(SetAsteroidResourceM.group(5)));
-                            else
+                            } else
                                 r = new Uranium();
                             break;
                     }
@@ -184,7 +184,7 @@ public class Main {
                     Asteroid a = game.GetAsteroid(Integer.parseInt(CreatePlayerM.group(2)));
                     if (a != null) {
                         Player p = new Player(CreatePlayerM.group(1));
-                        a.Accept(p);
+                        a.addEntity(p);
                         game.AddPlayer(p);
                     }
                     continue;
@@ -192,10 +192,6 @@ public class Main {
 
                 Matcher AddResourceToPlayerM = AddResourceToPlayer.matcher(input);
                 if (AddResourceToPlayerM.find()) {
-                    System.out.println(AddResourceToPlayerM.group(1));
-                    System.out.println(AddResourceToPlayerM.group(2));
-                    System.out.println(AddResourceToPlayerM.group(3));
-                    System.out.println(AddResourceToPlayerM.group(4));
                     Player p = game.GetPlayer(AddResourceToPlayerM.group(1));
                     if (p != null) {
                         Resource r = null;
@@ -383,11 +379,11 @@ public class Main {
                     continue;
                 }
 
-                System.out.println("Unknown command: "+input);
+                System.out.println("Unknown command: " + input);
 
             }
-        } catch (
-                Exception e) {
+        } catch (Exception e) {
+            //e.printStackTrace();
             return;
         }
 

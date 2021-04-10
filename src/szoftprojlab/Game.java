@@ -149,9 +149,9 @@ public class Game {
         players.remove(player);
         Timer.getInstance().RemoveSteppable(player);
 
-        if (players.size() <= 1) {
+        /*if (players.size() <= 1) {
             EndGame();
-        }
+        }*/
     }
 
     /**

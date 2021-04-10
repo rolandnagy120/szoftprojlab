@@ -112,6 +112,6 @@ public class TeleportGate implements Steppable {
 
     public String toString()
     {
-        return "\tgate "+idx+"\n";
+        return "\tgate "+idx+" connected to gate "+pair.idx+"\n";
     }
 }

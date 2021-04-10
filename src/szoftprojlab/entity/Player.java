@@ -48,7 +48,7 @@ public class Player extends Entity implements Miner {
      * Player steps
      */
     public void Step() {
-        Main.println("\nPlayer "+name+" steps:");
+        Main.println("\nPlayer " + name + " steps:");
         //TODO
         //start sun storm asteroid idx dept
 
@@ -284,6 +284,7 @@ public class Player extends Entity implements Miner {
      */
     @Override
     public void Explode() {
+        Main.println("Player " + name + " died.");
         Game game = Game.getInstance();
         asteroid.Remove(this);
         game.PlayerDie(this);
@@ -306,8 +307,11 @@ public class Player extends Entity implements Miner {
     }
 
     public String toString() {
-        String ret = "\n\tPlayer "+name+"\n"+
+        String ret = "\n\tPlayer " + name + "\n" +
                 "\tinventory:";
+        for (Resource r : inventory) {
+            ret += "\n\t\t"+r.toString();
+        }
         return ret;
     }
 }
