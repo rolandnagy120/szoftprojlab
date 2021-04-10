@@ -25,6 +25,10 @@ set sunstorm once # csak egyszer lesz napvihar
 set asteroid 1 explosion neighbour 2
 set alien 1 next asteroid 1
 set robot 1 next asteroid 2
+set asteroid 1 close to sun
+set asteroid 1 distant to sun
+set sunstorm asteroid 1
+set sunstorm distance 1
 startgame #
 exit
 
