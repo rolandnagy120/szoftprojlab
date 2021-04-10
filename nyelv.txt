@@ -20,7 +20,7 @@ enable sunstorm
 create gate on asteroid 1 asteroid 2
 create gate on player 1 asteroid 2
 create gate on player 1 player 1
-set suntorm in 10
+set sunstorm in 10
 set sunstorm once # csak egyszer lesz napvihar
 set asteroid 1 explosion neighbour 2
 set alien 1 next asteroid 1
@@ -29,6 +29,8 @@ set asteroid 1 close to sun
 set asteroid 1 distant to sun
 set sunstorm asteroid 1
 set sunstorm distance 1
+disable asteroid sun distance change
+set sun asteroid sun distance change time 10
 startgame #
 exit
 
