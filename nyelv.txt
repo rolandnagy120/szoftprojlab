@@ -28,8 +28,9 @@ set robot 1 next asteroid 2
 set asteroid 1 close to sun
 set asteroid 1 distant to sun
 set sunstorm asteroid 1
-set sunstorm distance 1
+set sunstorm dept 1
 disable asteroid sun distance change
+enable asteroid sun distance change
 set sun asteroid sun distance change time 10
 startgame #
 exit
