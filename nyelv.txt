@@ -23,6 +23,8 @@ create gate on player 1 player 1
 set suntorm in 10
 set sunstorm once # csak egyszer lesz napvihar
 set asteroid 1 explosion neighbour 2
+set alien 1 next asteroid 1
+set robot 1 next asteroid 2
 startgame #
 exit
 
