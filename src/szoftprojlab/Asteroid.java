@@ -28,6 +28,8 @@ public class Asteroid {
     private List<Asteroid> neighbors = new ArrayList<>();
     private List<Entity> entities = new ArrayList<>();
     private List<TeleportGate> gates = new ArrayList<>();
+    private Asteroid explosionNeighbour = null;
+
 
     public Asteroid(int ID) {
         idx = ID;
@@ -321,13 +323,20 @@ public class Asteroid {
     public Asteroid GetRandomNeighbor() {
         if (neighbors.size() == 0)
             return null;
-
+        if (explosionNeighbour != null)
+            return explosionNeighbour;
         Random rnd = new Random();
         int randomIndex = rnd.ints(0, neighbors.size())
                 .findFirst()
                 .getAsInt();
 
         return neighbors.get(randomIndex);
+    }
+
+    public void SetExplosionNeighbour(int neighbourId) {
+        for (Asteroid a : neighbors)
+            if (a.GetId() == neighbourId)
+                explosionNeighbour = a;
     }
 
     public int GetId() {
@@ -365,19 +374,19 @@ public class Asteroid {
 
     @Override
     public String toString() {
-        String ret = "Asteroid " + idx + ":\n"+
+        String ret = "Asteroid " + idx + ":\n" +
                 "Neighbours: ";
-       for(Asteroid n :neighbors)
-           ret += n.idx+" ";
+        for (Asteroid n : neighbors)
+            ret += n.idx + " ";
         ret += "\nlayers: " + layers + "\n" +
                 "resource: " + (resource == null ? "empty" : resource) + "\n" +
                 "Gates: " + (gates.isEmpty() ? "No gates on asteroid" : "");
         for (TeleportGate g : gates)
             ret += g.toString() + "\n";
-        ret += "\n" + "Entities: "+(entities.isEmpty()?"No entities on asteroid":"");
-        for (Entity e: entities)
+        ret += "\n" + "Entities: " + (entities.isEmpty() ? "No entities on asteroid" : "");
+        for (Entity e : entities)
             ret += e.toString();
-        return ret+"\n";
+        return ret + "\n";
     }
 
 }

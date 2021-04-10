@@ -61,9 +61,12 @@ public class Main {
         //exit
         Pattern Exit = Pattern.compile("exit", Pattern.CASE_INSENSITIVE);
         //set suntorm in
-        Pattern SunStormIn = Pattern.compile("sunstorm\\s+in\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
+        Pattern SunStormIn = Pattern.compile("set\\s+sunstorm\\s+in\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         //set sunstorm once
-        Pattern SunStormOnce = Pattern.compile("sunstorm\\s+once", Pattern.CASE_INSENSITIVE);
+        Pattern SunStormOnce = Pattern.compile("set\\s+sunstorm\\s+once", Pattern.CASE_INSENSITIVE);
+        //set asteroid 1 explosion neighbour 2
+        Pattern AsteroidExplosionNeighbour = Pattern.compile("set\\s+asteroid\\s+explosion\\s+neighbour\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
+
         try {
             while (true) {
                 String input = scanner.nextLine();
@@ -242,6 +245,7 @@ public class Main {
                     }
                     continue;
                 }
+
                 Matcher CreateGateM = CreateGate.matcher(input);
                 if (CreateGateM.find()) {
                     TeleportGate g1 = new TeleportGate();
@@ -283,10 +287,18 @@ public class Main {
 
                 Matcher SunStormInM = SunStormIn.matcher(input);
                 if (SunStormInM.find()) {
-                    Sun.getInstance().SetNextSunStormIn(Integer.parseInt(SunStormInM.group(2)));
+                    Sun.getInstance().SetNextSunStormIn(Integer.parseInt(SunStormInM.group(1)));
                     break;
                 }
 
+                Matcher AsteroidExplosionNeighbourM = AsteroidExplosionNeighbour.matcher(input);
+                if (AsteroidExplosionNeighbourM.find()) {
+                    Asteroid a = game.GetAsteroid(Integer.parseInt(AsteroidExplosionNeighbourM.group(1)));
+                    if (a != null) {
+                        a.SetExplosionNeighbour(Integer.parseInt(AsteroidExplosionNeighbourM.group(2)));
+                    }
+                    break;
+                }
 
 
             }

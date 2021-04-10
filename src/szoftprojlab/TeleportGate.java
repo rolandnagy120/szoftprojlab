@@ -21,17 +21,15 @@ public class TeleportGate implements Steppable {
     private TeleportGate pair;
     private Asteroid asteroid;
     private static Blueprint teleportgateBlueprint = new Blueprint(new Iron(), new Iron(), new Ice(), new Uranium());
-    private static int startid = 0;
-
-
+    private static int id = 0;
     private boolean isMoving = false;
 
-    public TeleportGate(int ID) {
-        idx = ID;
+    public TeleportGate() {
+		idx = id++;
     }
 
-    public TeleportGate() {
-		idx = startid++;
+    public static void resetId() {
+        id = 0;
     }
 
     /**

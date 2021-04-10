@@ -17,6 +17,12 @@ create alien on asteroid 1
 create robot on asteroid 1
 disable sunstorm
 enable sunstorm
+create gate on asteroid 1 asteroid 2
+create gate on player 1 asteroid 2
+create gate on player 1 player 1
+set suntorm in 10
+set sunstorm once # csak egyszer lesz napvihar
+set asteroid 1 explosion neighbour 2
 startgame #
 exit
 

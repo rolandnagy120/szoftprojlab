@@ -10,8 +10,10 @@ package szoftprojlab;
 //
 
 
+import szoftprojlab.entity.Alien;
 import szoftprojlab.entity.Entity;
 import szoftprojlab.entity.Player;
+import szoftprojlab.entity.Robot;
 import szoftprojlab.resource.*;
 
 import java.util.ArrayList;
@@ -29,6 +31,8 @@ public class Game {
 
     private boolean gameWon = false;
     private boolean endGame;
+    private int NearSunCycle = 10;
+    private double SunStormProbability = 0.01;
 
     /*
     Blueprint for the base
@@ -106,6 +110,12 @@ public class Game {
             asteroids.get(i).AddResource(uranium);
             i++;
         } */
+        timer.AddSteppable(sun);
+        sun.ClearAsteroids();
+        sun.Init(NearSunCycle, SunStormProbability);
+        for (Asteroid a : asteroids) {
+            sun.AddAsteroid(a);
+        }
 
         endGame = false;
 
@@ -133,7 +143,7 @@ public class Game {
      * @param player - the player that died
      */
     public void PlayerDie(Player player) {
-        System.out.println(player.name + " died in!");
+        Main.println(player.name + " died in!");
         players.remove(player);
         Timer.getInstance().RemoveSteppable(player);
 
@@ -211,7 +221,7 @@ public class Game {
         List<Resource> inventoryAfterCrafting = baseBluebrint.IsCraftable(resources);
 
         if (inventoryAfterCrafting != null) {
-            System.out.println("The base can be made now! The game is won!");
+            Main.println("The base can be made now! The game is won!");
             gameWon = true;
         }
     }
@@ -222,6 +232,9 @@ public class Game {
         //entities.clear();
         sun.ClearAsteroids();
         timer.ClearSteppables();
+        Robot.resetId();
+        Alien.resetId();
+        TeleportGate.resetId();
     }
 
     public static Game getInstance() {

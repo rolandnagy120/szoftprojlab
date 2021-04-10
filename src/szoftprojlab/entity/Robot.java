@@ -19,12 +19,16 @@ import java.util.List;
 public class Robot extends Entity {
     private static Blueprint robotBlueprint = new Blueprint(new Iron(), new Coal(), new Uranium());
     private int idx;
-    private static int id =0;
+    private static int id = 0;
 
     public Robot(Asteroid asteroid) {
         asteroid.Accept(this);
         this.asteroid = asteroid;
         idx = id++;
+    }
+
+    public static void resetId() {
+        id = 0;
     }
 
     /**
@@ -50,7 +54,6 @@ public class Robot extends Entity {
         if (newAsteroid != null)
             newAsteroid.Accept(this);
     }
-
 
 
     /**

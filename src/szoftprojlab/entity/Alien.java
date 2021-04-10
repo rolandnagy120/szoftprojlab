@@ -17,6 +17,10 @@ public class Alien extends Entity implements Miner {
         idx = id++;
     }
 
+    public static void resetId() {
+        id = 0;
+    }
+
     @Override
     public void Step() {
         asteroid.Mine(this);
