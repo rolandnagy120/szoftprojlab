@@ -207,7 +207,7 @@ public class Player extends Entity implements Miner {
      */
     public boolean MakeGates() {
         if (gates.size() > maxGatesCount - 2) {
-            Main.println("No more space to craft gates");
+            Main.println("No more space in inventory to craft gates");
             return false;
         }
 
@@ -239,6 +239,7 @@ public class Player extends Entity implements Miner {
 
         if (inventoryAfterCrafting != null) {
             Robot r = new Robot(asteroid);
+            Game.getInstance().AddRobot(r);
             Game.getInstance().AddEntity(r);
             inventory = inventoryAfterCrafting;
 

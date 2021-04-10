@@ -53,4 +53,9 @@ public class Uranium extends Resource {
 
         return false;
     }
+
+    public String toString() {
+        return "Uranium";
+    }
+
 }

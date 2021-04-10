@@ -12,7 +12,11 @@ package szoftprojlab.entity;
 
 import szoftprojlab.Asteroid;
 import szoftprojlab.Blueprint;
-import szoftprojlab.resource.*;
+import szoftprojlab.Main;
+import szoftprojlab.resource.Coal;
+import szoftprojlab.resource.Iron;
+import szoftprojlab.resource.Resource;
+import szoftprojlab.resource.Uranium;
 
 import java.util.List;
 
@@ -20,6 +24,7 @@ public class Robot extends Entity {
     private static Blueprint robotBlueprint = new Blueprint(new Iron(), new Coal(), new Uranium());
     private int idx;
     private static int id = 0;
+
 
     public Robot(Asteroid asteroid) {
         asteroid.Accept(this);
@@ -31,17 +36,29 @@ public class Robot extends Entity {
         id = 0;
     }
 
+    public int GetId() {
+        return idx;
+    }
+
     /**
      * The robot steps
      */
     public void Step() {
+        Main.println("Robot " + idx + " Steps:");
         if (asteroid.GetLayerThickness() > 0) {
             Drill();
         } else {
-            var newAsteroid = asteroid.GetRandomNeighbor();
-            asteroid.Remove(this);
-            newAsteroid.Accept(this);
+            if (nextAsteroid.isEmpty()) {
+                MoveTo(asteroid.GetRandomNeighbor());
+            } else {
+                MoveTo(nextAsteroid.get(0));
+                nextAsteroid.remove(0);
+            }
         }
+    }
+
+    public void SetNextAsteroid(Asteroid a) {
+        nextAsteroid.add(a);
     }
 
     /**
@@ -69,6 +86,6 @@ public class Robot extends Entity {
     }
 
     public String toString() {
-        return "Robot";
+        return "Robot"+idx;
     }
 }

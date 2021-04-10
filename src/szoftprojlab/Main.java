@@ -66,6 +66,16 @@ public class Main {
         Pattern SunStormOnce = Pattern.compile("set\\s+sunstorm\\s+once", Pattern.CASE_INSENSITIVE);
         //set asteroid 1 explosion neighbour 2
         Pattern AsteroidExplosionNeighbour = Pattern.compile("set\\s+asteroid\\s+explosion\\s+neighbour\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
+        //set alien 1 next asteroid 2
+        Pattern NextAsteroid = Pattern.compile("set\\s+(alien|robot)\\s+([0-9]+)\\s+next\\s+asteroid\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
+        //set asteroid 1 close to sun
+        Pattern CloseToSun = Pattern.compile("set\\s+asteroid\\s+([0-9]+)\\s+close\\s+to\\s+sun", Pattern.CASE_INSENSITIVE);
+        //set asteroid 1 distant to sun
+        Pattern DistantToSun = Pattern.compile("set\\s+asteroid\\s+([0-9]+)\\s+distant\\s+to\\s+sun", Pattern.CASE_INSENSITIVE);
+        //set sunstorm asteroid 1
+        Pattern SunstormAsteroid;
+        //set sunstorm distance
+        Pattern SunstormDistance;
 
         try {
             while (true) {
@@ -160,6 +170,7 @@ public class Main {
                             break;
                     }
                     a.AddResource(r);
+                    continue;
                 }
 
                 Matcher CreatePlayerM = CreatePlayer.matcher(input);
@@ -232,6 +243,7 @@ public class Main {
                     if (a != null) {
                         Robot r = new Robot(a);
                         game.AddEntity(r);
+                        game.AddRobot(r);
                     }
                     continue;
                 }
@@ -242,6 +254,7 @@ public class Main {
                     if (a != null) {
                         Alien alien = new Alien(a);
                         game.AddEntity(alien);
+                        game.AddAlien(alien);
                     }
                     continue;
                 }
@@ -282,13 +295,13 @@ public class Main {
                 Matcher SunStormOnceM = SunStormOnce.matcher(input);
                 if (SunStormOnceM.find()) {
                     Sun.getInstance().Once();
-                    break;
+                    continue;
                 }
 
                 Matcher SunStormInM = SunStormIn.matcher(input);
                 if (SunStormInM.find()) {
                     Sun.getInstance().SetNextSunStormIn(Integer.parseInt(SunStormInM.group(1)));
-                    break;
+                    continue;
                 }
 
                 Matcher AsteroidExplosionNeighbourM = AsteroidExplosionNeighbour.matcher(input);
@@ -297,9 +310,27 @@ public class Main {
                     if (a != null) {
                         a.SetExplosionNeighbour(Integer.parseInt(AsteroidExplosionNeighbourM.group(2)));
                     }
-                    break;
+                    continue;
                 }
 
+                Matcher NextAsteroidM = NextAsteroid.matcher(input);
+                if (NextAsteroidM.find()) {
+                    Asteroid a = game.GetAsteroid(Integer.parseInt(NextAsteroidM.group(3)));
+                    if (a != null) {
+                        if (("alien".equals(NextAsteroidM.group(1)))) {
+                            Alien alien = game.GetAlien(Integer.parseInt(NextAsteroidM.group(2)));
+                            if (alien != null) {
+                                alien.SetNextAsteroid(a);
+                            }
+                        } else {
+                            Robot r = game.GetRobot(Integer.parseInt(NextAsteroidM.group(2)));
+                            if (r != null) {
+                                r.SetNextAsteroid(a);
+                            }
+                        }
+
+                    }
+                }
 
             }
         } catch (Exception e) {

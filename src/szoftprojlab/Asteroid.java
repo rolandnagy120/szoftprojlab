@@ -152,7 +152,7 @@ public class Asteroid {
         if (layers > 0)
             layers--;
         if (layers == 0)
-            System.out.println("Asteroid breakthrough!");
+            Main.println("Asteroid breakthrough!");
         SeeSunIfNeeded();
     }
 
@@ -200,6 +200,7 @@ public class Asteroid {
         if (layers == 0 && resource != null) {
             miner.AddResource(resource);
             resource = null;
+            Main.println("Resource "+resource.toString()+" added to inventory");
             CheckForVictory();
         }
     }

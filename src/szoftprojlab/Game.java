@@ -27,7 +27,8 @@ public class Game {
     private Timer timer = Timer.getInstance();
     private List<Player> players = new ArrayList<>();
     private List<Asteroid> asteroids = new ArrayList<>();
-    //private List<Entity> entities = new ArrayList<>();
+    private List<Alien> aliens = new ArrayList<>();
+    private List<Robot> robots = new ArrayList<>();
 
     private boolean gameWon = false;
     private boolean endGame;
@@ -173,7 +174,6 @@ public class Game {
     }
 
     public void AddEntity(Entity e) {
-        //entities.add(e);
         timer.AddSteppable(e);
     }
 
@@ -229,7 +229,8 @@ public class Game {
     public void reset() {
         players.clear();
         asteroids.clear();
-        //entities.clear();
+        aliens.clear();
+        robots.clear();
         sun.ClearAsteroids();
         timer.ClearSteppables();
         Robot.resetId();
@@ -243,4 +244,27 @@ public class Game {
 
         return singleClassInstance;
     }
+
+    public Alien GetAlien(int id) {
+        for (Alien a : aliens)
+            if (a.GetId() == id)
+                return a;
+        return null;
+    }
+
+    public Robot GetRobot(int id) {
+        for (Robot r : robots)
+            if (r.GetId() == id)
+                return r;
+        return null;
+    }
+
+    public void AddAlien(Alien a) {
+        aliens.add(a);
+    }
+
+    public void AddRobot(Robot r) {
+        robots.add(r);
+    }
+
 }

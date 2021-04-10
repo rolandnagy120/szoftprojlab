@@ -101,7 +101,7 @@ public class Sun implements Steppable {
      * Changes the near sun state
      */
     private void ChangeNearSun() {
-        System.out.println("Change near sun happening");
+        Main.println("Change near sun happening");
         asteroids.forEach(Asteroid::ChangeNearSun);
     }
 

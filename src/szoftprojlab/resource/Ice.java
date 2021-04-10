@@ -11,6 +11,7 @@ package szoftprojlab.resource;
 
 
 import szoftprojlab.Asteroid;
+import szoftprojlab.Main;
 
 public class Ice extends Resource {
 
@@ -21,7 +22,7 @@ public class Ice extends Resource {
 	 */
 	@Override
 	public void SeeSun(Asteroid asteroid) {
-		System.out.println("The ice is destroyed");
+		Main.println("The ice is destroyed");
 		asteroid.DestroyResource();
 	}
 
@@ -36,5 +37,8 @@ public class Ice extends Resource {
 		}
 
 		return false;
+	}
+	public String toString() {
+		return "Ice";
 	}
 }
