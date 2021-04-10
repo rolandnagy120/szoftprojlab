@@ -261,6 +261,11 @@ public class Player extends Entity implements Miner {
         return gates;
     }
 
+
+    public void AddGate(TeleportGate gate) {
+        gates.add(gate);
+    }
+
     /**
      * Adds a resource to the players inventory
      *

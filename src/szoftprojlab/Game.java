@@ -30,8 +30,6 @@ public class Game {
     private boolean gameWon = false;
     private boolean endGame;
 
-    private boolean sunStormenabled = true;
-
     /*
     Blueprint for the base
      */
@@ -194,11 +192,11 @@ public class Game {
     }
 
     public void DisableSunstorm() {
-        sunStormenabled = false;
+        sun.Disable();
     }
 
     public void EnableSunstorm() {
-        sunStormenabled = true;
+        sun.Enable();
     }
 
     /**

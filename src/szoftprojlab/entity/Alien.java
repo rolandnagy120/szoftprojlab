@@ -8,19 +8,22 @@ import java.util.List;
 
 public class Alien extends Entity implements Miner {
     private List<Resource> inventory = new ArrayList<>();
+    private int idx;
+    private static int id =0;
 
     public Alien(Asteroid asteroid) {
         asteroid.Accept(this);
         this.asteroid = asteroid;
+        idx = id++;
     }
 
     @Override
     public void Step() {
         asteroid.Mine(this);
-
         var newAsteroid = asteroid.GetRandomNeighbor();
         asteroid.Remove(this);
         newAsteroid.Accept(this);
+        //TODO pick
     }
 
     @Override

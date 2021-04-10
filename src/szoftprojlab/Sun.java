@@ -16,103 +16,127 @@ import java.util.List;
 import java.util.Random;
 
 public class Sun implements Steppable {
-	private static Sun singleClassIntance = null;
+    private static Sun singleClassIntance = null;
 
-	private int counter;
-	private int cycle;
-	private double sunStormProbability;
-	private int nextSunStormIn;
-	private List<Asteroid> asteroids = new ArrayList<>();
-	private boolean enabled;
+    private int counter;
+    private int cycle;
+    private double sunStormProbability;
+    private int nextSunStormIn;
+    private List<Asteroid> asteroids = new ArrayList<>();
 
-	/**
-	 * Initialize the sun
-	 * @param nearSunCycle
-	 * @param _sunStormProbability
-	 */
-	public void Init(int nearSunCycle, double _sunStormProbability) {
-		cycle = nearSunCycle;
-		counter = cycle;
-		sunStormProbability = _sunStormProbability;
-		nextSunStormIn = (int) (1 / sunStormProbability);
-	}
+    private boolean enabled;
+    private boolean once = false;
 
-	public int GetNextSunStormArrivalTime() {
-		return nextSunStormIn;
-	}
 
-	/**
-	 * Clear the asteroids
-	 * Only needed for the skeleton
-	 */
-	public void ClearAsteroids() {
-		asteroids.clear();
-	}
+    /**
+     * Initialize the sun
+     *
+     * @param nearSunCycle
+     * @param _sunStormProbability
+     */
+    public void Init(int nearSunCycle, double _sunStormProbability) {
+        cycle = nearSunCycle;
+        counter = cycle;
+        sunStormProbability = _sunStormProbability;
+        nextSunStormIn = (int) (1 / sunStormProbability);
+        enabled = true;
+    }
 
-	/**
-	 * Steps the sun
-	 * Calls ChangeNearSun if it is the time for it
-	 * Calls sunstorm if it is time for it
-	 */
-	public void Step() {
-		counter--;
-		nextSunStormIn--;
+    public int GetNextSunStormArrivalTime() {
+        return nextSunStormIn;
+    }
 
-		if (counter == 0) {
-			ChangeNearSun();
-			counter = cycle;
-		}
+    /**
+     * Clear the asteroids
+     * Only needed for the skeleton
+     */
+    public void ClearAsteroids() {
+        asteroids.clear();
+    }
 
-		if (nextSunStormIn == 0) {
-			SunStorm();
-			nextSunStormIn = (int) (1 / sunStormProbability);
-		}
-	}
+    /**
+     * Steps the sun
+     * Calls ChangeNearSun if it is the time for it
+     * Calls sunstorm if it is time for it
+     */
+    public void Step() {
+        counter--;
+        nextSunStormIn--;
 
-	/**
-	 * Sends a sunstorm to the asteroids
-	 * Calls SunStorm on every asteroid
-	 */
-	private void SunStormOld() {
-		asteroids.forEach(Asteroid::SunStorm);
-	}
+        if (counter == 0) {
+            ChangeNearSun();
+            counter = cycle;
+        }
 
-	/**
-	 * Sends a sunstorm to the asteroids
-	 * Calls SunStorm on every asteroid
-	 */
-	private void SunStorm() {
-		System.out.println("SunStorm hit the field");
-		Random rnd = new Random();
-		int randomIndex = rnd.ints(0, asteroids.size())
-				.findFirst()
-				.getAsInt();
+        if (nextSunStormIn == 0 && enabled) {
+            SunStorm();
+            if (!once)
+                nextSunStormIn = (int) (1 / sunStormProbability);
+        }
+    }
 
-		asteroids.get(randomIndex).SendSunStorm(2);
-	}
+    /**
+     * Sends a sunstorm to the asteroids
+     * Calls SunStorm on every asteroid
+     */
+    private void SunStormOld() {
+        asteroids.forEach(Asteroid::SunStorm);
+    }
 
-	/**
-	 * Changes the near sun state
-	 */
-	private void ChangeNearSun() {
-		System.out.println("Change near sun happening");
-		asteroids.forEach(Asteroid::ChangeNearSun);
-	}
+    /**
+     * Sends a sunstorm to the asteroids
+     * Calls SunStorm on every asteroid
+     */
+    private void SunStorm() {
+        Main.println("SunStorm hit the field");
+        Random rnd = new Random();
+        int randomIndex = rnd.ints(0, asteroids.size())
+                .findFirst()
+                .getAsInt();
 
-	/**
-	 * Adds a new asteroid to the field
-	 * @param asteroid - the asteroid that joins the field
-	 */
-	public void AddAsteroid(Asteroid asteroid) {
-		if (!asteroids.contains(asteroid))
-			asteroids.add(asteroid);
-	}
+        asteroids.get(randomIndex).SendSunStorm(2);
+    }
 
-	public static Sun getInstance() {
-		if (singleClassIntance == null) {
-			singleClassIntance = new Sun();
-		}
+    /**
+     * Changes the near sun state
+     */
+    private void ChangeNearSun() {
+        System.out.println("Change near sun happening");
+        asteroids.forEach(Asteroid::ChangeNearSun);
+    }
 
-		return singleClassIntance;
-	}
+    /**
+     * Adds a new asteroid to the field
+     *
+     * @param asteroid - the asteroid that joins the field
+     */
+    public void AddAsteroid(Asteroid asteroid) {
+        if (!asteroids.contains(asteroid))
+            asteroids.add(asteroid);
+    }
+
+    public void Disable() {
+        enabled = false;
+    }
+
+    public void Enable() {
+        enabled = true;
+    }
+
+    public void Once() {
+        once = true;
+    }
+
+    public void SetNextSunStormIn(int rounds) {
+        nextSunStormIn = rounds;
+    }
+
+
+    public static Sun getInstance() {
+        if (singleClassIntance == null) {
+            singleClassIntance = new Sun();
+        }
+
+        return singleClassIntance;
+    }
 }

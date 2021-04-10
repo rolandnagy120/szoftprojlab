@@ -60,7 +60,10 @@ public class Main {
         Pattern Reset = Pattern.compile("reset", Pattern.CASE_INSENSITIVE);
         //exit
         Pattern Exit = Pattern.compile("exit", Pattern.CASE_INSENSITIVE);
-
+        //set suntorm in
+        Pattern SunStormIn = Pattern.compile("sunstorm\\s+in\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
+        //set sunstorm once
+        Pattern SunStormOnce = Pattern.compile("sunstorm\\s+once", Pattern.CASE_INSENSITIVE);
         try {
             while (true) {
                 String input = scanner.nextLine();
@@ -241,30 +244,23 @@ public class Main {
                 }
                 Matcher CreateGateM = CreateGate.matcher(input);
                 if (CreateGateM.find()) {
-                    TeleportGate g1, g2;
-                    Asteroid a1 = null, a2 = null;
-                    Player p1 = null, p2 = null;
+                    TeleportGate g1 = new TeleportGate();
+                    TeleportGate g2 = new TeleportGate();
+                    g1.SetPair(g2);
+                    g2.SetPair(g1);
                     if ("asteroid".equals(CreateGateM.group(1))) {
-                        a1 = game.GetAsteroid(Integer.parseInt(CreateGateM.group(2)));
+                        Asteroid a = game.GetAsteroid(Integer.parseInt(CreateGateM.group(2)));
+                        a.PlaceTeleportGate(g1);
                     } else {
-                        p1 = game.GetPlayer(CreateGateM.group(2));
+                        Player p = game.GetPlayer(CreateGateM.group(2));
+                        p.AddGate(g1);
                     }
                     if ("asteroid".equals(CreateGateM.group(3))) {
-                        a2 = game.GetAsteroid(Integer.parseInt(CreateGateM.group(4)));
+                        Asteroid a = game.GetAsteroid(Integer.parseInt(CreateGateM.group(2)));
+                        a.PlaceTeleportGate(g2);
                     } else {
-                        p2 = game.GetPlayer(CreateGateM.group(4));
-                    }
-                    if (p1 != null && p2 != null) {
-                    } else if (a1 != null && a2 != null) {
-
-                    } else if (a1 != null && p1 != null) {
-
-                    } else if (a1 != null && p2 != null) {
-
-                    } else if (a2 != null && p1 != null) {
-
-                    } else if (a2 != null && p2 != null) {
-
+                        Player p = game.GetPlayer(CreateGateM.group(4));
+                        p.AddGate(g2);
                     }
                     continue;
                 }
@@ -273,10 +269,26 @@ public class Main {
                 if (ResetM.find()) {
                     game.reset();
                 }
+
                 Matcher ExitM = Exit.matcher(input);
                 if (ExitM.find()) {
                     break;
                 }
+
+                Matcher SunStormOnceM = SunStormOnce.matcher(input);
+                if (SunStormOnceM.find()) {
+                    Sun.getInstance().Once();
+                    break;
+                }
+
+                Matcher SunStormInM = SunStormIn.matcher(input);
+                if (SunStormInM.find()) {
+                    Sun.getInstance().SetNextSunStormIn(Integer.parseInt(SunStormInM.group(2)));
+                    break;
+                }
+
+
+
             }
         } catch (Exception e) {
             return;
