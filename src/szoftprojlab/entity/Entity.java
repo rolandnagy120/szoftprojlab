@@ -67,6 +67,7 @@ public abstract class Entity implements Steppable {
             this.asteroid.Remove(this);
         newAsteroid.Accept(this);
         asteroid = newAsteroid;
+        Main.println("Moved to Asteroid "+asteroid.GetId());
     }
 
     /**

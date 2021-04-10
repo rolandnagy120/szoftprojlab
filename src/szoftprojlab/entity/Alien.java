@@ -28,7 +28,7 @@ public class Alien extends Entity implements Miner {
 
     @Override
     public void Step() {
-        Main.println("Alien " + idx + " Steps:");
+        Main.println("Alien " + idx + " steps:");
         String resource = asteroid.GetResourceName();
         if ((resource.equals("Unknown")) || (resource.equals("Empty"))) {
             if (nextAsteroid.isEmpty()) {

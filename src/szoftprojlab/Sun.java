@@ -34,15 +34,17 @@ public class Sun implements Steppable {
     /**
      * Initialize the sun
      *
-     * @param nearSunCycle
-     * @param _sunStormProbability
      */
-    public void Init(int nearSunCycle, double _sunStormProbability) {
-        sunDistanceChangeCycle = nearSunCycle;
+    public void Init() {
+        sunDistanceChangeCycle = 20;
         sunDistanceChangeCounter = sunDistanceChangeCycle;
-        sunStormProbability = _sunStormProbability;
+        sunStormProbability = 0.001;
         nextSunStormIn = (int) (1 / sunStormProbability);
         sunstormEnabled = true;
+        sunStromDept = 2;
+        sunstormOnce = false;
+        sunstormAsteroid = null;
+        sunDistanceChangeEnabled = true;
     }
 
     public int GetNextSunStormArrivalTime() {

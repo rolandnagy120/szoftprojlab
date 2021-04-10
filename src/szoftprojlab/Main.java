@@ -279,7 +279,7 @@ public class Main {
                         p.AddGate(g1);
                     }
                     if ("asteroid".equals(CreateGateM.group(3))) {
-                        Asteroid a = game.GetAsteroid(Integer.parseInt(CreateGateM.group(2)));
+                        Asteroid a = game.GetAsteroid(Integer.parseInt(CreateGateM.group(4)));
                         a.PlaceTeleportGate(g2);
                     } else {
                         Player p = game.GetPlayer(CreateGateM.group(4));

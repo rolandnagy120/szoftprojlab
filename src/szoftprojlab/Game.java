@@ -111,17 +111,17 @@ public class Game {
             asteroids.get(i).AddResource(uranium);
             i++;
         } */
-        timer.AddSteppable(sun);
+
         sun.ClearAsteroids();
-        sun.Init(NearSunCycle, SunStormProbability);
         for (Asteroid a : asteroids) {
             sun.AddAsteroid(a);
         }
+        timer.AddSteppable(sun);
 
         endGame = false;
 
         while (!endGame && !gameWon) {
-            Main.println("New round\n");
+            Main.println("\nNew round\n");
             timer.Tick();
 
             if (players.size() == 0) {
@@ -129,6 +129,7 @@ public class Game {
                 endGame = true;
             }
         }
+        Main.println("\n\nGame Objects:\n");
         for (Asteroid a : asteroids)
             Main.println(a.toString());
         /*for (Player p :players)
@@ -236,6 +237,7 @@ public class Game {
         Robot.resetId();
         Alien.resetId();
         TeleportGate.resetId();
+        sun.Init();
     }
 
     public static Game getInstance() {

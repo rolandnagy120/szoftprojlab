@@ -48,7 +48,7 @@ public class Player extends Entity implements Miner {
      * Player steps
      */
     public void Step() {
-        Main.println("Player "+name+" steps:");
+        Main.println("\nPlayer "+name+" steps:");
         //TODO
         //start sun storm asteroid idx dept
 
@@ -68,8 +68,6 @@ public class Player extends Entity implements Miner {
         Pattern TeleportTo = Pattern.compile("teleport to\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         // Place back the given resource (ex: place Uranium)
         Pattern PlaceResource = Pattern.compile("place resource\\s+([a-zA-Z]+)", Pattern.CASE_INSENSITIVE);
-
-        Main.println(name + " steps");
         while (true) {
             try {
                 String input = Main.getGameInputScanner().nextLine();
@@ -80,7 +78,6 @@ public class Player extends Entity implements Miner {
                     for (int id : neighborIds) {
                         if (String.valueOf(id).equals(selectedNeighbor)) {
                             MoveTo(asteroid.GetNeighbor(id));
-                            Main.println("Moved to adsteroid " + id);
                             return;
                         }
                     }
@@ -309,8 +306,8 @@ public class Player extends Entity implements Miner {
     }
 
     public String toString() {
-        String ret = "Player";
-
+        String ret = "\n\tPlayer "+name+"\n"+
+                "\tinventory:";
         return ret;
     }
 }

@@ -175,8 +175,8 @@ public class Asteroid {
     public void Mine(Miner miner) {
         if (layers == 0 && resource != null) {
             miner.AddResource(resource);
-            resource = null;
             Main.println("Resource "+resource.toString()+" added to inventory");
+            resource = null;
             CheckForVictory();
         }
     }
@@ -357,9 +357,9 @@ public class Asteroid {
             ret += n.idx + " ";
         ret += "\nlayers: " + layers + "\n" +
                 "resource: " + (resource == null ? "empty" : resource) + "\n" +
-                "Gates: " + (gates.isEmpty() ? "No gates on asteroid" : "");
+                "Gates: \n" + (gates.isEmpty() ? "No gates on asteroid" : "");
         for (TeleportGate g : gates)
-            ret += g.toString() + "\n";
+            ret += g.toString();
         ret += "\n" + "Entities: " + (entities.isEmpty() ? "No entities on asteroid" : "");
         for (Entity e : entities)
             ret += e.toString();

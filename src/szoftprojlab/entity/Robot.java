@@ -44,7 +44,7 @@ public class Robot extends Entity {
      * The robot steps
      */
     public void Step() {
-        Main.println("Robot " + idx + " Steps:");
+        Main.println("Robot " + idx + " steps:");
         if (asteroid.GetLayerThickness() > 0) {
             Drill();
         } else {
@@ -86,6 +86,6 @@ public class Robot extends Entity {
     }
 
     public String toString() {
-        return "Robot"+idx;
+        return "Robot "+idx+"\n";
     }
 }
