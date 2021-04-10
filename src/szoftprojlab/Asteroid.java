@@ -208,7 +208,13 @@ public class Asteroid {
      * @param resource - the resource that will be placed back
      */
     public void Place(Resource resource) {
-        this.resource = resource;
+        if (this.resource == null && layers == 0) {
+            this.resource = resource;
+            Main.println("Resource placed");
+        }
+        else {
+            Main.println("Couldn't place resource");
+        }
     }
 
     /**

@@ -6,3 +6,4 @@ craft robot
 craft gates
 place gate
 teleport to 3
+place resource Uranium

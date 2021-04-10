@@ -18,6 +18,7 @@ import szoftprojlab.resource.Resource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -87,6 +88,8 @@ public class Player extends Entity implements Miner {
         Pattern PlaceGate = Pattern.compile("place gate", Pattern.CASE_INSENSITIVE);
         // Teleport player (ex: teleport to 7 -> teleport to the asteroid which has the id 7)
         Pattern TeleportTo = Pattern.compile("teleport to\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
+        // Place back the given resource (ex: place Uranium)
+        Pattern PlaceResource = Pattern.compile("place resource\\s+([a-zA-Z]+)", Pattern.CASE_INSENSITIVE);
 
         Main.println(name + " steps");
         while (true) {
@@ -146,9 +149,29 @@ public class Player extends Entity implements Miner {
                             }
                         }
                     }
-
                 }
+
+                Matcher PlaceResourceMatcher = PlaceResource.matcher(input);
+                if (PlaceResourceMatcher.find()) {
+                    var inventoryCopy = new ArrayList<>(inventory);
+                    AtomicBoolean resourceFound = new AtomicBoolean(false);
+                    inventoryCopy.forEach(resource -> {
+                        String className = resource.getClass().getSimpleName();
+                        String selectedResource = PlaceResourceMatcher.group(1);
+                        if (selectedResource.equals(className) && !resourceFound.get()) {
+                            PlaceResource(resource);
+                            resourceFound.set(true);
+                        }
+                    });
+                    if (!resourceFound.get()) {
+                        Main.println("Resource not found");
+                    } else {
+                        return;
+                    }
+                }
+
             } catch (Exception e) {
+                e.printStackTrace();
                 //test file over end game
                 Game.getInstance().EndGame();
                 break;
@@ -276,6 +299,8 @@ public class Player extends Entity implements Miner {
     public boolean PlaceResource(Resource resource) {
         if (inventory.contains(resource))
             asteroid.Place(resource);
+        else
+            Main.println("Couldn't place resource");
         return true;
     }
 
