@@ -73,9 +73,15 @@ public class Main {
         //set asteroid 1 distant to sun
         Pattern DistantToSun = Pattern.compile("set\\s+asteroid\\s+([0-9]+)\\s+distant\\s+to\\s+sun", Pattern.CASE_INSENSITIVE);
         //set sunstorm asteroid 1
-        Pattern SunstormAsteroid;
-        //set sunstorm distance
-        Pattern SunstormDistance;
+        Pattern SunstormAsteroid = Pattern.compile("set\\s+sunstrom\\s+asteroid\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
+        //set sunstorm dept 1
+        Pattern SunstormDistance = Pattern.compile("set\\s+sunstrom\\s+dept\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
+        //disable sundistance change
+        Pattern DisableSundistanceChange = Pattern.compile("disable\\s+asteroid\\s+sun\\s+distance\\s+change", Pattern.CASE_INSENSITIVE);
+        //set sun asteroid sun distance change time 10
+        Pattern SetDistanceTime = Pattern.compile("set\\s+sun\\s+asteroid\\s+sun\\s+distance\\s+change\\s+time\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
+
+        //start sun storm asteroid idx dept
 
         try {
             while (true) {
@@ -285,6 +291,7 @@ public class Main {
                 Matcher ResetM = Reset.matcher(input);
                 if (ResetM.find()) {
                     game.reset();
+                    continue;
                 }
 
                 Matcher ExitM = Exit.matcher(input);
@@ -294,7 +301,7 @@ public class Main {
 
                 Matcher SunStormOnceM = SunStormOnce.matcher(input);
                 if (SunStormOnceM.find()) {
-                    Sun.getInstance().Once();
+                    Sun.getInstance().SunstormOnce();
                     continue;
                 }
 
@@ -330,12 +337,48 @@ public class Main {
                         }
 
                     }
+                    continue;
                 }
 
+                Matcher CloseToSunM = CloseToSun.matcher(input);
+                if (CloseToSunM.find()) {
+                    Asteroid a = game.GetAsteroid(Integer.parseInt(CloseToSunM.group(1)));
+                    if (a != null)
+                        a.SetCloseToSun();
+                    continue;
+                }
+
+                Matcher DistantToSunM = DistantToSun.matcher(input);
+                if (DistantToSunM.find()) {
+                    Asteroid a = game.GetAsteroid(Integer.parseInt(DistantToSunM.group(1)));
+                    if (a != null)
+                        a.SetDistantToSun();
+                    continue;
+                }
+
+                Matcher SunstormAsteroidM = SunstormAsteroid.matcher(input);
+                if (SunstormAsteroidM.find()) {
+                    Asteroid a = game.GetAsteroid(Integer.parseInt(SunstormAsteroidM.group(1)));
+                    if (a != null)
+                        Sun.getInstance().SetSunstromAsteroid(a);
+                    continue;
+                }
+                Matcher SunstormDistanceM = SunstormDistance.matcher(input);
+                if (SunstormDistanceM.find()) {
+                    Sun.getInstance().SetSunstormDept(Integer.parseInt(SunstormDistanceM.group(1)));
+                    continue;
+                }
+
+                //DisableSundistanceChange
+
+                //SetDistanceTime
+
             }
-        } catch (Exception e) {
+        } catch (
+                Exception e) {
             return;
         }
+
     }
 
     public static void println(String s) {

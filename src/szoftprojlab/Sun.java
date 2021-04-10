@@ -18,15 +18,18 @@ import java.util.Random;
 public class Sun implements Steppable {
     private static Sun singleClassIntance = null;
 
-    private int counter;
-    private int cycle;
+    private int sunDistanceChangeCounter;
+    private int sunDistanceChangeCycle;
     private double sunStormProbability;
     private int nextSunStormIn;
+    private boolean sunDistanceChangeEnabled = true;
+
     private List<Asteroid> asteroids = new ArrayList<>();
 
-    private boolean enabled;
-    private boolean once = false;
-
+    private boolean sunstormEnabled;
+    private boolean sunstormOnce = false;
+    private Asteroid sunstormAsteroid = null;
+    private int sunStromDept = 2;
 
     /**
      * Initialize the sun
@@ -35,11 +38,11 @@ public class Sun implements Steppable {
      * @param _sunStormProbability
      */
     public void Init(int nearSunCycle, double _sunStormProbability) {
-        cycle = nearSunCycle;
-        counter = cycle;
+        sunDistanceChangeCycle = nearSunCycle;
+        sunDistanceChangeCounter = sunDistanceChangeCycle;
         sunStormProbability = _sunStormProbability;
         nextSunStormIn = (int) (1 / sunStormProbability);
-        enabled = true;
+        sunstormEnabled = true;
     }
 
     public int GetNextSunStormArrivalTime() {
@@ -60,19 +63,21 @@ public class Sun implements Steppable {
      * Calls sunstorm if it is time for it
      */
     public void Step() {
-        counter--;
+        sunDistanceChangeCounter--;
         nextSunStormIn--;
 
-        if (counter == 0) {
+        if (sunDistanceChangeCounter == 0 && sunDistanceChangeEnabled) {
             ChangeNearSun();
-            counter = cycle;
+            sunDistanceChangeCounter = sunDistanceChangeCycle;
         }
 
-        if (nextSunStormIn == 0 && enabled) {
+        if (nextSunStormIn == 0 && sunstormEnabled) {
             SunStorm();
-            if (!once)
+            if (!sunstormOnce)
                 nextSunStormIn = (int) (1 / sunStormProbability);
         }
+
+
     }
 
     /**
@@ -89,12 +94,24 @@ public class Sun implements Steppable {
      */
     private void SunStorm() {
         Main.println("SunStorm hit the field");
-        Random rnd = new Random();
-        int randomIndex = rnd.ints(0, asteroids.size())
-                .findFirst()
-                .getAsInt();
+        if (sunstormAsteroid == null) {
+            Random rnd = new Random();
+            int randomIndex = rnd.ints(0, asteroids.size())
+                    .findFirst()
+                    .getAsInt();
+            asteroids.get(randomIndex).SendSunStorm(sunStromDept);
+        } else {
+            sunstormAsteroid.SendSunStorm(sunStromDept);
+        }
 
-        asteroids.get(randomIndex).SendSunStorm(2);
+    }
+
+    public void SetSunstormDept(int dept) {
+        sunStromDept = dept;
+    }
+
+    public void SetSunstromAsteroid(Asteroid a) {
+        sunstormAsteroid = a;
     }
 
     /**
@@ -115,16 +132,24 @@ public class Sun implements Steppable {
             asteroids.add(asteroid);
     }
 
-    public void Disable() {
-        enabled = false;
+    public void DisableSunstorm() {
+        sunstormEnabled = false;
     }
 
-    public void Enable() {
-        enabled = true;
+    public void EnableSunstorm() {
+        sunstormEnabled = true;
     }
 
-    public void Once() {
-        once = true;
+    public void SunstormOnce() {
+        sunstormOnce = true;
+    }
+
+    public void DisableSunStormDistanceChange() {
+        sunDistanceChangeEnabled = false;
+    }
+
+    public void EnableSunStormDistanceChange() {
+        sunDistanceChangeEnabled = true;
     }
 
     public void SetNextSunStormIn(int rounds) {

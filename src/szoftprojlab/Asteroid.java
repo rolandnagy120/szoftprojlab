@@ -41,35 +41,6 @@ public class Asteroid {
         layers = numberOfLayers;
         nearSun = false;
     }
-/*
-    public void ModifyAsteroid() {
-        while (true) {
-            System.out.println("1 - Set Asteroid layer count.");
-            System.out.println("2 - Add Asteroid Resource.");
-            System.out.println("3 - Remove Asteroid Resource.");
-            System.out.println("4 - Set Asteroid close to the sun.");
-            System.out.println("5 - Set Asteroid distant to the sun.");
-            System.out.println("6 - Add Neighbour Asteroid");
-            System.out.println("e - exit");
-            Scanner scanner = new Scanner(System.in);
-            String input = scanner.next();
-
-            if (input.equalsIgnoreCase("1")) {
-
-            } else if (input.equalsIgnoreCase("2")) {
-
-            } else if (input.equalsIgnoreCase("3")) {
-
-            } else if (input.equalsIgnoreCase("4")) {
-
-            } else if (input.equalsIgnoreCase("5")) {
-
-            } else if (input.equalsIgnoreCase("e")) {
-                return;
-            }
-        }
-    }
-*/
 
     /**
      * Gets the entities which are on this asteroid
@@ -124,6 +95,11 @@ public class Asteroid {
     public void ChangeNearSun() {
         this.nearSun = !this.nearSun;
         SeeSunIfNeeded();
+    }
+
+    public void SetCloseToSun()
+    {
+        nearSun = true;
     }
 
     private void SeeSunIfNeeded() {
@@ -388,6 +364,10 @@ public class Asteroid {
         for (Entity e : entities)
             ret += e.toString();
         return ret + "\n";
+    }
+
+    public void SetDistantToSun() {
+        nearSun = false;
     }
 
 }

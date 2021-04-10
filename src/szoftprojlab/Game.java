@@ -202,11 +202,11 @@ public class Game {
     }
 
     public void DisableSunstorm() {
-        sun.Disable();
+        sun.DisableSunstorm();
     }
 
     public void EnableSunstorm() {
-        sun.Enable();
+        sun.EnableSunstorm();
     }
 
     /**
