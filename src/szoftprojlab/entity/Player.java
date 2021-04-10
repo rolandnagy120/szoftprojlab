@@ -48,6 +48,9 @@ public class Player extends Entity implements Miner {
      * Player steps
      */
     public void Step() {
+        //TODO
+        //start sun storm asteroid idx dept
+
         // Move player (ex: move 7 -> move to the asteroid which has the id 7)
         Pattern Move = Pattern.compile("move\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         // Drill asteroid

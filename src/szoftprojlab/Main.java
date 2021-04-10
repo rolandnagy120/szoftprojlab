@@ -81,7 +81,7 @@ public class Main {
         //set sun asteroid sun distance change time 10
         Pattern SetDistanceTime = Pattern.compile("set\\s+sun\\s+asteroid\\s+sun\\s+distance\\s+change\\s+time\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
 
-        //start sun storm asteroid idx dept
+
 
         try {
             while (true) {
@@ -370,8 +370,16 @@ public class Main {
                 }
 
                 //DisableSundistanceChange
+                Matcher DisableSundistanceChangeM = DisableSundistanceChange.matcher(input);
+                if (DisableSundistanceChangeM.find()) {
+                    Sun.getInstance().DisableSunDistanceChange();
+                }
 
                 //SetDistanceTime
+                Matcher SetDistanceTimeM = SetDistanceTime.matcher(input);
+                if (SetDistanceTimeM.find()) {
+                    Sun.getInstance().SetSunDistanceChangeTime(Integer.parseInt(SetDistanceTimeM.group(1)));
+                }
 
             }
         } catch (

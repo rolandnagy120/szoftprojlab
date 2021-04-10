@@ -156,6 +156,18 @@ public class Sun implements Steppable {
         nextSunStormIn = rounds;
     }
 
+    public void DisableSunDistanceChange() {
+        sunDistanceChangeEnabled = false;
+    }
+
+    public void EnableSunDistanceChange() {
+        sunDistanceChangeEnabled = true;
+    }
+
+    public void SetSunDistanceChangeTime(int rounds) {
+        sunDistanceChangeCycle = rounds;
+        sunDistanceChangeCycle = rounds;
+    }
 
     public static Sun getInstance() {
         if (singleClassIntance == null) {
