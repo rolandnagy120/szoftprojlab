@@ -48,6 +48,7 @@ public class Player extends Entity implements Miner {
      * Player steps
      */
     public void Step() {
+        Main.println("Player "+name+" steps:");
         //TODO
         //start sun storm asteroid idx dept
 
