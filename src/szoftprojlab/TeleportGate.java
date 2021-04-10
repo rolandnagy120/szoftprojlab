@@ -17,87 +17,103 @@ import szoftprojlab.resource.*;
 import java.util.List;
 
 public class TeleportGate implements Steppable {
-	private int idx;
-	private TeleportGate pair;
-	private Asteroid asteroid;
-	private static Blueprint teleportgateBlueprint = new Blueprint(new Iron(), new Iron(), new Ice(), new Uranium());
+    private int idx;
+    private TeleportGate pair;
+    private Asteroid asteroid;
+    private static Blueprint teleportgateBlueprint = new Blueprint(new Iron(), new Iron(), new Ice(), new Uranium());
+    private static int startid = 0;
 
-	private boolean isMoving = false;
 
-	public TeleportGate(int ID) {
-		idx = ID;
-	}
+    private boolean isMoving = false;
 
-	/**
-	 * Gets the asteroid which holds the pair of this gate
-	 * @return
-	 */
-	public Asteroid GetPairAsteroid() {
-		return pair.asteroid;
-	}
+    public TeleportGate(int ID) {
+        idx = ID;
+    }
 
-	/**
-	 * Places the gate on the given asteroid
-	 * @param asteroid - the asteroid that will hold the gate
-	 */
-	public void Place(Asteroid asteroid) {
-		this.asteroid = asteroid;
-	}
+    public TeleportGate() {
+		idx = startid++;
+    }
 
-	/**
-	 * Removes the gate from its current asteroid
-	 */
-	public void RemoveFromAsteroid() {
-		this.asteroid = null;
-	}
+    /**
+     * Gets the asteroid which holds the pair of this gate
+     *
+     * @return
+     */
+    public Asteroid GetPairAsteroid() {
+        return pair.asteroid;
+    }
 
-	/**
-	 * Sets the pair of the asteroid, so they are linked
-	 * @param gate - the gate that will be the pair
-	 */
-	public void SetPair(TeleportGate gate) {
-		pair = gate;
-		if (!gate.HasPair())
-			gate.SetPair(this);
-	}
+    /**
+     * Places the gate on the given asteroid
+     *
+     * @param asteroid - the asteroid that will hold the gate
+     */
+    public void Place(Asteroid asteroid) {
+        this.asteroid = asteroid;
+    }
 
-	/**
-	 * Returns if the gate has a pair
-	 * Only for unit testing
-	 * @return
-	 */
-	public Boolean HasPair() {
-		return pair != null;
-	}
+    /**
+     * Removes the gate from its current asteroid
+     */
+    public void RemoveFromAsteroid() {
+        this.asteroid = null;
+    }
 
-	/**
-	 * Specifies if the gate can be crafted
-	 * @param rs - list of resources, should be the inventory of a player
-	 * @return - the given inventory minus the needed resources for crafting. If its size doesn't change,
-	 * then the gate cannot be crafted
-	 */
-	public static List<Resource> CanCraft(List<Resource> rs) {
-		List<Resource> list = teleportgateBlueprint.IsCraftable(rs);
-		return list;
-	}
+    /**
+     * Sets the pair of the asteroid, so they are linked
+     *
+     * @param gate - the gate that will be the pair
+     */
+    public void SetPair(TeleportGate gate) {
+        pair = gate;
+        if (!gate.HasPair())
+            gate.SetPair(this);
+    }
 
-	public int GetId() {
-		return idx;
-	}
+    /**
+     * Returns if the gate has a pair
+     * Only for unit testing
+     *
+     * @return
+     */
+    public Boolean HasPair() {
+        return pair != null;
+    }
 
-	public void StartMoving() {
-		this.isMoving = true;
-	}
+    /**
+     * Specifies if the gate can be crafted
+     *
+     * @param rs - list of resources, should be the inventory of a player
+     * @return - the given inventory minus the needed resources for crafting. If its size doesn't change,
+     * then the gate cannot be crafted
+     */
+    public static List<Resource> CanCraft(List<Resource> rs) {
+        List<Resource> list = teleportgateBlueprint.IsCraftable(rs);
+        return list;
+    }
 
-	@Override
-	public void Step() {
-		if (!isMoving) {
-			return;
-		}
+    public int GetId() {
+        return idx;
+    }
 
-		var newAsteroid = asteroid.GetRandomNeighbor();
-		asteroid.RemoveTeleportGate(this);
-		newAsteroid.PlaceTeleportGate(this);
-		asteroid = newAsteroid;
-	}
+    public void StartMoving() {
+        this.isMoving = true;
+    }
+
+    @Override
+    public void Step() {
+        if (!isMoving) {
+            return;
+        }
+
+        var newAsteroid = asteroid.GetRandomNeighbor();
+        asteroid.RemoveTeleportGate(this);
+        newAsteroid.PlaceTeleportGate(this);
+        asteroid = newAsteroid;
+    }
+
+    public String toString()
+    {
+        return "teleportgate";
+    }
 }

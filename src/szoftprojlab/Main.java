@@ -75,6 +75,7 @@ public class Main {
                     }
                     OutputFile = "out/" + LoadM.group(1) + ".txt";
                     process_input(GameInput);
+                    Main.println("Test results written to out/" + LoadM.group(1) + ".txt");
                     continue;
                 }
 

@@ -25,7 +25,7 @@ public class Game {
     private Timer timer = Timer.getInstance();
     private List<Player> players = new ArrayList<>();
     private List<Asteroid> asteroids = new ArrayList<>();
-    private List<Entity> entities = new ArrayList<>();
+    //private List<Entity> entities = new ArrayList<>();
 
     private boolean gameWon = false;
     private boolean endGame;
@@ -120,6 +120,12 @@ public class Game {
                 endGame = true;
             }
         }
+        for (Asteroid a : asteroids)
+            Main.println(a.toString());
+        /*for (Player p :players)
+            Main.println(p.toString());
+        for(Entity e : entities)
+            Main.println(e.toString());*/
     }
 
     /**
@@ -159,13 +165,13 @@ public class Game {
     }
 
     public void AddEntity(Entity e) {
-        entities.add(e);
+        //entities.add(e);
         timer.AddSteppable(e);
     }
 
-    public void RemoveEntity(Entity e) {
+   /* public void RemoveEntity(Entity e) {
         entities.remove(e);
-    }
+    }*/
 
     /**
      * Ends the game
@@ -195,70 +201,6 @@ public class Game {
         sunStormenabled = true;
     }
 
-    /*
-    public void ModifyGame() {
-
-        while (true) {
-            System.out.println("What do you want to do?");
-            System.out.println("1 - Disable SunStorm");
-            System.out.println("2 - Enable SunStorm");
-            System.out.println("3 - Set Sunstorm range");
-            System.out.println("4 - Cause Sunstorm to an asteroid");
-            System.out.println("5 - Modify asteroid");
-            System.out.println("6 - Modify player");
-            System.out.println("7 - Add Asteroid");
-            System.out.println("8 - Add Player");
-            System.out.println("9 - Remove Asteroid");
-            System.out.println("10 - Remove Player");
-
-            System.out.println("e - exit");
-
-            Scanner scanner = new Scanner(System.in);
-            String input = scanner.next();
-
-            if (input.equalsIgnoreCase("1")) {
-
-            } else if (input.equalsIgnoreCase("2")) {
-
-            } else if (input.equalsIgnoreCase("3")) {
-
-            } else if (input.equalsIgnoreCase("4")) {
-
-            } else if (input.equalsIgnoreCase("5")) {
-                while (true) {
-                    System.out.println("Select Asteroid:");
-                    System.out.println("1");
-                    System.out.println("e - exit");
-                    input = scanner.next();
-                    if (input.equalsIgnoreCase("1")) {
-                        asteroids.get(0).ModifyAsteroid();
-                    } else if (input.equalsIgnoreCase("e")) {
-                        break;
-                    }
-                }
-            } else if (input.equalsIgnoreCase("6")) {
-                while (true) {
-                    System.out.println("Select Player:");
-                    System.out.println("1");
-                    System.out.println("e");
-                    input = scanner.next();
-                    if (input.equalsIgnoreCase("1")) {
-                        players.get(0).ModifyPlayer();
-                    } else if (input.equalsIgnoreCase("e")) {
-                        break;
-                    }
-                }
-            } else if (input.equalsIgnoreCase("7")) {
-
-            } else if (input.equalsIgnoreCase("8")) {
-
-            } else if (input.equalsIgnoreCase("e")) {
-                return;
-            }
-        }
-    }
-    */
-
     /**
      * Checks for victory
      *
@@ -279,7 +221,7 @@ public class Game {
     public void reset() {
         players.clear();
         asteroids.clear();
-        entities.clear();
+        //entities.clear();
         sun.ClearAsteroids();
         timer.ClearSteppables();
     }

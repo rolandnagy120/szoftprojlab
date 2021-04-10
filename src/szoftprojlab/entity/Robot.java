@@ -17,48 +17,54 @@ import szoftprojlab.resource.*;
 import java.util.List;
 
 public class Robot extends Entity {
-	private static Blueprint robotBlueprint = new Blueprint(new Iron(), new Coal(), new Uranium());
+    private static Blueprint robotBlueprint = new Blueprint(new Iron(), new Coal(), new Uranium());
+    private int idx;
+    private static int id =0;
 
-	public Robot() {
-	}
+    public Robot(Asteroid asteroid) {
+        asteroid.Accept(this);
+        this.asteroid = asteroid;
+    }
 
-	/**
-	 * The robot steps
-	 */
-	public void Step() {
-		if (asteroid.GetLayerThickness() > 0) {
-			Drill();
-		} else {
-			var newAsteroid = asteroid.GetRandomNeighbor();
-			asteroid.Remove(this);
-			newAsteroid.Accept(this);
-		}
-	}
+    /**
+     * The robot steps
+     */
+    public void Step() {
+        if (asteroid.GetLayerThickness() > 0) {
+            Drill();
+        } else {
+            var newAsteroid = asteroid.GetRandomNeighbor();
+            asteroid.Remove(this);
+            newAsteroid.Accept(this);
+        }
+    }
 
-	/**
-	 * An explosion hits the robot
-	 * The robots is cast aside on a neighbor asteroid
-	 */
-	public void Explode() {
-		Asteroid newAsteroid = asteroid.GetRandomNeighbor();
-		asteroid.Remove(this);
-		if (newAsteroid != null)
-			newAsteroid.Accept(this);
-	}
-	
-	public Robot(Asteroid asteroid) {
-		asteroid.Accept(this);
-		this.asteroid = asteroid;
-	}
+    /**
+     * An explosion hits the robot
+     * The robots is cast aside on a neighbor asteroid
+     */
+    public void Explode() {
+        Asteroid newAsteroid = asteroid.GetRandomNeighbor();
+        asteroid.Remove(this);
+        if (newAsteroid != null)
+            newAsteroid.Accept(this);
+    }
 
-	/**
-	 * Specifies if the robot can be crafted
-	 * @param rs - list of resources, should be the inventory of a player
-	 * @return - the given inventory minus the needed resources for crafting. If its size doesn't change,
-	 * then the robot cannot be crafted
-	 */
-	public static List<Resource> CanCraft(List<Resource> rs) {
-		List<Resource> list = robotBlueprint.IsCraftable(rs);
-		return list;
-	}
+
+
+    /**
+     * Specifies if the robot can be crafted
+     *
+     * @param rs - list of resources, should be the inventory of a player
+     * @return - the given inventory minus the needed resources for crafting. If its size doesn't change,
+     * then the robot cannot be crafted
+     */
+    public static List<Resource> CanCraft(List<Resource> rs) {
+        List<Resource> list = robotBlueprint.IsCraftable(rs);
+        return list;
+    }
+
+    public String toString() {
+        return "Robot";
+    }
 }

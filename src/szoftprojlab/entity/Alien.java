@@ -39,4 +39,8 @@ public class Alien extends Entity implements Miner {
         inventory.add(resource);
         return true;
     }
+
+    public String toString() {
+        return "Alien";
+    }
 }

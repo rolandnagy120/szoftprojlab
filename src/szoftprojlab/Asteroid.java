@@ -68,6 +68,7 @@ public class Asteroid {
         }
     }
 */
+
     /**
      * Gets the entities which are on this asteroid
      *
@@ -211,8 +212,7 @@ public class Asteroid {
         if (this.resource == null && layers == 0) {
             this.resource = resource;
             Main.println("Resource placed");
-        }
-        else {
+        } else {
             Main.println("Couldn't place resource");
         }
     }
@@ -362,4 +362,22 @@ public class Asteroid {
     public void SetLayers(int layers) {
         this.layers = layers;
     }
+
+    @Override
+    public String toString() {
+        String ret = "Asteroid " + idx + ":\n"+
+                "Neighbours: ";
+       for(Asteroid n :neighbors)
+           ret += n.idx+" ";
+        ret += "\nlayers: " + layers + "\n" +
+                "resource: " + (resource == null ? "empty" : resource) + "\n" +
+                "Gates: " + (gates.isEmpty() ? "No gates on asteroid" : "");
+        for (TeleportGate g : gates)
+            ret += g.toString() + "\n";
+        ret += "\n" + "Entities: "+(entities.isEmpty()?"No entities on asteroid":"");
+        for (Entity e: entities)
+            ret += e.toString();
+        return ret+"\n";
+    }
+
 }
