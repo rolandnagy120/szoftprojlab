@@ -115,8 +115,10 @@ public class Asteroid {
     public void Explode() {
         List<Entity> entitiesCopy = new ArrayList<Entity>(entities);
         entitiesCopy.forEach(Entity::Explode);
-        /*for (TeleportGate g : gates)
-            g.Explode();*/
+        //TODO
+        for (TeleportGate g : gates)
+            g.Explode();
+        gates.clear();
         exploded = true;
         for(Asteroid a : neighbors)
             a.neighbors.remove(a);
@@ -187,7 +189,7 @@ public class Asteroid {
     public void Mine(Miner miner) {
         if (layers == 0 && resource != null) {
             miner.AddResource(resource);
-            Main.println("Resource " + resource.toString() + " added to inventory");
+            Main.println("Mine successful\nResource " + resource.toString() + " added to inventory");
             resource = null;
             CheckForVictory();
         }

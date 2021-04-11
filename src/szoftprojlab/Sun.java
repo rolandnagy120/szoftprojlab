@@ -78,8 +78,7 @@ public class Sun implements Steppable {
             if (!sunstormOnce)
                 nextSunStormIn = (int) (1 / sunStormProbability);
         }
-
-        Main.println("Sun Step called");
+        //Main.println("Sun Step called");
     }
 
     /**

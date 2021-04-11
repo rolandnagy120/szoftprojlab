@@ -129,6 +129,7 @@ public class Game {
                 endGame = true;
             }
         }
+        Main.println("Game Over!");
         Main.println("\n\nGame Objects:\n");
         for (Asteroid a : asteroids)
             Main.println(a.toString());

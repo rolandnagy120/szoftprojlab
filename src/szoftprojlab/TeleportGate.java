@@ -99,8 +99,10 @@ public class TeleportGate implements Steppable {
     }
 
     public void Explode() {
-        asteroid.RemoveTeleportGate(this);
+        //asteroid.RemoveTeleportGate(this);
         GetPairAsteroid().RemoveTeleportGate(pair);
+        Main.println("TeleportGate "+ idx+" exploded.");
+        Main.println("TeleportGate "+ pair.idx+" exploded.");
     }
 
     @Override

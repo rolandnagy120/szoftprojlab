@@ -91,7 +91,7 @@ public class Player extends Entity implements Miner {
                         Main.println("Inventory full, can't mine more");
                     } else {
                         if (Mine()) {
-                            Main.println("Mine successful");
+                            //Main.println("Mine successful");
                             return;
                         }
                     }
