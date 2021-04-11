@@ -65,7 +65,7 @@ public class Main {
         //set sunstorm once
         Pattern SunStormOnce = Pattern.compile("set\\s+sunstorm\\s+once", Pattern.CASE_INSENSITIVE);
         //set asteroid 1 explosion neighbour 2
-        Pattern AsteroidExplosionNeighbour = Pattern.compile("set\\s+asteroid\\s+explosion\\s+neighbour\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
+        Pattern AsteroidExplosionNeighbour = Pattern.compile("set\\s+asteroid\\s+([0-9]+)\\s+explosion\\s+neighbour\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         //set alien 1 next asteroid 2
         Pattern NextAsteroid = Pattern.compile("set\\s+(alien|robot)\\s+([0-9]+)\\s+next\\s+asteroid\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         //set asteroid 1 close to sun
@@ -96,6 +96,8 @@ public class Main {
                     }
                     OutputFile = "out/" + LoadM.group(1) + ".txt";
                     process_input(GameInput);
+                    GameOutput.close();
+                    GameOutput = new BufferedWriter(new OutputStreamWriter(System.out));
                     Main.println("Test results written to out/" + LoadM.group(1) + ".txt");
                     continue;
                 }
@@ -120,8 +122,7 @@ public class Main {
                             bw = new BufferedWriter(fw);
                             GameOutput = bw;
                             game.StartGame();
-                            GameOutput.close();
-                            GameOutput = new BufferedWriter(new OutputStreamWriter(System.out));
+
                             OutputFile = null;
                         } catch (IOException ioe) {
                             ioe.printStackTrace();
@@ -383,7 +384,7 @@ public class Main {
 
             }
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             return;
         }
 

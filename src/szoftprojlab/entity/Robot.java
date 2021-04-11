@@ -70,6 +70,7 @@ public class Robot extends Entity {
         asteroid.Remove(this);
         if (newAsteroid != null)
             newAsteroid.Accept(this);
+        Main.println("Robot "+idx+" blown to "+newAsteroid.GetId());
     }
 
 

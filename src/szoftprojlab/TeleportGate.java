@@ -25,7 +25,7 @@ public class TeleportGate implements Steppable {
     private boolean isMoving = false;
 
     public TeleportGate() {
-		idx = id++;
+        idx = id++;
     }
 
     public static void resetId() {
@@ -98,6 +98,11 @@ public class TeleportGate implements Steppable {
         this.isMoving = true;
     }
 
+    public void Explode() {
+        asteroid.RemoveTeleportGate(this);
+        GetPairAsteroid().RemoveTeleportGate(pair);
+    }
+
     @Override
     public void Step() {
         if (!isMoving) {
@@ -110,8 +115,7 @@ public class TeleportGate implements Steppable {
         asteroid = newAsteroid;
     }
 
-    public String toString()
-    {
-        return "\tgate "+idx+" connected to gate "+pair.idx+"\n";
+    public String toString() {
+        return "\tgate " + idx + " connected to gate " + pair.idx + "\n";
     }
 }

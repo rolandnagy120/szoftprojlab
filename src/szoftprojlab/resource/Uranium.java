@@ -37,7 +37,7 @@ public class Uranium extends Resource {
     public void SeeSun(Asteroid asteroid) {
         seeSunsBeforeExplosion--;
         if (seeSunsBeforeExplosion == 0) {
-            Main.println("The uranium explodeddddddd");
+            Main.println("The uranium exploded!");
             asteroid.Explode();
         }
     }

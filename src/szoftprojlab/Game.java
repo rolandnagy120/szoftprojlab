@@ -145,13 +145,8 @@ public class Game {
      * @param player - the player that died
      */
     public void PlayerDie(Player player) {
-        Main.println(player.name + " died in!");
         players.remove(player);
         Timer.getInstance().RemoveSteppable(player);
-
-        /*if (players.size() <= 1) {
-            EndGame();
-        }*/
     }
 
     /**

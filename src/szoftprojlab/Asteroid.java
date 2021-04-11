@@ -29,6 +29,7 @@ public class Asteroid {
     private List<Entity> entities = new ArrayList<>();
     private List<TeleportGate> gates = new ArrayList<>();
     private Asteroid explosionNeighbour = null;
+    private boolean exploded=false;
 
 
     public Asteroid(int ID) {
@@ -114,6 +115,13 @@ public class Asteroid {
     public void Explode() {
         List<Entity> entitiesCopy = new ArrayList<Entity>(entities);
         entitiesCopy.forEach(Entity::Explode);
+        /*for (TeleportGate g : gates)
+            g.Explode();*/
+        exploded = true;
+        for(Asteroid a : neighbors)
+            a.neighbors.remove(a);
+
+
     }
 
     /**
@@ -195,6 +203,7 @@ public class Asteroid {
         if (this.resource == null && layers == 0) {
             this.resource = resource;
             Main.println("Resource placed");
+            SeeSunIfNeeded();
         } else {
             Main.println("Couldn't place resource");
         }
@@ -355,6 +364,8 @@ public class Asteroid {
 
     @Override
     public String toString() {
+        if(exploded)
+            return "";
         String ret = "Asteroid " + idx + ":\n" +
                 "Neighbours: ";
         for (Asteroid n : neighbors)

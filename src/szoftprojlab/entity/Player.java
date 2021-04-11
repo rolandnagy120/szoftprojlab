@@ -145,7 +145,7 @@ public class Player extends Entity implements Miner {
                 }
 
             } catch (Exception e) {
-                //e.printStackTrace();
+                e.printStackTrace();
                 //test file over end game
                 Game.getInstance().EndGame();
                 break;
@@ -283,7 +283,7 @@ public class Player extends Entity implements Miner {
      */
     @Override
     public void Explode() {
-        Main.println("Player " + name + " died.");
+        Main.println("Player " + name + " exploded.");
         Game game = Game.getInstance();
         asteroid.Remove(this);
         game.PlayerDie(this);
@@ -311,6 +311,8 @@ public class Player extends Entity implements Miner {
         for (Resource r : inventory) {
             ret += "\n\t\t"+r.toString();
         }
+        for(TeleportGate g: gates)
+            ret += "\n\t\t"+g.toString();
         return ret;
     }
 }
