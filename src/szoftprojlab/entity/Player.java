@@ -115,9 +115,9 @@ public class Player extends Entity implements Miner {
                         String selectedNeighbor = TeleportMatcher.group(1);
                         for (TeleportGate gate : gates) {
 
-                            var gateId = gate.GetId();
+                            var pairId = gate.GetPairAsteroid().GetId();
 
-                            if (String.valueOf(gateId).equals(selectedNeighbor)) {
+                            if (String.valueOf(pairId).equals(selectedNeighbor)) {
                                 Teleport(gate);
                                 return;
                             }
