@@ -141,11 +141,6 @@ public class Asteroid {
         SeeSunIfNeeded();
     }
 
-    public void addEntity(Entity entity) {
-        entities.add(entity);
-        entity.SetAsteroid(this);
-    }
-
     /**
      * Accepts an entity
      * The entity will be on this asteroid from this point
@@ -155,7 +150,7 @@ public class Asteroid {
     public void Accept(Entity entity) {
         if (!entities.contains(entity)) {
             entities.add(entity);
-            ChangeNearSun();
+            CheckForVictory();
         }
         entity.SetAsteroid(this);
     }
