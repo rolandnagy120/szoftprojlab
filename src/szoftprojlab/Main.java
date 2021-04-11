@@ -60,6 +60,29 @@ public class Main {
         Pattern Reset = Pattern.compile("reset", Pattern.CASE_INSENSITIVE);
         //exit
         Pattern Exit = Pattern.compile("exit", Pattern.CASE_INSENSITIVE);
+        //set suntorm in
+        Pattern SunStormIn = Pattern.compile("set\\s+sunstorm\\s+in\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
+        //set sunstorm once
+        Pattern SunStormOnce = Pattern.compile("set\\s+sunstorm\\s+once", Pattern.CASE_INSENSITIVE);
+        //set asteroid 1 explosion neighbour 2
+        Pattern AsteroidExplosionNeighbour = Pattern.compile("set\\s+asteroid\\s+([0-9]+)\\s+explosion\\s+neighbour\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
+        //set alien 1 next asteroid 2
+        Pattern NextAsteroid = Pattern.compile("set\\s+(alien|robot)\\s+([0-9]+)\\s+next\\s+asteroid\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
+        //set asteroid 1 close to sun
+        Pattern CloseToSun = Pattern.compile("set\\s+asteroid\\s+([0-9]+)\\s+close\\s+to\\s+sun", Pattern.CASE_INSENSITIVE);
+        //set asteroid 1 distant to sun
+        Pattern DistantToSun = Pattern.compile("set\\s+asteroid\\s+([0-9]+)\\s+distant\\s+to\\s+sun", Pattern.CASE_INSENSITIVE);
+        //set sunstorm asteroid 1
+        Pattern SunstormAsteroid = Pattern.compile("set\\s+sunstrom\\s+asteroid\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
+        //set sunstorm dept 1
+        Pattern SunstormDistance = Pattern.compile("set\\s+sunstrom\\s+dept\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
+        //disable sundistance change
+        Pattern DisableSundistanceChange = Pattern.compile("disable\\s+asteroid\\s+sun\\s+distance\\s+change", Pattern.CASE_INSENSITIVE);
+        //
+        Pattern EnableSundistanceChange = Pattern.compile("enable\\s+asteroid\\s+sun\\s+distance\\s+change", Pattern.CASE_INSENSITIVE);
+        //set sun asteroid sun distance change time 10
+        Pattern SetDistanceTime = Pattern.compile("set\\s+sun\\s+asteroid\\s+sun\\s+distance\\s+change\\s+time\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
+
 
         try {
             while (true) {
@@ -75,6 +98,9 @@ public class Main {
                     }
                     OutputFile = "out/" + LoadM.group(1) + ".txt";
                     process_input(GameInput);
+                    GameOutput.close();
+                    GameOutput = new BufferedWriter(new OutputStreamWriter(System.out));
+                    Main.println("Test results written to out/" + LoadM.group(1) + ".txt");
                     continue;
                 }
 
@@ -98,7 +124,7 @@ public class Main {
                             bw = new BufferedWriter(fw);
                             GameOutput = bw;
                             game.StartGame();
-                            GameOutput = new BufferedWriter(new OutputStreamWriter(System.out));
+
                             OutputFile = null;
                         } catch (IOException ioe) {
                             ioe.printStackTrace();
@@ -146,13 +172,14 @@ public class Main {
                             r = new Iron();
                             break;
                         case "uranium":
-                            if (SetAsteroidResourceM.group(3) != null)
+                            if (SetAsteroidResourceM.group(3) != null) {
                                 r = new Uranium(Integer.parseInt(SetAsteroidResourceM.group(5)));
-                            else
+                            } else
                                 r = new Uranium();
                             break;
                     }
                     a.AddResource(r);
+                    continue;
                 }
 
                 Matcher CreatePlayerM = CreatePlayer.matcher(input);
@@ -160,7 +187,7 @@ public class Main {
                     Asteroid a = game.GetAsteroid(Integer.parseInt(CreatePlayerM.group(2)));
                     if (a != null) {
                         Player p = new Player(CreatePlayerM.group(1));
-                        a.Accept(p);
+                        a.addEntity(p);
                         game.AddPlayer(p);
                     }
                     continue;
@@ -168,10 +195,6 @@ public class Main {
 
                 Matcher AddResourceToPlayerM = AddResourceToPlayer.matcher(input);
                 if (AddResourceToPlayerM.find()) {
-                    System.out.println(AddResourceToPlayerM.group(1));
-                    System.out.println(AddResourceToPlayerM.group(2));
-                    System.out.println(AddResourceToPlayerM.group(3));
-                    System.out.println(AddResourceToPlayerM.group(4));
                     Player p = game.GetPlayer(AddResourceToPlayerM.group(1));
                     if (p != null) {
                         Resource r = null;
@@ -225,6 +248,7 @@ public class Main {
                     if (a != null) {
                         Robot r = new Robot(a);
                         game.AddEntity(r);
+                        game.AddRobot(r);
                     }
                     continue;
                 }
@@ -235,35 +259,30 @@ public class Main {
                     if (a != null) {
                         Alien alien = new Alien(a);
                         game.AddEntity(alien);
+                        game.AddAlien(alien);
                     }
                     continue;
                 }
+
                 Matcher CreateGateM = CreateGate.matcher(input);
                 if (CreateGateM.find()) {
-                    TeleportGate g1, g2;
-                    Asteroid a1 = null, a2 = null;
-                    Player p1 = null, p2 = null;
+                    TeleportGate g1 = new TeleportGate();
+                    TeleportGate g2 = new TeleportGate();
+                    g1.SetPair(g2);
+                    g2.SetPair(g1);
                     if ("asteroid".equals(CreateGateM.group(1))) {
-                        a1 = game.GetAsteroid(Integer.parseInt(CreateGateM.group(2)));
+                        Asteroid a = game.GetAsteroid(Integer.parseInt(CreateGateM.group(2)));
+                        a.PlaceTeleportGate(g1);
                     } else {
-                        p1 = game.GetPlayer(CreateGateM.group(2));
+                        Player p = game.GetPlayer(CreateGateM.group(2));
+                        p.AddGate(g1);
                     }
                     if ("asteroid".equals(CreateGateM.group(3))) {
-                        a2 = game.GetAsteroid(Integer.parseInt(CreateGateM.group(4)));
+                        Asteroid a = game.GetAsteroid(Integer.parseInt(CreateGateM.group(4)));
+                        a.PlaceTeleportGate(g2);
                     } else {
-                        p2 = game.GetPlayer(CreateGateM.group(4));
-                    }
-                    if (p1 != null && p2 != null) {
-                    } else if (a1 != null && a2 != null) {
-
-                    } else if (a1 != null && p1 != null) {
-
-                    } else if (a1 != null && p2 != null) {
-
-                    } else if (a2 != null && p1 != null) {
-
-                    } else if (a2 != null && p2 != null) {
-
+                        Player p = game.GetPlayer(CreateGateM.group(4));
+                        p.AddGate(g2);
                     }
                     continue;
                 }
@@ -271,15 +290,112 @@ public class Main {
                 Matcher ResetM = Reset.matcher(input);
                 if (ResetM.find()) {
                     game.reset();
+                    continue;
                 }
+
                 Matcher ExitM = Exit.matcher(input);
                 if (ExitM.find()) {
                     break;
                 }
+
+                Matcher SunStormOnceM = SunStormOnce.matcher(input);
+                if (SunStormOnceM.find()) {
+                    Sun.getInstance().SunstormOnce();
+                    continue;
+                }
+
+                Matcher SunStormInM = SunStormIn.matcher(input);
+                if (SunStormInM.find()) {
+                    Sun.getInstance().SetNextSunStormIn(Integer.parseInt(SunStormInM.group(1)));
+                    continue;
+                }
+
+                Matcher AsteroidExplosionNeighbourM = AsteroidExplosionNeighbour.matcher(input);
+                if (AsteroidExplosionNeighbourM.find()) {
+                    Asteroid a = game.GetAsteroid(Integer.parseInt(AsteroidExplosionNeighbourM.group(1)));
+                    if (a != null) {
+                        a.SetExplosionNeighbour(Integer.parseInt(AsteroidExplosionNeighbourM.group(2)));
+                    }
+                    continue;
+                }
+
+                Matcher NextAsteroidM = NextAsteroid.matcher(input);
+                if (NextAsteroidM.find()) {
+                    Asteroid a = game.GetAsteroid(Integer.parseInt(NextAsteroidM.group(3)));
+                    if (a != null) {
+                        if (("alien".equals(NextAsteroidM.group(1)))) {
+                            Alien alien = game.GetAlien(Integer.parseInt(NextAsteroidM.group(2)));
+                            if (alien != null) {
+                                alien.SetNextAsteroid(a);
+                            }
+                        } else {
+                            Robot r = game.GetRobot(Integer.parseInt(NextAsteroidM.group(2)));
+                            if (r != null) {
+                                r.SetNextAsteroid(a);
+                            }
+                        }
+
+                    }
+                    continue;
+                }
+
+                Matcher CloseToSunM = CloseToSun.matcher(input);
+                if (CloseToSunM.find()) {
+                    Asteroid a = game.GetAsteroid(Integer.parseInt(CloseToSunM.group(1)));
+                    if (a != null)
+                        a.SetCloseToSun();
+                    continue;
+                }
+
+                Matcher DistantToSunM = DistantToSun.matcher(input);
+                if (DistantToSunM.find()) {
+                    Asteroid a = game.GetAsteroid(Integer.parseInt(DistantToSunM.group(1)));
+                    if (a != null)
+                        a.SetDistantToSun();
+                    continue;
+                }
+
+                Matcher SunstormAsteroidM = SunstormAsteroid.matcher(input);
+                if (SunstormAsteroidM.find()) {
+                    Asteroid a = game.GetAsteroid(Integer.parseInt(SunstormAsteroidM.group(1)));
+                    if (a != null)
+                        Sun.getInstance().SetSunstromAsteroid(a);
+                    continue;
+                }
+                Matcher SunstormDistanceM = SunstormDistance.matcher(input);
+                if (SunstormDistanceM.find()) {
+                    Sun.getInstance().SetSunstormDept(Integer.parseInt(SunstormDistanceM.group(1)));
+                    continue;
+                }
+
+                //DisableSundistanceChange
+                Matcher DisableSundistanceChangeM = DisableSundistanceChange.matcher(input);
+                if (DisableSundistanceChangeM.find()) {
+                    Sun.getInstance().DisableSunDistanceChange();
+                    continue;
+                }
+
+                //SetDistanceTime
+                Matcher SetDistanceTimeM = SetDistanceTime.matcher(input);
+                if (SetDistanceTimeM.find()) {
+                    Sun.getInstance().SetSunDistanceChangeTime(Integer.parseInt(SetDistanceTimeM.group(1)));
+                    continue;
+                }
+
+                Matcher EnableSundistanceChangeM = EnableSundistanceChange.matcher(input);
+                if (EnableSundistanceChangeM.find()) {
+                    Sun.getInstance().EnableSunDistanceChange();
+                    continue;
+                }
+
+                System.out.println("Unknown command: " + input);
+
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return;
         }
+
     }
 
     public static void println(String s) {

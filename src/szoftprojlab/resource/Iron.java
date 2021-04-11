@@ -23,4 +23,7 @@ public class Iron extends Resource {
 
         return false;
     }
+    public String toString() {
+        return "Iron";
+    }
 }

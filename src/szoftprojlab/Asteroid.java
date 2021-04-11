@@ -28,6 +28,9 @@ public class Asteroid {
     private List<Asteroid> neighbors = new ArrayList<>();
     private List<Entity> entities = new ArrayList<>();
     private List<TeleportGate> gates = new ArrayList<>();
+    private Asteroid explosionNeighbour = null;
+    private boolean exploded=false;
+
 
     public Asteroid(int ID) {
         idx = ID;
@@ -39,35 +42,7 @@ public class Asteroid {
         layers = numberOfLayers;
         nearSun = false;
     }
-/*
-    public void ModifyAsteroid() {
-        while (true) {
-            System.out.println("1 - Set Asteroid layer count.");
-            System.out.println("2 - Add Asteroid Resource.");
-            System.out.println("3 - Remove Asteroid Resource.");
-            System.out.println("4 - Set Asteroid close to the sun.");
-            System.out.println("5 - Set Asteroid distant to the sun.");
-            System.out.println("6 - Add Neighbour Asteroid");
-            System.out.println("e - exit");
-            Scanner scanner = new Scanner(System.in);
-            String input = scanner.next();
 
-            if (input.equalsIgnoreCase("1")) {
-
-            } else if (input.equalsIgnoreCase("2")) {
-
-            } else if (input.equalsIgnoreCase("3")) {
-
-            } else if (input.equalsIgnoreCase("4")) {
-
-            } else if (input.equalsIgnoreCase("5")) {
-
-            } else if (input.equalsIgnoreCase("e")) {
-                return;
-            }
-        }
-    }
-*/
     /**
      * Gets the entities which are on this asteroid
      *
@@ -123,6 +98,10 @@ public class Asteroid {
         SeeSunIfNeeded();
     }
 
+    public void SetCloseToSun() {
+        nearSun = true;
+    }
+
     private void SeeSunIfNeeded() {
         if (resource != null && layers == 0 && nearSun)
             resource.SeeSun(this);
@@ -136,6 +115,15 @@ public class Asteroid {
     public void Explode() {
         List<Entity> entitiesCopy = new ArrayList<Entity>(entities);
         entitiesCopy.forEach(Entity::Explode);
+        //TODO
+        for (TeleportGate g : gates)
+            g.Explode();
+        gates.clear();
+        exploded = true;
+        for(Asteroid a : neighbors)
+            a.neighbors.remove(a);
+
+
     }
 
     /**
@@ -149,8 +137,13 @@ public class Asteroid {
         if (layers > 0)
             layers--;
         if (layers == 0)
-            System.out.println("Asteroid breakthrough!");
+            Main.println("Asteroid breakthrough!");
         SeeSunIfNeeded();
+    }
+
+    public void addEntity(Entity entity) {
+        entities.add(entity);
+        entity.SetAsteroid(this);
     }
 
     /**
@@ -196,6 +189,7 @@ public class Asteroid {
     public void Mine(Miner miner) {
         if (layers == 0 && resource != null) {
             miner.AddResource(resource);
+            Main.println("Mine successful\nResource " + resource.toString() + " added to inventory");
             resource = null;
             CheckForVictory();
         }
@@ -208,7 +202,13 @@ public class Asteroid {
      * @param resource - the resource that will be placed back
      */
     public void Place(Resource resource) {
-        this.resource = resource;
+        if (this.resource == null && layers == 0) {
+            this.resource = resource;
+            Main.println("Resource placed");
+            SeeSunIfNeeded();
+        } else {
+            Main.println("Couldn't place resource");
+        }
     }
 
     /**
@@ -315,13 +315,20 @@ public class Asteroid {
     public Asteroid GetRandomNeighbor() {
         if (neighbors.size() == 0)
             return null;
-
+        if (explosionNeighbour != null)
+            return explosionNeighbour;
         Random rnd = new Random();
         int randomIndex = rnd.ints(0, neighbors.size())
                 .findFirst()
                 .getAsInt();
 
         return neighbors.get(randomIndex);
+    }
+
+    public void SetExplosionNeighbour(int neighbourId) {
+        for (Asteroid a : neighbors)
+            if (a.GetId() == neighbourId)
+                explosionNeighbour = a;
     }
 
     public int GetId() {
@@ -356,4 +363,29 @@ public class Asteroid {
     public void SetLayers(int layers) {
         this.layers = layers;
     }
+
+    @Override
+    public String toString() {
+        if(exploded)
+            return "";
+        String ret = "Asteroid " + idx + ":\n" +
+                "Neighbours: ";
+        for (Asteroid n : neighbors)
+            ret += n.idx + " ";
+        ret += "\nlayers: " + layers + "\n" +
+                "resource: " + (resource == null ? "empty" : resource) + "\n" +
+                "nearsun: "+nearSun+"\n"+
+                "Gates:" + (gates.isEmpty() ? "No gates on asteroid\n" : "\n");
+        for (TeleportGate g : gates)
+            ret += g.toString();
+        ret += "Entities: " + (entities.isEmpty() ? "No entities on asteroid\n" : "\n");
+        for (Entity e : entities)
+            ret += e.toString();
+        return ret + "\n";
+    }
+
+    public void SetDistantToSun() {
+        nearSun = false;
+    }
+
 }

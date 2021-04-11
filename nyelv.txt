@@ -1,0 +1,54 @@
+Még nem teljes!
+
+load test 11
+# ezzel indítható a teszt a test/11.txt betölti lefuttatja és kiírja az out/11.txt-be
+
+# init parancsok
+reset # üres pálya, törli az összes játékost/aszteroidát stb.
+create asteroid 1 # létrehozza az 1-es aszteroidát aszteroidát
+set asteroid 1 neighbour 2 # 1-es aszteridát szomszédossá teszi az 2-el és a 2-es aszteroidát az 1-ssel
+set asteroid 1 layer 5 # az 1. aszteroida kérge 5-ös lesz
+set asteroid 1 resource uranium nearsun 2 #
+set asteroid 1 resource coal #
+create player csaba215 on asteroid 2 #
+add resource to player uranium seesun 1 #
+add resource to player coal #
+create alien on asteroid 1
+create robot on asteroid 1
+disable sunstorm
+enable sunstorm
+create gate on asteroid 1 asteroid 2
+create gate on player 1 asteroid 2
+create gate on player 1 player 1
+set sunstorm in 10
+set sunstorm once # csak egyszer lesz napvihar
+set asteroid 1 explosion neighbour 2
+set alien 1 next asteroid 1
+set robot 1 next asteroid 2
+set asteroid 1 close to sun
+set asteroid 1 distant to sun
+set sunstorm asteroid 1
+set sunstorm dept 1
+disable asteroid sun distance change
+enable asteroid sun distance change
+set sun asteroid sun distance change time 10
+startgame #
+exit
+
+#játékos vezérlő parancsok
+move 2 # kettes aszterodára mozgás
+mine
+drill
+mine
+craft robot
+craft gates
+place gate
+teleport to 3 # 3. aszteroidára teleport csak ha van kapu arra felé
+place resource Uranium # Lerak egy urániumot, ha van nála, 0 az aszteroida rétege és üres
+
+test11.txt példa:
+reset
+#init paracsok ide
+start game
+# csak játékos vezérlő parancsok ide
+# ha elfogytak a sorok akkor vége a tesztnek

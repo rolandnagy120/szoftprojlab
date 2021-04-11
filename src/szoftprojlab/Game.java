@@ -10,8 +10,10 @@ package szoftprojlab;
 //
 
 
+import szoftprojlab.entity.Alien;
 import szoftprojlab.entity.Entity;
 import szoftprojlab.entity.Player;
+import szoftprojlab.entity.Robot;
 import szoftprojlab.resource.*;
 
 import java.util.ArrayList;
@@ -25,12 +27,13 @@ public class Game {
     private Timer timer = Timer.getInstance();
     private List<Player> players = new ArrayList<>();
     private List<Asteroid> asteroids = new ArrayList<>();
-    private List<Entity> entities = new ArrayList<>();
+    private List<Alien> aliens = new ArrayList<>();
+    private List<Robot> robots = new ArrayList<>();
 
     private boolean gameWon = false;
     private boolean endGame;
-
-    private boolean sunStormenabled = true;
+    private int NearSunCycle = 10;
+    private double SunStormProbability = 0.01;
 
     /*
     Blueprint for the base
@@ -109,10 +112,16 @@ public class Game {
             i++;
         } */
 
+        sun.ClearAsteroids();
+        for (Asteroid a : asteroids) {
+            sun.AddAsteroid(a);
+        }
+        timer.AddSteppable(sun);
+
         endGame = false;
 
         while (!endGame && !gameWon) {
-            Main.println("New round\n");
+            Main.println("\nNew round\n");
             timer.Tick();
 
             if (players.size() == 0) {
@@ -120,6 +129,14 @@ public class Game {
                 endGame = true;
             }
         }
+        Main.println("Game Over!");
+        Main.println("\n\nGame Objects:\n");
+        for (Asteroid a : asteroids)
+            Main.println(a.toString());
+        /*for (Player p :players)
+            Main.println(p.toString());
+        for(Entity e : entities)
+            Main.println(e.toString());*/
     }
 
     /**
@@ -129,13 +146,8 @@ public class Game {
      * @param player - the player that died
      */
     public void PlayerDie(Player player) {
-        System.out.println(player.name + " died in!");
         players.remove(player);
         Timer.getInstance().RemoveSteppable(player);
-
-        if (players.size() <= 1) {
-            EndGame();
-        }
     }
 
     /**
@@ -159,13 +171,12 @@ public class Game {
     }
 
     public void AddEntity(Entity e) {
-        entities.add(e);
         timer.AddSteppable(e);
     }
 
-    public void RemoveEntity(Entity e) {
+   /* public void RemoveEntity(Entity e) {
         entities.remove(e);
-    }
+    }*/
 
     /**
      * Ends the game
@@ -188,76 +199,12 @@ public class Game {
     }
 
     public void DisableSunstorm() {
-        sunStormenabled = false;
+        sun.DisableSunstorm();
     }
 
     public void EnableSunstorm() {
-        sunStormenabled = true;
+        sun.EnableSunstorm();
     }
-
-    /*
-    public void ModifyGame() {
-
-        while (true) {
-            System.out.println("What do you want to do?");
-            System.out.println("1 - Disable SunStorm");
-            System.out.println("2 - Enable SunStorm");
-            System.out.println("3 - Set Sunstorm range");
-            System.out.println("4 - Cause Sunstorm to an asteroid");
-            System.out.println("5 - Modify asteroid");
-            System.out.println("6 - Modify player");
-            System.out.println("7 - Add Asteroid");
-            System.out.println("8 - Add Player");
-            System.out.println("9 - Remove Asteroid");
-            System.out.println("10 - Remove Player");
-
-            System.out.println("e - exit");
-
-            Scanner scanner = new Scanner(System.in);
-            String input = scanner.next();
-
-            if (input.equalsIgnoreCase("1")) {
-
-            } else if (input.equalsIgnoreCase("2")) {
-
-            } else if (input.equalsIgnoreCase("3")) {
-
-            } else if (input.equalsIgnoreCase("4")) {
-
-            } else if (input.equalsIgnoreCase("5")) {
-                while (true) {
-                    System.out.println("Select Asteroid:");
-                    System.out.println("1");
-                    System.out.println("e - exit");
-                    input = scanner.next();
-                    if (input.equalsIgnoreCase("1")) {
-                        asteroids.get(0).ModifyAsteroid();
-                    } else if (input.equalsIgnoreCase("e")) {
-                        break;
-                    }
-                }
-            } else if (input.equalsIgnoreCase("6")) {
-                while (true) {
-                    System.out.println("Select Player:");
-                    System.out.println("1");
-                    System.out.println("e");
-                    input = scanner.next();
-                    if (input.equalsIgnoreCase("1")) {
-                        players.get(0).ModifyPlayer();
-                    } else if (input.equalsIgnoreCase("e")) {
-                        break;
-                    }
-                }
-            } else if (input.equalsIgnoreCase("7")) {
-
-            } else if (input.equalsIgnoreCase("8")) {
-
-            } else if (input.equalsIgnoreCase("e")) {
-                return;
-            }
-        }
-    }
-    */
 
     /**
      * Checks for victory
@@ -271,7 +218,7 @@ public class Game {
         List<Resource> inventoryAfterCrafting = baseBluebrint.IsCraftable(resources);
 
         if (inventoryAfterCrafting != null) {
-            System.out.println("The base can be made now! The game is won!");
+            Main.println("The base can be made now! The game is won!");
             gameWon = true;
         }
     }
@@ -279,9 +226,14 @@ public class Game {
     public void reset() {
         players.clear();
         asteroids.clear();
-        entities.clear();
+        aliens.clear();
+        robots.clear();
         sun.ClearAsteroids();
         timer.ClearSteppables();
+        Robot.resetId();
+        Alien.resetId();
+        TeleportGate.resetId();
+        sun.Init();
     }
 
     public static Game getInstance() {
@@ -290,4 +242,27 @@ public class Game {
 
         return singleClassInstance;
     }
+
+    public Alien GetAlien(int id) {
+        for (Alien a : aliens)
+            if (a.GetId() == id)
+                return a;
+        return null;
+    }
+
+    public Robot GetRobot(int id) {
+        for (Robot r : robots)
+            if (r.GetId() == id)
+                return r;
+        return null;
+    }
+
+    public void AddAlien(Alien a) {
+        aliens.add(a);
+    }
+
+    public void AddRobot(Robot r) {
+        robots.add(r);
+    }
+
 }

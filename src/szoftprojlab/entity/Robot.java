@@ -12,53 +12,81 @@ package szoftprojlab.entity;
 
 import szoftprojlab.Asteroid;
 import szoftprojlab.Blueprint;
-import szoftprojlab.resource.*;
+import szoftprojlab.Main;
+import szoftprojlab.resource.Coal;
+import szoftprojlab.resource.Iron;
+import szoftprojlab.resource.Resource;
+import szoftprojlab.resource.Uranium;
 
 import java.util.List;
 
 public class Robot extends Entity {
-	private static Blueprint robotBlueprint = new Blueprint(new Iron(), new Coal(), new Uranium());
+    private static Blueprint robotBlueprint = new Blueprint(new Iron(), new Coal(), new Uranium());
+    private int idx;
+    private static int id = 0;
 
-	public Robot() {
-	}
 
-	/**
-	 * The robot steps
-	 */
-	public void Step() {
-		if (asteroid.GetLayerThickness() > 0) {
-			Drill();
-		} else {
-			var newAsteroid = asteroid.GetRandomNeighbor();
-			asteroid.Remove(this);
-			newAsteroid.Accept(this);
-		}
-	}
+    public Robot(Asteroid asteroid) {
+        asteroid.addEntity(this);
+        this.asteroid = asteroid;
+        idx = id++;
+    }
 
-	/**
-	 * An explosion hits the robot
-	 * The robots is cast aside on a neighbor asteroid
-	 */
-	public void Explode() {
-		Asteroid newAsteroid = asteroid.GetRandomNeighbor();
-		asteroid.Remove(this);
-		if (newAsteroid != null)
-			newAsteroid.Accept(this);
-	}
-	
-	public Robot(Asteroid asteroid) {
-		asteroid.Accept(this);
-		this.asteroid = asteroid;
-	}
+    public static void resetId() {
+        id = 0;
+    }
 
-	/**
-	 * Specifies if the robot can be crafted
-	 * @param rs - list of resources, should be the inventory of a player
-	 * @return - the given inventory minus the needed resources for crafting. If its size doesn't change,
-	 * then the robot cannot be crafted
-	 */
-	public static List<Resource> CanCraft(List<Resource> rs) {
-		List<Resource> list = robotBlueprint.IsCraftable(rs);
-		return list;
-	}
+    public int GetId() {
+        return idx;
+    }
+
+    /**
+     * The robot steps
+     */
+    public void Step() {
+        Main.println("Robot " + idx + " steps:");
+        if (asteroid.GetLayerThickness() > 0) {
+            Drill();
+        } else {
+            if (nextAsteroid.isEmpty()) {
+                MoveTo(asteroid.GetRandomNeighbor());
+            } else {
+                MoveTo(nextAsteroid.get(0));
+                nextAsteroid.remove(0);
+            }
+        }
+    }
+
+    public void SetNextAsteroid(Asteroid a) {
+        nextAsteroid.add(a);
+    }
+
+    /**
+     * An explosion hits the robot
+     * The robots is cast aside on a neighbor asteroid
+     */
+    public void Explode() {
+        Asteroid newAsteroid = asteroid.GetRandomNeighbor();
+        asteroid.Remove(this);
+        if (newAsteroid != null)
+            newAsteroid.Accept(this);
+        Main.println("Robot "+idx+" blown to "+newAsteroid.GetId());
+    }
+
+
+    /**
+     * Specifies if the robot can be crafted
+     *
+     * @param rs - list of resources, should be the inventory of a player
+     * @return - the given inventory minus the needed resources for crafting. If its size doesn't change,
+     * then the robot cannot be crafted
+     */
+    public static List<Resource> CanCraft(List<Resource> rs) {
+        List<Resource> list = robotBlueprint.IsCraftable(rs);
+        return list;
+    }
+
+    public String toString() {
+        return "\tRobot "+idx+"\n";
+    }
 }
