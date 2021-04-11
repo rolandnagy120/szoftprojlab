@@ -3,14 +3,12 @@ New round
 
 
 Player 1 steps:
-Robot crafted and placed
-Robot 0 steps:
+No more space in inventory to craft gates
 
 New round
 
 
 Player 1 steps:
-Robot 0 steps:
 Game Over!
 
 
@@ -21,13 +19,20 @@ Neighbours:
 layers: 0
 resource: empty
 nearsun: false
-Gates:No gates on asteroid
+Gates:
+	gate 0 connected to gate 1
 Entities: 
 
 	Player 1
 	inventory:
 		Iron
-		Coal
-		Uranium	Robot 0
+		Iron
+		Ice
+		Uranium
+			gate 1 connected to gate 0
+
+			gate 2 connected to gate 3
+
+			gate 3 connected to gate 2
 
 

@@ -3,14 +3,12 @@ New round
 
 
 Player 1 steps:
-Robot crafted and placed
-Robot 0 steps:
+Gates crafted
 
 New round
 
 
 Player 1 steps:
-Robot 0 steps:
 Game Over!
 
 
@@ -27,7 +25,11 @@ Entities:
 	Player 1
 	inventory:
 		Iron
-		Coal
-		Uranium	Robot 0
+		Iron
+		Ice
+		Uranium
+			gate 0 connected to gate 1
+
+			gate 1 connected to gate 0
 
 

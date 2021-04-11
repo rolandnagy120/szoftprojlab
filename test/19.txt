@@ -1,0 +1,31 @@
+reset
+create asteroid 1
+set asteroid 1 layer 0
+set asteroid 1 distant to sun
+create asteroid 2
+set asteroid 2 layer 0
+set asteroid 2 distant to sun
+create asteroid 3
+set asteroid 3 layer 0
+set asteroid 3 distant to sun
+set asteroid 1 neighbour 2
+set asteroid 2 neighbour 3
+create player 1 on asteroid 1
+create player 2 on asteroid 3
+add resource to player 1 ice
+add resource to player 1 ice
+add resource to player 1 ice
+add resource to player 1 iron
+add resource to player 1 iron
+add resource to player 1 iron
+add resource to player 1 coal
+add resource to player 1 coal
+add resource to player 1 coal
+add resource to player 2 uranium 3
+add resource to player 2 uranium 3
+add resource to player 2 uranium 3
+disable sunstorm
+disable asteroid sun distance change
+start game
+move 2
+move 2

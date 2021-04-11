@@ -3,14 +3,7 @@ New round
 
 
 Player 1 steps:
-Robot crafted and placed
-Robot 0 steps:
-
-New round
-
-
-Player 1 steps:
-Robot 0 steps:
+Already empty, can't mine.
 Game Over!
 
 
@@ -26,8 +19,4 @@ Entities:
 
 	Player 1
 	inventory:
-		Iron
-		Coal
-		Uranium	Robot 0
-
 

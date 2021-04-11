@@ -18,6 +18,7 @@ import szoftprojlab.resource.Resource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -145,7 +146,8 @@ public class Player extends Entity implements Miner {
                 }
 
             } catch (Exception e) {
-                e.printStackTrace();
+                if (e.equals(new NoSuchElementException()))
+                    e.printStackTrace();
                 //test file over end game
                 Game.getInstance().EndGame();
                 break;
@@ -178,8 +180,9 @@ public class Player extends Entity implements Miner {
      * @param resource
      */
     public boolean PlaceResource(Resource resource) {
-        if (inventory.contains(resource))
+        if (inventory.contains(resource)) {
             asteroid.Place(resource);
+        }
         else
             Main.println("Couldn't place resource");
         return true;

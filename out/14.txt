@@ -1,0 +1,29 @@
+
+New round
+
+
+Player 1 steps:
+Moved to Asteroid 1
+Robot 0 steps:
+Moved to Asteroid 1
+Uranium seen sun.
+The uranium exploded!
+Player 1 exploded.
+Robot 0 blown to 2
+Everyone died
+Game Over!
+
+
+Game Objects:
+
+
+Asteroid 2:
+Neighbours: 1 
+layers: 0
+resource: empty
+nearsun: true
+Gates:No gates on asteroid
+Entities: 
+	Robot 0
+
+

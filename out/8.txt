@@ -3,14 +3,12 @@ New round
 
 
 Player 1 steps:
-Robot crafted and placed
-Robot 0 steps:
+Couldn't place resource
 
 New round
 
 
 Player 1 steps:
-Robot 0 steps:
 Game Over!
 
 
@@ -18,7 +16,7 @@ Game Objects:
 
 Asteroid 1:
 Neighbours: 
-layers: 0
+layers: 1
 resource: empty
 nearsun: false
 Gates:No gates on asteroid
@@ -27,7 +25,4 @@ Entities:
 	Player 1
 	inventory:
 		Iron
-		Coal
-		Uranium	Robot 0
-
 

@@ -3,14 +3,8 @@ New round
 
 
 Player 1 steps:
-Robot crafted and placed
 Robot 0 steps:
-
-New round
-
-
-Player 1 steps:
-Robot 0 steps:
+SunStorm hit the field
 Game Over!
 
 
@@ -25,9 +19,6 @@ Gates:No gates on asteroid
 Entities: 
 
 	Player 1
-	inventory:
-		Iron
-		Coal
-		Uranium	Robot 0
+	inventory:	Robot 0
 
 

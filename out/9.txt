@@ -3,14 +3,21 @@ New round
 
 
 Player 1 steps:
-Robot crafted and placed
-Robot 0 steps:
+Drilling asteroid 1
+Asteroid breakthrough!
+Drilled
 
 New round
 
 
 Player 1 steps:
-Robot 0 steps:
+Mine successful
+Resource Iron added to inventory
+
+New round
+
+
+Player 1 steps:
 Game Over!
 
 
@@ -27,7 +34,4 @@ Entities:
 	Player 1
 	inventory:
 		Iron
-		Coal
-		Uranium	Robot 0
-
 

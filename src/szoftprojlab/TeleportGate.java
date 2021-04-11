@@ -115,6 +115,7 @@ public class TeleportGate implements Steppable {
         asteroid.RemoveTeleportGate(this);
         newAsteroid.PlaceTeleportGate(this);
         asteroid = newAsteroid;
+        Main.println("Gate " + idx + " Moved to another asteroid");
     }
 
     public String toString() {

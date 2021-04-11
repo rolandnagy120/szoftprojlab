@@ -59,7 +59,7 @@ public abstract class Entity implements Steppable {
      * @param newAsteroid - the next asteroid the entity will be on
      */
     public void MoveTo(Asteroid newAsteroid) {
-        if (asteroid.GetNeighbor(newAsteroid.GetId()) == null) {
+        if (newAsteroid == null || asteroid.GetNeighbor(newAsteroid.GetId()) == null) {
             return;
         }
 

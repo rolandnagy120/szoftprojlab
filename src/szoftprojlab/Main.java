@@ -6,6 +6,7 @@ import szoftprojlab.entity.Robot;
 import szoftprojlab.resource.*;
 
 import java.io.*;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -75,7 +76,7 @@ public class Main {
         //set sunstorm asteroid 1
         Pattern SunstormAsteroid = Pattern.compile("set\\s+sunstrom\\s+asteroid\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         //set sunstorm dept 1
-        Pattern SunstormDistance = Pattern.compile("set\\s+sunstrom\\s+dept\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
+        Pattern SunstormDistance = Pattern.compile("set\\s+sunstorm\\s+dept\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         //disable sundistance change
         Pattern DisableSundistanceChange = Pattern.compile("disable\\s+asteroid\\s+sun\\s+distance\\s+change", Pattern.CASE_INSENSITIVE);
         //
@@ -270,6 +271,8 @@ public class Main {
                     TeleportGate g2 = new TeleportGate();
                     g1.SetPair(g2);
                     g2.SetPair(g1);
+                    Timer.getInstance().AddSteppable(g1);
+                    Timer.getInstance().AddSteppable(g2);
                     if ("asteroid".equals(CreateGateM.group(1))) {
                         Asteroid a = game.GetAsteroid(Integer.parseInt(CreateGateM.group(2)));
                         a.PlaceTeleportGate(g1);
@@ -362,6 +365,7 @@ public class Main {
                         Sun.getInstance().SetSunstromAsteroid(a);
                     continue;
                 }
+
                 Matcher SunstormDistanceM = SunstormDistance.matcher(input);
                 if (SunstormDistanceM.find()) {
                     Sun.getInstance().SetSunstormDept(Integer.parseInt(SunstormDistanceM.group(1)));
@@ -392,7 +396,8 @@ public class Main {
 
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            if (e.equals(new NoSuchElementException()))
+                e.printStackTrace();
             return;
         }
 

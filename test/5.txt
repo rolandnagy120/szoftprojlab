@@ -4,9 +4,12 @@ set asteroid 1 layer 0
 set asteroid 1 distant to sun
 create player 1 on asteroid 1
 add resource to player 1 iron
-add resource to player 1 coal
-add resource to player 1 uranium seesun 3
+add resource to player 1 iron
+add resource to player 1 ice
+add resource to player 1 uranium nearsun 0
+create gate on asteroid 1 player 1
+create gate on player 1 player 1
 disable sunstorm
 disable asteroid sun distance change
 start game
-craft robot
+craft gates

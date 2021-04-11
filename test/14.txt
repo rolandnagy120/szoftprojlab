@@ -1,0 +1,18 @@
+reset
+create asteroid 1
+set asteroid 1 layer 0
+set asteroid 1 distant to sun
+create asteroid 2
+set asteroid 2 layer 0
+set asteroid 2 distant to sun
+set asteroid 1 resource uranium nearsun 2
+set asteroid 1 neighbour 2
+create player 1 on asteroid 2
+create robot on asteroid 2
+set asteroid 1 explosion neighbour 2
+set robot 0 next asteroid 1
+disable sunstorm
+enable asteroid sun distance change
+set sun asteroid sun distance change time 1
+start game
+move 1
