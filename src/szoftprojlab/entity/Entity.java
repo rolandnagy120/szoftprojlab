@@ -90,6 +90,7 @@ public abstract class Entity implements Steppable {
         Asteroid pairAsteroid = gate.GetPairAsteroid();
         asteroid.Remove(this);
         pairAsteroid.Accept(this);
+        Main.println("Teleported to "+pairAsteroid.GetId());
     }
 
     public List<Resource> GetInventory() {

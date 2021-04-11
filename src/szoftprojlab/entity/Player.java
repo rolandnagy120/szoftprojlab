@@ -119,7 +119,6 @@ public class Player extends Entity implements Miner {
 
                             if (String.valueOf(gateId).equals(selectedNeighbor)) {
                                 Teleport(gate);
-                                Main.println("Teleported");
                                 return;
                             }
                         }
