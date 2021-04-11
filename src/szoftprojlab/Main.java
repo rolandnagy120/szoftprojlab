@@ -78,6 +78,8 @@ public class Main {
         Pattern SunstormDistance = Pattern.compile("set\\s+sunstrom\\s+dept\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         //disable sundistance change
         Pattern DisableSundistanceChange = Pattern.compile("disable\\s+asteroid\\s+sun\\s+distance\\s+change", Pattern.CASE_INSENSITIVE);
+        //
+        Pattern EnableSundistanceChange = Pattern.compile("enable\\s+asteroid\\s+sun\\s+distance\\s+change", Pattern.CASE_INSENSITIVE);
         //set sun asteroid sun distance change time 10
         Pattern SetDistanceTime = Pattern.compile("set\\s+sun\\s+asteroid\\s+sun\\s+distance\\s+change\\s+time\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
 
@@ -377,6 +379,12 @@ public class Main {
                 Matcher SetDistanceTimeM = SetDistanceTime.matcher(input);
                 if (SetDistanceTimeM.find()) {
                     Sun.getInstance().SetSunDistanceChangeTime(Integer.parseInt(SetDistanceTimeM.group(1)));
+                    continue;
+                }
+
+                Matcher EnableSundistanceChangeM = EnableSundistanceChange.matcher(input);
+                if (EnableSundistanceChangeM.find()) {
+                    Sun.getInstance().EnableSunDistanceChange();
                     continue;
                 }
 
