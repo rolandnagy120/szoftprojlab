@@ -187,7 +187,7 @@ public class Main {
                     Asteroid a = game.GetAsteroid(Integer.parseInt(CreatePlayerM.group(2)));
                     if (a != null) {
                         Player p = new Player(CreatePlayerM.group(1));
-                        a.addEntity(p);
+                        a.Accept(p);
                         game.AddPlayer(p);
                     }
                     continue;
