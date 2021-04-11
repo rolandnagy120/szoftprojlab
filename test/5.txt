@@ -5,11 +5,16 @@ set asteroid 1 distant to sun
 create player 1 on asteroid 1
 add resource to player 1 iron
 add resource to player 1 iron
+add resource to player 1 iron
+add resource to player 1 iron
+add resource to player 1 ice
 add resource to player 1 ice
 add resource to player 1 uranium nearsun 0
-create gate on asteroid 1 player 1
+add resource to player 1 uranium nearsun 0
 create gate on player 1 player 1
 disable sunstorm
 disable asteroid sun distance change
 start game
+place gate
+craft gates
 craft gates

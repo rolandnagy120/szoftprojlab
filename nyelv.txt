@@ -11,8 +11,8 @@ set asteroid 1 layer 5 # az 1. aszteroida kérge 5-ös lesz
 set asteroid 1 resource uranium nearsun 2 #
 set asteroid 1 resource coal #
 create player csaba215 on asteroid 2 #
-add resource to player uranium seesun 1 #
-add resource to player coal #
+add resource to player 1 uranium nearsun 1 #
+add resource to player 1 coal #
 create alien on asteroid 1
 create robot on asteroid 1
 disable sunstorm

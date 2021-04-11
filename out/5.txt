@@ -3,6 +3,18 @@ New round
 
 
 Player 1 steps:
+Gate placed
+
+New round
+
+
+Player 1 steps:
+Gates crafted
+
+New round
+
+
+Player 1 steps:
 No more space in inventory to craft gates
 
 New round
@@ -27,7 +39,11 @@ Entities:
 	inventory:
 		Iron
 		Iron
+		Iron
+		Iron
 		Ice
+		Ice
+		Uranium
 		Uranium
 			gate 1 connected to gate 0
 
