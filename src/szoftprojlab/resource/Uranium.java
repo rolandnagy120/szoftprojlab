@@ -35,6 +35,7 @@ public class Uranium extends Resource {
      */
     @Override
     public void SeeSun(Asteroid asteroid) {
+        Main.println("Uranium seen sun.");
         seeSunsBeforeExplosion--;
         if (seeSunsBeforeExplosion == 0) {
             Main.println("The uranium exploded!");
