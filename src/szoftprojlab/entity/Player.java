@@ -180,8 +180,10 @@ public class Player extends Entity implements Miner {
      * @param resource
      */
     public boolean PlaceResource(Resource resource) {
-        if (inventory.contains(resource)) {
+        if (inventory.contains(resource) && asteroid.GetResourceName() != resource.getClass().getSimpleName()) {
             asteroid.Place(resource);
+            if (asteroid.GetResourceName() == resource.getClass().getSimpleName())
+                inventory.remove(resource);
         }
         else
             Main.println("Couldn't place resource");
