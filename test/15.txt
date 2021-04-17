@@ -1,6 +1,6 @@
 reset
 create asteroid 1
-set asteroid 1 layer 1
+set asteroid 1 layer 2
 set asteroid 1 distant to sun
 create player 1 on asteroid 1
 create robot on asteroid 1
