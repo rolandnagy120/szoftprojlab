@@ -267,8 +267,8 @@ public class Main {
 
                 Matcher CreateGateM = CreateGate.matcher(input);
                 if (CreateGateM.find()) {
-                    TeleportGate g1 = new TeleportGate();
                     TeleportGate g2 = new TeleportGate();
+                    TeleportGate g1 = new TeleportGate();
                     g1.SetPair(g2);
                     g2.SetPair(g1);
                     Timer.getInstance().AddSteppable(g1);
