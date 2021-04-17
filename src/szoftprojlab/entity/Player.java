@@ -75,7 +75,7 @@ public class Player extends Entity implements Miner {
                 Matcher MoveM = Move.matcher(input);
                 if (MoveM.find()) {
                     String selectedNeighbor = MoveM.group(1);
-                    var neighborIds = asteroid.GetNeighborsIds();
+                    int[] neighborIds = asteroid.GetNeighborsIds();
                     for (int id : neighborIds) {
                         if (String.valueOf(id).equals(selectedNeighbor)) {
                             MoveTo(asteroid.GetNeighbor(id));
@@ -109,14 +109,14 @@ public class Player extends Entity implements Miner {
 
                 Matcher TeleportMatcher = TeleportTo.matcher(input);
                 if (TeleportMatcher.find()) {
-                    var gates = asteroid.GetTeleportGates();
+                    List<TeleportGate> gates = asteroid.GetTeleportGates();
                     if (gates.size() == 0) {
                         Main.println("No gates on the asteroid");
                     } else {
                         String selectedNeighbor = TeleportMatcher.group(1);
                         for (TeleportGate gate : gates) {
 
-                            var pairId = gate.GetPairAsteroid().GetId();
+                            int pairId = gate.GetPairAsteroid().GetId();
 
                             if (String.valueOf(pairId).equals(selectedNeighbor)) {
                                 Teleport(gate);
@@ -128,7 +128,7 @@ public class Player extends Entity implements Miner {
 
                 Matcher PlaceResourceMatcher = PlaceResource.matcher(input);
                 if (PlaceResourceMatcher.find()) {
-                    var inventoryCopy = new ArrayList<>(inventory);
+                    List<Resource> inventoryCopy = new ArrayList<>(inventory);
                     AtomicBoolean resourceFound = new AtomicBoolean(false);
                     inventoryCopy.forEach(resource -> {
                         String className = resource.getClass().getSimpleName();
