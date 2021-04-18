@@ -9,7 +9,7 @@ New round
 
 
 Player 1 steps:
-Gate 0 Moved to another asteroid
+Gate 1 Moved to another asteroid
 Game Over!
 
 
@@ -20,7 +20,8 @@ Neighbours: 2
 layers: 0
 resource: empty
 nearsun: false
-Gates:No gates on asteroid
+Gates:
+	gate 0 connected to gate 1
 Entities: No entities on asteroid
 
 
@@ -30,7 +31,7 @@ layers: 0
 resource: empty
 nearsun: false
 Gates:
-	gate 0 connected to gate 1
+	gate 1 connected to gate 0
 Entities:
 
 	Player 1
@@ -41,6 +42,5 @@ Neighbours: 2
 layers: 0
 resource: empty
 nearsun: false
-Gates:
-	gate 1 connected to gate 0
+Gates:No gates on asteroid
 Entities: No entities on asteroid
