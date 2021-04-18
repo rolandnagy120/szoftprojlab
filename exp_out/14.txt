@@ -1,0 +1,21 @@
+New round
+
+
+Player 1 steps:
+Robot 0 steps:
+SunStorm hit the field
+Game Over!
+
+
+Game Objects:
+
+Asteroid 1:
+Neighbours: 
+layers: 0
+resource: empty
+nearsun: false
+Gates:No gates on asteroid
+Entities: 
+
+	Player 1
+	inventory:	Robot 0

@@ -1,0 +1,32 @@
+New round
+
+
+Player 1 steps:
+Gates crafted
+
+New round
+
+
+Player 1 steps:
+Game Over!
+
+
+Game Objects:
+
+Asteroid 1:
+Neighbours: 
+layers: 0
+resource: empty
+nearsun: false
+Gates:No gates on asteroid
+Entities: 
+
+	Player 1
+	inventory:
+		Iron
+		Iron
+		Ice
+		Uranium
+			gate 0 connected to gate 1
+
+			gate 1 connected to gate 0

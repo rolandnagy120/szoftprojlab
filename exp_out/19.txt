@@ -1,0 +1,55 @@
+New round
+
+Robot 0 steps:
+Moved to Asteroid 3
+
+Player 1 steps:
+Mine successful
+Resource Uranium added to inventory
+
+New round
+
+Robot 0 steps:
+Moved to Asteroid 2
+
+Player 1 steps:
+Teleported to 3
+
+New round
+
+Robot 0 steps:
+Moved to Asteroid 3
+
+Player 1 steps:
+Resource placed
+Uranium seen sun.
+The uranium exploded!
+Player 1 exploded.
+Robot 0 blown to 2
+TeleportGate 1 exploded.
+TeleportGate 0 exploded.
+Everyone died
+Game Over!
+
+
+Game Objects:
+
+Asteroid 1:
+Neighbours: 2
+layers: 0
+resource: empty
+nearsun: true
+Gates:
+	gate 3 connected to gate 2
+Entities: No entities on asteroid
+
+
+Asteroid 2:
+Neighbours: 1 3
+layers: 0
+resource: empty
+nearsun: true
+Gates:
+	gate 2 connected to gate 3
+Entities:
+	Robot 0

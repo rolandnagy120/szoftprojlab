@@ -1,0 +1,26 @@
+New round
+
+
+Player 1 steps:
+Couldn't place resource
+
+New round
+
+
+Player 1 steps:
+Game Over!
+
+
+Game Objects:
+
+Asteroid 1:
+Neighbours: 
+layers: 0
+resource: Coal
+nearsun: false
+Gates:No gates on asteroid
+Entities: 
+
+	Player 1
+	inventory:
+		Iron

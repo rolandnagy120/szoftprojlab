@@ -1,0 +1,25 @@
+New round
+
+
+Player 1 steps:
+Not enough resources to craft gates
+
+New round
+
+
+Player 1 steps:
+Game Over!
+
+
+Game Objects:
+
+Asteroid 1:
+Neighbours:
+layers: 0
+resource: empty
+nearsun: false
+Gates:No gates on asteroid
+Entities:
+
+	Player 1
+	inventory:

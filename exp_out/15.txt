@@ -1,0 +1,20 @@
+New round
+
+
+Player 1 steps:
+Robot 0 steps:
+Drilling asteroid 1
+SunStorm hit the field
+Everyone died
+Game Over!
+
+
+Game Objects:
+
+Asteroid 1:
+Neighbours:
+layers: 1
+resource: empty
+nearsun: false
+Gates:No gates on asteroid
+Entities: No entities on asteroid

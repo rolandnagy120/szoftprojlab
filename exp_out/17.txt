@@ -1,0 +1,46 @@
+New round
+
+
+Player 1 steps:
+Moved to Asteroid 2
+SunStorm hit the field
+
+New round
+
+
+Player 1 steps:
+Gate 0 Moved to another asteroid
+Game Over!
+
+
+Game Objects:
+
+Asteroid 1:
+Neighbours: 2
+layers: 0
+resource: empty
+nearsun: false
+Gates:No gates on asteroid
+Entities: No entities on asteroid
+
+
+Asteroid 2:
+Neighbours: 1 3
+layers: 0
+resource: empty
+nearsun: false
+Gates:
+	gate 0 connected to gate 1
+Entities:
+
+	Player 1
+	inventory:
+
+Asteroid 3:
+Neighbours: 2
+layers: 0
+resource: empty
+nearsun: false
+Gates:
+	gate 1 connected to gate 0
+Entities: No entities on asteroid

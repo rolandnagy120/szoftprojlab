@@ -1,0 +1,30 @@
+New round
+
+
+Player 1 steps:
+Inventory full, can't mine more
+Game Over!
+
+
+Game Objects:
+
+Asteroid 1:
+Neighbours: 
+layers: 0
+resource: Iron
+nearsun: false
+Gates:No gates on asteroid
+Entities: 
+
+	Player 1
+	inventory:
+		Iron
+		Iron
+		Iron
+		Iron
+		Iron
+		Iron
+		Iron
+		Iron
+		Iron
+		Iron
