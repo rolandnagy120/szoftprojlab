@@ -49,69 +49,6 @@ public class Game {
      * Starts the game
      */
     public void StartGame() {
-
-        /*
-        timer.ClearSteppables();
-        timer.AddSteppable(sun);
-        sun.ClearAsteroids();
-        sun.Init(10, 0.01);
-        */
-        /*
-        Player player1 = new Player("Player1");
-        Player player2 = new Player("Player2");
-        players.add(player1);
-        players.add(player2);
-        timer.AddSteppable(player1);
-        timer.AddSteppable(player2);
-
-        Asteroid a1 = new Asteroid(1, 1);
-        Asteroid a2 = new Asteroid(2, 1);
-        a1.AddNeighbor(a2);
-        a1.Accept(player1);
-        a1.Accept(player2);*/
-
-        /*
-
-        int numberOfAsteroids = 10;
-        var maxNeighbors = 4;
-
-        for (int i = 1; i <= numberOfAsteroids; i++) {
-            int asteroidLayer = 1;
-            var asteroid = new Asteroid(i, asteroidLayer);
-            asteroids.add(asteroid);
-            sun.AddAsteroid(asteroid);
-        }
-        for (Asteroid asteroid : asteroids) {
-            Main.setNeighbors(asteroid, asteroids, maxNeighbors);
-        }
-        asteroids.get(0).Accept(player1);
-        asteroids.get(0).Accept(player2);
-
-
-        int oneResourceCount = asteroids.size() / 5;
-        if (oneResourceCount == 0) oneResourceCount = 1;
-        int i = 0;
-        while (i < oneResourceCount && i < asteroids.size()) {
-            Coal coal = new Coal();
-            asteroids.get(i).AddResource(coal);
-            i++;
-        }
-        while (i < oneResourceCount * 2 && i < asteroids.size()) {
-            Ice ice = new Ice();
-            asteroids.get(i).AddResource(ice);
-            i++;
-        }
-        while (i < oneResourceCount * 3 && i < asteroids.size()) {
-            Iron iron = new Iron();
-            asteroids.get(i).AddResource(iron);
-            i++;
-        }
-        while (i < oneResourceCount * 4 && i < asteroids.size()) {
-            Uranium uranium = new Uranium();
-            asteroids.get(i).AddResource(uranium);
-            i++;
-        } */
-
         sun.ClearAsteroids();
         for (Asteroid a : asteroids) {
             sun.AddAsteroid(a);
@@ -119,7 +56,7 @@ public class Game {
         timer.AddSteppable(sun);
 
         endGame = false;
-
+        gameWon = false;
         while (!endGame && !gameWon) {
             Main.println("\nNew round\n");
             timer.Tick();
@@ -133,10 +70,6 @@ public class Game {
         Main.println("\n\nGame Objects:\n");
         for (Asteroid a : asteroids)
             Main.println(a.toString());
-        /*for (Player p :players)
-            Main.println(p.toString());
-        for(Entity e : entities)
-            Main.println(e.toString());*/
     }
 
     /**
@@ -174,10 +107,6 @@ public class Game {
         timer.AddSteppable(e);
     }
 
-   /* public void RemoveEntity(Entity e) {
-        entities.remove(e);
-    }*/
-
     /**
      * Ends the game
      */
@@ -212,9 +141,6 @@ public class Game {
      * @param resources - the summed inventory of the players on the same asteroid
      */
     public void CheckForVictory(List<Resource> resources) {
-        // playerben már kész a craft check
-//        baseBluebrint.IsCraftable(resources);
-
         List<Resource> inventoryAfterCrafting = baseBluebrint.IsCraftable(resources);
 
         if (inventoryAfterCrafting != null) {
@@ -223,6 +149,9 @@ public class Game {
         }
     }
 
+    /**
+     * Reset Game State to default for test
+     */
     public void reset() {
         players.clear();
         asteroids.clear();
@@ -243,6 +172,11 @@ public class Game {
         return singleClassInstance;
     }
 
+    /**
+     * Find and return Alien by id
+     * @param id
+     * @return
+     */
     public Alien GetAlien(int id) {
         for (Alien a : aliens)
             if (a.GetId() == id)
@@ -250,6 +184,11 @@ public class Game {
         return null;
     }
 
+    /**
+     * Find and return Robot by id
+     * @param id
+     * @return
+     */
     public Robot GetRobot(int id) {
         for (Robot r : robots)
             if (r.GetId() == id)
@@ -257,10 +196,18 @@ public class Game {
         return null;
     }
 
+    /**
+     *  Add alien to game
+     * @param a
+     */
     public void AddAlien(Alien a) {
         aliens.add(a);
     }
 
+    /**
+     * Add robot to game
+     * @param r
+     */
     public void AddRobot(Robot r) {
         robots.add(r);
     }

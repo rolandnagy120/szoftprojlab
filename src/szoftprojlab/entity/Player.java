@@ -184,8 +184,7 @@ public class Player extends Entity implements Miner {
             asteroid.Place(resource);
             if (asteroid.GetResourceName().equals(resource.getClass().getSimpleName()))
                 inventory.remove(resource);
-        }
-        else
+        } else
             Main.println("Couldn't place resource");
         return true;
     }
@@ -267,7 +266,10 @@ public class Player extends Entity implements Miner {
         return gates;
     }
 
-
+    /**
+     * Add asteroid to players inventory
+     * @param gate
+     */
     public void AddGate(TeleportGate gate) {
         gates.add(gate);
     }
@@ -306,18 +308,24 @@ public class Player extends Entity implements Miner {
         Game.getInstance().PlayerDie(this);
     }
 
+    /**
+     * Get Players name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Create String with Players state
+     */
     public String toString() {
         String ret = "\n\tPlayer " + name + "\n" +
                 "\tinventory:";
         for (Resource r : inventory) {
-            ret += "\n\t\t"+r.toString();
+            ret += "\n\t\t" + r.toString();
         }
-        for(TeleportGate g: gates)
-            ret += "\n\t\t"+g.toString();
+        for (TeleportGate g : gates)
+            ret += "\n\t\t" + g.toString();
         return ret;
     }
 }

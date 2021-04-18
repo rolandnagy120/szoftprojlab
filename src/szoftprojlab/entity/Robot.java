@@ -26,16 +26,26 @@ public class Robot extends Entity {
     private static int id = 0;
 
 
+    /**
+     * Create Robot with new id and place it on the asteroid.
+     * @param asteroid
+     */
     public Robot(Asteroid asteroid) {
         asteroid.Accept(this);
         this.asteroid = asteroid;
         idx = id++;
     }
 
+    /**
+     * Reset automatic id count
+     */
     public static void resetId() {
         id = 0;
     }
 
+    /**
+     * Return Robot id
+     */
     public int GetId() {
         return idx;
     }
@@ -70,7 +80,7 @@ public class Robot extends Entity {
         asteroid.Remove(this);
         if (newAsteroid != null)
             newAsteroid.Accept(this);
-        Main.println("Robot "+idx+" blown to "+newAsteroid.GetId());
+        Main.println("Robot " + idx + " blown to " + newAsteroid.GetId());
     }
 
 
@@ -87,6 +97,6 @@ public class Robot extends Entity {
     }
 
     public String toString() {
-        return "\tRobot "+idx+"\n";
+        return "\tRobot " + idx + "\n";
     }
 }
