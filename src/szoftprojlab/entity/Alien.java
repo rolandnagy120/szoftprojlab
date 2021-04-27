@@ -2,6 +2,7 @@ package szoftprojlab.entity;
 
 import szoftprojlab.Asteroid;
 import szoftprojlab.Main;
+import szoftprojlab.View;
 import szoftprojlab.resource.Resource;
 
 import java.util.ArrayList;
@@ -45,6 +46,11 @@ public class Alien extends Entity implements Miner {
     @Override
     public boolean Drill() {
         return false;
+    }
+
+    @Override
+    public void draw(Player activePlayer, View view) {
+        view.drawAlien(this);
     }
 
     @Override

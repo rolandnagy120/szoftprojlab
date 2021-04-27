@@ -13,6 +13,7 @@ package szoftprojlab.entity;
 import szoftprojlab.Asteroid;
 import szoftprojlab.Blueprint;
 import szoftprojlab.Main;
+import szoftprojlab.View;
 import szoftprojlab.resource.Coal;
 import szoftprojlab.resource.Iron;
 import szoftprojlab.resource.Resource;
@@ -69,6 +70,11 @@ public class Robot extends Entity {
 
     public void SetNextAsteroid(Asteroid a) {
         nextAsteroid.add(a);
+    }
+
+    @Override
+    public void draw(Player activePlayer, View view) {
+        view.drawRobot(this);
     }
 
     /**

@@ -101,4 +101,5 @@ public abstract class Entity implements Steppable {
         nextAsteroid.add(a);
     }
 
+    public abstract void draw(Player activePlayer, View view);
 }

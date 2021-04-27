@@ -20,6 +20,8 @@ public class Main {
 
 
     public static Scanner getGameInputScanner() {
+        if (GameInput == null)
+            GameInput = new Scanner(System.in);
         return GameInput;
     }
 
@@ -28,7 +30,8 @@ public class Main {
         process_input(new Scanner(System.in));
     }
 
-    public static void process_input(Scanner scanner) {
+    public static void process_input(Scanner _scanner) {
+        Scanner scanner = _scanner;
         //load test 1
         Pattern Load = Pattern.compile("load\\s+test\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         //save state
@@ -102,6 +105,7 @@ public class Main {
                     GameOutput.close();
                     GameOutput = new BufferedWriter(new OutputStreamWriter(System.out));
                     Main.println("Test results written to out/" + LoadM.group(1) + ".txt");
+                    GameInput = new Scanner(System.in);
                     continue;
                 }
 
@@ -137,6 +141,8 @@ public class Main {
                                 System.out.println("Error in closing the BufferedWriter" + ex);
                             }
                         }
+                    } else {
+                        game.StartGame();
                     }
                     continue;
                 }
@@ -405,6 +411,9 @@ public class Main {
 
     public static void println(String s) {
         //System.out.println(s);
+        if (GameOutput == null)
+            return;
+
         try {
             GameOutput.write(s + "\n");
             GameOutput.flush();

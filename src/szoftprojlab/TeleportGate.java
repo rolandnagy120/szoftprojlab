@@ -121,4 +121,8 @@ public class TeleportGate implements Steppable {
     public String toString() {
         return "\tgate " + idx + " connected to gate " + pair.idx + "\n";
     }
+
+    public void draw(View view) {
+        view.drawTeleportGate();
+    }
 }

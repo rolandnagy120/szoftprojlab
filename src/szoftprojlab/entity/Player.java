@@ -10,10 +10,7 @@ package szoftprojlab.entity;
 //
 
 
-import szoftprojlab.Game;
-import szoftprojlab.Main;
-import szoftprojlab.TeleportGate;
-import szoftprojlab.Timer;
+import szoftprojlab.*;
 import szoftprojlab.resource.Resource;
 
 import java.util.ArrayList;
@@ -45,10 +42,33 @@ public class Player extends Entity implements Miner {
         return inventory;
     }
 
+    @Override
+    public void draw(Player activePlayer, View view) {
+        boolean playerIsActive = this == activePlayer;
+        view.drawPlayer(this, playerIsActive);
+    }
+
+
     /**
      * Player steps
      */
     public void Step() {
+        updateViewForStepStart();
+        hanldeStepInput();
+        updateViewForStepEnd();
+    }
+
+    private void updateViewForStepStart() {
+        Game game = Game.getInstance();
+        game.drawRequired(this);
+    }
+
+    private void updateViewForStepEnd() {
+        Game game = Game.getInstance();
+        game.drawRequired(null);
+    }
+
+    private void hanldeStepInput() {
         Main.println("\nPlayer " + name + " steps:");
         //TODO
         //start sun storm asteroid idx dept
@@ -152,8 +172,6 @@ public class Player extends Entity implements Miner {
                 Game.getInstance().EndGame();
                 break;
             }
-
-
         }
     }
 

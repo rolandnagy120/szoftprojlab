@@ -35,6 +35,10 @@ public class Game {
     private int NearSunCycle = 10;
     private double SunStormProbability = 0.01;
 
+
+    private View view;
+    private Player activePlayer = null;
+
     /*
     Blueprint for the base
      */
@@ -45,10 +49,15 @@ public class Game {
             new Ice(), new Ice(), new Ice()
     );
 
+    public Game() {
+        view = new View(1000);
+    }
+
     /**
      * Starts the game
      */
     public void StartGame() {
+
         sun.ClearAsteroids();
         for (Asteroid a : asteroids) {
             sun.AddAsteroid(a);
@@ -212,4 +221,15 @@ public class Game {
         robots.add(r);
     }
 
+    public void drawRequired(Player activePlayer) {
+        this.activePlayer = activePlayer;
+        view.update(activePlayer);
+    }
+
+    public void drawRequiredForAsteroid(int i) {
+        if (asteroids.size() > i) {
+            Asteroid asteroid = asteroids.get(i);
+            asteroid.draw(activePlayer, view);
+        }
+    }
 }

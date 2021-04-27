@@ -13,6 +13,7 @@ package szoftprojlab;
 
 import szoftprojlab.entity.Entity;
 import szoftprojlab.entity.Miner;
+import szoftprojlab.entity.Player;
 import szoftprojlab.resource.Resource;
 
 import java.util.ArrayList;
@@ -41,6 +42,13 @@ public class Asteroid {
         idx = ID;
         layers = numberOfLayers;
         nearSun = false;
+    }
+
+    public void draw(Player activePlayer, View view) {
+        view.drawAsteroid(this);
+
+        gates.forEach(gate -> gate.draw(view));
+        entities.forEach(entity -> entity.draw(activePlayer, view));
     }
 
     /**
