@@ -47,17 +47,11 @@ public class View extends JFrame{
             }
         });
 
-        JButton btnNewButton_2 = new JButton("CreateRobot");
+        JButton btnNewButton_2 = new JButton("CraftRobot");
         btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 10));
 
-        JButton btnNewButton_3 = new JButton("CreateGate");
+        JButton btnNewButton_3 = new JButton("CraftGate");
         btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 10));
-
-        JButton btnNewButton_4 = new JButton("PlaceRobot");
-        btnNewButton_4.setFont(new Font("Tahoma", Font.PLAIN, 10));
-
-        JButton btnNewButton_5 = new JButton("PlaceGate");
-        btnNewButton_5.setFont(new Font("Tahoma", Font.PLAIN, 10));
 
         JButton btnNewButton_6 = new JButton("Mine");
         btnNewButton_6.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -77,35 +71,45 @@ public class View extends JFrame{
         fieldPanel = new JPanel();
         fieldPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 
-        JButton btnNewButton_7 = new JButton(" Place Resource");
+        JButton btnNewButton_7 = new JButton(" Place");
         btnNewButton_7.setFont(new Font("Tahoma", Font.PLAIN, 10));
         btnNewButton_7.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
             }
         });
+
+        JList list_2 = new JList();
+        list_2.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+
+        JLabel lblNewLabel_3 = new JLabel("Gates:");
         GroupLayout gl_panel_1 = new GroupLayout(panel_1);
         gl_panel_1.setHorizontalGroup(
                 gl_panel_1.createParallelGroup(Alignment.LEADING)
                         .addGroup(gl_panel_1.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-                                        .addComponent(list, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnNewButton_2)
-                                        .addComponent(btnNewButton_3, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnNewButton_4, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnNewButton_5, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnNewButton_6, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnNewButton_7, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE))
-                                .addGap(18)
-                                .addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
+                                        .addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+                                                .addGroup(gl_panel_1.createSequentialGroup()
+                                                        .addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+                                                                .addComponent(btnNewButton_7, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(btnNewButton_6, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(lblNewLabel_1, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                                                                .addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                                                                .addComponent(btnNewButton_3, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                                                                .addComponent(list, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                                                                .addComponent(btnNewButton_1, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                                                                .addComponent(btnNewButton_2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE))
+                                                        .addGap(10))
+                                                .addGroup(gl_panel_1.createSequentialGroup()
+                                                        .addComponent(list_2, GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                                                        .addPreferredGap(ComponentPlacement.RELATED)))
                                         .addGroup(gl_panel_1.createSequentialGroup()
-                                                .addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-                                                .addGap(696))
-                                        .addGroup(Alignment.LEADING, gl_panel_1.createParallelGroup(Alignment.TRAILING, false)
+                                                .addComponent(lblNewLabel_3)
+                                                .addPreferredGap(ComponentPlacement.RELATED)))
+                                .addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+                                        .addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING, false)
                                                 .addComponent(fieldPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(list_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)))
                                 .addContainerGap())
@@ -114,7 +118,7 @@ public class View extends JFrame{
                 gl_panel_1.createParallelGroup(Alignment.LEADING)
                         .addGroup(gl_panel_1.createSequentialGroup()
                                 .addGap(8)
-                                .addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+                                .addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING, false)
                                         .addGroup(gl_panel_1.createSequentialGroup()
                                                 .addComponent(lblNewLabel_1)
                                                 .addGap(9)
@@ -124,26 +128,27 @@ public class View extends JFrame{
                                                 .addPreferredGap(ComponentPlacement.RELATED)
                                                 .addComponent(btnNewButton_3, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(ComponentPlacement.RELATED)
-                                                .addComponent(btnNewButton_4, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(ComponentPlacement.RELATED)
-                                                .addComponent(btnNewButton_5, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-                                                .addGap(4)
                                                 .addComponent(btnNewButton_6, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(ComponentPlacement.RELATED)
                                                 .addComponent(btnNewButton_7, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+                                                .addGap(68)
+                                                .addComponent(lblNewLabel_3)
                                                 .addPreferredGap(ComponentPlacement.RELATED)
-                                                .addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-                                                .addGap(113)
+                                                .addComponent(list_2, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(ComponentPlacement.RELATED)
                                                 .addComponent(lblNewLabel)
                                                 .addPreferredGap(ComponentPlacement.RELATED)
-                                                .addComponent(list, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(list, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addPreferredGap(ComponentPlacement.RELATED))
                                         .addGroup(gl_panel_1.createSequentialGroup()
                                                 .addComponent(fieldPanel, GroupLayout.PREFERRED_SIZE, 437, GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(ComponentPlacement.RELATED)
                                                 .addComponent(lblNewLabel_2)
                                                 .addPreferredGap(ComponentPlacement.UNRELATED)
                                                 .addComponent(list_1, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap())
+                                .addGap(11))
         );
         panel_1.setLayout(gl_panel_1);
 
