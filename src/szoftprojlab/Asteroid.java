@@ -32,10 +32,16 @@ public class Asteroid {
     private Asteroid explosionNeighbour = null;
     private boolean exploded=false;
 
+    private int x = 0;
+    private int y = 0;
 
-    public Asteroid(int ID) {
+    public Asteroid(int ID, int x, int y) {
         idx = ID;
         nearSun = false;
+        this.x = x;
+        this.y = y;
+        System.out.println(this.x);
+        System.out.println(this.y);
     }
 
     public Asteroid(int ID, int numberOfLayers) {
@@ -391,4 +397,15 @@ public class Asteroid {
         nearSun = false;
     }
 
+    /**
+     * Returns the x coordinate of the asteroid
+     * @return  x coordinate
+     */
+    public int GetX() { return this.x; }
+
+    /**
+     * Returns the y coorinate of the asteroid
+     * @return  y coorinate
+     */
+    public int GetY() { return this.y; }
 }

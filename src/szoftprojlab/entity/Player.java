@@ -91,7 +91,7 @@ public class Player extends Entity implements Miner {
         Pattern PlaceResource = Pattern.compile("place resource\\s+([a-zA-Z]+)", Pattern.CASE_INSENSITIVE);
         while (true) {
             try {
-                String input = Main.getGameInputScanner().nextLine();
+                String input = Main.GetNextCommand();
                 Matcher MoveM = Move.matcher(input);
                 if (MoveM.find()) {
                     String selectedNeighbor = MoveM.group(1);

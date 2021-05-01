@@ -39,22 +39,23 @@ public class View extends JFrame{
         JButton btnNewButton_1 = new JButton("Drill");
         btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 10));
         btnNewButton_1.setVerticalAlignment(SwingConstants.TOP);
+        btnNewButton_1.addActionListener(e -> Main.AddCommand("Drill"));
 
         JButton btnNewButton = new JButton("Move");
         btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
-        btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            }
-        });
+        btnNewButton.addActionListener(e -> Main.AddCommand("start move"));
 
         JButton btnNewButton_2 = new JButton("CraftRobot");
         btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 10));
+        btnNewButton_2.addActionListener(e -> Main.AddCommand("craft robot"));
 
         JButton btnNewButton_3 = new JButton("CraftGate");
         btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 10));
+        btnNewButton_3.addActionListener(e -> Main.AddCommand("craft gates"));
 
         JButton btnNewButton_6 = new JButton("Mine");
         btnNewButton_6.setFont(new Font("Tahoma", Font.PLAIN, 10));
+        btnNewButton_6.addActionListener(e -> Main.AddCommand("mine"));
 
         JList list = new JList();
         list.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -166,11 +167,13 @@ public class View extends JFrame{
 
         JMenuItem mntmNewMenuItem_2 = new JMenuItem("Quit");
         mnNewMenu.add(mntmNewMenuItem_2);
+        mntmNewMenuItem_2.addActionListener(e -> Runtime.getRuntime().exit(0));
 
         setSize(900, 660);
         setVisible(true);
 
         setAlwaysOnTop(true);
+        setResizable(false);
     }
 
     private int fieldWidth = 665;
@@ -185,10 +188,14 @@ public class View extends JFrame{
     }
 
     private void drawImageAtRandom(String path) {
+        int x = rnd.nextInt(fieldWidth);
+        int y = rnd.nextInt(fieldHeight);
+        drawImageAt(path, x, y);
+    }
+
+    private void drawImageAt(String path, int x, int y) {
         try {
             BufferedImage image = ImageIO.read(new File(path));
-            int x = rnd.nextInt(fieldWidth);
-            int y = rnd.nextInt(fieldHeight);
             fieldPanel.getGraphics().drawImage(image, x, y, null);
         } catch (IOException e) {
             e.printStackTrace();
@@ -196,7 +203,9 @@ public class View extends JFrame{
     }
 
     public void drawAsteroid(Asteroid a) {
-        drawImageAtRandom("assets/asteroid.png");
+        int x = a.GetX();
+        int y = a.GetY();
+        drawImageAt("assets/asteroid.png", x, y);
     }
 
     public void drawPlayer(Player p, boolean active) {

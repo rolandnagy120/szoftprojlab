@@ -6,6 +6,8 @@ import szoftprojlab.entity.Robot;
 import szoftprojlab.resource.*;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -26,8 +28,54 @@ public class Main {
     }
 
     public static void main(String[] args) {
+
+        AddCommand("reset");
+        AddCommand("create asteroid 1 100 100");
+        AddCommand("create asteroid 2 200 200");
+        AddCommand("create asteroid 3 300 300");
+        AddCommand("set asteroid 1 neighbour 2");
+        AddCommand("set asteroid 2 neighbour 3");
+        AddCommand("set asteroid 3 layer 3");
+        AddCommand("set asteroid 1 layer 3");
+        AddCommand("set asteroid 2 layer 3");
+        AddCommand("set asteroid 1 distant to sun");
+        AddCommand("set asteroid 2 distant to sun");
+        AddCommand("set asteroid 3 distant to sun");
+        AddCommand("create gate on asteroid 1 asteroid 3");
+        AddCommand("create gate on asteroid 2 asteroid 1");
+        AddCommand("create robot on asteroid 2");
+        AddCommand("create player 1 on asteroid 1");
+        AddCommand("create player 2 on asteroid 1");
+        AddCommand("set robot 0 next asteroid 3");
+        AddCommand("set robot 0 next asteroid 2");
+        AddCommand("set robot 0 next asteroid 3");
+        AddCommand("disable sunstorm");
+        AddCommand("set robot 0 next asteroid 2");
+        AddCommand("start game");
+
         GameOutput = new BufferedWriter(new OutputStreamWriter(System.out));
         process_input(new Scanner(System.in));
+    }
+
+    private static List<String> commands = new ArrayList<>();
+
+    private static Scanner consoleScanner = new Scanner(System.in);
+
+    public static void AddCommand(String command) {
+        commands.add(command);
+    }
+
+    public static String GetNextCommand() {
+        while (commands.size() == 0) {
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        String command = commands.get(0);
+        commands.remove(0);
+        return command;
     }
 
     public static void process_input(Scanner _scanner) {
@@ -39,7 +87,7 @@ public class Main {
         //Add a Neighbouring Asteroid to an asteroid
         Pattern SetAsteroidNeighbour = Pattern.compile("set\\s+asteroid\\s+([0-9]+)\\s+neighbour\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         //Create Asteroid
-        Pattern CreateAsteroid = Pattern.compile("create\\s+asteroid\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
+        Pattern CreateAsteroid = Pattern.compile("create\\s+asteroid ([0-9]+) ([0-9]+) ([0-9]+)", Pattern.CASE_INSENSITIVE);
         //Start game
         Pattern StartGame = Pattern.compile("start\\s+game", Pattern.CASE_INSENSITIVE);
         //Set asteroid layer
@@ -90,7 +138,7 @@ public class Main {
 
         try {
             while (true) {
-                String input = scanner.nextLine();
+                String input = GetNextCommand();
 
                 Matcher LoadM = Load.matcher(input);
                 if (LoadM.find()) {
@@ -150,8 +198,12 @@ public class Main {
                 Matcher CreateAsteroidM = CreateAsteroid.matcher(input);
                 if (CreateAsteroidM.find()) {
                     int id = Integer.parseInt(CreateAsteroidM.group(1));
-                    if (game.GetAsteroid(id) == null)
-                        game.AddAsteroid(new Asteroid(id));
+                    int x = Integer.parseInt(CreateAsteroidM.group(2));
+                    int y = Integer.parseInt(CreateAsteroidM.group(3));
+                    if (game.GetAsteroid(id) == null) {
+                        Asteroid asteroid = new Asteroid(id, x, y);
+                        game.AddAsteroid(asteroid);
+                    }
                     continue;
                 }
 

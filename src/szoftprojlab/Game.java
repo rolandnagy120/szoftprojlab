@@ -76,9 +76,9 @@ public class Game {
             }
         }
         Main.println("Game Over!");
-        Main.println("\n\nGame Objects:\n");
-        for (Asteroid a : asteroids)
-            Main.println(a.toString());
+//        Main.println("\n\nGame Objects:\n");
+//        for (Asteroid a : asteroids)
+//            Main.println(a.toString());
     }
 
     /**
