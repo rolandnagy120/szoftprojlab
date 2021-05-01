@@ -34,6 +34,8 @@ public class Asteroid {
 
     private int x = 0;
     private int y = 0;
+    public static final int size = 50;
+    public boolean canMoveHere = false;
 
     public Asteroid(int ID, int x, int y) {
         idx = ID;
@@ -408,4 +410,8 @@ public class Asteroid {
      * @return  y coorinate
      */
     public int GetY() { return this.y; }
+
+    public boolean IsClicked(int clickX, int clickY) {
+        return (clickX >= x && clickX <= x + size) && (clickY >= y && clickY <= y + size);
+    }
 }

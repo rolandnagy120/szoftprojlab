@@ -64,6 +64,8 @@ public class Game {
         }
         timer.AddSteppable(sun);
 
+        view.update((Player) null);
+
         endGame = false;
         gameWon = false;
         while (!endGame && !gameWon) {
@@ -221,15 +223,67 @@ public class Game {
         robots.add(r);
     }
 
-    public void drawRequired(Player activePlayer) {
+    /**
+     * Calls the update on view
+     * The view will show the current state of the game
+     * @param activePlayer  the active player
+     * @param listenForMove does the player want to move (if yes, then the asteroids need highlighting
+     */
+    public void drawRequired(Player activePlayer, boolean listenForMove) {
         this.activePlayer = activePlayer;
+        if (listenForMove)
+            updateAsteroidsWherePlayerCanMoveTo(activePlayer);
+        else
+            disableCanMoveForAsteroids();
         view.update(activePlayer);
     }
 
+    /**
+     * Find the asteroid from the given index,
+     * and if found, call the draw on it
+     * @param i index of the asteroid
+     */
     public void drawRequiredForAsteroid(int i) {
         if (asteroids.size() > i) {
             Asteroid asteroid = asteroids.get(i);
             asteroid.draw(activePlayer, view);
         }
+    }
+
+    /**
+     * Finds the asteroid where the player can move to, and
+     * sets their canMoveHere property to true, so they will
+     * be highlighted on the repaint
+     * @param player    the player that wants to move
+     */
+    private void updateAsteroidsWherePlayerCanMoveTo(Player player) {
+        Asteroid a = player.GetAsteroid();
+        int[] neighborIds = a.GetNeighborsIds();
+        for (int id: neighborIds) {
+            Asteroid neighbor = a.GetNeighbor(id);
+            neighbor.canMoveHere = true;
+        }
+        a.GetTeleportGates().forEach(gate -> gate.GetPairAsteroid().canMoveHere = true);
+    }
+
+    /**
+     * Sets the canMoveHere for every asteroid
+     */
+    private void disableCanMoveForAsteroids() {
+        asteroids.forEach(asteroid -> asteroid.canMoveHere = false);
+    }
+
+    /**
+     * Get the id of the asteroid, where the x y coordinates are on the asteroid
+     * @param x x coordinate of the click
+     * @param y y coordinate of the click
+     * @return  the clicked asteroid id of -1 if none were clicked
+     */
+    public int GetClickedAsteroidId(int x, int y) {
+        for (Asteroid a: asteroids) {
+            if (a.IsClicked(x, y))
+                return a.GetId();
+        }
+        return -1;
     }
 }

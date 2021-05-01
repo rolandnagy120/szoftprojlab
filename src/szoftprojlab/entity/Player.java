@@ -60,12 +60,12 @@ public class Player extends Entity implements Miner {
 
     private void updateViewForStepStart() {
         Game game = Game.getInstance();
-        game.drawRequired(this);
+        game.drawRequired(this, false);
     }
 
     private void updateViewForStepEnd() {
         Game game = Game.getInstance();
-        game.drawRequired(null);
+        game.drawRequired(null, false);
     }
 
     private void hanldeStepInput() {
@@ -89,6 +89,8 @@ public class Player extends Entity implements Miner {
         Pattern TeleportTo = Pattern.compile("teleport to\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         // Place back the given resource (ex: place Uranium)
         Pattern PlaceResource = Pattern.compile("place resource\\s+([a-zA-Z]+)", Pattern.CASE_INSENSITIVE);
+        // Start listening for an asteroid click to move to
+        Pattern ListenForMove = Pattern.compile("listen for move", Pattern.CASE_INSENSITIVE);
         while (true) {
             try {
                 String input = Main.GetNextCommand();
@@ -100,6 +102,18 @@ public class Player extends Entity implements Miner {
                         if (String.valueOf(id).equals(selectedNeighbor)) {
                             MoveTo(asteroid.GetNeighbor(id));
                             return;
+                        }
+                    }
+                    List<TeleportGate> gates = asteroid.GetTeleportGates();
+                    if (gates.size() > 0) {
+                        for (TeleportGate gate : gates) {
+
+                            int pairId = gate.GetPairAsteroid().GetId();
+
+                            if (String.valueOf(pairId).equals(selectedNeighbor)) {
+                                Teleport(gate);
+                                return;
+                            }
                         }
                     }
                     Main.println("Neighbor with id " + selectedNeighbor + " not found");
@@ -117,34 +131,40 @@ public class Player extends Entity implements Miner {
                         }
                     }
                 } else if (CraftRobot.matcher(input).find()) {
-                    MakeAndPlaceRobot();
-                    return;
+                    boolean success = MakeAndPlaceRobot();
+                    if (success)
+                        return;
+                    continue;
                 } else if (CraftGates.matcher(input).find()) {
-                    MakeGates();
-                    return;
+                    boolean success = MakeGates();
+                    if (success)
+                        return;
+                    continue;
                 } else if (PlaceGate.matcher(input).find()) {
-                    this.PlaceGate();
-                    return;
+                    boolean success = this.PlaceGate();
+                    if (success)
+                        return;
+                    continue;
                 }
 
-                Matcher TeleportMatcher = TeleportTo.matcher(input);
-                if (TeleportMatcher.find()) {
-                    List<TeleportGate> gates = asteroid.GetTeleportGates();
-                    if (gates.size() == 0) {
-                        Main.println("No gates on the asteroid");
-                    } else {
-                        String selectedNeighbor = TeleportMatcher.group(1);
-                        for (TeleportGate gate : gates) {
-
-                            int pairId = gate.GetPairAsteroid().GetId();
-
-                            if (String.valueOf(pairId).equals(selectedNeighbor)) {
-                                Teleport(gate);
-                                return;
-                            }
-                        }
-                    }
-                }
+//                Matcher TeleportMatcher = TeleportTo.matcher(input);
+//                if (TeleportMatcher.find()) {
+//                    List<TeleportGate> gates = asteroid.GetTeleportGates();
+//                    if (gates.size() == 0) {
+//                        Main.println("No gates on the asteroid");
+//                    } else {
+//                        String selectedNeighbor = TeleportMatcher.group(1);
+//                        for (TeleportGate gate : gates) {
+//
+//                            int pairId = gate.GetPairAsteroid().GetId();
+//
+//                            if (String.valueOf(pairId).equals(selectedNeighbor)) {
+//                                Teleport(gate);
+//                                return;
+//                            }
+//                        }
+//                    }
+//                }
 
                 Matcher PlaceResourceMatcher = PlaceResource.matcher(input);
                 if (PlaceResourceMatcher.find()) {
@@ -163,6 +183,11 @@ public class Player extends Entity implements Miner {
                     } else {
                         return;
                     }
+                }
+
+                Matcher ListenForMoveMatcher = ListenForMove.matcher(input);
+                if (ListenForMoveMatcher.find()) {
+                    Game.getInstance().drawRequired(this, true);
                 }
 
             } catch (Exception e) {
@@ -215,10 +240,11 @@ public class Player extends Entity implements Miner {
             asteroid.PlaceTeleportGate(gates.get(0));
             gates.remove(0);
             Main.println("Gate placed");
-        } else if (gates.size() == 0) {
-            Main.println("No gates to place");
+            return true;
         }
-        return true;
+
+        Main.println("No gates to place");
+        return false;
     }
 
     /**
@@ -247,10 +273,11 @@ public class Player extends Entity implements Miner {
             timer.AddSteppable(tg2);
 
             Main.println("Gates crafted");
-        } else {
-            Main.println("Not enough resources to craft gates");
+            return true;
         }
-        return true;
+
+        Main.println("Not enough resources to craft gates");
+        return false;
     }
 
     /**

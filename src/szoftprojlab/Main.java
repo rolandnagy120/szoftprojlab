@@ -30,11 +30,14 @@ public class Main {
     public static void main(String[] args) {
 
         AddCommand("reset");
-        AddCommand("create asteroid 1 100 100");
-        AddCommand("create asteroid 2 200 200");
-        AddCommand("create asteroid 3 300 300");
+        AddCommand("create asteroid 1 0 000");
+        AddCommand("create asteroid 2 0 100");
+        AddCommand("create asteroid 3 0 200");
+        AddCommand("create asteroid 4 0 300");
         AddCommand("set asteroid 1 neighbour 2");
         AddCommand("set asteroid 2 neighbour 3");
+        AddCommand("set asteroid 3 neighbour 4");
+        AddCommand("set asteroid 4 neighbour 1");
         AddCommand("set asteroid 3 layer 3");
         AddCommand("set asteroid 1 layer 3");
         AddCommand("set asteroid 2 layer 3");
@@ -45,7 +48,7 @@ public class Main {
         AddCommand("create gate on asteroid 2 asteroid 1");
         AddCommand("create robot on asteroid 2");
         AddCommand("create player 1 on asteroid 1");
-        AddCommand("create player 2 on asteroid 1");
+        AddCommand("create player 2 on asteroid 4");
         AddCommand("set robot 0 next asteroid 3");
         AddCommand("set robot 0 next asteroid 2");
         AddCommand("set robot 0 next asteroid 3");

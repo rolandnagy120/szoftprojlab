@@ -12,6 +12,8 @@ import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +45,7 @@ public class View extends JFrame{
 
         JButton btnNewButton = new JButton("Move");
         btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
-        btnNewButton.addActionListener(e -> Main.AddCommand("start move"));
+        btnNewButton.addActionListener(e -> Main.AddCommand("listen for move"));
 
         JButton btnNewButton_2 = new JButton("CraftRobot");
         btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -169,6 +171,21 @@ public class View extends JFrame{
         mnNewMenu.add(mntmNewMenuItem_2);
         mntmNewMenuItem_2.addActionListener(e -> Runtime.getRuntime().exit(0));
 
+
+        fieldPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                Game game = Game.getInstance();
+                int clickedAsteroid = game.GetClickedAsteroidId(e.getX(), e.getY());
+                if (clickedAsteroid != -1)
+                    Main.AddCommand("move " + clickedAsteroid);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+        });
+
         setSize(900, 660);
         setVisible(true);
 
@@ -183,6 +200,14 @@ public class View extends JFrame{
 
     private Random rnd = new Random();
 
+    private Asteroid currentAsteroid = null;
+    private int asteroidThingCount = 0;
+
+    private int playerSize = 50;
+    private int robotSize = 50;
+    private int alienSize = 50;
+    private int gateSize = 50;
+
     public void clearField() {
         fieldPanel.repaint();
     }
@@ -190,27 +215,35 @@ public class View extends JFrame{
     private void drawImageAtRandom(String path) {
         int x = rnd.nextInt(fieldWidth);
         int y = rnd.nextInt(fieldHeight);
-        drawImageAt(path, x, y);
+        drawImageAt(path, x, y, 50, 50);
     }
 
-    private void drawImageAt(String path, int x, int y) {
+    private void drawImageAt(String path, int x, int y, int w, int h) {
         try {
             BufferedImage image = ImageIO.read(new File(path));
-            fieldPanel.getGraphics().drawImage(image, x, y, null);
+            fieldPanel.getGraphics().drawImage(image, x + asteroidThingCount++ * Asteroid.size, y, w, h, null);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void drawAsteroid(Asteroid a) {
+        currentAsteroid = a;
+        asteroidThingCount = 0;
+
         int x = a.GetX();
         int y = a.GetY();
-        drawImageAt("assets/asteroid.png", x, y);
+
+        String path = a.canMoveHere ? "assets/asteroid_outlined.png" : "assets/asteroid.png";
+
+        drawImageAt(path, x, y, Asteroid.size, Asteroid.size);
     }
 
     public void drawPlayer(Player p, boolean active) {
         String imgPath = active ? "assets/spaceship_outlined.png" : "assets/spaceship.png";
-        drawImageAtRandom(imgPath);
+        int x = currentAsteroid.GetX();
+        int y = currentAsteroid.GetY();
+        drawImageAt(imgPath, x, y, playerSize, playerSize);
     }
 
     public void update(Player activePlayer) {
@@ -223,14 +256,20 @@ public class View extends JFrame{
     }
 
     public void drawTeleportGate() {
-        drawImageAtRandom("assets/teleport_gate.png");
+        int x = currentAsteroid.GetX();
+        int y = currentAsteroid.GetY();
+        drawImageAt("assets/teleport_gate.png", x, y, gateSize, gateSize);
     }
 
     public void drawRobot(Robot robot) {
-        drawImageAtRandom("assets/robot.png");
+        int x = currentAsteroid.GetX();
+        int y = currentAsteroid.GetY();
+        drawImageAt("assets/robot.png", x, y, robotSize, robotSize);
     }
 
     public void drawAlien(Alien alien) {
-        drawImageAtRandom("assets/alien.png");
+        int x = currentAsteroid.GetX();
+        int y = currentAsteroid.GetY();
+        drawImageAt("assets/alien.png", x, y, alienSize, alienSize);
     }
 }
