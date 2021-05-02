@@ -29,32 +29,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        AddCommand("reset");
-        AddCommand("create asteroid 1 0 000");
-        AddCommand("create asteroid 2 0 100");
-        AddCommand("create asteroid 3 0 200");
-        AddCommand("create asteroid 4 0 300");
-        AddCommand("set asteroid 1 neighbour 2");
-        AddCommand("set asteroid 2 neighbour 3");
-        AddCommand("set asteroid 3 neighbour 4");
-        AddCommand("set asteroid 4 neighbour 1");
-        AddCommand("set asteroid 3 layer 3");
-        AddCommand("set asteroid 1 layer 3");
-        AddCommand("set asteroid 2 layer 3");
-        AddCommand("set asteroid 1 distant to sun");
-        AddCommand("set asteroid 2 distant to sun");
-        AddCommand("set asteroid 3 distant to sun");
-        AddCommand("create gate on asteroid 1 asteroid 3");
-        AddCommand("create gate on asteroid 2 asteroid 1");
-        AddCommand("create robot on asteroid 2");
-        AddCommand("create player 1 on asteroid 1");
-        AddCommand("create player 2 on asteroid 4");
-        AddCommand("set robot 0 next asteroid 3");
-        AddCommand("set robot 0 next asteroid 2");
-        AddCommand("set robot 0 next asteroid 3");
-        AddCommand("disable sunstorm");
-        AddCommand("set robot 0 next asteroid 2");
-        AddCommand("start game");
+        SetupMap();
 
         GameOutput = new BufferedWriter(new OutputStreamWriter(System.out));
         process_input(new Scanner(System.in));
@@ -477,4 +452,78 @@ public class Main {
         }
     }
 
+
+    private static void SetupMap() {
+        AddCommand("reset");
+        AddCommand("create asteroid 1 0 0");
+        AddCommand("create asteroid 2 60 0");
+        AddCommand("create asteroid 3 120 0");
+        AddCommand("create asteroid 4 180 0");
+        AddCommand("create asteroid 5 240 0");
+        AddCommand("create asteroid 6 300 0");
+        AddCommand("create asteroid 7 360 0");
+        AddCommand("create asteroid 8 420 0");
+        AddCommand("create asteroid 9 480 0");
+        AddCommand("create asteroid 10 540 0");
+        AddCommand("create asteroid 11 600 0");
+        AddCommand("create asteroid 12 660 0");
+        AddCommand("set asteroid 1 neighbour 2");
+        AddCommand("set asteroid 2 neighbour 3");
+        AddCommand("set asteroid 3 neighbour 4");
+        AddCommand("set asteroid 4 neighbour 5");
+        AddCommand("set asteroid 5 neighbour 6");
+        AddCommand("set asteroid 6 neighbour 7");
+        AddCommand("set asteroid 7 neighbour 8");
+        AddCommand("set asteroid 8 neighbour 9");
+        AddCommand("set asteroid 9 neighbour 10");
+        AddCommand("set asteroid 10 neighbour 11");
+        AddCommand("set asteroid 11 neighbour 12");
+        AddCommand("set asteroid 12 neighbour 1");
+        AddCommand("set asteroid 1 layer 3");
+        AddCommand("set asteroid 2 layer 3");
+        AddCommand("set asteroid 3 layer 3");
+        AddCommand("set asteroid 4 layer 3");
+        AddCommand("set asteroid 5 layer 3");
+        AddCommand("set asteroid 6 layer 3");
+        AddCommand("set asteroid 7 layer 3");
+        AddCommand("set asteroid 8 layer 3");
+        AddCommand("set asteroid 9 layer 3");
+        AddCommand("set asteroid 10 layer 3");
+        AddCommand("set asteroid 11 layer 3");
+        AddCommand("set asteroid 12 layer 3");
+        AddCommand("set asteroid 1 resource iron");
+        AddCommand("set asteroid 2 resource coal");
+        AddCommand("set asteroid 3 resource uranium");
+        AddCommand("set asteroid 4 resource ice");
+        AddCommand("set asteroid 5 resource iron");
+        AddCommand("set asteroid 6 resource coal");
+        AddCommand("set asteroid 7 resource uranium");
+        AddCommand("set asteroid 8 resource ice");
+        AddCommand("set asteroid 9 resource iron");
+        AddCommand("set asteroid 10 resource coal");
+        AddCommand("set asteroid 11 resource uranium");
+        AddCommand("set asteroid 12 resource ice");
+        AddCommand("set asteroid 1 distant to sun");
+        AddCommand("set asteroid 2 distant to sun");
+        AddCommand("set asteroid 3 distant to sun");
+        AddCommand("set asteroid 4 distant to sun");
+        AddCommand("set asteroid 5 distant to sun");
+        AddCommand("set asteroid 6 distant to sun");
+        AddCommand("set asteroid 7 distant to sun");
+        AddCommand("set asteroid 8 distant to sun");
+        AddCommand("set asteroid 9 distant to sun");
+        AddCommand("set asteroid 10 distant to sun");
+        AddCommand("set asteroid 11 distant to sun");
+        AddCommand("set asteroid 12 distant to sun");
+        AddCommand("create robot on asteroid 2");
+        AddCommand("create alien on asteroid 5");
+        AddCommand("create player 1 on asteroid 1");
+        AddCommand("create player 2 on asteroid 4");
+        AddCommand("set robot 0 next asteroid 3");
+        AddCommand("set robot 0 next asteroid 2");
+        AddCommand("set robot 0 next asteroid 3");
+        AddCommand("disable sunstorm");
+        AddCommand("set robot 0 next asteroid 2");
+        AddCommand("start game");
+    }
 }
