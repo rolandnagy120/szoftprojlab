@@ -38,6 +38,14 @@ public class Ice extends Resource {
 
 		return false;
 	}
+
+	/**
+	 * Returns the resource part of the image
+	 * @return  resource name used in the images
+	 */
+	@Override
+	public String GetImagePart() { return "ice"; }
+
 	public String toString() {
 		return "Ice";
 	}

@@ -22,4 +22,10 @@ public abstract class Resource {
 
     @Override
     public abstract boolean equals(Object o);
+
+    /**
+     * Returns the resource part of the image
+     * @return  resource name used in the images
+     */
+    public abstract String GetImagePart();
 }

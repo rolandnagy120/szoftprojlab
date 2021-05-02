@@ -23,6 +23,14 @@ public class Iron extends Resource {
 
         return false;
     }
+
+    /**
+     * Returns the resource part of the image
+     * @return  resource name used in the images
+     */
+    @Override
+    public String GetImagePart() { return "iron"; }
+
     public String toString() {
         return "Iron";
     }

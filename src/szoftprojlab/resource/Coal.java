@@ -24,6 +24,13 @@ public class Coal extends Resource {
         return false;
     }
 
+    /**
+     * Returns the resource part of the image
+     * @return  resource name used in the images
+     */
+    @Override
+    public String GetImagePart() { return "coal"; }
+
     public String toString() {
         return "Coal";
     }

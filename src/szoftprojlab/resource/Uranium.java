@@ -56,6 +56,13 @@ public class Uranium extends Resource {
         return false;
     }
 
+    /**
+     * Returns the resource part of the image
+     * @return  resource name used in the images
+     */
+    @Override
+    public String GetImagePart() { return "uranium"; }
+
     public String toString() {
         return "Uranium";
     }

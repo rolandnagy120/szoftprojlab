@@ -52,6 +52,12 @@ public class Asteroid {
         nearSun = false;
     }
 
+    /**
+     * Calls the draw function in the view for
+     * the asteroid, and everything on it
+     * @param activePlayer  the current active player
+     * @param view          the view
+     */
     public void draw(Player activePlayer, View view) {
         view.drawAsteroid(this);
 
@@ -307,6 +313,10 @@ public class Asteroid {
         }
     }
 
+    /**
+     * Removes the given teleport
+     * @param gate  the gate than needs the removing
+     */
     public void RemoveTeleportGate(TeleportGate gate) {
         gates.remove(gate);
     }
@@ -336,16 +346,26 @@ public class Asteroid {
         return neighbors.get(randomIndex);
     }
 
+    // TODO nem kell ez már ugye?
     public void SetExplosionNeighbour(int neighbourId) {
         for (Asteroid a : neighbors)
             if (a.GetId() == neighbourId)
                 explosionNeighbour = a;
     }
 
+    /**
+     * Gets the identifier of the asteroid
+     * @return  asteroid idx
+     */
     public int GetId() {
         return idx;
     }
 
+    /**
+     * Sunstorm hits this asteroid, and it continues to
+     * the neighbors, depending on the remainingDepth
+     * @param remainingDepth    the remaining number of recursive iterations
+     */
     public void SendSunStorm(int remainingDepth) {
         SunStorm();
         if (remainingDepth > 0) {
@@ -355,10 +375,10 @@ public class Asteroid {
         }
     }
 
-    public int NeighborCount() {
-        return neighbors.size();
-    }
-
+    /**
+     * Gets the name of the resource
+     * @return  name of the resource
+     */
     public String GetResourceName() {
         if (layers > 0)
             return "Unknown";
@@ -367,10 +387,18 @@ public class Asteroid {
         return resource.getClass().getSimpleName();
     }
 
+    /**
+     * Gets the identifiers of the neighbor asteroids
+     * @return  the ids of the neighbors
+     */
     public int[] GetNeighborsIds() {
         return neighbors.stream().mapToInt(neighbor -> neighbor.idx).toArray();
     }
 
+    /**
+     * Sets the layers of the asteroid
+     * @param layers    the number of layers the asteroid should have
+     */
     public void SetLayers(int layers) {
         this.layers = layers;
     }
@@ -395,6 +423,9 @@ public class Asteroid {
         return ret + "\n";
     }
 
+    /**
+     * Sets the asteroid distant to the sun
+     */
     public void SetDistantToSun() {
         nearSun = false;
     }
@@ -411,7 +442,28 @@ public class Asteroid {
      */
     public int GetY() { return this.y; }
 
+    /**
+     * Returns true if the given position is on the asteroid
+     * @param clickX    the x coordinate of the click
+     * @param clickY    the y coordinate of the click
+     * @return          The clicks is on the asteroid
+     */
     public boolean IsClicked(int clickX, int clickY) {
         return (clickX >= x && clickX <= x + size) && (clickY >= y && clickY <= y + size);
+    }
+
+    /**
+     * Returns the picture thats needs to be painted on screen
+     * @return  the path to the picture
+     */
+    public String GetCurrentPicture() {
+        if (layers > 0)
+            return canMoveHere ? "assets/asteroid_outlined.png" : "assets/asteroid.png";
+        if (resource == null)
+            return canMoveHere ? "assets/asteroid_empty_outlined.png" : "assets/asteroid_empty.png";
+        String resourcePart = resource.GetImagePart();
+        return canMoveHere ?
+                "assets/asteroid_with_" + resourcePart + "_outlined.png" :
+                "assets/asteroid_with_" + resourcePart + ".png";
     }
 }

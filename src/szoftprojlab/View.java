@@ -221,7 +221,7 @@ public class View extends JFrame{
     private void drawImageAt(String path, int x, int y, int w, int h) {
         try {
             BufferedImage image = ImageIO.read(new File(path));
-            fieldPanel.getGraphics().drawImage(image, x + asteroidThingCount++ * Asteroid.size, y, w, h, null);
+            fieldPanel.getGraphics().drawImage(image, x, y + asteroidThingCount++ * Asteroid.size, w, h, null);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -234,7 +234,7 @@ public class View extends JFrame{
         int x = a.GetX();
         int y = a.GetY();
 
-        String path = a.canMoveHere ? "assets/asteroid_outlined.png" : "assets/asteroid.png";
+        String path = a.GetCurrentPicture();
 
         drawImageAt(path, x, y, Asteroid.size, Asteroid.size);
     }
