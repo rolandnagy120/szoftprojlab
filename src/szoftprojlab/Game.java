@@ -77,7 +77,13 @@ public class Game {
                 endGame = true;
             }
         }
-        Main.println("Game Over!");
+
+        if (gameWon) {
+            view.showGameWonDialog();
+        }
+        else {
+            view.showGameOverDialog();
+        }
 //        Main.println("\n\nGame Objects:\n");
 //        for (Asteroid a : asteroids)
 //            Main.println(a.toString());
@@ -156,6 +162,7 @@ public class Game {
 
         if (inventoryAfterCrafting != null) {
             Main.println("The base can be made now! The game is won!");
+            Timer.Stop();
             gameWon = true;
         }
     }

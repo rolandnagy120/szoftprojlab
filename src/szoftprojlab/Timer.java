@@ -19,7 +19,7 @@ public class Timer {
     private static Timer singleClassIntance = null;
     private final List<Steppable> steppables = new ArrayList<>();
     private int continueFrom = 0;
-
+    private boolean gameStopped = false;
 
     /**
      * Ticks the timer
@@ -28,6 +28,8 @@ public class Timer {
      */
     public void Tick() {
         for (; continueFrom < steppables.size(); continueFrom++) {
+            if (gameStopped)
+                break;
             steppables.get(continueFrom).Step();
         }
         continueFrom = 0;
@@ -71,7 +73,10 @@ public class Timer {
         if(steppables.indexOf(steppable) < continueFrom)
             continueFrom--;
         steppables.remove(steppable);
+    }
 
-
+    public static void Stop() {
+        Timer timer = Timer.getInstance();
+        timer.gameStopped = true;
     }
 }

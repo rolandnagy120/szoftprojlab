@@ -208,16 +208,14 @@ public class View extends JFrame{
     private int alienSize = 50;
     private int gateSize = 50;
 
-    public void clearField() {
-        fieldPanel.repaint();
-    }
-
-    private void drawImageAtRandom(String path) {
-        int x = rnd.nextInt(fieldWidth);
-        int y = rnd.nextInt(fieldHeight);
-        drawImageAt(path, x, y, 50, 50);
-    }
-
+    /**
+     * Draw image to the field planel
+     * @param path  path of the image
+     * @param x     x position in the panel
+     * @param y     y position in the panel
+     * @param w     drawn image width
+     * @param h     drawn image height
+     */
     private void drawImageAt(String path, int x, int y, int w, int h) {
         try {
             BufferedImage image = ImageIO.read(new File(path));
@@ -227,6 +225,10 @@ public class View extends JFrame{
         }
     }
 
+    /**
+     * Draw asteroid to the screen
+     * @param a the asteroid that will be drawn
+     */
     public void drawAsteroid(Asteroid a) {
         currentAsteroid = a;
         asteroidThingCount = 0;
@@ -239,6 +241,12 @@ public class View extends JFrame{
         drawImageAt(path, x, y, Asteroid.size, Asteroid.size);
     }
 
+    /**
+     * Draw the player to the screen,
+     * The player will be around the asteroid it is on
+     * @param p         the player that will be drawn
+     * @param active    is the player currently active
+     */
     public void drawPlayer(Player p, boolean active) {
         String imgPath = active ? "assets/spaceship_outlined.png" : "assets/spaceship.png";
         int x = currentAsteroid.GetX();
@@ -246,6 +254,10 @@ public class View extends JFrame{
         drawImageAt(imgPath, x, y, playerSize, playerSize);
     }
 
+    /**
+     * Draw the game current state to the field panel
+     * @param activePlayer
+     */
     public void update(Player activePlayer) {
         fieldPanel.repaint();
 
@@ -255,21 +267,59 @@ public class View extends JFrame{
         }
     }
 
+    /**
+     * Draw a teleport gate to the screen
+     * The gate will be around the current asteroid
+     */
     public void drawTeleportGate() {
         int x = currentAsteroid.GetX();
         int y = currentAsteroid.GetY();
         drawImageAt("assets/teleport_gate.png", x, y, gateSize, gateSize);
     }
 
+    /**
+     * Draw the given robot to the screen
+     * The robot will be around the asteroid it is on
+     * @param robot the robot that will be drawn
+     */
     public void drawRobot(Robot robot) {
         int x = currentAsteroid.GetX();
         int y = currentAsteroid.GetY();
         drawImageAt("assets/robot.png", x, y, robotSize, robotSize);
     }
 
+    /**
+     * Draw the given alien to the screen
+     * The alien will be around the asteroid it is on
+     * @param alien the alien that will be drawn
+     */
     public void drawAlien(Alien alien) {
         int x = currentAsteroid.GetX();
         int y = currentAsteroid.GetY();
         drawImageAt("assets/alien.png", x, y, alienSize, alienSize);
+    }
+
+    /**
+     * Show a popup dialog with game won message, and close the program after the dialog is closed
+     */
+    public void showGameWonDialog() {
+        showMessageAndExit("The base can be crafted, you won!");
+    }
+
+    /**
+     * Show a popup dialog with game over message, and close the program after the dialog is closed
+     */
+    public void showGameOverDialog() {
+        showMessageAndExit("Game over!");
+    }
+
+    /**
+     * Show the given message in a dialog, and close the program after the dialog is closed
+     * @param message   the message shown in the dialog
+     */
+    private void showMessageAndExit(String message) {
+        JOptionPane.showMessageDialog(this,
+                message);
+        Runtime.getRuntime().exit(0);
     }
 }
