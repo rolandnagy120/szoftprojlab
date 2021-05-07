@@ -94,8 +94,6 @@ public class Main {
         Pattern SunStormIn = Pattern.compile("set\\s+sunstorm\\s+in\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         //set sunstorm once
         Pattern SunStormOnce = Pattern.compile("set\\s+sunstorm\\s+once", Pattern.CASE_INSENSITIVE);
-        //set asteroid 1 explosion neighbour 2
-        Pattern AsteroidExplosionNeighbour = Pattern.compile("set\\s+asteroid\\s+([0-9]+)\\s+explosion\\s+neighbour\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         //set alien 1 next asteroid 2
         Pattern NextAsteroid = Pattern.compile("set\\s+(alien|robot)\\s+([0-9]+)\\s+next\\s+asteroid\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         //set asteroid 1 close to sun
@@ -112,8 +110,6 @@ public class Main {
         Pattern EnableSundistanceChange = Pattern.compile("enable\\s+asteroid\\s+sun\\s+distance\\s+change", Pattern.CASE_INSENSITIVE);
         //set sun asteroid sun distance change time 10
         Pattern SetDistanceTime = Pattern.compile("set\\s+sun\\s+asteroid\\s+sun\\s+distance\\s+change\\s+time\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
-        //set asteroid 1 position x y
-        Pattern SetAsteroidXY = Pattern.compile("set\\s+asteroid\\s+([0-9]+)\\s+position([0-9]+)\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         try {
             while (true) {
                 String input = GetNextCommand();
@@ -349,15 +345,6 @@ public class Main {
                     continue;
                 }
 
-                Matcher AsteroidExplosionNeighbourM = AsteroidExplosionNeighbour.matcher(input);
-                if (AsteroidExplosionNeighbourM.find()) {
-                    Asteroid a = game.GetAsteroid(Integer.parseInt(AsteroidExplosionNeighbourM.group(1)));
-                    if (a != null) {
-                        a.SetExplosionNeighbour(Integer.parseInt(AsteroidExplosionNeighbourM.group(2)));
-                    }
-                    continue;
-                }
-
                 Matcher NextAsteroidM = NextAsteroid.matcher(input);
                 if (NextAsteroidM.find()) {
                     Asteroid a = game.GetAsteroid(Integer.parseInt(NextAsteroidM.group(3)));
@@ -425,15 +412,6 @@ public class Main {
                 Matcher EnableSundistanceChangeM = EnableSundistanceChange.matcher(input);
                 if (EnableSundistanceChangeM.find()) {
                     Sun.getInstance().EnableSunDistanceChange();
-                    continue;
-                }
-
-                Matcher SetAsteroidXYM = SetAsteroidXY.matcher(input);
-                if(SetAsteroidXYM.find())
-                {
-                    Asteroid a = game.GetAsteroid(Integer.parseInt(SetAsteroidXYM.group(1)));
-                    a.SetX(Integer.parseInt(SetAsteroidXYM.group(2)));
-                    a.SetY(Integer.parseInt(SetAsteroidXYM.group(3)));
                     continue;
                 }
 

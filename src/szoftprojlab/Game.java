@@ -119,10 +119,14 @@ public class Game {
         }
         return null;
     }
-
+    //TODO:fix sorrend az egyszerübb mentéshez
+    //1.) players
+    //2.) aliens
+    //3.) robots
     public void AddEntity(Entity e) {
         timer.AddSteppable(e);
     }
+
 
     /**
      * Ends the game
@@ -293,4 +297,28 @@ public class Game {
         }
         return -1;
     }
+
+    public String Save()
+    {
+        StringBuilder save = new StringBuilder();
+        for (Asteroid a : asteroids)
+        {
+           save.append("create asteroid ").append(a.GetId()).append(" ").append(a.GetX()).append(" ").append(a.GetY());
+           //
+        }
+        //TODO:create players
+
+        //TODO:create robots
+
+        //TODO:create aliens
+
+        //TODO:resources to player
+
+        //TODO:create gates
+
+        //TODO:steppable position
+
+        return save.toString();
+    }
+
 }

@@ -23,13 +23,12 @@ import java.util.Random;
 public class Asteroid {
     private int idx;
     private int layers;
-    private boolean isEmpty = true;
+    //private boolean isEmpty = true;
     private boolean nearSun = false;
     private Resource resource;
     private List<Asteroid> neighbors = new ArrayList<>();
     private List<Entity> entities = new ArrayList<>();
     private List<TeleportGate> gates = new ArrayList<>();
-    private Asteroid explosionNeighbour = null;
     private boolean exploded = false;
 
     private int x = 0;
@@ -338,21 +337,12 @@ public class Asteroid {
     public Asteroid GetRandomNeighbor() {
         if (neighbors.size() == 0)
             return null;
-        if (explosionNeighbour != null)
-            return explosionNeighbour;
         Random rnd = new Random();
         int randomIndex = rnd.ints(0, neighbors.size())
                 .findFirst()
                 .getAsInt();
 
         return neighbors.get(randomIndex);
-    }
-
-    // TODO nem kell ez már ugye?
-    public void SetExplosionNeighbour(int neighbourId) {
-        for (Asteroid a : neighbors)
-            if (a.GetId() == neighbourId)
-                explosionNeighbour = a;
     }
 
     /**
@@ -412,9 +402,11 @@ public class Asteroid {
 
     @Override
     public String toString() {
-        if (exploded)
-            return "";
-        String ret = "Asteroid " + idx + ":\n" +
+        //if (exploded)
+        //    return "";
+        //String ret = "create asteroid "+idx+" "+x+" "+y;
+
+        /*String ret = "Asteroid " + idx + ":\n" +
                 "Neighbours: ";
         for (Asteroid n : neighbors)
             ret += n.idx + " ";
@@ -427,7 +419,8 @@ public class Asteroid {
         ret += "Entities: " + (entities.isEmpty() ? "No entities on asteroid\n" : "\n");
         for (Entity e : entities)
             ret += e.toString();
-        return ret + "\n";
+        return ret + "\n";*/
+    return "";
     }
 
     /**
@@ -446,10 +439,6 @@ public class Asteroid {
         return this.x;
     }
 
-    public void SetX(int x) {
-        this.x = x;
-    }
-
     /**
      * Returns the y coorinate of the asteroid
      *
@@ -457,10 +446,6 @@ public class Asteroid {
      */
     public int GetY() {
         return this.y;
-    }
-
-    public void SetY(int y) {
-        this.y = x;
     }
 
     /**
