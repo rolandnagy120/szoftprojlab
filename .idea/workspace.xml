@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ecd861d-1b60-47ab-8e06-fd528a76f353" name="Default Changelist" comment="">
+    <list default="true" id="2ecd861d-1b60-47ab-8e06-fd528a76f353" name="Default Changelist" comment="PlayerTest, RobotTest">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/szoftprojlab/Asteroid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/szoftprojlab/Asteroid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/szoftprojlab/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/szoftprojlab/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,8 +78,9 @@
       <recent name="tests" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.Test All">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="11" />
       <option name="MAIN_CLASS_NAME" value="szoftprojlab.Main" />
       <module name="szoftprojlab" />
       <extension name="coverage">
@@ -90,28 +93,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Test All" type="JUnit" factoryName="JUnit">
       <module name="szoftprojlab" />
       <selectedOptions>
         <option name="module.classpath" />
       </selectedOptions>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="ALTERNATIVE_JRE_PATH" value="11" />
       <option name="PACKAGE_NAME" value="tests" />
       <option name="MAIN_CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
+      <option name="VM_PARAMETERS" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -152,6 +145,10 @@
       <workItem from="1614724510460" duration="465000" />
       <workItem from="1614753198116" duration="1083000" />
       <workItem from="1614754573752" duration="4231000" />
+      <workItem from="1618685839143" duration="1066000" />
+      <workItem from="1618729188844" duration="4685000" />
+      <workItem from="1618924901073" duration="1005000" />
+      <workItem from="1620396546807" duration="2532000" />
     </task>
     <task id="LOCAL-00001" summary="idea settings">
       <created>1614724680363</created>

@@ -30,7 +30,7 @@ public class Asteroid {
     private List<Entity> entities = new ArrayList<>();
     private List<TeleportGate> gates = new ArrayList<>();
     private Asteroid explosionNeighbour = null;
-    private boolean exploded=false;
+    private boolean exploded = false;
 
     private int x = 0;
     private int y = 0;
@@ -55,8 +55,9 @@ public class Asteroid {
     /**
      * Calls the draw function in the view for
      * the asteroid, and everything on it
-     * @param activePlayer  the current active player
-     * @param view          the view
+     *
+     * @param activePlayer the current active player
+     * @param view         the view
      */
     public void draw(Player activePlayer, View view) {
         view.drawAsteroid(this);
@@ -142,7 +143,7 @@ public class Asteroid {
             g.Explode();
         gates.clear();
         exploded = true;
-        for(Asteroid a : neighbors)
+        for (Asteroid a : neighbors)
             a.neighbors.remove(a);
 
 
@@ -315,7 +316,8 @@ public class Asteroid {
 
     /**
      * Removes the given teleport
-     * @param gate  the gate than needs the removing
+     *
+     * @param gate the gate than needs the removing
      */
     public void RemoveTeleportGate(TeleportGate gate) {
         gates.remove(gate);
@@ -355,7 +357,8 @@ public class Asteroid {
 
     /**
      * Gets the identifier of the asteroid
-     * @return  asteroid idx
+     *
+     * @return asteroid idx
      */
     public int GetId() {
         return idx;
@@ -364,7 +367,8 @@ public class Asteroid {
     /**
      * Sunstorm hits this asteroid, and it continues to
      * the neighbors, depending on the remainingDepth
-     * @param remainingDepth    the remaining number of recursive iterations
+     *
+     * @param remainingDepth the remaining number of recursive iterations
      */
     public void SendSunStorm(int remainingDepth) {
         SunStorm();
@@ -377,7 +381,8 @@ public class Asteroid {
 
     /**
      * Gets the name of the resource
-     * @return  name of the resource
+     *
+     * @return name of the resource
      */
     public String GetResourceName() {
         if (layers > 0)
@@ -389,7 +394,8 @@ public class Asteroid {
 
     /**
      * Gets the identifiers of the neighbor asteroids
-     * @return  the ids of the neighbors
+     *
+     * @return the ids of the neighbors
      */
     public int[] GetNeighborsIds() {
         return neighbors.stream().mapToInt(neighbor -> neighbor.idx).toArray();
@@ -397,7 +403,8 @@ public class Asteroid {
 
     /**
      * Sets the layers of the asteroid
-     * @param layers    the number of layers the asteroid should have
+     *
+     * @param layers the number of layers the asteroid should have
      */
     public void SetLayers(int layers) {
         this.layers = layers;
@@ -405,7 +412,7 @@ public class Asteroid {
 
     @Override
     public String toString() {
-        if(exploded)
+        if (exploded)
             return "";
         String ret = "Asteroid " + idx + ":\n" +
                 "Neighbours: ";
@@ -413,7 +420,7 @@ public class Asteroid {
             ret += n.idx + " ";
         ret += "\nlayers: " + layers + "\n" +
                 "resource: " + (resource == null ? "empty" : resource) + "\n" +
-                "nearsun: "+nearSun+"\n"+
+                "nearsun: " + nearSun + "\n" +
                 "Gates:" + (gates.isEmpty() ? "No gates on asteroid\n" : "\n");
         for (TeleportGate g : gates)
             ret += g.toString();
@@ -432,21 +439,36 @@ public class Asteroid {
 
     /**
      * Returns the x coordinate of the asteroid
-     * @return  x coordinate
+     *
+     * @return x coordinate
      */
-    public int GetX() { return this.x; }
+    public int GetX() {
+        return this.x;
+    }
+
+    public void SetX(int x) {
+        this.x = x;
+    }
 
     /**
      * Returns the y coorinate of the asteroid
-     * @return  y coorinate
+     *
+     * @return y coorinate
      */
-    public int GetY() { return this.y; }
+    public int GetY() {
+        return this.y;
+    }
+
+    public void SetY(int y) {
+        this.y = x;
+    }
 
     /**
      * Returns true if the given position is on the asteroid
-     * @param clickX    the x coordinate of the click
-     * @param clickY    the y coordinate of the click
-     * @return          The clicks is on the asteroid
+     *
+     * @param clickX the x coordinate of the click
+     * @param clickY the y coordinate of the click
+     * @return The clicks is on the asteroid
      */
     public boolean IsClicked(int clickX, int clickY) {
         return (clickX >= x && clickX <= x + size) && (clickY >= y && clickY <= y + size);
@@ -454,7 +476,8 @@ public class Asteroid {
 
     /**
      * Returns the picture thats needs to be painted on screen
-     * @return  the path to the picture
+     *
+     * @return the path to the picture
      */
     public String GetCurrentPicture() {
         if (layers > 0)

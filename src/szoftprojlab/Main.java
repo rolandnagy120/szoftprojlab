@@ -112,8 +112,8 @@ public class Main {
         Pattern EnableSundistanceChange = Pattern.compile("enable\\s+asteroid\\s+sun\\s+distance\\s+change", Pattern.CASE_INSENSITIVE);
         //set sun asteroid sun distance change time 10
         Pattern SetDistanceTime = Pattern.compile("set\\s+sun\\s+asteroid\\s+sun\\s+distance\\s+change\\s+time\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
-
-
+        //set asteroid 1 position x y
+        Pattern SetAsteroidXY = Pattern.compile("set\\s+asteroid\\s+([0-9]+)\\s+position([0-9]+)\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         try {
             while (true) {
                 String input = GetNextCommand();
@@ -425,6 +425,15 @@ public class Main {
                 Matcher EnableSundistanceChangeM = EnableSundistanceChange.matcher(input);
                 if (EnableSundistanceChangeM.find()) {
                     Sun.getInstance().EnableSunDistanceChange();
+                    continue;
+                }
+
+                Matcher SetAsteroidXYM = SetAsteroidXY.matcher(input);
+                if(SetAsteroidXYM.find())
+                {
+                    Asteroid a = game.GetAsteroid(Integer.parseInt(SetAsteroidXYM.group(1)));
+                    a.SetX(Integer.parseInt(SetAsteroidXYM.group(2)));
+                    a.SetY(Integer.parseInt(SetAsteroidXYM.group(3)));
                     continue;
                 }
 
