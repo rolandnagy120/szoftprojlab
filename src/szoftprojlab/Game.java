@@ -16,6 +16,8 @@ import szoftprojlab.entity.Player;
 import szoftprojlab.entity.Robot;
 import szoftprojlab.resource.*;
 
+import java.io.FileWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -321,32 +323,46 @@ public class Game {
         return -1;
     }
 
-    public String Save() {
+    public void Save() {
         StringBuilder save = new StringBuilder();
         for (Asteroid a : asteroids) {
             save.append("create asteroid ").append(a.GetId()).append(" ").append(a.GetX()).append(" ").append(a.GetY()).append("\n");
-            //
+            save.append("set asteroid ").append(a.GetId()).append(" layer ").append(a.GetLayerThickness()).append("\n");
+            //TODO: resource
         }
-        //asteroid neighbours
-        for (Asteroid a : asteroids) {
 
+        for (Asteroid a : asteroids) {
+            save.append(a.save_neighbours());
         }
+
+
         for (Player p : players) {
-            //save.append("create player ");
+            save.append("create player ").append(p.getName()).append(" on asteroid ").append(p.GetAsteroid().GetId()).append("\n");
+            //TODO: player invetory resources
         }
 
         for (Robot r : robots) {
-            //save.append("create robot ");
+            save.append("create robot on asteroid ").append(r.GetAsteroid().GetId()).append("\n");
         }
-        //TODO:create aliens
+
         for (Alien a : aliens) {
-            //save.append("create alien ");
+            save.append("create alien on asteroid ").append(a.GetAsteroid().GetId()).append("\n");
         }
+
 
         //TODO:create gates
 
+        //TODO: sun state
+
         save.append("continue from ").append(timer.GetStepIndex()).append("\n");
-        return save.toString();
+        try {
+            Writer writer = new FileWriter("save.txt");
+            writer.append(save);
+            writer.close();
+        }
+        catch (Exception e) {
+            e.getStackTrace();
+        }
     }
 
     public void WriteEvent(String s) {

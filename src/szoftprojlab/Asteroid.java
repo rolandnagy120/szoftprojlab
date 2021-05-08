@@ -474,4 +474,14 @@ public class Asteroid {
                 "assets/asteroid_with_" + resourcePart + "_outlined.png" :
                 "assets/asteroid_with_" + resourcePart + ".png";
     }
+
+    public String save_neighbours()
+    {
+        StringBuilder save = new StringBuilder();
+        for (Asteroid a : neighbors) {
+            save.append("set asteroid ").append(idx).append(" neighbour ").append(a.GetId()).append("\n");
+        }
+        return save.toString();
+    }
+
 }

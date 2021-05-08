@@ -175,6 +175,7 @@ public class View extends JFrame{
 
         JMenuItem mntmNewMenuItem_1 = new JMenuItem("Save");
         mnNewMenu.add(mntmNewMenuItem_1);
+        mntmNewMenuItem_1.addActionListener(e -> Game.getInstance().Save());
 
         JMenuItem mntmNewMenuItem = new JMenuItem("Load");
         mnNewMenu.add(mntmNewMenuItem);
