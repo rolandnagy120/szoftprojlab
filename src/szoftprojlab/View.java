@@ -3,6 +3,7 @@ package szoftprojlab;
 import szoftprojlab.entity.Alien;
 import szoftprojlab.entity.Player;
 import szoftprojlab.entity.Robot;
+import szoftprojlab.resource.Resource;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -10,17 +11,17 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Random;
 
 public class View extends JFrame{
     private JPanel fieldPanel;
+    private DefaultListModel inventoryListModel = new DefaultListModel();
 
     private int numberOfAsteroids = 0;
 
@@ -59,8 +60,7 @@ public class View extends JFrame{
         btnNewButton_6.setFont(new Font("Tahoma", Font.PLAIN, 10));
         btnNewButton_6.addActionListener(e -> Main.AddCommand("mine"));
 
-        JList list = new JList();
-        list.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+        JScrollPane inventoryListScroller = createInventoryScroller();
 
         JLabel lblNewLabel = new JLabel("Inventory:");
 
@@ -74,11 +74,11 @@ public class View extends JFrame{
         fieldPanel = new JPanel();
         fieldPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 
-        JButton btnNewButton_7 = new JButton(" Place");
+        JButton btnNewButton_7 = new JButton("Place");
         btnNewButton_7.setFont(new Font("Tahoma", Font.PLAIN, 10));
-        btnNewButton_7.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            }
+        btnNewButton_7.addActionListener(arg0 -> {
+            JOptionPane.showMessageDialog(fieldPanel, "Select a resource from your inventory to place");
+            Main.AddCommand("listen for place");
         });
 
         JList list_2 = new JList();
@@ -99,7 +99,7 @@ public class View extends JFrame{
                                                                 .addComponent(lblNewLabel_1, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
                                                                 .addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
                                                                 .addComponent(btnNewButton_3, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
-                                                                .addComponent(list, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                                                                .addComponent(inventoryListScroller, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
                                                                 .addComponent(btnNewButton_1, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
                                                                 .addComponent(btnNewButton_2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                                 .addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE))
@@ -143,7 +143,7 @@ public class View extends JFrame{
                                                 .addPreferredGap(ComponentPlacement.RELATED)
                                                 .addComponent(lblNewLabel)
                                                 .addPreferredGap(ComponentPlacement.RELATED)
-                                                .addComponent(list, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(inventoryListScroller, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addPreferredGap(ComponentPlacement.RELATED))
                                         .addGroup(gl_panel_1.createSequentialGroup()
                                                 .addComponent(fieldPanel, GroupLayout.PREFERRED_SIZE, 437, GroupLayout.PREFERRED_SIZE)
@@ -191,6 +191,29 @@ public class View extends JFrame{
 
         setAlwaysOnTop(true);
         setResizable(false);
+    }
+
+    /**
+     * Created and initializes the player inventory scrollabel list
+     * @return  the scroll pane
+     */
+    private JScrollPane createInventoryScroller() {
+        JList inventoryList = new JList(inventoryListModel);
+        inventoryList.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+        JScrollPane inventoryListScroller = new JScrollPane(inventoryList);
+        inventoryListScroller.setPreferredSize(new Dimension(250, 80));
+
+        inventoryList.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                JList list = (JList)evt.getSource();
+                if (evt.getClickCount() > 0) {
+                    int index = list.locationToIndex(evt.getPoint());
+                    Main.AddCommand("place resource " + index);
+                }
+            }
+        });
+
+        return inventoryListScroller;
     }
 
     private int fieldWidth = 665;
@@ -252,6 +275,20 @@ public class View extends JFrame{
         int x = currentAsteroid.GetX();
         int y = currentAsteroid.GetY();
         drawImageAt(imgPath, x, y, playerSize, playerSize);
+
+        if (active) {
+            drawPlayerInventory(p);
+        }
+    }
+
+    /**
+     * Shows the given player's inventory on the screen
+     * @param player the current player
+     */
+    private void drawPlayerInventory(Player player) {
+        inventoryListModel.removeAllElements();
+        List<Resource> inventory = player.GetInventory();
+        inventory.forEach(item -> inventoryListModel.addElement(item.getClass().getSimpleName()));
     }
 
     /**

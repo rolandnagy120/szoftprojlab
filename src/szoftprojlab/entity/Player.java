@@ -16,7 +16,6 @@ import szoftprojlab.resource.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,6 +23,7 @@ public class Player extends Entity implements Miner {
     private List<TeleportGate> gates = new ArrayList<>();
     private List<Resource> inventory = new ArrayList<>();
     public String name;
+    private boolean listenForPlaceResource = false;
 
     private static int maxGatesCount = 3;
     private static int invetoryMax = 10;
@@ -85,15 +85,25 @@ public class Player extends Entity implements Miner {
         Pattern CraftGates = Pattern.compile("craft gates", Pattern.CASE_INSENSITIVE);
         // Places the first gate in the inventory
         Pattern PlaceGate = Pattern.compile("place gate", Pattern.CASE_INSENSITIVE);
-        // Teleport player (ex: teleport to 7 -> teleport to the asteroid which has the id 7)
-        Pattern TeleportTo = Pattern.compile("teleport to\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         // Place back the given resource (ex: place Uranium)
-        Pattern PlaceResource = Pattern.compile("place resource\\s+([a-zA-Z]+)", Pattern.CASE_INSENSITIVE);
+        Pattern PlaceResource = Pattern.compile("place resource\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         // Start listening for an asteroid click to move to
         Pattern ListenForMove = Pattern.compile("listen for move", Pattern.CASE_INSENSITIVE);
+        // Start listening for placing a resource
+        Pattern ListenForPlace = Pattern.compile("listen for place", Pattern.CASE_INSENSITIVE);
         while (true) {
             try {
                 String input = Main.GetNextCommand();
+
+                Matcher ListenForPlaceMatcher = ListenForPlace.matcher(input);
+                Matcher PlaceResourceMatcher = PlaceResource.matcher(input);
+                boolean placeResourceMatcherFound = PlaceResourceMatcher.find();
+                if (ListenForPlaceMatcher.find()) {
+                    listenForPlaceResource = true;
+                } else if (!placeResourceMatcherFound) {
+                    listenForPlaceResource = false;
+                }
+
                 Matcher MoveM = Move.matcher(input);
                 if (MoveM.find()) {
                     String selectedNeighbor = MoveM.group(1);
@@ -147,42 +157,17 @@ public class Player extends Entity implements Miner {
                     continue;
                 }
 
-//                Matcher TeleportMatcher = TeleportTo.matcher(input);
-//                if (TeleportMatcher.find()) {
-//                    List<TeleportGate> gates = asteroid.GetTeleportGates();
-//                    if (gates.size() == 0) {
-//                        Main.println("No gates on the asteroid");
-//                    } else {
-//                        String selectedNeighbor = TeleportMatcher.group(1);
-//                        for (TeleportGate gate : gates) {
-//
-//                            int pairId = gate.GetPairAsteroid().GetId();
-//
-//                            if (String.valueOf(pairId).equals(selectedNeighbor)) {
-//                                Teleport(gate);
-//                                return;
-//                            }
-//                        }
-//                    }
-//                }
-
-                Matcher PlaceResourceMatcher = PlaceResource.matcher(input);
-                if (PlaceResourceMatcher.find()) {
-                    List<Resource> inventoryCopy = new ArrayList<>(inventory);
-                    AtomicBoolean resourceFound = new AtomicBoolean(false);
-                    inventoryCopy.forEach(resource -> {
-                        String className = resource.getClass().getSimpleName();
-                        String selectedResource = PlaceResourceMatcher.group(1);
-                        if (selectedResource.equals(className) && !resourceFound.get()) {
-                            PlaceResource(resource);
-                            resourceFound.set(true);
-                        }
-                    });
-                    if (!resourceFound.get()) {
-                        Main.println("Resource not found");
-                    } else {
-                        return;
+                if (placeResourceMatcherFound) {
+                    if (!listenForPlaceResource)
+                        continue;
+                    int resourceIndex = Integer.parseInt(PlaceResourceMatcher.group(1));
+                    if (!(resourceIndex >= 0 && resourceIndex < inventory.size())) {
+                        continue;
                     }
+                    Resource resource = inventory.get(resourceIndex);
+                    PlaceResource(resource);
+                    listenForPlaceResource = false;
+                    return;
                 }
 
                 Matcher ListenForMoveMatcher = ListenForMove.matcher(input);

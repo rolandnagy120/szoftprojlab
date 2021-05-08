@@ -502,6 +502,7 @@ public class Main {
         AddCommand("set asteroid 10 distant to sun");
         AddCommand("set asteroid 11 distant to sun");
         AddCommand("set asteroid 12 distant to sun");
+        AddCommand("create robot on asteroid 1");
         AddCommand("create robot on asteroid 2");
         AddCommand("create alien on asteroid 5");
         AddCommand("create player 1 on asteroid 1");

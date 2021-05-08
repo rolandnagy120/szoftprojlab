@@ -72,7 +72,7 @@ public class Game {
             Main.println("\nNew round\n");
             timer.Tick();
 
-            if (players.size() == 0) {
+            if (players.size() < 1) {
                 Main.println("Everyone died");
                 endGame = true;
             }
