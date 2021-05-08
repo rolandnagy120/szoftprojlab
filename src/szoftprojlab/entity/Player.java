@@ -252,8 +252,9 @@ public class Player extends Entity implements Miner {
 
     /**
      * Places the given teleport gate on the current asteroid
-     * @param index     the index of the gate
-     * @return          the place was successful
+     *
+     * @param index the index of the gate
+     * @return the place was successful
      */
     private boolean PlaceGate(int index) {
         if (!(index >= 0 && index < gates.size()) || !listenForPlaceGate) {
@@ -334,6 +335,7 @@ public class Player extends Entity implements Miner {
 
     /**
      * Add asteroid to players inventory
+     *
      * @param gate
      */
     public void AddGate(TeleportGate gate) {
@@ -379,6 +381,15 @@ public class Player extends Entity implements Miner {
      */
     public String getName() {
         return name;
+    }
+
+    public String Save() {
+        StringBuilder save = new StringBuilder();
+        save.append("create player ").append(getName()).append(" on asteroid ").append(GetAsteroid().GetId()).append("\n");
+        for (Resource r : inventory) {
+            save.append("add resource to player ").append(name).append(" ").append(r.save()).append("\n");
+        }
+        return save.toString();
     }
 
     /**

@@ -369,10 +369,20 @@ public class Asteroid {
         }
     }
 
-    public String SaveResource() {
-        if (resource == null)
-            return "";
-        return "set asteroid "+idx+" resource "+resource.save()+"\n";
+    public String Save() {
+        StringBuilder save = new StringBuilder();
+        save.append("create asteroid ").append(idx).append(" ").append(x).append(" ").append(y).append("\n");
+        save.append("set asteroid ").append(idx).append(" layer ").append(layers).append("\n");
+        if (resource != null)
+            save.append("set asteroid ").append(idx).append(" resource ").append(resource.save()).append("\n");
+        //set asteroid 1 close to sun
+        //set asteroid 1 distant to sun
+        save.append("set asteroid ").append(idx);
+        if (nearSun)
+            save.append(" close to sun\n");
+        else
+            save.append(" distant to sun\n");
+        return save.toString();
     }
 
     /**
@@ -426,7 +436,7 @@ public class Asteroid {
         for (Entity e : entities)
             ret += e.toString();
         return ret + "\n";*/
-    return "";
+        return "";
     }
 
     /**
@@ -481,8 +491,7 @@ public class Asteroid {
                 "assets/asteroid_with_" + resourcePart + ".png";
     }
 
-    public String save_neighbours()
-    {
+    public String save_neighbours() {
         StringBuilder save = new StringBuilder();
         for (Asteroid a : neighbors) {
             save.append("set asteroid ").append(idx).append(" neighbour ").append(a.GetId()).append("\n");

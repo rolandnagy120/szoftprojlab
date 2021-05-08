@@ -327,19 +327,15 @@ public class Game {
         StringBuilder save = new StringBuilder();
         save.append("reset\n");
         for (Asteroid a : asteroids) {
-            save.append("create asteroid ").append(a.GetId()).append(" ").append(a.GetX()).append(" ").append(a.GetY()).append("\n");
-            save.append("set asteroid ").append(a.GetId()).append(" layer ").append(a.GetLayerThickness()).append("\n");
-            save.append(a.SaveResource());
+            save.append(a.Save());
         }
 
         for (Asteroid a : asteroids) {
             save.append(a.save_neighbours());
         }
 
-
         for (Player p : players) {
-            save.append("create player ").append(p.getName()).append(" on asteroid ").append(p.GetAsteroid().GetId()).append("\n");
-            //TODO: player invetory resources
+            save.append(p.Save());
         }
 
         for (Robot r : robots) {
@@ -351,17 +347,16 @@ public class Game {
         }
 
 
-        //TODO:create gates
+        //TODO: create gates
 
-        //TODO: sun state
+        //TODO: save sun state
 
         save.append("continue from ").append(timer.GetStepIndex()).append("\n");
         try {
             Writer writer = new FileWriter("save.txt");
             writer.append(save);
             writer.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.getStackTrace();
         }
     }
