@@ -369,6 +369,12 @@ public class Asteroid {
         }
     }
 
+    public String SaveResource() {
+        if (resource == null)
+            return "";
+        return "set asteroid "+idx+" resource "+resource.save()+"\n";
+    }
+
     /**
      * Gets the name of the resource
      *

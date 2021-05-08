@@ -15,6 +15,7 @@ import szoftprojlab.Asteroid;
 public abstract class Resource {
     /**
      * The Sun gets close to the resource
+     *
      * @param asteroid - the asteroid which holds the resource
      */
     public void SeeSun(Asteroid asteroid) {
@@ -25,7 +26,12 @@ public abstract class Resource {
 
     /**
      * Returns the resource part of the image
-     * @return  resource name used in the images
+     *
+     * @return resource name used in the images
      */
     public abstract String GetImagePart();
+
+    public String save() {
+        return this.toString().toLowerCase();
+    }
 }

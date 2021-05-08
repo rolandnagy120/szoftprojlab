@@ -329,7 +329,7 @@ public class Game {
         for (Asteroid a : asteroids) {
             save.append("create asteroid ").append(a.GetId()).append(" ").append(a.GetX()).append(" ").append(a.GetY()).append("\n");
             save.append("set asteroid ").append(a.GetId()).append(" layer ").append(a.GetLayerThickness()).append("\n");
-            //TODO: resource
+            save.append(a.SaveResource());
         }
 
         for (Asteroid a : asteroids) {

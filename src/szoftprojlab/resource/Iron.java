@@ -26,10 +26,14 @@ public class Iron extends Resource {
 
     /**
      * Returns the resource part of the image
-     * @return  resource name used in the images
+     *
+     * @return resource name used in the images
      */
     @Override
-    public String GetImagePart() { return "iron"; }
+    public String GetImagePart() {
+        return "iron";
+    }
+
 
     public String toString() {
         return "Iron";

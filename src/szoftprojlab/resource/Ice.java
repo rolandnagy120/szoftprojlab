@@ -15,38 +15,43 @@ import szoftprojlab.Main;
 
 public class Ice extends Resource {
 
-	/**
-	 * The sun gets close the ice
-	 * The ice is destoryed
-	 * @param asteroid - the asteroid which holds the ice
-	 */
-	@Override
-	public void SeeSun(Asteroid asteroid) {
-		Main.println("The ice is destroyed");
-		asteroid.DestroyResource();
-	}
+    /**
+     * The sun gets close the ice
+     * The ice is destoryed
+     *
+     * @param asteroid - the asteroid which holds the ice
+     */
+    @Override
+    public void SeeSun(Asteroid asteroid) {
+        Main.println("The ice is destroyed");
+        asteroid.DestroyResource();
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (o == this) {
-			return true;
-		}
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
 
-		if (o instanceof Ice) {
-			return true;
-		}
+        if (o instanceof Ice) {
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	/**
-	 * Returns the resource part of the image
-	 * @return  resource name used in the images
-	 */
-	@Override
-	public String GetImagePart() { return "ice"; }
+    /**
+     * Returns the resource part of the image
+     *
+     * @return resource name used in the images
+     */
+    @Override
+    public String GetImagePart() {
+        return "ice";
+    }
 
-	public String toString() {
-		return "Ice";
-	}
+
+    public String toString() {
+        return "Ice";
+    }
 }
