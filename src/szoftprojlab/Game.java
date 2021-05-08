@@ -325,6 +325,7 @@ public class Game {
 
     public void Save() {
         StringBuilder save = new StringBuilder();
+        save.append("reset\n");
         for (Asteroid a : asteroids) {
             save.append("create asteroid ").append(a.GetId()).append(" ").append(a.GetX()).append(" ").append(a.GetY()).append("\n");
             save.append("set asteroid ").append(a.GetId()).append(" layer ").append(a.GetLayerThickness()).append("\n");
