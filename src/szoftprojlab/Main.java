@@ -110,6 +110,8 @@ public class Main {
         Pattern EnableSundistanceChange = Pattern.compile("enable\\s+asteroid\\s+sun\\s+distance\\s+change", Pattern.CASE_INSENSITIVE);
         //set sun asteroid sun distance change time 10
         Pattern SetDistanceTime = Pattern.compile("set\\s+sun\\s+asteroid\\s+sun\\s+distance\\s+change\\s+time\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
+        //continue from 10
+        Pattern  ContinueFrom = Pattern.compile("continue\\s+from\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         try {
             while (true) {
                 String input = GetNextCommand();
@@ -280,8 +282,8 @@ public class Main {
                     Asteroid a = game.GetAsteroid(Integer.parseInt(CreateRobotM.group(1)));
                     if (a != null) {
                         Robot r = new Robot(a);
-                        game.AddEntity(r);
                         game.AddRobot(r);
+                        game.AddEntity(r);
                     }
                     continue;
                 }
@@ -291,7 +293,7 @@ public class Main {
                     Asteroid a = game.GetAsteroid(Integer.parseInt(CreateAlienM.group(1)));
                     if (a != null) {
                         Alien alien = new Alien(a);
-                        game.AddEntity(alien);
+                        //game.AddEntity(alien);
                         game.AddAlien(alien);
                     }
                     continue;
@@ -412,6 +414,13 @@ public class Main {
                 Matcher EnableSundistanceChangeM = EnableSundistanceChange.matcher(input);
                 if (EnableSundistanceChangeM.find()) {
                     Sun.getInstance().EnableSunDistanceChange();
+                    continue;
+                }
+
+                Matcher ContinueFromM = ContinueFrom.matcher(input);
+                if(ContinueFromM.find())
+                {
+                    Timer.getInstance().ContinueFromIndex(Integer.parseInt(ContinueFromM.group(1)));
                     continue;
                 }
 

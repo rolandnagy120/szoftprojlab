@@ -57,12 +57,26 @@ public class Game {
      * Starts the game
      */
     public void StartGame() {
-
         sun.ClearAsteroids();
+        timer.ClearSteppables();
+
+        for (Player p : players) {
+            timer.AddSteppable(p);
+        }
+
+        timer.AddSteppable(sun);
+
+        for (Alien a : aliens) {
+            timer.AddSteppable(a);
+        }
+
+        for (Robot r : robots) {
+            timer.AddSteppable(r);
+        }
         for (Asteroid a : asteroids) {
             sun.AddAsteroid(a);
         }
-        timer.AddSteppable(sun);
+
 
         view.update((Player) null);
 
@@ -80,8 +94,7 @@ public class Game {
 
         if (gameWon) {
             view.showGameWonDialog();
-        }
-        else {
+        } else {
             view.showGameOverDialog();
         }
 //        Main.println("\n\nGame Objects:\n");
@@ -107,7 +120,6 @@ public class Game {
      */
     public void AddPlayer(Player player) {
         if (!players.contains(player)) {
-            timer.AddSteppable(player);
             players.add(player);
         }
     }
@@ -119,10 +131,7 @@ public class Game {
         }
         return null;
     }
-    //TODO:fix sorrend az egyszerübb mentéshez
-    //1.) players
-    //2.) aliens
-    //3.) robots
+
     public void AddEntity(Entity e) {
         timer.AddSteppable(e);
     }
@@ -196,6 +205,7 @@ public class Game {
 
     /**
      * Find and return Alien by id
+     *
      * @param id
      * @return
      */
@@ -208,6 +218,7 @@ public class Game {
 
     /**
      * Find and return Robot by id
+     *
      * @param id
      * @return
      */
@@ -219,7 +230,8 @@ public class Game {
     }
 
     /**
-     *  Add alien to game
+     * Add alien to game
+     *
      * @param a
      */
     public void AddAlien(Alien a) {
@@ -228,6 +240,7 @@ public class Game {
 
     /**
      * Add robot to game
+     *
      * @param r
      */
     public void AddRobot(Robot r) {
@@ -237,6 +250,7 @@ public class Game {
     /**
      * Calls the update on view
      * The view will show the current state of the game
+     *
      * @param activePlayer  the active player
      * @param listenForMove does the player want to move (if yes, then the asteroids need highlighting
      */
@@ -252,6 +266,7 @@ public class Game {
     /**
      * Find the asteroid from the given index,
      * and if found, call the draw on it
+     *
      * @param i index of the asteroid
      */
     public void drawRequiredForAsteroid(int i) {
@@ -265,12 +280,13 @@ public class Game {
      * Finds the asteroid where the player can move to, and
      * sets their canMoveHere property to true, so they will
      * be highlighted on the repaint
-     * @param player    the player that wants to move
+     *
+     * @param player the player that wants to move
      */
     private void updateAsteroidsWherePlayerCanMoveTo(Player player) {
         Asteroid a = player.GetAsteroid();
         int[] neighborIds = a.GetNeighborsIds();
-        for (int id: neighborIds) {
+        for (int id : neighborIds) {
             Asteroid neighbor = a.GetNeighbor(id);
             neighbor.canMoveHere = true;
         }
@@ -279,7 +295,7 @@ public class Game {
             gates.forEach(gate -> {
                 Asteroid pair = gate.GetPairAsteroid();
                 if (pair != null)
-                        pair.canMoveHere = true;
+                    pair.canMoveHere = true;
             });
     }
 
@@ -292,38 +308,44 @@ public class Game {
 
     /**
      * Get the id of the asteroid, where the x y coordinates are on the asteroid
+     *
      * @param x x coordinate of the click
      * @param y y coordinate of the click
-     * @return  the clicked asteroid id of -1 if none were clicked
+     * @return the clicked asteroid id of -1 if none were clicked
      */
     public int GetClickedAsteroidId(int x, int y) {
-        for (Asteroid a: asteroids) {
+        for (Asteroid a : asteroids) {
             if (a.IsClicked(x, y))
                 return a.GetId();
         }
         return -1;
     }
 
-    public String Save()
-    {
+    public String Save() {
         StringBuilder save = new StringBuilder();
-        for (Asteroid a : asteroids)
-        {
-           save.append("create asteroid ").append(a.GetId()).append(" ").append(a.GetX()).append(" ").append(a.GetY());
-           //
+        for (Asteroid a : asteroids) {
+            save.append("create asteroid ").append(a.GetId()).append(" ").append(a.GetX()).append(" ").append(a.GetY()).append("\n");
+            //
         }
-        //TODO:create players
+        //asteroid neighbours
+        for (Asteroid a : asteroids) {
 
-        //TODO:create robots
+        }
+        for (Player p : players) {
+            //save.append("create player ");
+        }
 
+        for (Robot r : robots) {
+            //save.append("create robot ");
+        }
         //TODO:create aliens
-
-        //TODO:resources to player
+        for (Alien a : aliens) {
+            //save.append("create alien ");
+        }
 
         //TODO:create gates
 
-        //TODO:steppable position
-
+        save.append("continue from ").append(timer.GetStepIndex()).append("\n");
         return save.toString();
     }
 
