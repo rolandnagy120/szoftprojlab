@@ -274,7 +274,13 @@ public class Game {
             Asteroid neighbor = a.GetNeighbor(id);
             neighbor.canMoveHere = true;
         }
-        a.GetTeleportGates().forEach(gate -> gate.GetPairAsteroid().canMoveHere = true);
+        List<TeleportGate> gates = a.GetTeleportGates();
+        if (gates != null && gates.size() > 0)
+            gates.forEach(gate -> {
+                Asteroid pair = gate.GetPairAsteroid();
+                if (pair != null)
+                        pair.canMoveHere = true;
+            });
     }
 
     /**

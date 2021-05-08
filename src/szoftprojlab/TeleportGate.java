@@ -90,8 +90,22 @@ public class TeleportGate implements Steppable {
         return list;
     }
 
+    /**
+     * Gets the id of the gate
+     * @return  gate id
+     */
     public int GetId() {
         return idx;
+    }
+
+    /**
+     * Gets the id of the pair gate
+     * @return  pair gate id
+     */
+    public int GetPairId() {
+        if (pair == null)
+            return -1;
+        return pair.GetId();
     }
 
     public void StartMoving() {

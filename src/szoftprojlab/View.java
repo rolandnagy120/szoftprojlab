@@ -24,6 +24,8 @@ public class View extends JFrame{
     private DefaultListModel inventoryListModel = new DefaultListModel();
     private DefaultListModel eventListModel = new DefaultListModel();
     private JList eventList;
+    private DefaultListModel gatesListModel = new DefaultListModel();
+    private JList gatesList;
 
     private int numberOfAsteroids = 0;
 
@@ -40,30 +42,33 @@ public class View extends JFrame{
 
         JPanel panel_1 = new JPanel();
         panel.add(panel_1);
+        
+        Font font = new Font("Tahoma", Font.PLAIN, 10);
 
         JButton btnNewButton_1 = new JButton("Drill");
-        btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 10));
+        btnNewButton_1.setFont(font);
         btnNewButton_1.setVerticalAlignment(SwingConstants.TOP);
         btnNewButton_1.addActionListener(e -> Main.AddCommand("Drill"));
 
         JButton btnNewButton = new JButton("Move");
-        btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
+        btnNewButton.setFont(font);
         btnNewButton.addActionListener(e -> Main.AddCommand("listen for move"));
 
         JButton btnNewButton_2 = new JButton("CraftRobot");
-        btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 10));
+        btnNewButton_2.setFont(font);
         btnNewButton_2.addActionListener(e -> Main.AddCommand("craft robot"));
 
         JButton btnNewButton_3 = new JButton("CraftGate");
-        btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 10));
+        btnNewButton_3.setFont(font);
         btnNewButton_3.addActionListener(e -> Main.AddCommand("craft gates"));
 
         JButton btnNewButton_6 = new JButton("Mine");
-        btnNewButton_6.setFont(new Font("Tahoma", Font.PLAIN, 10));
+        btnNewButton_6.setFont(font);
         btnNewButton_6.addActionListener(e -> Main.AddCommand("mine"));
 
         JScrollPane inventoryListScroller = createInventoryScroller();
         JScrollPane eventListScroller = createEventScroller();
+        JScrollPane gatesListScroller = gatesScroller();
 
         JLabel lblNewLabel = new JLabel("Inventory:");
 
@@ -74,15 +79,19 @@ public class View extends JFrame{
         fieldPanel = new JPanel();
         fieldPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 
-        JButton btnNewButton_7 = new JButton("Place");
-        btnNewButton_7.setFont(new Font("Tahoma", Font.PLAIN, 10));
+        JButton btnNewButton_7 = new JButton("Place resource");
+        btnNewButton_7.setFont(font);
         btnNewButton_7.addActionListener(arg0 -> {
             JOptionPane.showMessageDialog(fieldPanel, "Select a resource from your inventory to place");
             Main.AddCommand("listen for place");
         });
 
-        JList list_2 = new JList();
-        list_2.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+        JButton placeGateButton = new JButton("Place gate");
+        placeGateButton.setFont(font);
+        placeGateButton.addActionListener(arg0 -> {
+            JOptionPane.showMessageDialog(fieldPanel, "Select a gate from your gates to place");
+            Main.AddCommand("listen for gate place");
+        });
 
         JLabel lblNewLabel_3 = new JLabel("Gates:");
         GroupLayout gl_panel_1 = new GroupLayout(panel_1);
@@ -94,6 +103,7 @@ public class View extends JFrame{
                                         .addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
                                                 .addGroup(gl_panel_1.createSequentialGroup()
                                                         .addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+                                                                .addComponent(placeGateButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                                 .addComponent(btnNewButton_7, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                                 .addComponent(btnNewButton_6, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                                 .addComponent(lblNewLabel_1, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
@@ -105,7 +115,7 @@ public class View extends JFrame{
                                                                 .addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE))
                                                         .addGap(10))
                                                 .addGroup(gl_panel_1.createSequentialGroup()
-                                                        .addComponent(list_2, GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                                                        .addComponent(gatesListScroller, GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
                                                         .addPreferredGap(ComponentPlacement.RELATED)))
                                         .addGroup(gl_panel_1.createSequentialGroup()
                                                 .addComponent(lblNewLabel_3)
@@ -136,10 +146,12 @@ public class View extends JFrame{
                                                 .addComponent(btnNewButton_6, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(ComponentPlacement.RELATED)
                                                 .addComponent(btnNewButton_7, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(ComponentPlacement.RELATED)
+                                                .addComponent(placeGateButton, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
                                                 .addGap(68)
                                                 .addComponent(lblNewLabel_3)
                                                 .addPreferredGap(ComponentPlacement.RELATED)
-                                                .addComponent(list_2, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(gatesListScroller, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(ComponentPlacement.RELATED)
                                                 .addComponent(lblNewLabel)
                                                 .addPreferredGap(ComponentPlacement.RELATED)
@@ -228,10 +240,31 @@ public class View extends JFrame{
         return eventListScroller;
     }
 
-    private int fieldWidth = 665;
-    private int fieldHeight = 370;
-//    private int fieldWidth = 735;
-//    private int fieldHeight = 430;
+    /**
+     * Creates and initializes the gates scrollable list
+     * @return  the scroll pane
+     */
+    private JScrollPane gatesScroller() {
+        gatesList = new JList(gatesListModel);
+        gatesList.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+        JScrollPane gatesListScroller = new JScrollPane(gatesList);
+        gatesListScroller.setPreferredSize(new Dimension(250, 80));
+
+        gatesList.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                JList list = (JList)evt.getSource();
+                if (evt.getClickCount() > 0) {
+                    int index = list.locationToIndex(evt.getPoint());
+                    Main.AddCommand("place gate " + index);
+                }
+            }
+        });
+
+        return gatesListScroller;
+    }
+
+    private int fieldWidth = 735;
+    private int fieldHeight = 430;
 
     private Random rnd = new Random();
 
@@ -290,6 +323,7 @@ public class View extends JFrame{
 
         if (active) {
             drawPlayerInventory(p);
+            drawPlayerGates(p);
         }
     }
 
@@ -304,11 +338,24 @@ public class View extends JFrame{
     }
 
     /**
+     * Shows the given player's gates on the screen
+     * @param player the current player
+     */
+    private void drawPlayerGates(Player player) {
+        gatesListModel.removeAllElements();
+        List<TeleportGate> gates = player.GetTeleportGates();
+        gates.forEach(gate -> {
+            String s = "Gate " + gate.GetId() + " (Pair: " + gate.GetPairId() + ")";
+            gatesListModel.addElement(s);
+        });
+    }
+
+    /**
      * Draw the game current state to the field panel
      * @param activePlayer
      */
     public void update(Player activePlayer) {
-        fieldPanel.repaint();
+        fieldPanel.getGraphics().clearRect(3, 3, fieldWidth, fieldHeight);
 
         Game game = Game.getInstance();
         for (int i = 0; i < numberOfAsteroids; i++) {

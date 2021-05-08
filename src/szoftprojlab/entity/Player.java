@@ -24,6 +24,7 @@ public class Player extends Entity implements Miner {
     private List<Resource> inventory = new ArrayList<>();
     public String name;
     private boolean listenForPlaceResource = false;
+    private boolean listenForPlaceGate = false;
 
     private static int maxGatesCount = 3;
     private static int invetoryMax = 10;
@@ -83,14 +84,16 @@ public class Player extends Entity implements Miner {
         Pattern CraftRobot = Pattern.compile("craft robot", Pattern.CASE_INSENSITIVE);
         // Craft gates
         Pattern CraftGates = Pattern.compile("craft gates", Pattern.CASE_INSENSITIVE);
-        // Places the first gate in the inventory
-        Pattern PlaceGate = Pattern.compile("place gate", Pattern.CASE_INSENSITIVE);
+        // Places the gate with the given index
+        Pattern PlaceGate = Pattern.compile("place gate\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         // Place back the given resource (ex: place Uranium)
         Pattern PlaceResource = Pattern.compile("place resource\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         // Start listening for an asteroid click to move to
         Pattern ListenForMove = Pattern.compile("listen for move", Pattern.CASE_INSENSITIVE);
         // Start listening for placing a resource
         Pattern ListenForPlace = Pattern.compile("listen for place", Pattern.CASE_INSENSITIVE);
+        // Start listening for placing a gate
+        Pattern ListenForGatePlace = Pattern.compile("listen for gate place", Pattern.CASE_INSENSITIVE);
         while (true) {
             try {
                 String input = Main.GetNextCommand();
@@ -102,6 +105,15 @@ public class Player extends Entity implements Miner {
                     listenForPlaceResource = true;
                 } else if (!placeResourceMatcherFound) {
                     listenForPlaceResource = false;
+                }
+
+                Matcher ListenForGatePlaceMatcher = ListenForGatePlace.matcher(input);
+                Matcher PlaceGateMatcher = PlaceGate.matcher(input);
+                boolean placeGateMatcherFound = PlaceGateMatcher.find();
+                if (ListenForGatePlaceMatcher.find()) {
+                    listenForPlaceGate = true;
+                } else if (!placeGateMatcherFound) {
+                    listenForPlaceGate = false;
                 }
 
                 Matcher MoveM = Move.matcher(input);
@@ -118,7 +130,10 @@ public class Player extends Entity implements Miner {
                     if (gates.size() > 0) {
                         for (TeleportGate gate : gates) {
 
-                            int pairId = gate.GetPairAsteroid().GetId();
+                            Asteroid pairAsteroid = gate.GetPairAsteroid();
+                            if (pairAsteroid == null)
+                                continue;
+                            int pairId = pairAsteroid.GetId();
 
                             if (String.valueOf(pairId).equals(selectedNeighbor)) {
                                 Teleport(gate);
@@ -150,8 +165,11 @@ public class Player extends Entity implements Miner {
                     if (success)
                         return;
                     continue;
-                } else if (PlaceGate.matcher(input).find()) {
-                    boolean success = this.PlaceGate();
+                } else if (placeGateMatcherFound) {
+                    if (!listenForPlaceGate)
+                        return;
+                    int gateIndex = Integer.parseInt(PlaceGateMatcher.group(1));
+                    boolean success = this.PlaceGate(gateIndex);
                     if (success)
                         return;
                     continue;
@@ -230,6 +248,24 @@ public class Player extends Entity implements Miner {
 
         Main.println("No gates to place");
         return false;
+    }
+
+    /**
+     * Places the given teleport gate on the current asteroid
+     * @param index     the index of the gate
+     * @return          the place was successful
+     */
+    private boolean PlaceGate(int index) {
+        if (!(index >= 0 && index < gates.size()) || !listenForPlaceGate) {
+            Main.println("No gate to placed");
+            return false;
+        }
+
+        TeleportGate gate = gates.get(index);
+        asteroid.PlaceTeleportGate(gate);
+        gates.remove(index);
+        Main.println("Gate placed");
+        return true;
     }
 
     /**
