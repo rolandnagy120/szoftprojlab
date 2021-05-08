@@ -321,4 +321,8 @@ public class Game {
         return save.toString();
     }
 
+    public void WriteEvent(String s) {
+        if (view != null)
+            view.WriteEvent(s);
+    }
 }

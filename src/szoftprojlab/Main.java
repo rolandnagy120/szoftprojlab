@@ -426,8 +426,14 @@ public class Main {
 
     }
 
+    /**
+     * Writes the given string to the current output
+     * and to the event list
+     * @param s
+     */
     public static void println(String s) {
-        //System.out.println(s);
+        game.WriteEvent(s);
+
         if (GameOutput == null)
             return;
 

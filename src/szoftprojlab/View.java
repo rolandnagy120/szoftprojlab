@@ -22,6 +22,8 @@ import java.util.Random;
 public class View extends JFrame{
     private JPanel fieldPanel;
     private DefaultListModel inventoryListModel = new DefaultListModel();
+    private DefaultListModel eventListModel = new DefaultListModel();
+    private JList eventList;
 
     private int numberOfAsteroids = 0;
 
@@ -61,13 +63,11 @@ public class View extends JFrame{
         btnNewButton_6.addActionListener(e -> Main.AddCommand("mine"));
 
         JScrollPane inventoryListScroller = createInventoryScroller();
+        JScrollPane eventListScroller = createEventScroller();
 
         JLabel lblNewLabel = new JLabel("Inventory:");
 
         JLabel lblNewLabel_1 = new JLabel("Player Name");
-
-        JList list_1 = new JList();
-        list_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 
         JLabel lblNewLabel_2 = new JLabel("Events:");
 
@@ -114,7 +114,7 @@ public class View extends JFrame{
                                         .addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
                                         .addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING, false)
                                                 .addComponent(fieldPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(list_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)))
+                                                .addComponent(eventListScroller, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)))
                                 .addContainerGap())
         );
         gl_panel_1.setVerticalGroup(
@@ -150,7 +150,7 @@ public class View extends JFrame{
                                                 .addPreferredGap(ComponentPlacement.RELATED)
                                                 .addComponent(lblNewLabel_2)
                                                 .addPreferredGap(ComponentPlacement.UNRELATED)
-                                                .addComponent(list_1, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(eventListScroller, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)))
                                 .addGap(11))
         );
         panel_1.setLayout(gl_panel_1);
@@ -194,7 +194,7 @@ public class View extends JFrame{
     }
 
     /**
-     * Created and initializes the player inventory scrollabel list
+     * Creates and initializes the player inventory scrollabel list
      * @return  the scroll pane
      */
     private JScrollPane createInventoryScroller() {
@@ -214,6 +214,18 @@ public class View extends JFrame{
         });
 
         return inventoryListScroller;
+    }
+
+    /**
+     * Creates and initializes the event scrollabel list
+     * @return  the scroll pane
+     */
+    private JScrollPane createEventScroller() {
+        eventList = new JList(eventListModel);
+        eventList.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+        JScrollPane eventListScroller = new JScrollPane(eventList);
+        eventListScroller.setPreferredSize(new Dimension(250, 80));
+        return eventListScroller;
     }
 
     private int fieldWidth = 665;
@@ -358,5 +370,24 @@ public class View extends JFrame{
         JOptionPane.showMessageDialog(this,
                 message);
         Runtime.getRuntime().exit(0);
+    }
+
+    /**
+     * Writes the given string to the event list,
+     * and scrolls to the bottom, so the new events
+     * are seen
+     * @param s the string that needs to be written out
+     */
+    public void WriteEvent(String s) {
+        String[] lines = s.split("\n");
+
+        for (String line : lines) {
+            eventListModel.addElement(line);
+        }
+
+        int lastIndex = eventListModel.getSize() - 1;
+        if (lastIndex >= 0 && eventList != null) {
+            eventList.ensureIndexIsVisible(lastIndex);
+        }
     }
 }
