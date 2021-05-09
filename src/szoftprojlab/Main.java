@@ -488,6 +488,8 @@ public class Main {
      */
     private static void SetupMap() {
         AddCommand("reset");
+        AddCommand("enable asteroid sun distance change");
+        AddCommand("set sun asteroid sun distance change time 10");
         AddCommand("create asteroid 1 0 0");
         AddCommand("create asteroid 2 60 0");
         AddCommand("create asteroid 3 120 0");
@@ -556,7 +558,6 @@ public class Main {
         AddCommand("set robot 0 next asteroid 3");
         AddCommand("set robot 0 next asteroid 2");
         AddCommand("set robot 0 next asteroid 3");
-        AddCommand("disable sunstorm");
         AddCommand("set robot 0 next asteroid 2");
         AddCommand("start game");
     }

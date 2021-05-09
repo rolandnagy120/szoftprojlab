@@ -38,7 +38,7 @@ public class Sun implements Steppable {
     public void Init() {
         sunDistanceChangeCycle = 20;
         sunDistanceChangeCounter = sunDistanceChangeCycle;
-        sunStormProbability = 0.001;
+        sunStormProbability = 0.1;
         nextSunStormIn = (int) (1 / sunStormProbability);
         sunstormEnabled = true;
         sunStromDept = 2;
@@ -77,7 +77,7 @@ public class Sun implements Steppable {
             sunDistanceChangeCounter = sunDistanceChangeCycle;
         }
 
-        if (nextSunStormIn == 0 && sunstormEnabled) {
+        if (nextSunStormIn <= 0 && sunstormEnabled) {
             SunStorm();
             if (!sunstormOnce)
                 nextSunStormIn = (int) (1 / sunStormProbability);
