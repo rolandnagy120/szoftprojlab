@@ -34,6 +34,7 @@ public class Game {
 
     private boolean gameWon = false;
     private boolean endGame;
+    private boolean stopgame;
     private int NearSunCycle = 10;
     private double SunStormProbability = 0.01;
 
@@ -84,7 +85,8 @@ public class Game {
 
         endGame = false;
         gameWon = false;
-        while (!endGame && !gameWon) {
+        stopgame = false;
+        while (!endGame && !gameWon && !stopgame) {
             Main.println("\nNew round\n");
             timer.Tick();
 
@@ -94,14 +96,22 @@ public class Game {
             }
         }
 
+        if(!stopgame)
+        {
         if (gameWon) {
             view.showGameWonDialog();
         } else {
             view.showGameOverDialog();
         }
+        }
 //        Main.println("\n\nGame Objects:\n");
 //        for (Asteroid a : asteroids)
 //            Main.println(a.toString());
+    }
+
+    public void StopGame()
+    {
+        stopgame = true;
     }
 
     /**

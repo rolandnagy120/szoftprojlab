@@ -196,6 +196,8 @@ public class Player extends Entity implements Miner {
 
                 Matcher ExitM = Exit.matcher(input);
                 if (ExitM.find()) {
+                    Game.getInstance().StopGame();
+                    Timer.Stop();
                     return;
                 }
 
