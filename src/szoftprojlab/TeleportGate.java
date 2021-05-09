@@ -30,6 +30,7 @@ public class TeleportGate implements Steppable {
      * the previous gate
      */
     public TeleportGate() {
+        asteroid = null;
         idx = id++;
     }
 
@@ -38,6 +39,15 @@ public class TeleportGate implements Steppable {
      */
     public static void resetId() {
         id = 0;
+    }
+
+    /**
+     * Gets the asteroid the gate is on
+     *
+     * @return  the asteroid the gate is on
+     */
+    public Asteroid GetAsteroid() {
+        return pair.asteroid;
     }
 
     /**

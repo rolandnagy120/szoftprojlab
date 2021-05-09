@@ -108,9 +108,8 @@ public class Game {
             }
         }
     }
-    
-    public void StopGame()
-    {
+
+    public void StopGame() {
         stopgame = true;
     }
 
@@ -138,8 +137,9 @@ public class Game {
 
     /**
      * Gets the player by its name
-     * @param name  the name of the player
-     * @return      the player if found, else null
+     *
+     * @param name the name of the player
+     * @return the player if found, else null
      */
     public Player GetPlayer(String name) {
         for (Player p : players) {
@@ -151,6 +151,7 @@ public class Game {
 
     /**
      * Adds an entity to the game
+     *
      * @param e the new entity
      */
     public void AddEntity(Entity e) {
@@ -167,6 +168,7 @@ public class Game {
 
     /**
      * Ads a new asteroid to the game
+     *
      * @param a the new asteroid
      */
     public void AddAsteroid(Asteroid a) {
@@ -176,8 +178,9 @@ public class Game {
 
     /**
      * Gets an asteroid by its id
+     *
      * @param i the id of the asteroid
-     * @return  the asteroid if found, else null
+     * @return the asteroid if found, else null
      */
     public Asteroid GetAsteroid(int i) {
         for (Asteroid a : asteroids) {
@@ -234,7 +237,8 @@ public class Game {
 
     /**
      * Gets the sing instance of game
-     * @return  the single game object
+     *
+     * @return the single game object
      */
     public static Game getInstance() {
         if (singleClassInstance == null)
@@ -246,8 +250,8 @@ public class Game {
     /**
      * Find and return Alien by id
      *
-     * @param id    the id of the wanted alien
-     * @return      the alien if found, else null
+     * @param id the id of the wanted alien
+     * @return the alien if found, else null
      */
     public Alien GetAlien(int id) {
         for (Alien a : aliens)
@@ -259,8 +263,8 @@ public class Game {
     /**
      * Find and return Robot by id
      *
-     * @param id    the id of the robot
-     * @return      the robot if found, else null
+     * @param id the id of the robot
+     * @return the robot if found, else null
      */
     public Robot GetRobot(int id) {
         for (Robot r : robots)
@@ -386,11 +390,40 @@ public class Game {
         for (Alien a : aliens) {
             save.append("create alien on asteroid ").append(a.GetAsteroid().GetId()).append("\n");
         }
+        //Map<TeleportGate, String> map = new HashMap<TeleportGate, String>();
+        List<Integer> creategates = new ArrayList<Integer>();
 
+        for (Player p : players) {
+            List<TeleportGate> gates = p.GetTeleportGates();
+            for (TeleportGate gate : gates) {
+                if (!creategates.contains(gate.GetId())) {
+                    save.append("create create gate on ");
+                    creategates.add(gate.GetId());
+                    creategates.add(gate.GetPairId());
+                    Asteroid a1 = gate.GetAsteroid();
+                    Asteroid a2 = gate.GetPairAsteroid();
+                    if (a1 == null)
+                        save.append("player ").append(p.getName()).append(" ");
+                    else
+                        save.append("asteroid ").append(a1.GetId()).append(" ");
+                    if (a2 == null)
+                        save.append("player ").append(p.getName()).append("\n");
+                    else
+                        save.append("asteroid ").append(a2.GetId()).append("\n");
+                }
+            }
+        }
 
-        //TODO: create gates
-
-        //TODO: save sun state
+        for (Asteroid a : asteroids) {
+            List<TeleportGate> gates = a.GetTeleportGates();
+            for (TeleportGate gate : gates) {
+                if(!creategates.contains(gate.GetId())) {
+                    creategates.add(gate.GetId());
+                    creategates.add(gate.GetPairId());
+                    save.append("create gate on asteroid ").append(a.GetId()).append(" asteroid ").append(gate.GetPairAsteroid().GetId()).append("\n");
+                }
+            }
+        }
 
         save.append("continue from ").append(timer.GetStepIndex()).append("\n").append("start game\n");
         try {
@@ -404,6 +437,7 @@ public class Game {
 
     /**
      * Show an event string log on the game view
+     *
      * @param s the string of the event(s)
      */
     public void WriteEvent(String s) {
