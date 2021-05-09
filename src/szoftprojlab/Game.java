@@ -99,15 +99,15 @@ public class Game {
             }
         }
 
-        if(!stopgame)
-        {
-        if (gameWon) {
-            view.showGameWonDialog();
-        } else {
-            view.showGameOverDialog();
+        if (!stopgame) {
+            if (gameWon) {
+                view.showGameWonDialog();
+            } else {
+                view.showGameOverDialog();
+            }
         }
     }
-
+    
     public void StopGame()
     {
         stopgame = true;
