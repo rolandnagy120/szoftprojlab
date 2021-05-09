@@ -183,6 +183,7 @@ public class View extends JFrame{
 
         JMenuItem mntmNewMenuItem = new JMenuItem("Load");
         mnNewMenu.add(mntmNewMenuItem);
+        mntmNewMenuItem.addActionListener(e -> {Main.load_game();JOptionPane.showMessageDialog(fieldPanel, "Játék betöltve.");});
 
         JMenuItem mntmNewMenuItem_2 = new JMenuItem("Quit");
         mnNewMenu.add(mntmNewMenuItem_2);

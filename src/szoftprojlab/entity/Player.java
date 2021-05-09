@@ -94,6 +94,7 @@ public class Player extends Entity implements Miner {
         Pattern ListenForPlace = Pattern.compile("listen for place", Pattern.CASE_INSENSITIVE);
         // Start listening for placing a gate
         Pattern ListenForGatePlace = Pattern.compile("listen for gate place", Pattern.CASE_INSENSITIVE);
+        Pattern Exit = Pattern.compile("exit", Pattern.CASE_INSENSITIVE);
         while (true) {
             try {
                 String input = Main.GetNextCommand();
@@ -191,6 +192,11 @@ public class Player extends Entity implements Miner {
                 Matcher ListenForMoveMatcher = ListenForMove.matcher(input);
                 if (ListenForMoveMatcher.find()) {
                     Game.getInstance().drawRequired(this, true);
+                }
+
+                Matcher ExitM = Exit.matcher(input);
+                if (ExitM.find()) {
+                    return;
                 }
 
             } catch (Exception e) {

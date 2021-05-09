@@ -356,7 +356,7 @@ public class Game {
      */
     public void Save() {
         StringBuilder save = new StringBuilder();
-        save.append("reset\n");
+        save.append("exit\nreset\n");
         for (Asteroid a : asteroids) {
             save.append(a.Save());
         }
@@ -382,7 +382,7 @@ public class Game {
 
         //TODO: save sun state
 
-        save.append("continue from ").append(timer.GetStepIndex()).append("\n");
+        save.append("continue from ").append(timer.GetStepIndex()).append("\n").append("start game\n");
         try {
             Writer writer = new FileWriter("save.txt");
             writer.append(save);
