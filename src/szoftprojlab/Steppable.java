@@ -15,5 +15,8 @@ package szoftprojlab;
 
 
 public interface Steppable {
+	/**
+	 * The steppable steps one in the round
+	 */
 	public void Step();
 }

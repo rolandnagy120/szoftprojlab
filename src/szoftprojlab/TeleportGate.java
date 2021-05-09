@@ -24,10 +24,18 @@ public class TeleportGate implements Steppable {
     private static int id = 0;
     private boolean isMoving = false;
 
+    /**
+     * Creates the teleport gate
+     * The id of the gate will be one more than
+     * the previous gate
+     */
     public TeleportGate() {
         idx = id++;
     }
 
+    /**
+     * Resets the id counter
+     */
     public static void resetId() {
         id = 0;
     }
@@ -108,10 +116,16 @@ public class TeleportGate implements Steppable {
         return pair.GetId();
     }
 
+    /**
+     * The gate will start moving from now on
+     */
     public void StartMoving() {
         this.isMoving = true;
     }
 
+    /**
+     * The gate explodes
+     */
     public void Explode() {
         //asteroid.RemoveTeleportGate(this);
         GetPairAsteroid().RemoveTeleportGate(pair);
@@ -119,6 +133,10 @@ public class TeleportGate implements Steppable {
         Main.println("TeleportGate "+ pair.idx+" exploded.");
     }
 
+    /**
+     * The gate steps
+     * If the gate is moving, it will move to another asteroid
+     */
     @Override
     public void Step() {
         if (!isMoving) {
@@ -132,10 +150,18 @@ public class TeleportGate implements Steppable {
         Main.println("Gate " + idx + " Moved to another asteroid");
     }
 
+    /**
+     * Returns the state of the gate in commands for saving
+     * @return  the state of the gate in commands
+     */
     public String toString() {
         return "\tgate " + idx + " connected to gate " + pair.idx + "\n";
     }
 
+    /**
+     * Draws the gate to the view
+     * @param view  the game view
+     */
     public void draw(View view) {
         view.drawTeleportGate();
     }

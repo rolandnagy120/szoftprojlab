@@ -61,20 +61,35 @@ public class Timer {
         return singleClassIntance;
     }
 
+    /**
+     * Continues the step from the given index
+     * @param i index where the timer will continue
+     */
     public void ContinueFromIndex(int i) {
         continueFrom = i;
     }
 
+    /**
+     * Gets the index of the next step
+     * @return  the index of the next step
+     */
     public int GetStepIndex() {
         return continueFrom;
     }
 
+    /**
+     * Removes the given steppable from the timer
+     * @param steppable the removable steppable
+     */
     public void RemoveSteppable(Steppable steppable) {
         if(steppables.indexOf(steppable) < continueFrom)
             continueFrom--;
         steppables.remove(steppable);
     }
 
+    /**
+     * Stops the timer
+     */
     public static void Stop() {
         Timer timer = Timer.getInstance();
         timer.gameStopped = true;

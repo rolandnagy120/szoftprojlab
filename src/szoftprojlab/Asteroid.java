@@ -36,6 +36,12 @@ public class Asteroid {
     public static final int size = 50;
     public boolean canMoveHere = false;
 
+    /**
+     * Creates an asteroid with the given id in the given position
+     * @param ID    the id of the asteroid
+     * @param x     the x position of the asteroid
+     * @param y     the y position of the asteroid
+     */
     public Asteroid(int ID, int x, int y) {
         idx = ID;
         nearSun = false;
@@ -45,6 +51,11 @@ public class Asteroid {
         System.out.println(this.y);
     }
 
+    /**
+     * Creates an asteroid with the given number of layers
+     * @param ID                the id of the asteroid
+     * @param numberOfLayers    the number of layers on the asteroid
+     */
     public Asteroid(int ID, int numberOfLayers) {
         idx = ID;
         layers = numberOfLayers;

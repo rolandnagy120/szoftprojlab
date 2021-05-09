@@ -47,6 +47,10 @@ public class Sun implements Steppable {
         sunDistanceChangeEnabled = true;
     }
 
+    /**
+     * Return the next suntorm arrival time
+     * @return  the next sun storm arrival time
+     */
     public int GetNextSunStormArrivalTime() {
         return nextSunStormIn;
     }
@@ -107,10 +111,18 @@ public class Sun implements Steppable {
 
     }
 
+    /**
+     * Sets the sunstorm recursive depts
+     * @param dept  the depth of the sunstorm
+     */
     public void SetSunstormDept(int dept) {
         sunStromDept = dept;
     }
 
+    /**
+     * Sets the sunstorm target
+     * @param a the target asteroid
+     */
     public void SetSunstromAsteroid(Asteroid a) {
         sunstormAsteroid = a;
     }
@@ -132,43 +144,76 @@ public class Sun implements Steppable {
             asteroids.add(asteroid);
     }
 
+    /**
+     * Disables the sunstorms
+     */
     public void DisableSunstorm() {
         sunstormEnabled = false;
     }
 
+    /**
+     * Enables the sunstorms
+     */
     public void EnableSunstorm() {
         sunstormEnabled = true;
     }
 
+    /**
+     * Sunstorm only appear once
+     */
     public void SunstormOnce() {
         sunstormOnce = true;
     }
 
+    /**
+     * Disables the sun storm distance change
+     */
     public void DisableSunStormDistanceChange() {
         sunDistanceChangeEnabled = false;
     }
 
+    /**
+     * Enables the sun storm distance change
+     */
     public void EnableSunStormDistanceChange() {
         sunDistanceChangeEnabled = true;
     }
 
+    /**
+     * Sets the time of the next sunstorm
+     * @param rounds    the round the next sun storm will arrive
+     */
     public void SetNextSunStormIn(int rounds) {
         nextSunStormIn = rounds;
     }
 
+    /**
+     * Disables the sun distance change
+     */
     public void DisableSunDistanceChange() {
         sunDistanceChangeEnabled = false;
     }
 
+    /**
+     * Enables the sun distance change
+     */
     public void EnableSunDistanceChange() {
         sunDistanceChangeEnabled = true;
     }
 
+    /**
+     * Sets the sun distance change time to the given time
+     * @param rounds    the rounds the sun will change distance
+     */
     public void SetSunDistanceChangeTime(int rounds) {
         sunDistanceChangeCycle = rounds;
         sunDistanceChangeCounter = rounds;
     }
 
+    /**
+     * Gets the single instance of sun
+     * @return  the single sun object
+     */
     public static Sun getInstance() {
         if (singleClassIntance == null) {
             singleClassIntance = new Sun();
