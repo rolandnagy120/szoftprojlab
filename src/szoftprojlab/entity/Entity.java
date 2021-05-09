@@ -93,13 +93,26 @@ public abstract class Entity implements Steppable {
         Main.println("Teleported to "+pairAsteroid.GetId());
     }
 
+    /**
+     * Gets the inventory of the entity
+     * @return  empty list by default
+     */
     public List<Resource> GetInventory() {
         return new ArrayList<>();
     }
 
+    /**
+     * Sets the next asteroid, where the entity will move to
+     * @param a the asteroid, where the entity will move to
+     */
     public void SetNextAsteroid(Asteroid a) {
         nextAsteroid.add(a);
     }
 
+    /**
+     * Draws the player to the game view
+     * @param activePlayer  the currently active player
+     * @param view          the game view
+     */
     public abstract void draw(Player activePlayer, View view);
 }

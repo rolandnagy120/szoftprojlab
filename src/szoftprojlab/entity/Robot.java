@@ -68,10 +68,19 @@ public class Robot extends Entity {
         }
     }
 
+    /**
+     * Sets the next asteroid where the robot will move on
+     * @param a the next asteroid
+     */
     public void SetNextAsteroid(Asteroid a) {
         nextAsteroid.add(a);
     }
 
+    /**
+     * Draws the robot to the game view
+     * @param activePlayer  the currently active player
+     * @param view          the game view
+     */
     @Override
     public void draw(Player activePlayer, View view) {
         view.drawRobot(this);

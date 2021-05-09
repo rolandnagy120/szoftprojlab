@@ -31,6 +31,10 @@ public abstract class Resource {
      */
     public abstract String GetImagePart();
 
+    /**
+     * Creates string for saving the state of the resource
+     * @return  the state of the resource
+     */
     public String save() {
         return this.toString().toLowerCase();
     }

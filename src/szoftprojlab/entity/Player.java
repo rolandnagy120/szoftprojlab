@@ -43,6 +43,11 @@ public class Player extends Entity implements Miner {
         return inventory;
     }
 
+    /**
+     * Draws the player to the game view
+     * @param activePlayer  the currently active player
+     * @param view          the game view
+     */
     @Override
     public void draw(Player activePlayer, View view) {
         boolean playerIsActive = this == activePlayer;
@@ -59,16 +64,26 @@ public class Player extends Entity implements Miner {
         updateViewForStepEnd();
     }
 
+    /**
+     * Updates the game view to show the current state at the step start
+     */
     private void updateViewForStepStart() {
         Game game = Game.getInstance();
         game.drawRequired(this, false);
     }
 
+    /**
+     * Updates the game view to show the current state at the step end
+     */
     private void updateViewForStepEnd() {
         Game game = Game.getInstance();
         game.drawRequired(null, false);
     }
 
+    /**
+     * Handles the step for the player
+     * Reads the command from the command fifo
+     */
     private void hanldeStepInput() {
         Main.println("\nPlayer " + name + " steps:");
         //TODO

@@ -19,6 +19,10 @@ public class Uranium extends Resource {
 
     private int seeSunsBeforeExplosion = 3;
 
+    /**
+     * Creates an uranium
+     * @param seesun    how many time has the uranium seen the sun
+     */
     public Uranium(int seesun) {
         seeSunsBeforeExplosion = 3 - seesun;
     }
@@ -66,6 +70,10 @@ public class Uranium extends Resource {
         return "uranium";
     }
 
+    /**
+     * Creates a string of the uranium state for saving
+     * @return  string containing its state
+     */
     @Override
     public String save() {
         return "uranium nearsun " + (3 - seeSunsBeforeExplosion);
