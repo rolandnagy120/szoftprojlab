@@ -56,6 +56,20 @@ public class Main {
         return command;
     }
 
+    public static void load_game() {
+        commands.clear();
+        try {
+            FileInputStream fis = new FileInputStream("save.txt");
+            Scanner sc = new Scanner(fis);
+            while (sc.hasNextLine()) {
+                AddCommand(sc.nextLine());
+            }
+            sc.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void process_input(Scanner _scanner) {
         Scanner scanner = _scanner;
         //load test 1
@@ -111,7 +125,7 @@ public class Main {
         //set sun asteroid sun distance change time 10
         Pattern SetDistanceTime = Pattern.compile("set\\s+sun\\s+asteroid\\s+sun\\s+distance\\s+change\\s+time\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         //continue from 10
-        Pattern  ContinueFrom = Pattern.compile("continue\\s+from\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
+        Pattern ContinueFrom = Pattern.compile("continue\\s+from\\s+([0-9]+)", Pattern.CASE_INSENSITIVE);
         try {
             while (true) {
                 String input = GetNextCommand();
@@ -418,8 +432,7 @@ public class Main {
                 }
 
                 Matcher ContinueFromM = ContinueFrom.matcher(input);
-                if(ContinueFromM.find())
-                {
+                if (ContinueFromM.find()) {
                     Timer.getInstance().ContinueFromIndex(Integer.parseInt(ContinueFromM.group(1)));
                     continue;
                 }
@@ -438,6 +451,7 @@ public class Main {
     /**
      * Writes the given string to the current output
      * and to the event list
+     *
      * @param s the string that will bre written out
      */
     public static void println(String s) {
