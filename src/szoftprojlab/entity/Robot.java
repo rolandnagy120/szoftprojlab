@@ -29,7 +29,7 @@ public class Robot extends Entity {
 
     /**
      * Create Robot with new id and place it on the asteroid.
-     * @param asteroid
+     * @param asteroid  the asteroid where the robot will be on
      */
     public Robot(Asteroid asteroid) {
         asteroid.Accept(this);

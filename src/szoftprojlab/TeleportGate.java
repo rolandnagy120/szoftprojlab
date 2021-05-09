@@ -35,7 +35,7 @@ public class TeleportGate implements Steppable {
     /**
      * Gets the asteroid which holds the pair of this gate
      *
-     * @return
+     * @return  the asteroid of the pair gate
      */
     public Asteroid GetPairAsteroid() {
         return pair.asteroid;
@@ -72,7 +72,7 @@ public class TeleportGate implements Steppable {
      * Returns if the gate has a pair
      * Only for unit testing
      *
-     * @return
+     * @return  does the gate have a pair
      */
     public Boolean HasPair() {
         return pair != null;

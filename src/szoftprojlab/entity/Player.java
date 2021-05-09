@@ -36,7 +36,7 @@ public class Player extends Entity implements Miner {
     /**
      * Gets the resources stored in the player inventory
      *
-     * @return
+     * @return  the inventory if the player
      */
     @Override
     public List<Resource> GetInventory() {
@@ -223,7 +223,7 @@ public class Player extends Entity implements Miner {
      * The player places back a resource to the asteroid its on
      * the asteroid should be emptyto receive the resource
      *
-     * @param resource
+     * @param resource  the resource that will be placed
      */
     public boolean PlaceResource(Resource resource) {
         if (inventory.contains(resource) && !asteroid.GetResourceName().equals(resource.getClass().getSimpleName())) {
@@ -327,7 +327,7 @@ public class Player extends Entity implements Miner {
      * Get the teleport gates the player has
      * Only use for unit tests
      *
-     * @return
+     * @return  the teleport gates that the player currently has
      */
     public List<TeleportGate> GetTeleportGates() {
         return gates;
@@ -336,7 +336,7 @@ public class Player extends Entity implements Miner {
     /**
      * Add asteroid to players inventory
      *
-     * @param gate
+     * @param gate  the teleport gate that will be added
      */
     public void AddGate(TeleportGate gate) {
         gates.add(gate);

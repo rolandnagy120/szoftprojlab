@@ -353,7 +353,7 @@ public class View extends JFrame{
 
     /**
      * Draw the game current state to the field panel
-     * @param activePlayer
+     * @param activePlayer  the currelty active player
      */
     public void update(Player activePlayer) {
         fieldPanel.getGraphics().clearRect(3, 3, fieldWidth, fieldHeight);

@@ -77,7 +77,7 @@ public class Asteroid {
     /**
      * Adds the given asteroid to the neighbors of this asteroid
      *
-     * @param newNeighbor
+     * @param newNeighbor   the asteroid that will be the new neighbor
      */
     public void AddNeighbor(Asteroid newNeighbor) {
         neighbors.add(newNeighbor);
@@ -249,8 +249,8 @@ public class Asteroid {
      * which is on this asteroid
      * Only for testing
      *
-     * @param idx
-     * @return
+     * @param idx   id of the wanted teleport gate
+     * @return      the teleport gate with the given id, or null
      */
     public TeleportGate GetTeleportGate(int idx) {
         for (TeleportGate gate : gates) {
@@ -265,7 +265,7 @@ public class Asteroid {
      * Gets the list of teleportgates on the asteroid
      * Only for unit testing
      *
-     * @return
+     * @return  the teleport gates on the asteroid
      */
     public List<TeleportGate> GetTeleportGates() {
         return gates;

@@ -208,8 +208,8 @@ public class Game {
     /**
      * Find and return Alien by id
      *
-     * @param id
-     * @return
+     * @param id    the id of the wanted alien
+     * @return      the alien if found, else null
      */
     public Alien GetAlien(int id) {
         for (Alien a : aliens)
@@ -221,8 +221,8 @@ public class Game {
     /**
      * Find and return Robot by id
      *
-     * @param id
-     * @return
+     * @param id    the id of the robot
+     * @return      the robot if found, else null
      */
     public Robot GetRobot(int id) {
         for (Robot r : robots)
@@ -234,7 +234,7 @@ public class Game {
     /**
      * Add alien to game
      *
-     * @param a
+     * @param a the alien that will be added
      */
     public void AddAlien(Alien a) {
         aliens.add(a);
@@ -243,7 +243,7 @@ public class Game {
     /**
      * Add robot to game
      *
-     * @param r
+     * @param r the robot that will be added
      */
     public void AddRobot(Robot r) {
         robots.add(r);

@@ -23,7 +23,7 @@ public abstract class Entity implements Steppable {
     /**
      * Returns the asteroid which the entity is on
      *
-     * @return
+     * @return  the asteroid that the entity is on currently
      */
     public Asteroid GetAsteroid() {
         return asteroid;
@@ -32,7 +32,7 @@ public abstract class Entity implements Steppable {
     /**
      * Sets the current asteroid
      *
-     * @param asteroid
+     * @param asteroid  the asteroid where the entity will be on next
      */
     public void SetAsteroid(Asteroid asteroid) {
         this.asteroid = asteroid;

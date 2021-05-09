@@ -438,7 +438,7 @@ public class Main {
     /**
      * Writes the given string to the current output
      * and to the event list
-     * @param s
+     * @param s the string that will bre written out
      */
     public static void println(String s) {
         game.WriteEvent(s);
