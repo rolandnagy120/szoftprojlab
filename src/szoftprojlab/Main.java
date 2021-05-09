@@ -20,7 +20,10 @@ public class Main {
     private static String OutputFile = null;
     private static Game game = Game.getInstance();
 
-
+    /**
+     * Gets the current input scanner
+     * @return  the current input scanner
+     */
     public static Scanner getGameInputScanner() {
         if (GameInput == null)
             GameInput = new Scanner(System.in);
@@ -39,10 +42,18 @@ public class Main {
 
     private static Scanner consoleScanner = new Scanner(System.in);
 
+    /**
+     * Adds a command to the command queue
+     * @param command   the new command
+     */
     public static void AddCommand(String command) {
         commands.add(command);
     }
 
+    /**
+     * Returns the next command
+     * @return  the next command
+     */
     public static String GetNextCommand() {
         while (commands.size() == 0) {
             try {
@@ -56,6 +67,10 @@ public class Main {
         return command;
     }
 
+    /**
+     * Process inputs with the given scanner
+     * @param _scanner  the scanner where the input will be given
+     */
     public static void process_input(Scanner _scanner) {
         Scanner scanner = _scanner;
         //load test 1
@@ -454,7 +469,9 @@ public class Main {
         }
     }
 
-
+    /**
+     * Sets up the map with commands
+     */
     private static void SetupMap() {
         AddCommand("reset");
         AddCommand("create asteroid 1 0 0");

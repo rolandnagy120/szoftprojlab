@@ -8,6 +8,10 @@ import java.util.List;
 public class Blueprint {
     private List<Resource> resources = new ArrayList<>();
 
+    /**
+     * Creates the blueprint, with the given resources
+     * @param args  the needed resources for the blueprint
+     */
     public Blueprint(Resource... args) {
         for (Resource r: args) {
             resources.add(r);

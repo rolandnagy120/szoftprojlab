@@ -29,6 +29,10 @@ public class View extends JFrame{
 
     private int numberOfAsteroids = 0;
 
+    /**
+     * Creates the view
+     * @param asteroidCount the count of asteroids
+     */
     public View(int asteroidCount) {
         numberOfAsteroids = asteroidCount;
 

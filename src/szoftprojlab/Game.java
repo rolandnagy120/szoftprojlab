@@ -51,6 +51,9 @@ public class Game {
             new Ice(), new Ice(), new Ice()
     );
 
+    /**
+     * Created the game view
+     */
     public Game() {
         view = new View(1000);
     }
@@ -99,9 +102,6 @@ public class Game {
         } else {
             view.showGameOverDialog();
         }
-//        Main.println("\n\nGame Objects:\n");
-//        for (Asteroid a : asteroids)
-//            Main.println(a.toString());
     }
 
     /**
@@ -126,6 +126,11 @@ public class Game {
         }
     }
 
+    /**
+     * Gets the player by its name
+     * @param name  the name of the player
+     * @return      the player if found, else null
+     */
     public Player GetPlayer(String name) {
         for (Player p : players) {
             if (p.getName().equals(name))
@@ -134,6 +139,10 @@ public class Game {
         return null;
     }
 
+    /**
+     * Adds an entity to the game
+     * @param e the new entity
+     */
     public void AddEntity(Entity e) {
         timer.AddSteppable(e);
     }
@@ -146,11 +155,20 @@ public class Game {
         endGame = true;
     }
 
+    /**
+     * Ads a new asteroid to the game
+     * @param a the new asteroid
+     */
     public void AddAsteroid(Asteroid a) {
         asteroids.add(a);
         sun.AddAsteroid(a);
     }
 
+    /**
+     * Gets an asteroid by its id
+     * @param i the id of the asteroid
+     * @return  the asteroid if found, else null
+     */
     public Asteroid GetAsteroid(int i) {
         for (Asteroid a : asteroids) {
             if (a.GetId() == i)
@@ -159,10 +177,16 @@ public class Game {
         return null;
     }
 
+    /**
+     * Disables sunstorms in the game
+     */
     public void DisableSunstorm() {
         sun.DisableSunstorm();
     }
 
+    /**
+     * Enables sunstorms in the game
+     */
     public void EnableSunstorm() {
         sun.EnableSunstorm();
     }
@@ -198,6 +222,10 @@ public class Game {
         sun.Init();
     }
 
+    /**
+     * Gets the sing instance of game
+     * @return  the single game object
+     */
     public static Game getInstance() {
         if (singleClassInstance == null)
             singleClassInstance = new Game();
@@ -323,6 +351,9 @@ public class Game {
         return -1;
     }
 
+    /**
+     * Saves the current state of the game in a file
+     */
     public void Save() {
         StringBuilder save = new StringBuilder();
         save.append("reset\n");
@@ -361,6 +392,10 @@ public class Game {
         }
     }
 
+    /**
+     * Show an event string log on the game view
+     * @param s the string of the event(s)
+     */
     public void WriteEvent(String s) {
         if (view != null)
             view.WriteEvent(s);
