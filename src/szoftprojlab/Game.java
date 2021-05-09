@@ -89,6 +89,7 @@ public class Game {
         endGame = false;
         gameWon = false;
         stopgame = false;
+        Timer.Start();
         while (!endGame && !gameWon && !stopgame) {
             Main.println("\nNew round\n");
             timer.Tick();
@@ -99,12 +100,12 @@ public class Game {
             }
         }
 
-        if(!stopgame)
-        {
-        if (gameWon) {
-            view.showGameWonDialog();
-        } else {
-            view.showGameOverDialog();
+        if (!stopgame) {
+            if (gameWon) {
+                view.showGameWonDialog();
+            } else {
+                view.showGameOverDialog();
+            }
         }
     }
 

@@ -94,4 +94,12 @@ public class Timer {
         Timer timer = Timer.getInstance();
         timer.gameStopped = true;
     }
+
+    /**
+     * Starts the timer
+     */
+    public static void Start() {
+        Timer timer = Timer.getInstance();
+        timer.gameStopped = false;
+    }
 }
