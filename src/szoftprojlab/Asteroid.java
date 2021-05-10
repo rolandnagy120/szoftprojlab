@@ -33,7 +33,7 @@ public class Asteroid {
 
     private int x = 0;
     private int y = 0;
-    public static final int size = 50;
+    public static final int size = 20;
     public boolean canMoveHere = false;
 
     /**

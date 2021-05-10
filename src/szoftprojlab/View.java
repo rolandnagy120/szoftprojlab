@@ -277,10 +277,10 @@ public class View extends JFrame{
     private Asteroid currentAsteroid = null;
     private int asteroidThingCount = 0;
 
-    private int playerSize = 50;
-    private int robotSize = 50;
-    private int alienSize = 50;
-    private int gateSize = 50;
+    private int playerSize = 20;
+    private int robotSize = 20;
+    private int alienSize = 20;
+    private int gateSize = 20;
 
     /**
      * Draw image to the field planel
@@ -293,7 +293,7 @@ public class View extends JFrame{
     private void drawImageAt(String path, int x, int y, int w, int h) {
         try {
             BufferedImage image = ImageIO.read(new File(path));
-            fieldPanel.getGraphics().drawImage(image, x, y + asteroidThingCount++ * Asteroid.size, w, h, null);
+            fieldPanel.getGraphics().drawImage(image, x + (int)(25 * Math.cos(Math.toRadians(60 * asteroidThingCount))), y + (int)(25 * Math.sin(Math.toRadians(60 * asteroidThingCount))), w, h, null);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -312,7 +312,12 @@ public class View extends JFrame{
 
         String path = a.GetCurrentPicture();
 
-        drawImageAt(path, x, y, Asteroid.size, Asteroid.size);
+        try {
+            BufferedImage image = ImageIO.read(new File(path));
+            fieldPanel.getGraphics().drawImage(image, x, y, a.size, a.size, null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -326,6 +331,7 @@ public class View extends JFrame{
         int x = currentAsteroid.GetX();
         int y = currentAsteroid.GetY();
         drawImageAt(imgPath, x, y, playerSize, playerSize);
+        asteroidThingCount++;
 
         if (active) {
             drawPlayerInventory(p);
@@ -377,6 +383,7 @@ public class View extends JFrame{
         int x = currentAsteroid.GetX();
         int y = currentAsteroid.GetY();
         drawImageAt("assets/teleport_gate.png", x, y, gateSize, gateSize);
+        asteroidThingCount++;
     }
 
     /**
@@ -388,6 +395,7 @@ public class View extends JFrame{
         int x = currentAsteroid.GetX();
         int y = currentAsteroid.GetY();
         drawImageAt("assets/robot.png", x, y, robotSize, robotSize);
+        asteroidThingCount++;
     }
 
     /**
@@ -399,6 +407,7 @@ public class View extends JFrame{
         int x = currentAsteroid.GetX();
         int y = currentAsteroid.GetY();
         drawImageAt("assets/alien.png", x, y, alienSize, alienSize);
+        asteroidThingCount++;
     }
 
     /**
