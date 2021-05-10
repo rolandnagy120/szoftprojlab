@@ -97,6 +97,9 @@ public class Game {
             if (players.size() < 1) {
                 Main.println("Everyone died");
                 endGame = true;
+            } else if (players.size() == 1) {
+                Main.println("Only one player remaining, the game cannot be won now!");
+                endGame = true;
             }
         }
 

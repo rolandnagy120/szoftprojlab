@@ -47,8 +47,6 @@ public class Asteroid {
         nearSun = false;
         this.x = x;
         this.y = y;
-        System.out.println(this.x);
-        System.out.println(this.y);
     }
 
     /**
